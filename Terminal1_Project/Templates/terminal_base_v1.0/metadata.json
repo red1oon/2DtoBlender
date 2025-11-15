@@ -1,0 +1,28 @@
+{
+  "template_set_name": "terminal_base_v1.0",
+  "version": "1.0.0",
+  "created_date": "2025-11-11",
+  "author": "BIM Team",
+  "description": "Template set for BIM generation",
+  "source": {
+    "extracted_from": "Terminal 1",
+    "reference_database": "",
+    "extraction_date": "2025-11-11"
+  },
+  "statistics": {
+    "total_templates": 0,
+    "by_category": {}
+  },
+  "compatibility": {
+    "bonsai_addon_version": ">=1.0.0",
+    "ifc_version": "IFC4",
+    "region": "Singapore",
+    "building_codes": []
+  },
+  "changelog": {
+    "1.0.0": [
+      "Initial template set creation"
+    ]
+  },
+  "notes": []
+}

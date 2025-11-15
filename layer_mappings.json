@@ -1,0 +1,863 @@
+{
+  "version": "1.0",
+  "total_layers": 166,
+  "mapped_layers": 135,
+  "mapping_coverage": 0.8132530120481928,
+  "mappings": {
+    "wall": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: wall",
+      "entity_count": 2314
+    },
+    "6-SPEC": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=-5570472.8m)",
+      "entity_count": 2175
+    },
+    "0": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 1176
+    },
+    "SPECS": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 958
+    },
+    "WIN": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: win",
+      "entity_count": 941
+    },
+    "DIM1": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 936
+    },
+    "1_Detail_Layout": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 916
+    },
+    "C-BOMBA HATCH": {
+      "discipline": "FP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'c-bomba'",
+      "entity_count": 849
+    },
+    "code-door new": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: door",
+      "entity_count": 790
+    },
+    "window": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: win, window",
+      "entity_count": 742
+    },
+    "WALL1": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: wall",
+      "entity_count": 716
+    },
+    "z-lift-miscellaneous": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-lift-'",
+      "entity_count": 588
+    },
+    "TXT": {
+      "discipline": "ARC",
+      "confidence": 0.670873786407767,
+      "reason": "Dominant entity type: MTEXT (85%)",
+      "entity_count": 515
+    },
+    "blck 1-wall 1b": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: wall",
+      "entity_count": 508
+    },
+    "staircase": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: stair",
+      "entity_count": 409
+    },
+    "TX2": {
+      "discipline": "ARC",
+      "confidence": 0.6779411764705883,
+      "reason": "Dominant entity type: TEXT (89%)",
+      "entity_count": 408
+    },
+    "COL": {
+      "discipline": "STR",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: col",
+      "entity_count": 402
+    },
+    "CH-WALL": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 401
+    },
+    "ROOF": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: roof",
+      "entity_count": 397
+    },
+    "SAN": {
+      "discipline": "SP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: san",
+      "entity_count": 380
+    },
+    "FURNITURE": {
+      "discipline": "ARC",
+      "confidence": 0.7666666666666666,
+      "reason": "Keywords: furniture",
+      "entity_count": 337
+    },
+    "EL": {
+      "discipline": "ELEC",
+      "confidence": 0.69,
+      "reason": "Keywords: el",
+      "entity_count": 333
+    },
+    "BOMBA REQUIREMENTS": {
+      "discipline": "FP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: bomba",
+      "entity_count": 299
+    },
+    "Bomba": {
+      "discipline": "FP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: bomba",
+      "entity_count": 293
+    },
+    "1_CAD_PARIT": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=-0.0m)",
+      "entity_count": 254
+    },
+    "z-lift-door": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-lift-'",
+      "entity_count": 237
+    },
+    "CH-GLASSWIN-DRAIN-SKY": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 210
+    },
+    "z-cw-plinth": {
+      "discipline": "CW",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-cw-'",
+      "entity_count": 196
+    },
+    "ENGRS COLUMN T1": {
+      "discipline": "STR",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: col, column",
+      "entity_count": 192
+    },
+    "railing": {
+      "discipline": "ARC",
+      "confidence": 0.8142857142857143,
+      "reason": "Keywords: railing",
+      "entity_count": 192
+    },
+    "CH-CONCRETE": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 191
+    },
+    "P2": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: TEXT (100%)",
+      "entity_count": 189
+    },
+    "z-fire-alarm": {
+      "discipline": "FP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-fire-'",
+      "entity_count": 184
+    },
+    "W1": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 174
+    },
+    "S-GRID-IDEN": {
+      "discipline": "STR",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: grid",
+      "entity_count": 173
+    },
+    "z-fire-smoke-grille": {
+      "discipline": "FP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-fire-'",
+      "entity_count": 167
+    },
+    "GRID1": {
+      "discipline": "STR",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: grid",
+      "entity_count": 162
+    },
+    "TEXT": {
+      "discipline": "ARC",
+      "confidence": 0.678343949044586,
+      "reason": "Dominant entity type: MTEXT (89%)",
+      "entity_count": 157
+    },
+    "z-ac-pump": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 148
+    },
+    "1_TEXT": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=-7202627.1m)",
+      "entity_count": 135
+    },
+    "ROOFSTR": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: roof",
+      "entity_count": 128
+    },
+    "DOOR": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: door",
+      "entity_count": 125
+    },
+    "z-ac-griille": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 125
+    },
+    "z-cw-variable": {
+      "discipline": "CW",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-cw-'",
+      "entity_count": 118
+    },
+    "C-BOMBA ITEM": {
+      "discipline": "FP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'c-bomba'",
+      "entity_count": 114
+    },
+    "TOILETLOADED": {
+      "discipline": "ARC",
+      "confidence": 0.85,
+      "reason": "Keywords: toilet",
+      "entity_count": 99
+    },
+    "DOOR-TIMBER": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: door, timber",
+      "entity_count": 95
+    },
+    "TX50": {
+      "discipline": "ARC",
+      "confidence": 0.6428571428571429,
+      "reason": "Dominant entity type: MTEXT (71%)",
+      "entity_count": 91
+    },
+    "TRUSS": {
+      "discipline": "STR",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: truss",
+      "entity_count": 88
+    },
+    "DOT": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 87
+    },
+    "z-lift-hoistway": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-lift-'",
+      "entity_count": 85
+    },
+    "STAIR": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: stair",
+      "entity_count": 85
+    },
+    "dim": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 80
+    },
+    "tower b-glass": {
+      "discipline": "ACMV",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: tower",
+      "entity_count": 80
+    },
+    "z-mech-text": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-mech-'",
+      "entity_count": 68
+    },
+    "TITLEBLOCK": {
+      "discipline": "ARC",
+      "confidence": 0.65,
+      "reason": "Dominant entity type: TEXT (75%)",
+      "entity_count": 64
+    },
+    "WALL-P": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: wall",
+      "entity_count": 59
+    },
+    "z-rh-text": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-rh-'",
+      "entity_count": 58
+    },
+    "z-wet-pipe": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-wet-'",
+      "entity_count": 54
+    },
+    "z-arkitek": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=-0.0m)",
+      "entity_count": 53
+    },
+    "C-BOMBA": {
+      "discipline": "FP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'c-bomba'",
+      "entity_count": 52
+    },
+    "91-SPEC": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 52
+    },
+    "Layer 1": {
+      "discipline": "ACMV",
+      "confidence": 0.4,
+      "reason": "Ceiling-mounted (avg z=2759743.1m)",
+      "entity_count": 51
+    },
+    "z-lift-text": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-lift-'",
+      "entity_count": 49
+    },
+    "drain": {
+      "discipline": "SP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: drain",
+      "entity_count": 49
+    },
+    "0wall 1": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: wall",
+      "entity_count": 49
+    },
+    "TEXT specification": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 49
+    },
+    "12-WALL-BRICK": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: wall, brick",
+      "entity_count": 48
+    },
+    "SANI": {
+      "discipline": "SP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: san, sani",
+      "entity_count": 48
+    },
+    "z-lpg-cylinder": {
+      "discipline": "LPG",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-lpg-'",
+      "entity_count": 48
+    },
+    "z-ac-text": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 46
+    },
+    "z-ac-tower": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 45
+    },
+    "6-TEXT": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 44
+    },
+    "GRID": {
+      "discipline": "STR",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: grid",
+      "entity_count": 44
+    },
+    "z-cw-tank": {
+      "discipline": "CW",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-cw-'",
+      "entity_count": 43
+    },
+    "CH- TIMBER": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 42
+    },
+    "z-ac-pipe-return": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 42
+    },
+    "z-rh-accessories": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-rh-'",
+      "entity_count": 41
+    },
+    "FINISHES": {
+      "discipline": "ARC",
+      "confidence": 0.85,
+      "reason": "Keywords: finish",
+      "entity_count": 40
+    },
+    "column": {
+      "discipline": "STR",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: col, column",
+      "entity_count": 40
+    },
+    "line": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 40
+    },
+    "z-ac-pipe-supply": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 40
+    },
+    "z-ac-pipe-tank": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 35
+    },
+    "roofnew": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: roof",
+      "entity_count": 33
+    },
+    "z-ac-tank": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 32
+    },
+    "bomba update": {
+      "discipline": "FP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: bomba",
+      "entity_count": 31
+    },
+    "z-lpg-detector": {
+      "discipline": "LPG",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-lpg-'",
+      "entity_count": 30
+    },
+    "ROOMNAME": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: room",
+      "entity_count": 28
+    },
+    "BGN": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 27
+    },
+    "z-rh-overflow": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-rh-'",
+      "entity_count": 27
+    },
+    "z-ac-pipe-overlow": {
+      "discipline": "ACMV",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-ac-'",
+      "entity_count": 25
+    },
+    "z-cw-flushvalve": {
+      "discipline": "CW",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-cw-'",
+      "entity_count": 25
+    },
+    "DPI-HH": {
+      "discipline": "ACMV",
+      "confidence": 0.4,
+      "reason": "Ceiling-mounted (avg z=7021.5m)",
+      "entity_count": 24
+    },
+    "c- bomba": {
+      "discipline": "FP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: bomba",
+      "entity_count": 23
+    },
+    "z-sw-vent": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-sw-'",
+      "entity_count": 20
+    },
+    "FIRE": {
+      "discipline": "FP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: fire",
+      "entity_count": 20
+    },
+    "z-lpg-pipe": {
+      "discipline": "LPG",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-lpg-'",
+      "entity_count": 20
+    },
+    "2": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 19
+    },
+    "AREA": {
+      "discipline": "ACMV",
+      "confidence": 0.4,
+      "reason": "Ceiling-mounted (avg z=1003928.0m)",
+      "entity_count": 19
+    },
+    "CH- CEMENT RENDER": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 19
+    },
+    "CH-TOILET-FITI-GUTTER-STEEL": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 19
+    },
+    "RWDP": {
+      "discipline": "SP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: rwdp",
+      "entity_count": 18
+    },
+    "TBLOCK": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: MTEXT (100%)",
+      "entity_count": 17
+    },
+    "CH-ROOF": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 17
+    },
+    "z-sw-text": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-sw-'",
+      "entity_count": 16
+    },
+    "HATCH": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: HATCH (100%)",
+      "entity_count": 15
+    },
+    "z-kitchen-hood": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-kitchen-'",
+      "entity_count": 15
+    },
+    "TXT2": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: TEXT (100%)",
+      "entity_count": 14
+    },
+    "z-fire-text": {
+      "discipline": "FP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-fire-'",
+      "entity_count": 14
+    },
+    "z-sprinkler-text": {
+      "discipline": "FP",
+      "confidence": 0.7666666666666666,
+      "reason": "Keywords: sprinkler",
+      "entity_count": 13
+    },
+    "CH - CEMENT RENDER-PLASTER": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: plaster, render",
+      "entity_count": 13
+    },
+    "PLASTER": {
+      "discipline": "ARC",
+      "confidence": 0.8142857142857143,
+      "reason": "Keywords: plaster",
+      "entity_count": 12
+    },
+    "z-sw-dropper": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-sw-'",
+      "entity_count": 11
+    },
+    "z-rh-incoming": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-rh-'",
+      "entity_count": 11
+    },
+    "z-wet-cylinder": {
+      "discipline": "SP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-wet-'",
+      "entity_count": 9
+    },
+    "CH - TILES & others": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: tile",
+      "entity_count": 9
+    },
+    "TILES": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: tile",
+      "entity_count": 8
+    },
+    "ROOM NAME": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: room",
+      "entity_count": 8
+    },
+    "E2": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=-0.0m)",
+      "entity_count": 6
+    },
+    "CH-COL": {
+      "discipline": "ARC",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'ch-'",
+      "entity_count": 6
+    },
+    "1_pelan_Kunci": {
+      "discipline": "ELEC",
+      "confidence": 0.69,
+      "reason": "Keywords: el",
+      "entity_count": 5
+    },
+    "F-TEXT SPECS": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 5
+    },
+    "01area": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: MTEXT (100%)",
+      "entity_count": 4
+    },
+    "1_Set_Back": {
+      "discipline": "ARC",
+      "confidence": 0.65,
+      "reason": "Dominant entity type: TEXT (75%)",
+      "entity_count": 4
+    },
+    "finish": {
+      "discipline": "ARC",
+      "confidence": 0.85,
+      "reason": "Keywords: finish",
+      "entity_count": 3
+    },
+    "BOMBA BOMBA (road hatch yellow)": {
+      "discipline": "FP",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: bomba",
+      "entity_count": 3
+    },
+    "8": {
+      "discipline": "ARC",
+      "confidence": 0.4,
+      "reason": "Floor-mounted (avg z=0.0m)",
+      "entity_count": 2
+    },
+    "dim new": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: DIMENSION (100%)",
+      "entity_count": 2
+    },
+    "LEGEN": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: TEXT (100%)",
+      "entity_count": 2
+    },
+    "TEXT finishes": {
+      "discipline": "ARC",
+      "confidence": 0.85,
+      "reason": "Keywords: finish",
+      "entity_count": 2
+    },
+    "00_TITLE_BLOCK": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: TEXT (100%)",
+      "entity_count": 1
+    },
+    "1_SOL_TEBING": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: HATCH (100%)",
+      "entity_count": 1
+    },
+    "S_GL": {
+      "discipline": "ARC",
+      "confidence": 0.7,
+      "reason": "Dominant entity type: TEXT (100%)",
+      "entity_count": 1
+    },
+    "A#BRICKWORK": {
+      "discipline": "ARC",
+      "confidence": 0.8999999999999999,
+      "reason": "Keywords: brick",
+      "entity_count": 1
+    },
+    "z-fire-tank": {
+      "discipline": "FP",
+      "confidence": 0.95,
+      "reason": "Exact prefix match: 'z-fire-'",
+      "entity_count": 1
+    }
+  },
+  "unmapped_layers": [
+    "LINE1",
+    "RC",
+    "1_Detail_Akitek",
+    "1_ROAD_NETWORK",
+    "S",
+    "LW",
+    "DR",
+    "3",
+    "1_ROAD_POPOSAL",
+    "z-kira-area",
+    "1_Road",
+    "9",
+    "ST",
+    "W_TAP",
+    "DW",
+    "SERVINO",
+    "L1",
+    "REVCLOUD",
+    "F1",
+    "S_0JALAN",
+    "4",
+    "WD",
+    "1_sempadan_fasa_LINE",
+    "1",
+    "1_SEMPADAN_TAPAK",
+    "l",
+    "FORMAT",
+    "W_GRAVITY",
+    "31-DR",
+    "Defpoints",
+    "V-CRIMP HOARDING"
+  ],
+  "statistics": {
+    "by_discipline": {
+      "ARC": 78,
+      "FP": 14,
+      "STR": 7,
+      "SP": 13,
+      "ELEC": 2,
+      "CW": 4,
+      "ACMV": 14,
+      "LPG": 3
+    }
+  }
+}

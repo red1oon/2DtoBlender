@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# PyQt
+*.qrc
+*.ui~
+
+# Backups
+*.BACKUP_*
+*.bak
+*.swp
+*.swo
+*~
+
+# Databases (keep template, exclude generated)
+Generated_*.db
+Test_*.db
+*.db-journal
+
+# Logs
+*.log
+consolelogs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Large source files (keep locally, don't push to GitHub)
+SourceFiles/*.dwg
+SourceFiles/*.zip
+SourceFiles/*.rar
+SourceFiles/TERMINAL1DXF/**/*.dxf

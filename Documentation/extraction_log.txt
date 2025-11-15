@@ -1,0 +1,251 @@
+======================================================================
+Template Extraction from Terminal 1
+======================================================================
+
+Source: /home/red1/Documents/bonsai/DatabaseFiles/FullExtractionTesellated.db
+Target: Terminal1_Project/Templates/terminal_base_v1.0/template_library.db
+Discipline: ALL
+
+✅ Connected to source: /home/red1/Documents/bonsai/DatabaseFiles/FullExtractionTesellated.db
+✅ Connected to target: Terminal1_Project/Templates/terminal_base_v1.0/template_library.db
+
+======================================================================
+Extracting templates for: ARC
+======================================================================
+
+Total elements: 35338
+IFC classes: 15
+Element types: 20
+
+IFC Class breakdown:
+  - IfcPlate: 33324
+  - IfcOpeningElement: 614
+  - IfcWall: 330
+  - IfcWindow: 236
+  - IfcFurniture: 176
+  - IfcDoor: 135
+  - IfcMember: 130
+  - IfcSlab: 91
+  - IfcColumn: 90
+  - IfcCovering: 82
+  - IfcBuildingElementProxy: 61
+  - IfcRailing: 34
+  - IfcStairFlight: 32
+  - IfcRoof: 2
+  - IfcRampFlight: 1
+
+Extracting templates...
+  ✓ Created: ARC_IfcPlate (33324 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcOpeningElement (614 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcWall (330 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcWindow (236 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcFurniture (176 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcDoor (135 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcMember (130 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcSlab (91 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcColumn (90 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcCovering (82 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcBuildingElementProxy (61 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcRailing (34 instances, confidence: 0.9)
+  ✓ Created: ARC_IfcStairFlight (32 instances, confidence: 0.9)
+  ⊘ Skipping IfcRoof (only 2 instances)
+  ⊘ Skipping IfcRampFlight (only 1 instances)
+
+✅ Created 13 templates for ARC
+
+======================================================================
+Extracting templates for: FP
+======================================================================
+
+Total elements: 6880
+IFC classes: 9
+Element types: 20
+
+IFC Class breakdown:
+  - IfcPipeFitting: 3146
+  - IfcPipeSegment: 2672
+  - IfcFireSuppressionTerminal: 909
+  - IfcAlarm: 80
+  - IfcBuildingElementProxy: 31
+  - IfcOpeningElement: 17
+  - IfcFlowController: 14
+  - IfcController: 6
+  - IfcValve: 5
+
+Extracting templates...
+⚠️  Template already exists: fp_ifcpipefitting_20251111
+  ⊘ Skipped: FP_IfcPipeFitting (already exists)
+⚠️  Template already exists: fp_ifcpipesegment_20251111
+  ⊘ Skipped: FP_IfcPipeSegment (already exists)
+⚠️  Template already exists: fp_ifcfiresuppressionterminal_20251111
+  ⊘ Skipped: FP_IfcFireSuppressionTerminal (already exists)
+⚠️  Template already exists: fp_ifcalarm_20251111
+  ⊘ Skipped: FP_IfcAlarm (already exists)
+⚠️  Template already exists: fp_ifcbuildingelementproxy_20251111
+  ⊘ Skipped: FP_IfcBuildingElementProxy (already exists)
+⚠️  Template already exists: fp_ifcopeningelement_20251111
+  ⊘ Skipped: FP_IfcOpeningElement (already exists)
+⚠️  Template already exists: fp_ifcflowcontroller_20251111
+  ⊘ Skipped: FP_IfcFlowController (already exists)
+⚠️  Template already exists: fp_ifccontroller_20251111
+  ⊘ Skipped: FP_IfcController (already exists)
+⚠️  Template already exists: fp_ifcvalve_20251111
+  ⊘ Skipped: FP_IfcValve (already exists)
+
+✅ Created 0 templates for FP
+
+======================================================================
+Extracting templates for: ELEC
+======================================================================
+
+Total elements: 1172
+IFC classes: 3
+Element types: 20
+
+IFC Class breakdown:
+  - IfcLightFixture: 814
+  - IfcBuildingElementProxy: 339
+  - IfcElectricAppliance: 19
+
+Extracting templates...
+  ✓ Created: ELEC_IfcLightFixture (814 instances, confidence: 0.9)
+  ✓ Created: ELEC_IfcBuildingElementProxy (339 instances, confidence: 0.9)
+  ✓ Created: ELEC_IfcElectricAppliance (19 instances, confidence: 0.9)
+
+✅ Created 3 templates for ELEC
+
+======================================================================
+Extracting templates for: ACMV
+======================================================================
+
+Total elements: 1621
+IFC classes: 4
+Element types: 20
+
+IFC Class breakdown:
+  - IfcDuctFitting: 713
+  - IfcDuctSegment: 568
+  - IfcAirTerminal: 289
+  - IfcBuildingElementProxy: 51
+
+Extracting templates...
+  ✓ Created: ACMV_IfcDuctFitting (713 instances, confidence: 0.9)
+  ✓ Created: ACMV_IfcDuctSegment (568 instances, confidence: 0.9)
+  ✓ Created: ACMV_IfcAirTerminal (289 instances, confidence: 0.9)
+  ✓ Created: ACMV_IfcBuildingElementProxy (51 instances, confidence: 0.7)
+
+✅ Created 4 templates for ACMV
+
+======================================================================
+Extracting templates for: SP
+======================================================================
+
+Total elements: 979
+IFC classes: 4
+Element types: 20
+
+IFC Class breakdown:
+  - IfcPipeSegment: 455
+  - IfcPipeFitting: 372
+  - IfcFlowTerminal: 150
+  - IfcValve: 2
+
+Extracting templates...
+  ✓ Created: SP_IfcPipeSegment (455 instances, confidence: 0.9)
+  ✓ Created: SP_IfcPipeFitting (372 instances, confidence: 0.9)
+  ✓ Created: SP_IfcFlowTerminal (150 instances, confidence: 0.9)
+  ⊘ Skipping IfcValve (only 2 instances)
+
+✅ Created 3 templates for SP
+
+======================================================================
+Extracting templates for: STR
+======================================================================
+
+Total elements: 1429
+IFC classes: 5
+Element types: 20
+
+IFC Class breakdown:
+  - IfcSlab: 614
+  - IfcBeam: 432
+  - IfcMember: 312
+  - IfcColumn: 68
+  - IfcWall: 3
+
+Extracting templates...
+  ✓ Created: STR_IfcSlab (614 instances, confidence: 0.9)
+  ✓ Created: STR_IfcBeam (432 instances, confidence: 0.9)
+  ✓ Created: STR_IfcMember (312 instances, confidence: 0.9)
+  ✓ Created: STR_IfcColumn (68 instances, confidence: 0.9)
+  ⊘ Skipping IfcWall (only 3 instances)
+
+✅ Created 4 templates for STR
+
+======================================================================
+Extracting templates for: CW
+======================================================================
+
+Total elements: 1431
+IFC classes: 6
+Element types: 20
+
+IFC Class breakdown:
+  - IfcPipeFitting: 638
+  - IfcPipeSegment: 619
+  - IfcFlowTerminal: 106
+  - IfcValve: 57
+  - IfcFlowController: 7
+  - IfcBuildingElementProxy: 4
+
+Extracting templates...
+  ✓ Created: CW_IfcPipeFitting (638 instances, confidence: 0.9)
+  ✓ Created: CW_IfcPipeSegment (619 instances, confidence: 0.9)
+  ✓ Created: CW_IfcFlowTerminal (106 instances, confidence: 0.9)
+  ✓ Created: CW_IfcValve (57 instances, confidence: 0.9)
+  ✓ Created: CW_IfcFlowController (7 instances, confidence: 0.7)
+  ⊘ Skipping IfcBuildingElementProxy (only 4 instances)
+
+✅ Created 5 templates for CW
+
+======================================================================
+Extracting templates for: LPG
+======================================================================
+
+Total elements: 209
+IFC classes: 3
+Element types: 18
+
+IFC Class breakdown:
+  - IfcPipeFitting: 87
+  - IfcPipeSegment: 75
+  - IfcValve: 47
+
+Extracting templates...
+  ✓ Created: LPG_IfcPipeFitting (87 instances, confidence: 0.9)
+  ✓ Created: LPG_IfcPipeSegment (75 instances, confidence: 0.9)
+  ✓ Created: LPG_IfcValve (47 instances, confidence: 0.9)
+
+✅ Created 3 templates for LPG
+
+======================================================================
+Extraction Complete!
+======================================================================
+
+Total templates created: 35
+
+By discipline:
+  - ARC: 13
+  - FP: 0
+  - ELEC: 3
+  - ACMV: 4
+  - SP: 3
+  - STR: 4
+  - CW: 5
+  - LPG: 3
+
+Next steps:
+1. Review templates: sqlite3 template_library.db 'SELECT * FROM element_templates;'
+2. Update metadata: python3 create_template_metadata.py create [template_dir]
+3. Validate: python3 create_template_metadata.py validate [template_dir]
+

@@ -1,0 +1,151 @@
+================================================================================
+BONSAI TEMPLATE CONFIGURATOR - RUN COMMANDS
+================================================================================
+
+Created: November 12, 2025
+Status: COMPLETE - Ready to test!
+Location: /home/red1/Documents/bonsai/RawDWG/TemplateConfigurator/
+
+================================================================================
+QUICK START (Copy-Paste These Commands)
+================================================================================
+
+# 1. Navigate to directory
+cd /home/red1/Documents/bonsai/RawDWG/TemplateConfigurator
+
+# 2. Install dependencies (one-time only)
+pip install -r requirements.txt
+
+# 3. Run the application
+python3 main.py
+
+================================================================================
+ALTERNATIVE: One-Command Launch
+================================================================================
+
+pip install -r requirements.txt && python3 main.py
+
+================================================================================
+ALTERNATIVE: Using Launch Script
+================================================================================
+
+cd /home/red1/Documents/bonsai/RawDWG/TemplateConfigurator
+./run.sh
+
+================================================================================
+WHAT YOU'LL SEE
+================================================================================
+
+1. Window opens with title "Bonsai Template Configurator"
+2. Three tabs: "1. Import & Detect", "2. Configure Spaces", "3. Global Defaults"
+3. Menu bar: File, Help
+4. Status bar at bottom showing "Ready"
+
+================================================================================
+TEST WORKFLOW
+================================================================================
+
+Tab 1 - Import & Detect:
+  1. Click "Browse..." for DWG/DXF File
+  2. Select any DWG file (or Terminal 1 DWG)
+  3. Click "Parse & Analyze"
+  4. See detection summary with 3 mock spaces
+  5. Click "Next: Configure Spaces →"
+
+Tab 2 - Configure Spaces:
+  1. See list: Hall A, Hall B, Toilet Block 1
+  2. Double-click "Hall A"
+  3. Select functional type: "waiting_area"
+  4. See preview: benches, lights, sprinklers
+  5. Click OK
+
+Tab 3 - Global Defaults:
+  1. Set building type: "Transportation Hub"
+  2. Configure ceiling height: 18.5m
+  3. Set MEP standards
+  4. Click "Save Configuration"
+
+Export JSON:
+  1. Menu: File → Export JSON...
+  2. Save as: terminal_1_config.json
+  3. Done!
+
+================================================================================
+VERIFICATION
+================================================================================
+
+# Check template database connection
+python3 database/template_db.py
+
+Expected output:
+  Template Library Statistics:
+    Total templates: 44
+    Total instances: 43344
+  By category:
+    ACMV: 4 templates
+    Seating: 13 templates
+    ...
+
+# Check exported JSON
+cat ~/terminal_1_config.json | python3 -m json.tool | head -20
+
+Expected: Valid JSON with project, spaces, global_defaults
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Error: "No module named 'PyQt5'"
+Fix: pip install PyQt5
+
+Error: "Template database not found"
+Fix: Application will show warning but still run (some features limited)
+
+Error: "Permission denied: ./run.sh"
+Fix: chmod +x run.sh
+
+================================================================================
+DOCUMENTATION
+================================================================================
+
+Read these files for more info:
+  - README.md          (Overview and features)
+  - INSTALL.md         (Detailed installation)
+  - QUICKSTART.md      (Complete quick start guide)
+
+================================================================================
+SUCCESS INDICATORS
+================================================================================
+
+✅ Application launches without errors
+✅ Template database shows 44 templates
+✅ All 3 tabs are visible and functional
+✅ Can configure spaces and see previews
+✅ Can export JSON configuration
+✅ Exported JSON has correct structure
+
+================================================================================
+NEXT STEPS AFTER TESTING
+================================================================================
+
+1. Test with real DWG files
+2. Configure multiple spaces
+3. Try different building types
+4. Export configurations
+5. Provide feedback for improvements
+
+Phase 2 (when DXF available):
+  - Integrate real DWG parser
+  - Add Excel/PDF parsing
+  - Build 2D visual canvas
+
+================================================================================
+CONTACT & SUPPORT
+================================================================================
+
+Issues: https://github.com/IfcOpenShell/IfcOpenShell/issues
+Documentation: /home/red1/Documents/bonsai/RawDWG/Documentation/
+
+================================================================================
+END OF RUN COMMANDS
+================================================================================
