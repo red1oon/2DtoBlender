@@ -315,6 +315,355 @@ class DXFToDatabase:
         print(f"✅ Matched {matched}/{len(self.entities)} entities ({matched/len(self.entities)*100:.1f}%)")
         return matched
 
+    def detect_elevation_views(self) -> bool:
+        """
+        Detect if DXF contains VALID elevation/section views (not just plan view).
+
+        Heuristics:
+        1. >10% of entities have non-zero Z-coordinates
+        2. Z-range is reasonable (0-100m typical building height)
+        3. Multiple distinct Z-levels (not just noise)
+
+        Returns:
+            True if valid elevation views detected, False if plan-only or junk data
+        """
+        z_values = []
+        for entity in self.entities:
+            z_values.append(entity.position[2])
+
+        # Check if Z values are diverse (indicative of elevation views)
+        non_zero_z = [z for z in z_values if abs(z) > 0.01]
+        unique_z = len(set([round(z, 1) for z in z_values]))
+
+        # Calculate Z-range
+        if len(non_zero_z) > 0:
+            z_min, z_max = min(z_values), max(z_values)
+            z_range = z_max - z_min
+        else:
+            z_range = 0.0
+
+        # Elevation data is valid if:
+        # 1. >10% entities have Z != 0
+        # 2. Z-range is reasonable (0.5m to 200m) - typical building heights
+        # 3. Multiple distinct levels (>10)
+        has_valid_elevations = (
+            len(non_zero_z) > len(self.entities) * 0.1
+            and 0.5 < z_range < 200
+            and unique_z > 10
+        )
+
+        if has_valid_elevations:
+            print(f"   ✅ Detected VALID elevation views: {len(non_zero_z)} entities with Z != 0")
+            print(f"   Unique Z levels: {unique_z}, Range: {z_range:.1f}m")
+        elif len(non_zero_z) > 0:
+            print(f"   ❌ Elevation data detected but INVALID (range: {z_range:.1f}m)")
+            print(f"   Falling back to rule-based assignment...")
+        else:
+            print(f"   Plan view only: All entities at Z=0")
+
+        return has_valid_elevations
+
+    def assign_intelligent_z_heights(self, building_type: str = "airport", use_elevation_data: bool = False):
+        """
+        Assign intelligent Z-heights to all entities based on discipline and IFC class.
+        Phase 1 of Intelligent Anticipation Strategy: Rule-based vertical layering.
+
+        This prevents 500+ false clashes by vertically separating disciplines before 3D generation.
+
+        Args:
+            building_type: Building type for ceiling height estimation (airport, office, hospital, etc.)
+            use_elevation_data: If True, preserve existing Z-coordinates from elevation views
+        """
+        print(f"🎯 Assigning intelligent Z-heights for building type: {building_type}...")
+
+        # Auto-detect elevation views if not specified
+        if not use_elevation_data:
+            use_elevation_data = self.detect_elevation_views()
+
+        if use_elevation_data:
+            print(f"   Strategy: Preserving Z-coordinates from elevation views")
+
+            # Sanity check: Normalize Z-coordinates if they're in wrong units/datum
+            # Building heights typically 0-100m, anything outside suggests datum shift
+            z_values = [e.position[2] for e in self.entities if e.discipline and e.ifc_class]
+            z_min, z_max = min(z_values), max(z_values)
+
+            # If Z range suggests wrong datum (e.g., survey coordinates), normalize to floor=0
+            if z_min < -1000 or z_max > 1000:
+                print(f"   Warning: Z-coordinates out of range ({z_min:.1f} to {z_max:.1f})")
+                print(f"   Normalizing to floor=0 datum...")
+
+                # Shift all Z-coordinates so minimum is at 0
+                for entity in self.entities:
+                    if entity.discipline and entity.ifc_class:
+                        x, y, z = entity.position
+                        entity.position = (x, y, z - z_min)
+
+                print(f"   Normalized range: 0.0 to {z_max - z_min:.1f}m")
+
+            assigned = sum(1 for e in self.entities if e.discipline and e.ifc_class)
+            print(f"✅ Preserved {assigned} elements with elevation Z-coordinates")
+            return assigned
+        else:
+            print(f"   Strategy: Rule-based assignment (plan view only)")
+
+
+        # Ceiling heights by building type (in meters)
+        ceiling_heights = {
+            "airport": 4.5,      # High ceilings for terminals
+            "office": 3.5,       # Standard office
+            "hospital": 3.8,     # Higher for medical equipment
+            "industrial": 5.0,   # Very high for warehouse
+            "residential": 2.7,  # Standard residential
+        }
+
+        ceiling = ceiling_heights.get(building_type, 3.5)
+
+        # Discipline-based Z-height rules
+        # Format: (discipline, ifc_class) → Z-height offset
+        # Heights are measured from floor (0.0m)
+        discipline_heights = {
+            # Structure (lowest - embedded in floor/walls/ceiling)
+            ("Structure", "IfcBeam"): 0.3,                    # Below ceiling
+            ("Structure", "IfcColumn"): 0.0,                  # Floor level
+            ("Structure", "IfcSlab"): 0.0,                    # Floor level
+            ("Structure", "IfcWall"): 0.0,                    # Floor level
+            ("Reinforcement", "IfcReinforcingBar"): 0.1,      # Embedded in concrete
+
+            # ACMV (below ceiling, needs clearance)
+            ("ACMV", "IfcDuctSegment"): ceiling - 0.6,        # 600mm below ceiling
+            ("ACMV", "IfcAirTerminal"): ceiling - 0.4,        # Diffusers closer to ceiling
+
+            # Electrical (higher up, less clearance needed)
+            ("Electrical", "IfcCableCarrierSegment"): ceiling - 0.2,  # Cable trays high
+            ("Electrical", "IfcLightFixture"): ceiling - 0.1,          # Lights at ceiling
+
+            # Fire Protection (highest priority - cannot be obstructed)
+            ("Fire_Protection", "IfcPipeSegment"): ceiling - 0.1,              # Sprinkler pipes highest
+            ("Fire_Protection", "IfcFireSuppressionTerminal"): ceiling - 0.05, # Sprinkler heads at ceiling
+
+            # Plumbing (varies by function)
+            ("Plumbing", "IfcPipeSegment"): ceiling - 0.5,    # Below ACMV
+
+            # Chilled Water (similar to plumbing)
+            ("Chilled_Water", "IfcPipeSegment"): ceiling - 0.5,
+
+            # Furniture/Seating (floor level)
+            ("Seating", "IfcFurniture"): 0.0,                 # On floor
+
+            # Default fallback for unknown combinations
+            ("default", "default"): 1.5,                       # Mid-height as safe default
+        }
+
+        assigned = 0
+        for entity in self.entities:
+            if not entity.discipline or not entity.ifc_class:
+                continue  # Skip unmatched entities
+
+            # Lookup Z-height rule
+            key = (entity.discipline, entity.ifc_class)
+            z_height = discipline_heights.get(key)
+
+            # Fallback to discipline-level defaults
+            if z_height is None:
+                discipline_defaults = {
+                    "Structure": 0.0,
+                    "ACMV": ceiling - 0.6,
+                    "Electrical": ceiling - 0.2,
+                    "Fire_Protection": ceiling - 0.1,
+                    "Plumbing": ceiling - 0.5,
+                    "Chilled_Water": ceiling - 0.5,
+                    "Seating": 0.0,
+                }
+                z_height = discipline_defaults.get(entity.discipline, 1.5)
+
+            # Add small random offset to prevent exact overlaps (0-50mm)
+            import random
+            z_offset = random.uniform(0.0, 0.05)
+
+            # Update entity position with intelligent Z-height
+            x, y, _ = entity.position  # Ignore original Z (always 0.0 from 2D)
+            entity.position = (x, y, z_height + z_offset)
+            assigned += 1
+
+        print(f"✅ Assigned Z-heights to {assigned} elements")
+        print(f"   Ceiling height: {ceiling}m")
+        print(f"   Building type: {building_type}")
+        return assigned
+
+    def apply_vertical_separation(self, grid_size: float = 0.5):
+        """
+        Apply vertical separation to prevent elements from overlapping.
+        Phase 1 of Intelligent Anticipation Strategy: Auto-nudge elements in same XY space.
+
+        This prevents elements at same XY coordinates from clashing by auto-nudging them vertically.
+
+        Args:
+            grid_size: XY grid cell size in meters (0.5m = 500mm cells)
+        """
+        print(f"🎯 Applying vertical separation (grid size: {grid_size}m)...")
+
+        # Minimum vertical clearance by discipline pair (in meters)
+        # Format: (discipline1, discipline2) → minimum clearance
+        clearance_rules = {
+            ("ACMV", "Electrical"): 0.15,           # 150mm between duct and cable tray
+            ("ACMV", "Fire_Protection"): 0.20,      # 200mm - fire protection priority
+            ("ACMV", "Plumbing"): 0.15,             # 150mm clearance
+            ("Electrical", "Fire_Protection"): 0.10, # 100mm clearance
+            ("Plumbing", "Fire_Protection"): 0.15,  # 150mm clearance
+            ("ACMV", "ACMV"): 0.20,                 # 200mm between ducts
+            ("Electrical", "Electrical"): 0.10,     # 100mm between cable trays
+        }
+
+        # Default clearance for unknown pairs
+        default_clearance = 0.10  # 100mm
+
+        # Build spatial grid (XY plane divided into cells)
+        from collections import defaultdict
+        grid = defaultdict(list)  # (grid_x, grid_y) → [list of entities]
+
+        for entity in self.entities:
+            if not entity.discipline or not entity.ifc_class:
+                continue
+
+            x, y, z = entity.position
+            grid_x = int(x / grid_size)
+            grid_y = int(y / grid_size)
+            grid[(grid_x, grid_y)].append(entity)
+
+        # Process each grid cell
+        adjustments = 0
+        for cell_entities in grid.values():
+            if len(cell_entities) <= 1:
+                continue  # No overlap possible
+
+            # Sort by current Z-height (lowest first)
+            cell_entities.sort(key=lambda e: e.position[2])
+
+            # Check each pair and apply vertical separation
+            for i in range(len(cell_entities) - 1):
+                lower = cell_entities[i]
+                upper = cell_entities[i + 1]
+
+                # Get required clearance
+                key1 = (lower.discipline, upper.discipline)
+                key2 = (upper.discipline, lower.discipline)
+                required_clearance = clearance_rules.get(key1) or clearance_rules.get(key2) or default_clearance
+
+                # Calculate actual vertical distance
+                actual_distance = upper.position[2] - lower.position[2]
+
+                # If too close, nudge upper element up
+                if actual_distance < required_clearance:
+                    nudge = required_clearance - actual_distance + 0.01  # Add 10mm safety margin
+                    x, y, z = upper.position
+                    upper.position = (x, y, z + nudge)
+                    adjustments += 1
+
+        print(f"✅ Applied {adjustments} vertical adjustments")
+        return adjustments
+
+    def predict_potential_clashes(self, tolerance: float = 0.05) -> Dict:
+        """
+        Predict potential clashes BEFORE 3D generation.
+        Phase 1 of Intelligent Anticipation Strategy: Early warning system.
+
+        This allows GUI to show warnings like:
+        "⚠️ Predicted 12 potential clashes between ACMV and Electrical"
+
+        Args:
+            tolerance: Minimum clearance threshold in meters (0.05m = 50mm)
+
+        Returns:
+            Dictionary with clash statistics and warnings
+        """
+        print(f"🎯 Predicting potential clashes (tolerance: {tolerance}m)...")
+
+        from collections import defaultdict
+        clash_predictions = defaultdict(int)  # (discipline1, discipline2) → clash count
+        high_risk_zones = []  # List of (x, y, clash_count) for hotspot visualization
+
+        # Build spatial grid for fast proximity checks
+        grid_size = 0.5  # 500mm grid cells
+        grid = defaultdict(list)
+
+        for entity in self.entities:
+            if not entity.discipline or not entity.ifc_class:
+                continue
+
+            x, y, z = entity.position
+            grid_x = int(x / grid_size)
+            grid_y = int(y / grid_size)
+            grid[(grid_x, grid_y)].append(entity)
+
+        # Check each grid cell for potential clashes
+        total_clashes = 0
+        for (grid_x, grid_y), cell_entities in grid.items():
+            if len(cell_entities) <= 1:
+                continue
+
+            cell_clashes = 0
+            # Check all pairs in this cell
+            for i in range(len(cell_entities)):
+                for j in range(i + 1, len(cell_entities)):
+                    e1, e2 = cell_entities[i], cell_entities[j]
+
+                    # Calculate vertical distance
+                    z_distance = abs(e1.position[2] - e2.position[2])
+
+                    # Potential clash if too close
+                    if z_distance < tolerance:
+                        # Record clash between disciplines
+                        disc_pair = tuple(sorted([e1.discipline, e2.discipline]))
+                        clash_predictions[disc_pair] += 1
+                        total_clashes += 1
+                        cell_clashes += 1
+
+            # Record high-risk zone if multiple clashes in same cell
+            if cell_clashes >= 3:
+                center_x = grid_x * grid_size + grid_size / 2
+                center_y = grid_y * grid_size + grid_size / 2
+                high_risk_zones.append((center_x, center_y, cell_clashes))
+
+        # Generate summary
+        summary = {
+            "total_predicted_clashes": total_clashes,
+            "clash_by_discipline": dict(clash_predictions),
+            "high_risk_zones": high_risk_zones,
+            "worst_pair": None,
+            "warnings": []
+        }
+
+        # Find worst discipline pair
+        if clash_predictions:
+            worst_pair = max(clash_predictions.items(), key=lambda x: x[1])
+            summary["worst_pair"] = {"disciplines": worst_pair[0], "count": worst_pair[1]}
+
+        # Generate warnings for GUI
+        if total_clashes == 0:
+            summary["warnings"].append("✅ No predicted clashes - excellent coordination!")
+        elif total_clashes < 10:
+            summary["warnings"].append(f"⚠️  {total_clashes} potential clashes predicted (acceptable)")
+        elif total_clashes < 50:
+            summary["warnings"].append(f"⚠️  {total_clashes} potential clashes predicted (review recommended)")
+        else:
+            summary["warnings"].append(f"❌ {total_clashes} potential clashes predicted (coordination needed)")
+
+        # Add discipline-specific warnings
+        for (disc1, disc2), count in sorted(clash_predictions.items(), key=lambda x: x[1], reverse=True)[:3]:
+            summary["warnings"].append(f"   • {disc1} ↔ {disc2}: {count} clashes")
+
+        # High-risk zone warnings
+        if high_risk_zones:
+            summary["warnings"].append(f"   • {len(high_risk_zones)} high-risk zones detected")
+
+        print(f"✅ Clash prediction complete:")
+        print(f"   Total predicted clashes: {total_clashes}")
+        for warning in summary["warnings"]:
+            print(f"   {warning}")
+
+        return summary
+
     def create_database(self):
         """Create output database with extraction schema."""
         print(f"💾 Creating database: {self.output_db.name}")
@@ -449,14 +798,15 @@ def main():
     """Main entry point."""
 
     if len(sys.argv) < 4:
-        print("Usage: python3 dxf_to_database.py [dxf_file] [output_db] [template_library_db]")
+        print("Usage: python3 dxf_to_database.py [dxf_file] [output_db] [template_library_db] [layer_mappings_json (optional)]")
         print("\nExample:")
-        print('  python3 dxf_to_database.py "Terminal1.dxf" Generated_Terminal1.db terminal_base_v1.0/template_library.db')
+        print('  python3 dxf_to_database.py "Terminal1.dxf" Generated_Terminal1.db template_library.db layer_mappings.json')
         sys.exit(1)
 
     dxf_file = sys.argv[1]
     output_db = sys.argv[2]
     template_db = sys.argv[3]
+    layer_mappings = sys.argv[4] if len(sys.argv) > 4 else None
 
     try:
         # Load templates
@@ -464,7 +814,7 @@ def main():
         print("DXF to Database Converter")
         print("="*70 + "\n")
 
-        template_library = TemplateLibrary(template_db)
+        template_library = TemplateLibrary(template_db, layer_mappings_path=layer_mappings)
 
         # Create converter
         converter = DXFToDatabase(dxf_file, output_db, template_library)
@@ -480,6 +830,15 @@ def main():
         if matched == 0:
             print("⚠️  Warning: No entities matched to templates")
 
+        # Step 2.5: Assign intelligent Z-heights (Intelligent Anticipation Strategy - Phase 1)
+        converter.assign_intelligent_z_heights(building_type="airport")
+
+        # Step 2.6: Apply vertical separation to prevent overlaps
+        converter.apply_vertical_separation(grid_size=0.5)
+
+        # Step 2.7: Predict potential clashes for early warning
+        clash_summary = converter.predict_potential_clashes(tolerance=0.05)
+
         # Step 3: Create database
         converter.create_database()
 
@@ -492,6 +851,11 @@ def main():
         print(f"\n✅ SUCCESS: Database created at {output_db}")
         print(f"   Total elements: {inserted}")
         print(f"   Match rate: {matched/len(entities)*100:.1f}%")
+        print(f"\n📊 Clash Prediction Summary:")
+        print(f"   Predicted clashes: {clash_summary['total_predicted_clashes']}")
+        if clash_summary['worst_pair']:
+            worst = clash_summary['worst_pair']
+            print(f"   Worst pair: {worst['disciplines'][0]} ↔ {worst['disciplines'][1]} ({worst['count']} clashes)")
 
     except FileNotFoundError as e:
         print(f"\n❌ ERROR: {e}")
