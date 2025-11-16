@@ -920,16 +920,16 @@ class DXFToDatabase:
         ))
 
         # Populate elements_rtree spatial index (required by Bonsai Federation)
-        # NOTE: R-tree stores coordinates in MILLIMETERS (multiply by 1000)
-        #       This matches the IFC extraction script behavior
-        print(f"🗺️  Building spatial index (R-tree in millimeters)...")
+        # NOTE: R-tree stores coordinates in METERS (same as element_transforms)
+        #       Creating 1m placeholder bounding boxes around each center point
+        print(f"🗺️  Building spatial index (R-tree)...")
         cursor.execute("""
             INSERT INTO elements_rtree (id, minX, maxX, minY, maxY, minZ, maxZ)
             SELECT
                 t.id,
-                (t.center_x - 0.5) * 1000, (t.center_x + 0.5) * 1000,
-                (t.center_y - 0.5) * 1000, (t.center_y + 0.5) * 1000,
-                (t.center_z - 0.5) * 1000, (t.center_z + 0.5) * 1000
+                t.center_x - 0.5, t.center_x + 0.5,
+                t.center_y - 0.5, t.center_y + 0.5,
+                t.center_z - 0.5, t.center_z + 0.5
             FROM element_transforms t
         """)
 
