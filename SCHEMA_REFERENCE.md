@@ -56,7 +56,7 @@ CREATE TABLE element_geometry (
 );
 ```
 
-#### 4. elements_rtree (CRITICAL: Use camelCase!)
+#### 4. elements_rtree (CRITICAL: Use camelCase, Store Meters!)
 ```sql
 CREATE VIRTUAL TABLE elements_rtree USING rtree(
     id,
@@ -66,9 +66,14 @@ CREATE VIRTUAL TABLE elements_rtree USING rtree(
 );
 ```
 
-**⚠️ CRITICAL:** R-tree column names MUST be camelCase (`minX` not `min_x`)!
+**⚠️ CRITICAL:**
+- R-tree column names MUST be camelCase (`minX` not `min_x`)!
+- R-tree coordinates MUST be in METERS (same units as element_transforms)!
+- DO NOT multiply by 1000 - store meters directly!
+
 **Source:** `/home/red1/Documents/bonsai/8_IFC/enhanced_federation.db`
 **Verified:** Bonsai Federation code queries use `r.minX`, `r.maxX`, etc.
+**Verified:** Working database has element_transforms and R-tree in same units (meters)
 
 #### 5. global_offset
 ```sql
@@ -217,7 +222,22 @@ sqlite3.OperationalError: no such table: element_geometry
 sqlite3.OperationalError: no such table: global_offset
 ```
 
-### 3. Wrong global_offset Sign
+### 3. Wrong R-tree Units
+```sql
+-- ❌ WRONG (multiplying by 1000 to store millimeters)
+INSERT INTO elements_rtree (id, minX, maxX, ...)
+SELECT id, center_x * 1000, (center_x + 1) * 1000, ...;
+
+-- ✅ CORRECT (store meters, same units as element_transforms)
+INSERT INTO elements_rtree (id, minX, maxX, ...)
+SELECT id, center_x - 0.5, center_x + 0.5, ...;
+```
+
+**Error if wrong:**
+- Geometry appears microscopic in Blender viewport
+- 5km building rendered as 5mm (1000× too small)
+
+### 4. Wrong global_offset Sign
 ```sql
 -- ❌ WRONG (positive offset)
 INSERT INTO global_offset VALUES (min_x, min_y, min_z, ...);
