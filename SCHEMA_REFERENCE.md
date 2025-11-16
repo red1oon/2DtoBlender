@@ -33,30 +33,67 @@ CREATE INDEX idx_elements_meta_ifc_class ON elements_meta(ifc_class);
 #### 2. element_transforms
 ```sql
 CREATE TABLE element_transforms (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    guid TEXT NOT NULL,
-    center_x REAL,
-    center_y REAL,
-    center_z REAL
+    guid TEXT PRIMARY KEY,              -- ⚠️ CRITICAL: guid is PRIMARY KEY, NOT id!
+    center_x REAL NOT NULL,
+    center_y REAL NOT NULL,
+    center_z REAL NOT NULL,
+    transform_source TEXT DEFAULT 'tessellation',
+    FOREIGN KEY (guid) REFERENCES elements_meta(guid)
 );
 ```
 
-#### 3. element_geometry
+**⚠️ CRITICAL:** PRIMARY KEY is `guid`, NOT `id`!
+**Verified:** `/home/red1/Documents/bonsai/8_IFC/enhanced_federation.db`
+
+#### 3. base_geometries
 ```sql
-CREATE TABLE element_geometry (
-    guid TEXT PRIMARY KEY,
-    vertices BLOB,
-    faces BLOB,
-    bbox_min_x REAL,
-    bbox_min_y REAL,
-    bbox_min_z REAL,
-    bbox_max_x REAL,
-    bbox_max_y REAL,
-    bbox_max_z REAL
+CREATE TABLE base_geometries (
+    geometry_hash TEXT PRIMARY KEY,     -- ⚠️ CRITICAL: geometry_hash is PRIMARY KEY, NOT id!
+    vertices BLOB NOT NULL,
+    faces BLOB NOT NULL,
+    normals BLOB,
+    vertex_count INTEGER NOT NULL,
+    face_count INTEGER NOT NULL
 );
 ```
 
-#### 4. elements_rtree (CRITICAL: Use camelCase, Store Meters!)
+**⚠️ CRITICAL:** PRIMARY KEY is `geometry_hash`, NOT `id`!
+**Note:** NO guid column in this table!
+**Verified:** `/home/red1/Documents/bonsai/8_IFC/enhanced_federation.db`
+
+#### 4. element_instances (REQUIRED!)
+```sql
+CREATE TABLE element_instances (
+    guid TEXT PRIMARY KEY,
+    geometry_hash TEXT NOT NULL,
+    FOREIGN KEY (geometry_hash) REFERENCES base_geometries(geometry_hash)
+);
+
+CREATE INDEX idx_geom_hash ON element_instances(geometry_hash);
+```
+
+**⚠️ CRITICAL:** This table was MISSING in previous documentation!
+It enables geometry reuse/deduplication by linking elements to shared geometries.
+**Verified:** `/home/red1/Documents/bonsai/8_IFC/enhanced_federation.db` has 51,719 rows
+
+#### 5. element_geometry (VIEW, not TABLE!)
+```sql
+CREATE VIEW element_geometry AS
+SELECT
+    i.guid,
+    g.geometry_hash,
+    g.vertices,
+    g.faces,
+    g.normals
+FROM element_instances i
+JOIN base_geometries g ON i.geometry_hash = g.geometry_hash;
+```
+
+**⚠️ CRITICAL:** This is a VIEW that joins element_instances → base_geometries!
+**NOT** a standalone table!
+**Verified:** `/home/red1/Documents/bonsai/8_IFC/enhanced_federation.db`
+
+#### 6. elements_rtree (CRITICAL: Use camelCase, Store Meters!)
 ```sql
 CREATE VIRTUAL TABLE elements_rtree USING rtree(
     id,
@@ -75,7 +112,7 @@ CREATE VIRTUAL TABLE elements_rtree USING rtree(
 **Verified:** Bonsai Federation code queries use `r.minX`, `r.maxX`, etc.
 **Verified:** Working database has element_transforms and R-tree in same units (meters)
 
-#### 5. global_offset
+#### 7. global_offset
 ```sql
 CREATE TABLE global_offset (
     offset_x REAL NOT NULL,
