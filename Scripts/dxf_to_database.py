@@ -280,11 +280,26 @@ class DXFToDatabase:
         handle = entity.dxf.handle if hasattr(entity.dxf, 'handle') else str(uuid.uuid4())[:8]
 
         # Extract position
+        # NOTE: Force Z=0 initially since 2D DXF files have junk Z-values
+        #       Intelligent Z-heights will be assigned later based on discipline/IFC class
         position = (0.0, 0.0, 0.0)
-        if hasattr(entity.dxf, 'insert'):
-            position = (entity.dxf.insert.x, entity.dxf.insert.y, entity.dxf.insert.z)
-        elif hasattr(entity.dxf, 'start'):
-            position = (entity.dxf.start.x, entity.dxf.start.y, entity.dxf.start.z)
+
+        # Try different position attributes depending on entity type
+        if hasattr(entity.dxf, 'insert'):  # INSERT, BLOCK_REFERENCE
+            position = (entity.dxf.insert.x, entity.dxf.insert.y, 0.0)
+        elif hasattr(entity.dxf, 'start'):  # LINE, ARC
+            position = (entity.dxf.start.x, entity.dxf.start.y, 0.0)
+        elif hasattr(entity.dxf, 'center'):  # CIRCLE, ELLIPSE
+            position = (entity.dxf.center.x, entity.dxf.center.y, 0.0)
+        elif hasattr(entity, 'get_points'):  # LWPOLYLINE, POLYLINE, HATCH, SOLID
+            try:
+                points = list(entity.get_points())
+                if points:
+                    position = (points[0][0], points[0][1], 0.0)  # First point
+            except:
+                pass  # Keep default (0, 0, 0)
+        elif hasattr(entity.dxf, 'defpoint'):  # DIMENSION, LEADER
+            position = (entity.dxf.defpoint.x, entity.dxf.defpoint.y, 0.0)
 
         # Extract block name for INSERT entities
         block_name = None
@@ -712,12 +727,84 @@ class DXFToDatabase:
         conn.close()
         print(f"✅ Database schema created")
 
+    def calculate_coordinate_offset(self):
+        """
+        Calculate coordinate offset to normalize to local origin.
+
+        DXF files often use large coordinates (e.g., survey coordinates in mm).
+        This calculates the bounding box center to shift everything to a local origin.
+
+        Returns:
+            Tuple[float, float, float]: Offset to subtract from coordinates (offset_x, offset_y, offset_z)
+        """
+        matched_entities = [e for e in self.entities if e.discipline and e.ifc_class]
+
+        if not matched_entities:
+            return (0.0, 0.0, 0.0)
+
+        # Get bounding box
+        x_coords = [e.position[0] for e in matched_entities]
+        y_coords = [e.position[1] for e in matched_entities]
+        z_coords = [e.position[2] for e in matched_entities]
+
+        min_x, max_x = min(x_coords), max(x_coords)
+        min_y, max_y = min(y_coords), max(y_coords)
+        min_z, max_z = min(z_coords), max(z_coords)
+
+        # Use bounding box minimum as offset (shifts to origin)
+        offset_x = min_x
+        offset_y = min_y
+
+        # DO NOT offset Z if intelligent heights were assigned (range 0-10m typical)
+        # Only offset Z if values suggest wrong datum (e.g., >100m or negative)
+        if min_z < -10 or max_z > 100:
+            offset_z = min_z  # Shift to floor=0
+            print(f"   Z-coordinates out of typical range ({min_z:.1f} to {max_z:.1f}m) - normalizing to floor=0")
+        else:
+            offset_z = 0.0  # Keep intelligent Z-heights as-is
+            print(f"   Z-coordinates in valid range ({min_z:.2f} to {max_z:.2f}m) - preserving intelligent heights")
+
+        # Check if coordinates are likely in millimeters (values > 10,000)
+        unit_scale = 1.0
+        if abs(max_x - min_x) > 10000 or abs(max_y - min_y) > 10000:
+            print(f"   ⚠️  Detected large coordinates (likely millimeters)")
+            print(f"   Range: X=[{min_x:.0f}, {max_x:.0f}], Y=[{min_y:.0f}, {max_y:.0f}]")
+            unit_scale = 0.001  # Convert mm → m
+            print(f"   Converting to meters (scale: {unit_scale})")
+
+        print(f"   Coordinate offset: X={offset_x:.2f}, Y={offset_y:.2f}, Z={offset_z:.2f}")
+        print(f"   Unit scale: {unit_scale}")
+
+        return (offset_x, offset_y, offset_z, unit_scale)
+
     def populate_database(self):
         """Populate database with matched entities."""
         print(f"📝 Populating database...")
 
+        # Calculate coordinate normalization
+        print(f"🎯 Calculating coordinate normalization...")
+        offset_x, offset_y, offset_z, unit_scale = self.calculate_coordinate_offset()
+
         conn = sqlite3.connect(str(self.output_db))
         cursor = conn.cursor()
+
+        # Store coordinate offset in database metadata
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS coordinate_metadata (
+                id INTEGER PRIMARY KEY,
+                offset_x REAL,
+                offset_y REAL,
+                offset_z REAL,
+                unit_scale REAL,
+                description TEXT
+            )
+        """)
+
+        cursor.execute("""
+            INSERT INTO coordinate_metadata (offset_x, offset_y, offset_z, unit_scale, description)
+            VALUES (?, ?, ?, ?, ?)
+        """, (offset_x, offset_y, offset_z, unit_scale,
+              "Coordinate normalization: subtracted from original DXF coordinates and scaled"))
 
         inserted = 0
         for entity in self.entities:
@@ -741,19 +828,26 @@ class DXFToDatabase:
                 entity.block_name or entity.entity_type
             ))
 
+            # Normalize coordinates: subtract offset and apply unit scale
+            # Note: unit_scale only applies to X/Y (for mm→m conversion)
+            #       Z-coordinates are already in meters from intelligent assignment
+            normalized_x = (entity.position[0] - offset_x) * unit_scale
+            normalized_y = (entity.position[1] - offset_y) * unit_scale
+            normalized_z = (entity.position[2] - offset_z)  # Z already in meters
+
             # Insert position
             cursor.execute("""
                 INSERT INTO element_transforms
                 (guid, center_x, center_y, center_z)
                 VALUES (?, ?, ?, ?)
-            """, (guid, entity.position[0], entity.position[1], entity.position[2]))
+            """, (guid, normalized_x, normalized_y, normalized_z))
 
             inserted += 1
 
         conn.commit()
         conn.close()
 
-        print(f"✅ Inserted {inserted} elements into database")
+        print(f"✅ Inserted {inserted} elements into database (coordinates normalized)")
         return inserted
 
     def generate_statistics(self):
