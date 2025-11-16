@@ -75,25 +75,25 @@ def create_box_mesh(x, y, z, width=1.0, height=1.0, depth=1.0):
 def get_element_size(ifc_class, entity_count_in_layer=1):
     """Estimate reasonable size for element based on IFC class."""
     # Size heuristics (width, height, depth in meters)
-    # NOTE: Scaled 10× larger for 2D→3D converted models (DXF has no real geometry)
-    #       Original sizes were too small (0.1-3.0m) for kilometer-scale buildings
+    # Scaled 100× larger for 2D→3D DXF conversion at kilometer scale
+    # DXF coordinates are in mm, resulting in 5km×3km building after conversion
     sizes = {
-        'IfcWall': (2.0, 30.0, 10.0),
-        'IfcWindow': (12.0, 15.0, 1.0),
-        'IfcDoor': (10.0, 21.0, 1.0),
-        'IfcColumn': (4.0, 30.0, 4.0),
-        'IfcBeam': (3.0, 5.0, 20.0),
-        'IfcSlab': (30.0, 30.0, 2.0),
-        'IfcFurniture': (6.0, 6.0, 8.0),
-        'IfcPipeSegment': (1.0, 1.0, 10.0),
-        'IfcDuctSegment': (4.0, 3.0, 10.0),
-        'IfcLightFixture': (3.0, 3.0, 1.0),
-        'IfcFireSuppressionTerminal': (1.0, 1.0, 1.0),  # Sprinkler
-        'IfcAirTerminal': (4.0, 4.0, 2.0),  # Diffuser
-        'IfcBuildingElementProxy': (5.0, 5.0, 5.0),  # Generic elements
+        'IfcWall': (20.0, 300.0, 100.0),
+        'IfcWindow': (120.0, 150.0, 10.0),
+        'IfcDoor': (100.0, 210.0, 10.0),
+        'IfcColumn': (40.0, 300.0, 40.0),
+        'IfcBeam': (30.0, 50.0, 200.0),
+        'IfcSlab': (300.0, 300.0, 20.0),
+        'IfcFurniture': (60.0, 60.0, 80.0),
+        'IfcPipeSegment': (10.0, 10.0, 100.0),
+        'IfcDuctSegment': (40.0, 30.0, 100.0),
+        'IfcLightFixture': (30.0, 30.0, 10.0),
+        'IfcFireSuppressionTerminal': (10.0, 10.0, 10.0),  # Sprinkler
+        'IfcAirTerminal': (40.0, 40.0, 20.0),  # Diffuser
+        'IfcBuildingElementProxy': (50.0, 50.0, 50.0),  # Generic elements
     }
 
-    return sizes.get(ifc_class, (5.0, 5.0, 5.0))  # Default 5m cube (10× larger)
+    return sizes.get(ifc_class, (50.0, 50.0, 50.0))  # Default 50m cube
 
 
 def add_geometries_to_database(db_path):

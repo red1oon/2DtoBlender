@@ -805,13 +805,14 @@ class DXFToDatabase:
             offset_z = 0.0  # Keep intelligent Z-heights as-is
             print(f"   Z-coordinates in valid range ({min_z:.2f} to {max_z:.2f}m) - preserving intelligent heights")
 
-        # Check if coordinates are likely in millimeters (values > 10,000)
+        # Check DXF units and apply appropriate scaling
+        # DXF INSUNITS=4 means millimeters, so we need mm→m conversion
         unit_scale = 1.0
         if abs(max_x - min_x) > 10000 or abs(max_y - min_y) > 10000:
-            print(f"   ⚠️  Detected large coordinates (likely millimeters)")
+            print(f"   ⚠️  Large coordinates detected")
             print(f"   Range: X=[{min_x:.0f}, {max_x:.0f}], Y=[{min_y:.0f}, {max_y:.0f}]")
-            unit_scale = 0.001  # Convert mm → m
-            print(f"   Converting to meters (scale: {unit_scale})")
+            unit_scale = 0.001  # Convert mm → m (DXF units are millimeters)
+            print(f"   Applying mm→m conversion (scale: {unit_scale})")
 
         print(f"   Coordinate offset: X={offset_x:.2f}, Y={offset_y:.2f}, Z={offset_z:.2f}")
         print(f"   Unit scale: {unit_scale}")
