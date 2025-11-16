@@ -23,6 +23,7 @@ build/
 # Databases (keep template, exclude generated)
 Generated_*.db
 Test_*.db
+Terminal1_*.db
 *.db-journal
 
 # Logs
@@ -46,4 +47,50 @@ SourceFiles/TERMINAL1DXF/**/*.dxf
 
 # Large binary files (>100MB)
 *.blend
-*.db
+*.blend1
+
+# DOCUMENTATION - Only commit essential guides
+# Exclude all documentation except core guides
+Documentation/
+Workflow/
+Planning/
+Reference/
+
+# Exclude redundant/legacy documentation from root
+BUILDING_TYPE_TEMPLATES.md
+PARAMETRIC_ARRAY_TEMPLATES.md
+DUAL_MODE_Z_HEIGHT_STRATEGY.md
+CURRENT_IMPLEMENTATION_GAP_ANALYSIS.md
+IMPLEMENTATION_SUMMARY.md
+INTEGRATION_COMPLETE.md
+POC_SUCCESS_SUMMARY.md
+POC_TEST_RESULTS.md
+RUNTIME_VERIFICATION_COMPLETE.md
+BLENDER_IMPORT_GUIDE.md
+DATABASE_READY.md
+OPENING_IN_BONSAI_AND_TEMPLATE_CONFIGURATOR.md
+RESEARCH_FINDINGS_DXF_COORDINATE_ISSUE.md
+INTELLIGENT_ANTICIPATION_STRATEGY.md
+MARKET_ADOPTION_PSYCHOLOGY.md
+QUALIFIED_EVALUATION_REPORT.md
+RED1_SOLO_JUGGERNAUT_STRATEGY.md
+TROJAN_HORSE_MARKET_STRATEGY.md
+FIX_SUMMARY.md
+VIEWPORT_FIX_SUMMARY.md
+NEXT_SESSION_PROMPT.md
+GUI_INTEGRATION_DESIGN.md
+TEMPLATE_CONFIGURATOR_INTEGRATION.md
+USER_MANUAL.md
+SCHEMA_REFERENCE.md
+NEXT_SESSION_START_HERE.md
+SESSION_SUMMARY_NOV17.md
+MINI_BONSAI_TREE_GUI_INTEGRATION.md
+PHASE2_SHAPE_IMPROVEMENT.md
+test_in_blender.md
+DOCUMENTATION_CLEANUP_PLAN.md
+
+# Keep only these essential docs in git:
+# - README.md (project overview)
+# - 2D_TO_3D_COMPLETE_WORKFLOW.md (main guide)
+# - SPATIAL_FILTER_GUIDE.md (critical workflow)
+# - TemplateConfigurator/ docs (separate tool)
