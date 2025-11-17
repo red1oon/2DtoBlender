@@ -94,3 +94,5 @@ DOCUMENTATION_CLEANUP_PLAN.md
 # - 2D_TO_3D_COMPLETE_WORKFLOW.md (main guide)
 # - SPATIAL_FILTER_GUIDE.md (critical workflow)
 # - TemplateConfigurator/ docs (separate tool)
+# BonsaiTester HTML reports (test artifacts, keep locally)
+logs/bonsai_test_*.html
