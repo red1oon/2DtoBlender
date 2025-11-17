@@ -1,0 +1,146 @@
+Enhanced Visualization Validation Report
+Database: /home/red1/Documents/bonsai/2Dto3D/Terminal1_MainBuilding_FILTERED.db
+Test Date: 2025-11-17 10:55:25
+
+======================================================================
+2D-TO-3D VISUALIZATION VALIDATION REPORT
+======================================================================
+Total Elements: 1,185
+Elements Checked: 200
+
+DISCIPLINE COLOR VALIDATION
+----------------------------------------------------------------------
+  Status: OK
+  Message: All elements have standard discipline codes
+  Unique Disciplines: 4
+  Missing Disciplines: 0
+
+  Discipline Distribution:
+    ✓ ARC                 :   911 ( 76.9%)
+    ✓ FP                  :   219 ( 18.5%)
+    ✓ STR                 :    29 (  2.4%)
+    ✓ ELEC                :    26 (  2.2%)
+
+MATERIAL ASSIGNMENT VALIDATION (Material Mode Readiness)
+----------------------------------------------------------------------
+  Status: CRITICAL
+  Message: Material mode will NOT work: elements_meta.material_rgba is empty (all NULL)
+
+  CRITICAL: Bonsai Material mode reads from elements_meta.material_rgba!
+  elements_meta.material_rgba: 0/1185 (0.0%)
+  material_assignments table: 1185/1185
+
+  Materials in material_assignments table: 7
+  (Note: This table is NOT used by Material mode)
+
+  Material Distribution (from material_assignments):
+    ✓ ARC_IfcWall                   :  694 elements  [0.7,0.75,0.85,1.0]
+    ✓ ARC_IfcDoor                   :  530 elements  [0.7,0.75,0.85,1.0]
+    ✓ FP_IfcBuildingElementProxy    :  438 elements  [1.0,0.2,0.2,1.0]
+    ✓ ARC_IfcBuildingElementProxy   :  438 elements  [0.7,0.75,0.85,1.0]
+    ✓ ARC_IfcWindow                 :  160 elements  [0.7,0.75,0.85,1.0]
+    ✓ STR_IfcColumn                 :   58 elements  [0.6,0.6,0.6,1.0]
+    ✓ ELEC_IfcBuildingElementProxy  :   52 elements  [1.0,0.8,0.0,1.0]
+
+DIMENSION VARIANCE VALIDATION
+----------------------------------------------------------------------
+  Status: OK
+  Message: Good dimension variance: 3/5 classes have varied dimensions
+  Dimension Columns: length
+
+  Classes with Good Variance: 3/5
+  Classes with Placeholders: 2/5
+
+  Top 5 Classes by Dimension Variance:
+    ✓ IfcWall                       : 135 unique (min:  0.00m, max:  7.77m)
+    ✓ IfcDoor                       :  72 unique (min:  0.00m, max: 11.00m)
+    ✓ IfcWindow                     :  17 unique (min:  0.15m, max:  8.65m)
+    ✗ IfcColumn                     :   1 unique (min:  1.00m, max:  1.00m)
+    ✗ IfcBuildingElementProxy       :   1 unique (min:  1.00m, max:  1.00m)
+
+DXF SOURCE VALIDATION
+----------------------------------------------------------------------
+  Status: WARNING
+  Message: 4/5 classes have dimension issues
+
+  DXF Files Found: 6
+    - 2Dto3D/SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf
+    - 2Dto3D/SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.4_Lyt_4FB-6FB_e1P1_240530.dxf
+    - 2Dto3D/SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.0_Lyt_GB_e2P2_240711.dxf
+
+  Dimension Accuracy by Class:
+    ⚠ IfcWall                       : 135 unique (0.00m - 7.77m)
+       DXF Match: MISMATCH
+       ⚠ 9 elements have near-zero dimensions (< 0.01m)
+       ⚠ DXF range (0.00m - 14483265.29m) != DB range (0.00m - 7.77m)
+    ⚠ IfcBuildingElementProxy       :   1 unique (1.00m - 1.00m)
+       ⚠ All 1 elements are 1.0m (placeholder)
+    ⚠ IfcColumn                     :   1 unique (1.00m - 1.00m)
+       ⚠ All 1 elements are 1.0m (placeholder)
+    ⚠ IfcDoor                       :  72 unique (0.00m - 11.00m)
+       ⚠ 1 elements have near-zero dimensions (< 0.01m)
+    ✓ IfcWindow                     :  17 unique (0.15m - 8.65m)
+
+COMPLEX PARAMETRIC SHAPES (Cylinders, Detailed Meshes)
+----------------------------------------------------------------------
+  Status: OK
+  Message: Found 65 elements with proper parametric shapes
+  Complex Elements: 65 / 200 (32.5%)
+  Simple Box Elements: 135
+
+  NOTE: Simple boxes are acceptable if dimensions vary (see above)
+
+  Complex Shape Types Found: cylinder, custom_12-36
+
+  Sample Complex Elements:
+    - IfcColumn                 (STR ): cylinder     [ 26 verts, high  ]
+    - IfcDoor                   (ARC ): custom_12-36 [ 16 verts, medium]
+    - IfcDoor                   (ARC ): custom_12-36 [ 16 verts, medium]
+    - IfcWindow                 (ARC ): custom_12-36 [ 16 verts, medium]
+    - IfcColumn                 (STR ): cylinder     [ 26 verts, high  ]
+
+ROTATION ANALYSIS
+----------------------------------------------------------------------
+  Unique Rotations: 84
+  Zero Rotations: 669 (56.5%)
+  Non-Zero Rotations: 516 (43.5%)
+  Rotation Quality: WARNING
+
+  Top 5 Most Common Rotations:
+       0.0° :  669 elements ( 56.5%)
+      -1.6° :  121 elements ( 10.2%)
+       1.6° :  105 elements (  8.9%)
+       3.1° :   50 elements (  4.2%)
+      -1.6° :   17 elements (  1.4%)
+
+PREVIEW MODE READINESS
+----------------------------------------------------------------------
+  Status: ERROR
+  Sample Size: 0
+  Axis-Aligned Boxes: 0
+  Rotated Boxes: 0
+
+GEOMETRY QUALITY
+----------------------------------------------------------------------
+  Sampled: 0
+  Simple Boxes: 0 (0.0%)
+  Detailed Geometry: 0 (100.0%)
+  Avg Vertices/Element: 0.0
+
+ISSUES FOUND
+----------------------------------------------------------------------
+  🚨 CRITICAL: 1 issue(s)
+     - Material mode will NOT work: elements_meta.material_rgba is empty (all NULL)
+  ⚠️  WARNING: 6 issue(s)
+     - All 1 elements are 1.0m (placeholder)
+     - All 1 elements are 1.0m (placeholder)
+     - 1 elements have near-zero dimensions (< 0.01m)
+     - 9 elements have near-zero dimensions (< 0.01m)
+     - DXF range (0.00m - 14483265.29m) != DB range (0.00m - 7.77m)
+     - 669 elements share rotation 0.0°
+
+======================================================================
+❌ CRITICAL VISUALIZATION ISSUES DETECTED
+   Preview mode may NOT show improved geometry
+   Full Load mode recommended for testing
+======================================================================
