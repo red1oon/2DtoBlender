@@ -1,0 +1,416 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated_by": "preprocess_building.py",
+    "last_updated": "2025-11-17T00:00:00Z",
+    "description": "Master configuration for Terminal 1 Main Building - drives entire 2Dto3D workflow"
+  },
+  "building_info": {
+    "name": "Terminal 1 Main Building",
+    "building_type": "AIRPORT_TERMINAL",
+    "building_subtype": "DEPARTURE_TERMINAL",
+    "total_floors": 7,
+    "floor_to_floor_height": 4.0,
+    "ground_floor_elevation": 0.0,
+    "typical_floor_height": 3.5,
+    "ceiling_plenum_height": 0.5,
+    "footprint_area_m2": 15000,
+    "detection_confidence": {
+      "building_type": 0.2,
+      "floor_count": 1.0,
+      "source": "dxf_analysis + block_name_inference"
+    }
+  },
+  "floor_levels": [
+    {
+      "level_id": "GB",
+      "level_number": -1,
+      "elevation": -4.0,
+      "name": "Ground/Basement",
+      "slab_thickness": 0.3,
+      "active": false,
+      "dxf_sources": {
+        "ARC": "SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf",
+        "STR": "SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.0_Lyt_GB_e2P2_240711.dxf",
+        "FP": null,
+        "ELEC": null,
+        "ACMV": null,
+        "SP": null
+      },
+      "completeness": {
+        "ARC": "partial",
+        "STR": "complete",
+        "FP": "missing",
+        "ELEC": "missing"
+      },
+      "notes": "Basement level - mechanical/utility spaces"
+    },
+    {
+      "level_id": "1F",
+      "level_number": 1,
+      "elevation": 0.0,
+      "name": "First Floor - Departure Hall",
+      "slab_thickness": 0.3,
+      "active": true,
+      "is_poc_target": true,
+      "dxf_sources": {
+        "ARC": "SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf",
+        "STR": "SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.1_Lyt_1FB_e1P1_240530.dxf",
+        "FP": null,
+        "ELEC": null,
+        "ACMV": null,
+        "SP": null
+      },
+      "completeness": {
+        "ARC": "complete",
+        "STR": "complete",
+        "FP": "generated",
+        "ELEC": "generated"
+      },
+      "functional_zones": [
+        "departure_hall",
+        "check_in_counters",
+        "retail_area",
+        "public_restrooms",
+        "baggage_handling"
+      ],
+      "mep_ceiling_height": 4.0,
+      "notes": "Main departure hall - POC target floor"
+    },
+    {
+      "level_id": "2F",
+      "level_number": 2,
+      "elevation": 4.0,
+      "name": "Second Floor",
+      "slab_thickness": 0.3,
+      "active": false,
+      "dxf_sources": {
+        "ARC": "SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf",
+        "STR": null,
+        "FP": null,
+        "ELEC": null
+      },
+      "completeness": {
+        "ARC": "partial",
+        "STR": "missing"
+      },
+      "notes": "DXF data incomplete - skip for POC"
+    },
+    {
+      "level_id": "3F",
+      "level_number": 3,
+      "elevation": 8.0,
+      "name": "Third Floor",
+      "slab_thickness": 0.3,
+      "active": false,
+      "dxf_sources": {
+        "ARC": "SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf",
+        "STR": "SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.3_Lyt_3FB_e1P1_240530.dxf",
+        "FP": null,
+        "ELEC": null
+      },
+      "completeness": {
+        "ARC": "partial",
+        "STR": "complete"
+      }
+    },
+    {
+      "level_id": "4F",
+      "level_number": 4,
+      "elevation": 12.0,
+      "name": "Fourth Floor",
+      "slab_thickness": 0.3,
+      "active": false,
+      "dxf_sources": {
+        "ARC": "SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf",
+        "STR": "SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.4_Lyt_4FB-6FB_e1P1_240530.dxf",
+        "FP": null,
+        "ELEC": null
+      },
+      "completeness": {
+        "ARC": "partial",
+        "STR": "complete"
+      }
+    },
+    {
+      "level_id": "5F",
+      "level_number": 5,
+      "elevation": 16.0,
+      "name": "Fifth Floor",
+      "slab_thickness": 0.3,
+      "active": false,
+      "dxf_sources": {
+        "ARC": "SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf",
+        "STR": "SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.4_Lyt_4FB-6FB_e1P1_240530.dxf",
+        "FP": null,
+        "ELEC": null
+      },
+      "completeness": {
+        "ARC": "partial",
+        "STR": "complete"
+      }
+    },
+    {
+      "level_id": "6F",
+      "level_number": 6,
+      "elevation": 20.0,
+      "name": "Sixth Floor",
+      "slab_thickness": 0.3,
+      "active": false,
+      "dxf_sources": {
+        "ARC": "SourceFiles/TERMINAL1DXF/01 ARCHITECT/2. BANGUNAN TERMINAL 1.dxf",
+        "STR": "SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.4_Lyt_4FB-6FB_e1P1_240530.dxf",
+        "FP": null,
+        "ELEC": null
+      },
+      "completeness": {
+        "ARC": "partial",
+        "STR": "complete"
+      }
+    },
+    {
+      "level_id": "RF",
+      "level_number": 7,
+      "elevation": 24.0,
+      "name": "Roof - Truss Level",
+      "slab_thickness": 0.2,
+      "active": false,
+      "dxf_sources": {
+        "ARC": null,
+        "STR": "SourceFiles/TERMINAL1DXF/02 STRUCTURE/T1-2.5_Lyt_5R_Truss_e3P0_29Oct'23.dxf",
+        "FP": null,
+        "ELEC": null
+      },
+      "completeness": {
+        "STR": "complete"
+      },
+      "notes": "Roof truss structure only"
+    }
+  ],
+  "spatial_infrastructure": {
+    "vertical_shafts": [
+      {
+        "shaft_id": "SHAFT_01",
+        "shaft_type": "MEP_RISER",
+        "location": {
+          "x": -50350.0,
+          "y": 34200.0
+        },
+        "width": 3.0,
+        "depth": 2.0,
+        "serves_floors": [
+          "GB",
+          "1F",
+          "2F",
+          "3F",
+          "4F",
+          "5F",
+          "6F"
+        ],
+        "disciplines": [
+          "FP",
+          "SP",
+          "ELEC"
+        ],
+        "detection_method": "str_port_analysis",
+        "confidence": 0.0,
+        "notes": "To be detected from STR DXF ports"
+      }
+    ],
+    "mechanical_rooms": [
+      {
+        "room_id": "MECH_01",
+        "room_type": "CENTRAL_AHU",
+        "floor_level": "GB",
+        "area_m2": 100.0,
+        "serves_zones": [
+          "departure_hall",
+          "check_in_counters"
+        ],
+        "detection_method": "arc_zone_analysis",
+        "confidence": 0.0,
+        "notes": "To be detected from large ARC zones near building edge"
+      }
+    ],
+    "stairwells": [],
+    "elevator_shafts": [],
+    "notes": "Infrastructure to be populated by preprocessing script"
+  },
+  "mep_strategy": {
+    "building_type_concepts": [
+      "CENTRAL_ACMV",
+      "DISTRIBUTED_FP_GRID",
+      "ZONE_BASED_LIGHTING",
+      "VERTICAL_RISERS",
+      "CEILING_PLENUM_ROUTING"
+    ],
+    "FP": {
+      "system_type": "wet_pipe_sprinkler",
+      "sprinkler_spacing": 3.0,
+      "max_coverage_per_head": 9.0,
+      "branch_pipe_diameter": 0.025,
+      "trunk_pipe_diameter": 0.1,
+      "feed_pipe_diameter": 0.15,
+      "routing_strategy": "grid_with_corridor_trunks",
+      "vertical_routing": "risers_in_shafts",
+      "zones_per_floor": 4,
+      "fixture_height_above_floor": 3.8,
+      "detection_patterns": {
+        "dxf_blocks": [
+          "sprinkler",
+          "detector",
+          "heat detector"
+        ],
+        "dxf_layers": [
+          "FP",
+          "BOMBA",
+          "FIRE"
+        ]
+      }
+    },
+    "ELEC": {
+      "system_type": "zone_lighting",
+      "fixture_spacing": 6.0,
+      "fixture_types": {
+        "departure_hall": "LED_DOWNLIGHT_200W",
+        "retail_area": "LED_PANEL_150W",
+        "corridor": "LED_STRIP_100W",
+        "restroom": "LED_DOWNLIGHT_50W"
+      },
+      "cable_tray_width": 0.3,
+      "cable_tray_height": 0.1,
+      "conduit_diameter": 0.02,
+      "routing_strategy": "cable_tray_with_conduit_drops",
+      "vertical_routing": "risers_in_shafts",
+      "fixture_height_above_floor": 4.0,
+      "detection_patterns": {
+        "dxf_blocks": [
+          "light",
+          "EME LIGHT",
+          "el"
+        ],
+        "dxf_layers": [
+          "EL",
+          "ELEC",
+          "LIGHT"
+        ]
+      }
+    },
+    "ACMV": {
+      "system_type": "central_ahu_ducted",
+      "diffuser_spacing": 4.0,
+      "ahu_locations": [
+        "MECH_01"
+      ],
+      "duct_sizes": {
+        "main": {
+          "width": 1.0,
+          "height": 0.6
+        },
+        "branch": {
+          "width": 0.4,
+          "height": 0.3
+        },
+        "flex": {
+          "diameter": 0.2
+        }
+      },
+      "routing_strategy": "ceiling_plenum_grid",
+      "vertical_routing": "shafts_and_risers",
+      "zones_per_floor": 6,
+      "diffuser_height_above_floor": 3.8,
+      "detection_patterns": {
+        "dxf_blocks": [
+          "diffuser",
+          "grille",
+          "ahu"
+        ],
+        "dxf_layers": [
+          "ACMV",
+          "AC",
+          "HVAC"
+        ]
+      }
+    },
+    "SP": {
+      "system_type": "gravity_drainage_pressurized_supply",
+      "fixture_types": [
+        "toilet",
+        "sink",
+        "urinal"
+      ],
+      "drain_pipe_diameter": 0.1,
+      "supply_pipe_diameter": 0.025,
+      "routing_strategy": "gravity_fall_with_horizontal_branches",
+      "vertical_routing": "soil_stacks_in_shafts",
+      "clustering": "restroom_zones",
+      "detection_patterns": {
+        "dxf_blocks": [
+          "sink",
+          "toilet",
+          "wc"
+        ],
+        "dxf_layers": [
+          "SAN",
+          "SP",
+          "PLUMBING"
+        ]
+      }
+    }
+  },
+  "poc_config": {
+    "mode": "single_floor",
+    "target_floor": "1F",
+    "active_disciplines": [
+      "ARC",
+      "STR",
+      "FP",
+      "ELEC"
+    ],
+    "future_disciplines": [
+      "ACMV",
+      "SP"
+    ],
+    "enable_routing_infrastructure": true,
+    "enable_corridor_detection": true,
+    "enable_zone_detection": true,
+    "enable_shaft_detection": true,
+    "geometry_generation": {
+      "floors": true,
+      "ceilings": false,
+      "mep_devices": true,
+      "mep_routing": true
+    },
+    "validation": {
+      "enforce_ifc4_standards": true,
+      "require_connectivity": true,
+      "check_routing_feasibility": true
+    }
+  },
+  "workflow_overrides": {
+    "description": "Override auto-detected values for POC testing",
+    "skip_preprocessing": false,
+    "force_single_floor": true,
+    "manual_corridor_count": null,
+    "manual_shaft_locations": null,
+    "debug_mode": true
+  },
+  "gui_config": {
+    "description": "Future GUI configuration hooks",
+    "adjustable_parameters": [
+      "mep_strategy.FP.sprinkler_spacing",
+      "mep_strategy.ELEC.fixture_spacing",
+      "mep_strategy.ACMV.diffuser_spacing",
+      "poc_config.target_floor",
+      "poc_config.active_disciplines"
+    ],
+    "detection_thresholds": {
+      "corridor_width_min": 1.5,
+      "corridor_width_max": 4.0,
+      "corridor_length_min": 5.0,
+      "washroom_area_max": 20.0,
+      "mechanical_room_area_min": 30.0,
+      "confidence_threshold": 0.6
+    }
+  }
+}
