@@ -25,10 +25,16 @@ Generated_*.db
 Test_*.db
 Terminal1_*.db
 *.db-journal
+*.db
+!Templates/*.db
 
 # Logs
 *.log
 consolelogs/
+logs/*.md
+logs/*.txt
+logs/*.json
+*.json
 
 # OS
 .DS_Store
@@ -96,3 +102,13 @@ DOCUMENTATION_CLEANUP_PLAN.md
 # - TemplateConfigurator/ docs (separate tool)
 # BonsaiTester HTML reports (test artifacts, keep locally)
 logs/bonsai_test_*.html
+
+# Generated analysis files
+dxf_block_analysis.json
+*.json
+
+# Documentation archives
+docs/archive/
+
+# Master routing generated files
+MASTER_TEMPLATE_ROUTING_README.md
