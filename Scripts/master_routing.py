@@ -266,6 +266,64 @@ class MasterRoutingEngine:
             trunk_ifc_class = 'IfcFlowSegment'
             branch_ifc_class = 'IfcFlowSegment'
 
+        # Export generated devices (if any)
+        if hasattr(router, 'devices') and router.devices:
+            # Check if devices were generated (not loaded from DB)
+            device_sample = router.devices[0]
+            if hasattr(device_sample, 'guid') and len(device_sample.guid) == 36:  # UUID format
+                # These are generated devices - export them to database
+                print(f"Exporting {len(router.devices)} generated devices...")
+
+                from code_compliance import PlacementGenerator
+
+                for device in router.devices:
+                    # Skip if device already exists in database
+                    cursor.execute("SELECT COUNT(*) FROM elements_meta WHERE guid = ?", (device.guid,))
+                    if cursor.fetchone()[0] > 0:
+                        continue  # Already in DB
+
+                    # Get IFC class for device type
+                    ifc_class = PlacementGenerator.ELEMENT_IFC_MAP.get(device.device_type, 'IfcBuildingElementProxy')
+
+                    # Insert into elements_meta
+                    cursor.execute("""
+                        INSERT INTO elements_meta
+                        (guid, discipline, ifc_class, filepath, element_name, element_type, inferred_shape_type)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        device.guid,
+                        device.discipline,
+                        ifc_class,
+                        'Generated_Grid',
+                        f'Generated_{device.device_type}',
+                        device.device_type,
+                        device.device_type
+                    ))
+
+                    # Insert position
+                    cursor.execute("""
+                        INSERT INTO element_transforms
+                        (guid, center_x, center_y, center_z, length, rotation_z)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    """, (device.guid, device.x, device.y, device.z, 0.2, 0.0))
+
+                    # Insert into spatial index
+                    cursor.execute("SELECT rowid FROM element_transforms WHERE guid = ?", (device.guid,))
+                    rowid = cursor.fetchone()[0]
+
+                    bbox_size = 0.1
+                    cursor.execute("""
+                        INSERT INTO elements_rtree (id, minX, maxX, minY, maxY, minZ, maxZ)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        rowid,
+                        device.x - bbox_size, device.x + bbox_size,
+                        device.y - bbox_size, device.y + bbox_size,
+                        device.z - bbox_size, device.z + bbox_size
+                    ))
+
+                print(f"✅ Exported {len(router.devices)} generated devices to database")
+
         # Export trunk lines
         print(f"Exporting {len(router.trunk_lines)} trunk lines...")
         for trunk in router.trunk_lines:
