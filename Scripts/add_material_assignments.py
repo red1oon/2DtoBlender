@@ -22,21 +22,17 @@ import sqlite3
 from pathlib import Path
 
 # Discipline color mapping (RGBA values)
-# Maps actual database discipline names to colors
+# Maps standardized discipline codes to colors
 DISCIPLINE_COLORS = {
-    # Standard short codes
-    'ARC': '0.7,0.75,0.85,1.0',     # Light blue-gray
-    'STR': '0.6,0.6,0.6,1.0',       # Medium gray
-    'FP': '1.0,0.2,0.2,1.0',        # Red
-    'ELEC': '1.0,0.8,0.0,1.0',      # Yellow (electrical)
+    # Standard short codes (2025-11-17: Standardized)
+    'ARC': '0.7,0.75,0.85,1.0',     # Light blue-gray (Architecture)
+    'STR': '0.6,0.6,0.6,1.0',       # Medium gray (Structure)
+    'FP': '1.0,0.2,0.2,1.0',        # Red (Fire Protection)
+    'ELEC': '1.0,0.8,0.0,1.0',      # Yellow (Electrical)
     'ACMV': '0.0,0.6,1.0,1.0',      # Blue (HVAC)
-    'SP': '0.2,0.8,0.2,1.0',        # Green (sanitary/plumbing)
-    # Full discipline names (from DXF extraction)
-    'Seating': '0.7,0.75,0.85,1.0',         # Architecture -> Light blue-gray
-    'Architecture': '0.7,0.75,0.85,1.0',   # Light blue-gray
-    'Structure': '0.6,0.6,0.6,1.0',        # Medium gray
-    'Fire_Protection': '1.0,0.2,0.2,1.0',  # Red
-    'Electrical': '1.0,0.8,0.0,1.0',       # Yellow
+    'SP': '0.2,0.8,0.2,1.0',        # Green (Sanitary/Plumbing)
+    'CW': '0.0,0.8,0.8,1.0',        # Cyan (Chilled Water)
+    'REB': '0.8,0.4,0.0,1.0',       # Orange (Reinforcement)
 }
 
 DEFAULT_COLOR = '0.9,0.9,0.9,1.0'  # White
@@ -115,19 +111,16 @@ def populate_material_assignments(conn):
 def get_color_name(discipline):
     """Get human-readable color name for discipline."""
     color_names = {
-        'ARC': 'Light Blue-Gray',
-        'STR': 'Medium Gray',
-        'FP': 'Red',
-        'ELEC': 'Yellow',
-        'ACMV': 'Blue',
-        'SP': 'Green',
-        'Seating': 'Light Blue-Gray (Architecture)',
-        'Architecture': 'Light Blue-Gray',
-        'Structure': 'Medium Gray',
-        'Fire_Protection': 'Red',
-        'Electrical': 'Yellow',
+        'ARC': 'Light Blue-Gray (Architecture)',
+        'STR': 'Medium Gray (Structure)',
+        'FP': 'Red (Fire Protection)',
+        'ELEC': 'Yellow (Electrical)',
+        'ACMV': 'Blue (HVAC)',
+        'SP': 'Green (Sanitary/Plumbing)',
+        'CW': 'Cyan (Chilled Water)',
+        'REB': 'Orange (Reinforcement)',
     }
-    return color_names.get(discipline, 'White')
+    return color_names.get(discipline, 'White (Default)')
 
 def verify_assignments(conn):
     """Verify material assignments were created correctly."""

@@ -58,17 +58,18 @@ class TemplateLibrary:
         self.layer_mapping = {}  # layer name → discipline
         self.layer_mappings_path = layer_mappings_path
 
-        # Discipline code mappings (short → full name)
+        # Discipline code mappings (standardized short codes)
+        # Changed 2025-11-17: Use standard short codes instead of full names
         self.discipline_map = {
-            'FP': 'Fire_Protection',
-            'ARC': 'Seating',  # Templates use 'Seating' for architecture
-            'ACMV': 'ACMV',
-            'SP': 'Plumbing',
-            'CW': 'Chilled_Water',
-            'LPG': 'LPG',
-            'ELEC': 'Electrical',
-            'STR': 'Structure',
-            'REB': 'Reinforcement'
+            'FP': 'FP',           # Fire Protection (was: Fire_Protection)
+            'ARC': 'ARC',         # Architecture (was: Seating)
+            'ACMV': 'ACMV',       # HVAC
+            'SP': 'SP',           # Sanitary/Plumbing (was: Plumbing)
+            'CW': 'CW',           # Chilled Water (was: Chilled_Water)
+            'LPG': 'LPG',         # LPG
+            'ELEC': 'ELEC',       # Electrical (was: Electrical)
+            'STR': 'STR',         # Structure (was: Structure)
+            'REB': 'REB'          # Reinforcement (was: Reinforcement)
         }
 
         if not self.template_db_path.exists():
@@ -540,32 +541,32 @@ class DXFToDatabase:
         # Heights are measured from floor (0.0m)
         discipline_heights = {
             # Structure (lowest - embedded in floor/walls/ceiling)
-            ("Structure", "IfcBeam"): 0.3,                    # Below ceiling
-            ("Structure", "IfcColumn"): 0.0,                  # Floor level
-            ("Structure", "IfcSlab"): 0.0,                    # Floor level
-            ("Structure", "IfcWall"): 0.0,                    # Floor level
-            ("Reinforcement", "IfcReinforcingBar"): 0.1,      # Embedded in concrete
+            ("STR", "IfcBeam"): 0.3,                    # Below ceiling
+            ("STR", "IfcColumn"): 0.0,                  # Floor level
+            ("STR", "IfcSlab"): 0.0,                    # Floor level
+            ("STR", "IfcWall"): 0.0,                    # Floor level
+            ("REB", "IfcReinforcingBar"): 0.1,      # Embedded in concrete
 
             # ACMV (below ceiling, needs clearance)
             ("ACMV", "IfcDuctSegment"): ceiling - 0.6,        # 600mm below ceiling
             ("ACMV", "IfcAirTerminal"): ceiling - 0.4,        # Diffusers closer to ceiling
 
             # Electrical (higher up, less clearance needed)
-            ("Electrical", "IfcCableCarrierSegment"): ceiling - 0.2,  # Cable trays high
-            ("Electrical", "IfcLightFixture"): ceiling - 0.1,          # Lights at ceiling
+            ("ELEC", "IfcCableCarrierSegment"): ceiling - 0.2,  # Cable trays high
+            ("ELEC", "IfcLightFixture"): ceiling - 0.1,          # Lights at ceiling
 
             # Fire Protection (highest priority - cannot be obstructed)
-            ("Fire_Protection", "IfcPipeSegment"): ceiling - 0.1,              # Sprinkler pipes highest
-            ("Fire_Protection", "IfcFireSuppressionTerminal"): ceiling - 0.05, # Sprinkler heads at ceiling
+            ("FP", "IfcPipeSegment"): ceiling - 0.1,              # Sprinkler pipes highest
+            ("FP", "IfcFireSuppressionTerminal"): ceiling - 0.05, # Sprinkler heads at ceiling
 
             # Plumbing (varies by function)
-            ("Plumbing", "IfcPipeSegment"): ceiling - 0.5,    # Below ACMV
+            ("SP", "IfcPipeSegment"): ceiling - 0.5,    # Below ACMV
 
             # Chilled Water (similar to plumbing)
-            ("Chilled_Water", "IfcPipeSegment"): ceiling - 0.5,
+            ("CW", "IfcPipeSegment"): ceiling - 0.5,
 
-            # Furniture/Seating (floor level)
-            ("Seating", "IfcFurniture"): 0.0,                 # On floor
+            # Architecture/Furniture (floor level)
+            ("ARC", "IfcFurniture"): 0.0,                 # On floor
 
             # Default fallback for unknown combinations
             ("default", "default"): 1.5,                       # Mid-height as safe default
@@ -583,13 +584,13 @@ class DXFToDatabase:
             # Fallback to discipline-level defaults
             if z_height is None:
                 discipline_defaults = {
-                    "Structure": 0.0,
+                    "STR": 0.0,
                     "ACMV": ceiling - 0.6,
-                    "Electrical": ceiling - 0.2,
-                    "Fire_Protection": ceiling - 0.1,
-                    "Plumbing": ceiling - 0.5,
-                    "Chilled_Water": ceiling - 0.5,
-                    "Seating": 0.0,
+                    "ELEC": ceiling - 0.2,
+                    "FP": ceiling - 0.1,
+                    "SP": ceiling - 0.5,
+                    "CW": ceiling - 0.5,
+                    "ARC": 0.0,
                 }
                 z_height = discipline_defaults.get(entity.discipline, 1.5)
 
@@ -622,13 +623,13 @@ class DXFToDatabase:
         # Minimum vertical clearance by discipline pair (in meters)
         # Format: (discipline1, discipline2) → minimum clearance
         clearance_rules = {
-            ("ACMV", "Electrical"): 0.15,           # 150mm between duct and cable tray
-            ("ACMV", "Fire_Protection"): 0.20,      # 200mm - fire protection priority
-            ("ACMV", "Plumbing"): 0.15,             # 150mm clearance
-            ("Electrical", "Fire_Protection"): 0.10, # 100mm clearance
-            ("Plumbing", "Fire_Protection"): 0.15,  # 150mm clearance
+            ("ACMV", "ELEC"): 0.15,           # 150mm between duct and cable tray
+            ("ACMV", "FP"): 0.20,      # 200mm - fire protection priority
+            ("ACMV", "SP"): 0.15,             # 150mm clearance
+            ("ELEC", "FP"): 0.10, # 100mm clearance
+            ("SP", "FP"): 0.15,  # 150mm clearance
             ("ACMV", "ACMV"): 0.20,                 # 200mm between ducts
-            ("Electrical", "Electrical"): 0.10,     # 100mm between cable trays
+            ("ELEC", "ELEC"): 0.10,     # 100mm between cable trays
         }
 
         # Default clearance for unknown pairs
