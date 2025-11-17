@@ -1,0 +1,421 @@
+{
+  "schema_version": "1.0.0",
+  "template_name": "Master MEP Routing Templates",
+  "description": "Comprehensive templates for intelligent MEP routing with corridor detection and code compliance",
+  "last_updated": "2025-11-17",
+
+  "building_types": {
+    "airport_terminal": {
+      "name": "Airport Terminal",
+      "description": "Large public assembly building with high ceilings",
+      "typical_ceiling_height": 4.5,
+      "occupancy_classification": "Assembly (A-3)",
+      "fire_hazard_classification": "Light Hazard",
+      "applicable_codes": ["NFPA 13", "IBC", "NEC", "ASHRAE 90.1"]
+    },
+    "transportation_hub": {
+      "name": "Transportation Hub",
+      "description": "Transport terminal for passenger/cargo handling (airport, seaport, rail, bus)",
+      "typical_ceiling_height": 4.0,
+      "occupancy_classification": "Assembly (A-3)",
+      "fire_hazard_classification": "Light Hazard",
+      "applicable_codes": ["NFPA 13", "IBC", "NEC", "ASHRAE 90.1"],
+      "notes": "Large open spaces, high occupancy, critical egress requirements"
+    },
+    "office_building": {
+      "name": "Office Building",
+      "description": "Commercial office space",
+      "typical_ceiling_height": 3.0,
+      "occupancy_classification": "Business (B)",
+      "fire_hazard_classification": "Light Hazard",
+      "applicable_codes": ["NFPA 13", "IBC", "NEC", "ASHRAE 90.1"]
+    },
+    "hospital": {
+      "name": "Hospital/Healthcare",
+      "description": "Healthcare facility with critical systems",
+      "typical_ceiling_height": 3.2,
+      "occupancy_classification": "Institutional (I-2)",
+      "fire_hazard_classification": "Light Hazard",
+      "applicable_codes": ["NFPA 13", "NFPA 99", "IBC", "NEC", "FGI Guidelines"]
+    },
+    "residential": {
+      "name": "Residential",
+      "description": "Residential occupancy",
+      "typical_ceiling_height": 2.7,
+      "occupancy_classification": "Residential (R-2)",
+      "fire_hazard_classification": "Light Hazard",
+      "applicable_codes": ["NFPA 13R", "IBC", "NEC"]
+    }
+  },
+
+  "corridor_detection": {
+    "description": "Parameters for detecting corridors from wall patterns",
+    "angle_tolerance": 5.0,
+    "angle_tolerance_unit": "degrees",
+    "angle_tolerance_description": "Maximum angle difference to consider walls parallel",
+
+    "min_corridor_width": 1.5,
+    "max_corridor_width": 8.0,
+    "corridor_width_unit": "meters",
+    "corridor_width_description": "Typical corridor widths: 1.5m (residential) to 8m (public assembly)",
+
+    "min_overlap_length": 2.0,
+    "min_overlap_unit": "meters",
+    "min_overlap_description": "Minimum wall overlap to form valid corridor",
+
+    "corridor_classification": {
+      "main": {
+        "min_length": 20.0,
+        "min_width": 3.0,
+        "description": "Primary circulation corridors"
+      },
+      "secondary": {
+        "min_length": 10.0,
+        "min_width": 1.8,
+        "description": "Secondary circulation corridors"
+      },
+      "cross": {
+        "max_length": 10.0,
+        "description": "Cross corridors and connections"
+      }
+    }
+  },
+
+  "fire_protection": {
+    "discipline_code": "FP",
+    "code_standard": "NFPA 13",
+    "description": "Fire protection sprinkler system templates",
+
+    "device_types": {
+      "sprinkler_head": {
+        "ifc_class": "IfcFireSuppressionTerminal",
+        "inferred_shape_type": "sprinkler",
+        "typical_height_above_floor": 4.4,
+        "default_color_rgba": [1.0, 0.0, 0.0, 1.0]
+      }
+    },
+
+    "routing_strategy": "corridor_based_trunk_branch",
+
+    "pipe_sizing": {
+      "trunk_line": {
+        "DN": 100,
+        "diameter_mm": 100,
+        "diameter_m": 0.1,
+        "nominal_size": "4 inch",
+        "description": "Main trunk lines along corridors",
+        "serves_min_devices": 20
+      },
+      "branch_line": {
+        "DN": 50,
+        "diameter_mm": 50,
+        "diameter_m": 0.05,
+        "nominal_size": "2 inch",
+        "description": "Branch lines perpendicular to mains",
+        "serves_min_devices": 5,
+        "max_length": 10.0
+      },
+      "drop_line": {
+        "DN": 25,
+        "diameter_mm": 25,
+        "diameter_m": 0.025,
+        "nominal_size": "1 inch",
+        "description": "Final drop to individual sprinkler heads",
+        "serves_devices": 1,
+        "max_length": 5.0
+      }
+    },
+
+    "code_compliance": {
+      "NFPA13_8.6.2.2.1": {
+        "description": "Maximum spacing between sprinklers",
+        "max_spacing_ft": 15.0,
+        "max_spacing_m": 4.572,
+        "severity_if_violated": "CRITICAL"
+      },
+      "NFPA13_8.2.3": {
+        "description": "Minimum spacing between sprinklers",
+        "min_spacing_ft": 6.0,
+        "min_spacing_m": 1.83,
+        "severity_if_violated": "WARNING"
+      },
+      "NFPA13_8.6.2.2.2": {
+        "description": "Maximum coverage area per sprinkler (Light Hazard)",
+        "max_coverage_sqft": 130,
+        "max_coverage_sqm": 12.08,
+        "severity_if_violated": "WARNING"
+      },
+      "NFPA13_8.8.2": {
+        "description": "Maximum distance from walls",
+        "max_wall_distance_ft": 7.5,
+        "max_wall_distance_m": 2.29,
+        "severity_if_violated": "WARNING"
+      }
+    },
+
+    "trunk_routing_params": {
+      "segment_length": 5.0,
+      "segment_length_unit": "meters",
+      "description": "Spacing between routing points along corridor centerline",
+
+      "max_device_distance": 10.0,
+      "max_device_distance_unit": "meters",
+      "description": "Maximum distance from device to corridor to assign to trunk"
+    },
+
+    "branch_routing_params": {
+      "branch_angle": 90.0,
+      "branch_angle_unit": "degrees",
+      "description": "Branch lines perpendicular to trunk (90°)",
+
+      "branch_threshold_length": 3.0,
+      "branch_threshold_unit": "meters",
+      "description": "Use branch line (DN 50) if length > 3m, else drop line (DN 25)"
+    }
+  },
+
+  "electrical": {
+    "discipline_code": "ELEC",
+    "code_standard": "NEC",
+    "description": "Electrical lighting and power system templates",
+
+    "device_types": {
+      "light_fixture": {
+        "ifc_class": "IfcLightFixture",
+        "inferred_shape_type": "light_fixture",
+        "typical_height_above_floor": 4.35,
+        "default_color_rgba": [1.0, 1.0, 0.0, 1.0]
+      },
+      "power_outlet": {
+        "ifc_class": "IfcOutlet",
+        "inferred_shape_type": "outlet",
+        "typical_height_above_floor": 0.3,
+        "default_color_rgba": [1.0, 1.0, 0.0, 1.0]
+      }
+    },
+
+    "routing_strategy": "corridor_based_trunk_branch",
+
+    "conduit_sizing": {
+      "trunk_line": {
+        "DN": 100,
+        "diameter_mm": 100,
+        "diameter_m": 0.1,
+        "nominal_size": "4 inch",
+        "description": "Main cable tray along corridors",
+        "ifc_class": "IfcCableCarrierSegment"
+      },
+      "branch_line": {
+        "DN": 50,
+        "diameter_mm": 50,
+        "diameter_m": 0.05,
+        "nominal_size": "2 inch",
+        "description": "Branch conduit to device groups",
+        "ifc_class": "IfcCableCarrierSegment"
+      },
+      "drop_line": {
+        "DN": 25,
+        "diameter_mm": 25,
+        "diameter_m": 0.025,
+        "nominal_size": "1 inch",
+        "description": "Final conduit to individual devices",
+        "ifc_class": "IfcCableSegment"
+      }
+    },
+
+    "code_compliance": {
+      "NEC_210.70": {
+        "description": "Lighting outlets required",
+        "requirement": "Adequate illumination for occupancy",
+        "typical_spacing_m": 6.0,
+        "severity_if_violated": "INFO"
+      },
+      "IES_RP-1-12": {
+        "description": "Illuminance levels (office)",
+        "task_illuminance_lux": 500,
+        "typical_fixture_spacing_m": 6.0,
+        "severity_if_violated": "INFO"
+      }
+    },
+
+    "trunk_routing_params": {
+      "segment_length": 6.0,
+      "segment_length_unit": "meters",
+      "description": "Spacing between routing points along corridor centerline"
+    }
+  },
+
+  "hvac": {
+    "discipline_code": "HVAC",
+    "code_standard": "ASHRAE 90.1",
+    "description": "HVAC ductwork and diffuser templates",
+
+    "device_types": {
+      "supply_diffuser": {
+        "ifc_class": "IfcAirTerminal",
+        "inferred_shape_type": "diffuser",
+        "typical_height_above_floor": 4.2,
+        "default_color_rgba": [0.0, 1.0, 1.0, 1.0]
+      },
+      "return_grille": {
+        "ifc_class": "IfcAirTerminal",
+        "inferred_shape_type": "grille",
+        "typical_height_above_floor": 0.3,
+        "default_color_rgba": [0.0, 0.8, 0.8, 1.0]
+      }
+    },
+
+    "routing_strategy": "corridor_based_trunk_branch",
+
+    "duct_sizing": {
+      "main_trunk": {
+        "width_mm": 600,
+        "height_mm": 400,
+        "description": "Main supply trunk along corridors",
+        "ifc_class": "IfcDuctSegment"
+      },
+      "branch_duct": {
+        "width_mm": 300,
+        "height_mm": 200,
+        "description": "Branch duct to diffusers",
+        "ifc_class": "IfcDuctSegment"
+      },
+      "flex_duct": {
+        "diameter_mm": 150,
+        "description": "Flexible duct to individual diffusers",
+        "ifc_class": "IfcDuctSegment"
+      }
+    }
+  },
+
+  "plumbing": {
+    "discipline_code": "PLB",
+    "code_standard": "IPC",
+    "description": "Plumbing supply and drainage templates",
+
+    "device_types": {
+      "sink": {
+        "ifc_class": "IfcSanitaryTerminal",
+        "inferred_shape_type": "sink",
+        "typical_height_above_floor": 0.9
+      },
+      "toilet": {
+        "ifc_class": "IfcSanitaryTerminal",
+        "inferred_shape_type": "toilet",
+        "typical_height_above_floor": 0.4
+      }
+    },
+
+    "pipe_sizing": {
+      "cold_water_main": {
+        "DN": 50,
+        "description": "Main cold water supply"
+      },
+      "cold_water_branch": {
+        "DN": 25,
+        "description": "Branch to fixtures"
+      },
+      "drainage_main": {
+        "DN": 100,
+        "description": "Main drainage/waste stack"
+      },
+      "drainage_branch": {
+        "DN": 50,
+        "description": "Branch drain to fixtures"
+      }
+    }
+  },
+
+  "global_parameters": {
+    "coordinate_system": {
+      "description": "All coordinates in GPS space (IfcMapConversion applied)",
+      "unit": "meters",
+      "z_reference": "floor_level"
+    },
+
+    "material_colors": {
+      "ARC": {
+        "rgba": [0.7, 0.85, 1.0, 1.0],
+        "description": "Light blue for architecture"
+      },
+      "FP": {
+        "rgba": [1.0, 0.0, 0.0, 1.0],
+        "description": "Red for fire protection"
+      },
+      "ELEC": {
+        "rgba": [1.0, 1.0, 0.0, 1.0],
+        "description": "Yellow for electrical"
+      },
+      "HVAC": {
+        "rgba": [0.0, 1.0, 1.0, 1.0],
+        "description": "Cyan for HVAC"
+      },
+      "PLB": {
+        "rgba": [0.0, 0.5, 1.0, 1.0],
+        "description": "Blue for plumbing"
+      },
+      "STR": {
+        "rgba": [0.5, 0.5, 0.5, 1.0],
+        "description": "Gray for structure"
+      }
+    },
+
+    "default_assumptions": {
+      "floor_to_ceiling_clearance": 0.3,
+      "mep_zone_height": 0.5,
+      "description": "Space above ceiling for MEP routing"
+    }
+  },
+
+  "template_selection": {
+    "description": "User-selectable templates via GUI",
+    "selection_modes": {
+      "apply_all": {
+        "description": "Apply all templates automatically (current mode)",
+        "enabled_by_default": true
+      },
+      "selective": {
+        "description": "User selects which templates to apply via GUI",
+        "enabled_by_default": false,
+        "gui_options": {
+          "by_discipline": ["FP", "ELEC", "HVAC", "PLB", "STR"],
+          "by_system_type": ["sprinkler", "lighting", "power", "hvac", "plumbing"],
+          "by_corridor": "Allow user to select which corridors get trunk lines"
+        }
+      }
+    }
+  },
+
+  "export_formats": {
+    "database": {
+      "format": "SQLite",
+      "tables": ["elements_meta", "element_transforms", "base_geometries", "elements_rtree", "material_assignments"]
+    },
+    "ifc": {
+      "schema": "IFC4",
+      "description": "Export to IFC for Bonsai/Blender import"
+    },
+    "json": {
+      "description": "Project-specific configuration for reuse"
+    }
+  },
+
+  "usage_notes": {
+    "workflow": [
+      "1. Detect corridors from wall patterns (corridor_detection.py)",
+      "2. Route trunk lines along corridor centerlines (intelligent_routing.py)",
+      "3. Generate branch lines perpendicular to trunks (intelligent_routing.py)",
+      "4. Apply hierarchical pipe sizing (DN 100 → DN 50 → DN 25)",
+      "5. Validate against code compliance (code_compliance.py)",
+      "6. Generate geometry and export to database (master_routing.py)"
+    ],
+    "gui_integration": [
+      "GUI reads this JSON template to populate configuration options",
+      "User selects building type (airport_terminal, office, hospital, etc.)",
+      "User enables/disables disciplines (FP, ELEC, HVAC, etc.)",
+      "User adjusts parameters (pipe sizing, spacing, code compliance)",
+      "GUI exports custom JSON configuration for specific project",
+      "Routing engine loads custom JSON and generates MEP systems"
+    ]
+  }
+}
