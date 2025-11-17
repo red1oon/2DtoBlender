@@ -97,7 +97,7 @@ class IntelligentRoutingEngine:
         conn.close()
         print(f"Loaded {len(self.devices)} {device_type} devices for {discipline}")
 
-    def generate_devices_from_standards(self, discipline: str, device_type: str, room_bounds: Dict[str, float], z_height: float = 4.0):
+    def generate_devices_from_standards(self, discipline: str, device_type: str, room_bounds: Dict[str, float], z_height: float = 4.0, spacing: float = 3.0):
         """
         GENERATE code-compliant device placements instead of loading from database.
 
@@ -108,6 +108,7 @@ class IntelligentRoutingEngine:
             device_type: 'sprinkler', 'light_fixture', 'hvac_diffuser'
             room_bounds: Dict with 'min_x', 'max_x', 'min_y', 'max_y'
             z_height: Height above floor (meters)
+            spacing: Spacing between devices (meters) - NEW: from config
         """
         from code_compliance import PlacementGenerator
 
@@ -117,13 +118,15 @@ class IntelligentRoutingEngine:
         print(f"Discipline: {discipline}")
         print(f"Device Type: {device_type}")
         print(f"Room Bounds: X:[{room_bounds['min_x']:.1f}, {room_bounds['max_x']:.1f}], Y:[{room_bounds['min_y']:.1f}, {room_bounds['max_y']:.1f}]")
+        print(f"Config: Spacing={spacing}m, Height={z_height}m")  # NEW: Show config values
 
         # Generate positions using standards
         placements = PlacementGenerator.generate_grid_placement(
             room_bounds=room_bounds,
             element_type=device_type,
             discipline=discipline,
-            z_height=z_height
+            z_height=z_height,
+            spacing_override=spacing  # NEW: Pass spacing from config
         )
 
         # Convert to RoutingDevice objects
@@ -386,7 +389,9 @@ class IntelligentRoutingEngine:
         trunk_diameter_dn: int = 100,
         branch_diameter_dn: int = 50,
         drop_diameter_dn: int = 25,
-        generate_devices: bool = False
+        generate_devices: bool = False,
+        device_spacing: float = 3.0,
+        device_height: float = 4.0
     ):
         """
         Complete routing workflow for a discipline.
@@ -398,6 +403,8 @@ class IntelligentRoutingEngine:
             branch_diameter_dn: Branch line diameter (DN 50 = 2")
             drop_diameter_dn: Drop line diameter (DN 25 = 1")
             generate_devices: If True, generate grid; if False, load from DB
+            device_spacing: Spacing between devices in meters (NEW: from config)
+            device_height: Height above floor in meters (NEW: from config)
         """
         print(f"\n{'='*80}")
         print(f"INTELLIGENT ROUTING: {discipline} {device_type.upper()}")
@@ -422,7 +429,11 @@ class IntelligentRoutingEngine:
                 'max_y': max_y
             }
 
-            self.generate_devices_from_standards(discipline, device_type, room_bounds, z_height=4.0)
+            self.generate_devices_from_standards(
+                discipline, device_type, room_bounds,
+                z_height=device_height,  # NEW: Use config value
+                spacing=device_spacing   # NEW: Pass spacing to generator
+            )
         else:
             self.load_devices(discipline, device_type)
 

@@ -147,7 +147,8 @@ class PlacementGenerator:
         room_bounds: Dict[str, float],
         element_type: str,
         discipline: str,
-        z_height: float = 4.0
+        z_height: float = 4.0,
+        spacing_override: Optional[float] = None
     ) -> List[Tuple[float, float, float]]:
         """
         Generate evenly-spaced grid of elements covering a room area.
@@ -157,6 +158,7 @@ class PlacementGenerator:
             element_type: 'sprinkler', 'light_fixture', 'hvac_diffuser', etc.
             discipline: 'FP', 'ELEC', 'HVAC'
             z_height: Height above floor to place elements (meters)
+            spacing_override: Override spacing from building_config.json (NEW: config-driven)
 
         Returns:
             List of (x, y, z) positions for elements
@@ -171,8 +173,13 @@ class PlacementGenerator:
         room_length = room_bounds['max_y'] - room_bounds['min_y']
         room_area = room_width * room_length
 
-        # Use optimal spacing from standards
-        spacing = standards.optimal_spacing
+        # Use spacing from config if provided, otherwise use standards (CONFIG-DRIVEN!)
+        if spacing_override is not None:
+            spacing = spacing_override
+            print(f"✅ Using config-driven spacing: {spacing}m (from building_config.json)")
+        else:
+            spacing = standards.optimal_spacing
+            print(f"⚠️  Using hardcoded spacing: {spacing}m (standards fallback)")
 
         # Calculate number of elements needed in each direction
         # Add wall clearance buffer

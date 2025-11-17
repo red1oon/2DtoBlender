@@ -160,13 +160,18 @@ class MasterRoutingEngine:
             with open(config_path, 'r') as f:
                 return json.load(f)
         else:
-            # Load default master template
-            default_path = Path(__file__).parent.parent / 'Templates' / 'master_template_schema.json'
+            # Load building_config.json (NEW CONFIG-DRIVEN ARCHITECTURE)
+            default_path = Path(__file__).parent.parent / 'building_config.json'
             if default_path.exists():
                 with open(default_path, 'r') as f:
-                    return json.load(f)
+                    config = json.load(f)
+                    print(f"✅ Loaded config-driven parameters from building_config.json")
+                    print(f"   Building Type: {config.get('building_info', {}).get('building_type', 'N/A')}")
+                    print(f"   Target Floor: {config.get('poc_config', {}).get('target_floor', 'N/A')}")
+                    return config
             else:
-                print("⚠️  Warning: No configuration file found, using hardcoded defaults")
+                print("⚠️  Warning: No building_config.json found, using hardcoded defaults")
+                print("   Run: python3 Scripts/preprocess_building.py --analyze")
                 return {}
 
     def route_discipline(self, discipline: str, device_type: str, generate_devices: bool = False):
@@ -182,20 +187,40 @@ class MasterRoutingEngine:
         print(f"MASTER ROUTING: {discipline} - {device_type.upper()}")
         print(f"{'='*80}\n")
 
-        # Get configuration for discipline
+        # Get configuration for discipline from NEW config structure (mep_strategy)
+        mep_strategy = self.config.get('mep_strategy', {})
         if discipline == 'FP':
-            config = self.config.get('fire_protection', {})
+            config = mep_strategy.get('FP', {})
         elif discipline == 'ELEC':
-            config = self.config.get('electrical', {})
+            config = mep_strategy.get('ELEC', {})
         else:
             print(f"⚠️  No configuration for discipline {discipline}, using defaults")
             config = {}
 
-        # Extract parameters from config
-        pipe_sizing = config.get('pipe_sizing', {}) or config.get('conduit_sizing', {})
-        trunk_dn = pipe_sizing.get('trunk_line', {}).get('DN', 100)
-        branch_dn = pipe_sizing.get('branch_line', {}).get('DN', 50)
-        drop_dn = pipe_sizing.get('drop_line', {}).get('DN', 25)
+        # Extract parameters from NEW config structure
+        if discipline == 'FP':
+            trunk_diameter = config.get('trunk_pipe_diameter', 0.1)  # meters
+            branch_diameter = config.get('branch_pipe_diameter', 0.025)
+            drop_diameter = config.get('branch_pipe_diameter', 0.025)
+            trunk_dn = int(trunk_diameter * 1000)  # Convert to DN
+            branch_dn = int(branch_diameter * 1000)
+            drop_dn = int(drop_diameter * 1000)
+            device_spacing = config.get('sprinkler_spacing', 3.0)  # NEW: spacing from config
+            device_height = config.get('fixture_height_above_floor', 3.8)  # NEW: height from config
+            print(f"   FP Config: sprinkler_spacing={device_spacing}m, height={device_height}m")
+        elif discipline == 'ELEC':
+            trunk_diameter = config.get('cable_tray_width', 0.3)
+            branch_diameter = config.get('conduit_diameter', 0.02)
+            drop_diameter = config.get('conduit_diameter', 0.02)
+            trunk_dn = int(trunk_diameter * 1000)
+            branch_dn = int(branch_diameter * 1000)
+            drop_dn = int(drop_diameter * 1000)
+            device_spacing = config.get('fixture_spacing', 6.0)  # NEW: spacing from config
+            device_height = config.get('fixture_height_above_floor', 4.0)  # NEW: height from config
+            print(f"   ELEC Config: fixture_spacing={device_spacing}m, height={device_height}m")
+        else:
+            trunk_dn, branch_dn, drop_dn = 100, 50, 25
+            device_spacing, device_height = 3.0, 4.0
 
         # Step 1: Intelligent routing
         print("Step 1: Intelligent Routing (Corridor-Based)")
@@ -206,7 +231,9 @@ class MasterRoutingEngine:
             trunk_diameter_dn=trunk_dn,
             branch_diameter_dn=branch_dn,
             drop_diameter_dn=drop_dn,
-            generate_devices=generate_devices  # NEW: Pass flag to router
+            generate_devices=generate_devices,
+            device_spacing=device_spacing,  # NEW: Pass spacing from config
+            device_height=device_height      # NEW: Pass height from config
         )
 
         # Step 2: Code compliance validation
