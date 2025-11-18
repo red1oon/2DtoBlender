@@ -24,7 +24,7 @@ import sqlite3
 import uuid
 import json
 from pathlib import Path
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Any
 from dataclasses import dataclass
 from collections import defaultdict
 import logging
@@ -37,15 +37,17 @@ except ImportError:
     print("Install: pip install ezdxf")
     sys.exit(1)
 
-# Import geometry generator
+# Import geometry generators
 try:
     from geometry_generator import generate_element_geometry
+    from enhanced_geometry_generator import generate_element_geometry_enhanced
 except ImportError:
     # Try importing from Scripts directory
     import sys
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).parent))
     from geometry_generator import generate_element_geometry
+    from enhanced_geometry_generator import generate_element_geometry_enhanced
 
 # ============================================================================
 # LOGGING SETUP
@@ -90,6 +92,9 @@ class BuildingElement:
     # Source info
     source_file: str = ""
     source_layer: str = ""
+
+    # Enhanced geometry (actual DXF entity shape data)
+    entity_geom: Optional[Dict] = None
 
 
 # ============================================================================
@@ -487,6 +492,9 @@ class MultiFloorProcessor:
             # Extract bounding box dimensions
             length, width, height = self._extract_bbox_dimensions(entity)
 
+            # Extract actual entity geometry (Phase 1: CIRCLE radius, etc.)
+            entity_geom = self._extract_entity_geometry(entity)
+
             arc_entities.append({
                 'x': x,
                 'y': y,
@@ -495,7 +503,8 @@ class MultiFloorProcessor:
                 'ifc_class': ifc_class,
                 'length': length,
                 'width': width,
-                'height': height
+                'height': height,
+                'entity_geom': entity_geom  # Enhanced geometry data
             })
 
             layer_counts[layer] += 1
@@ -700,6 +709,75 @@ class MultiFloorProcessor:
         # Default fallback (1m × 1m × 3.5m in mm)
         return (1000.0, 1000.0, 3500.0)
 
+    def _extract_entity_geometry(self, entity) -> Optional[Dict[str, Any]]:
+        """
+        Extract actual geometry shape data from DXF entity.
+
+        Returns shape in RELATIVE coordinates (mm), NOT absolute position.
+        Key concept: DXF vertices define SHAPE, not position.
+
+        Returns:
+            Dict with entity_type and shape data, or None if not extractable
+        """
+        try:
+            entity_type = entity.dxftype()
+
+            # Phase 1: CIRCLE - Extract radius
+            if entity_type == 'CIRCLE':
+                radius = entity.dxf.radius  # In mm (DXF units)
+                return {
+                    'entity_type': 'CIRCLE',
+                    'radius': radius  # Just a dimension, no coordinates
+                }
+
+            # Phase 2: LWPOLYLINE - Extract vertices relative to center (TODO: will implement in Phase 2)
+            elif entity_type == 'LWPOLYLINE':
+                points = list(entity.get_points())
+                if not points or len(points) < 2:
+                    return None
+
+                # Calculate bounding box center (becomes local origin)
+                xs = [pt[0] for pt in points]
+                ys = [pt[1] for pt in points]
+                center_x = (min(xs) + max(xs)) / 2.0
+                center_y = (min(ys) + max(ys)) / 2.0
+
+                # Make vertices RELATIVE to center (shape only, no position)
+                vertices_2d_relative = []
+                for pt in points:
+                    rel_x = pt[0] - center_x
+                    rel_y = pt[1] - center_y
+                    vertices_2d_relative.append((rel_x, rel_y))
+
+                return {
+                    'entity_type': 'LWPOLYLINE',
+                    'vertices_2d': vertices_2d_relative  # RELATIVE coordinates in mm
+                }
+
+            # Phase 3: LINE - Extract as relative to midpoint (TODO: will implement in Phase 3)
+            elif entity_type == 'LINE':
+                start = entity.dxf.start
+                end = entity.dxf.end
+                mid_x = (start.x + end.x) / 2.0
+                mid_y = (start.y + end.y) / 2.0
+
+                rel_start_x = start.x - mid_x
+                rel_start_y = start.y - mid_y
+                rel_end_x = end.x - mid_x
+                rel_end_y = end.y - mid_y
+
+                return {
+                    'entity_type': 'LINE',
+                    'start_point': (rel_start_x, rel_start_y),
+                    'end_point': (rel_end_x, rel_end_y)
+                }
+
+        except Exception as e:
+            # Silent fallback - entity doesn't support geometry extraction
+            pass
+
+        return None
+
     def _classify_arc_entity(self, layer: str, entity_type: str) -> Optional[str]:
         """Classify ARC entity to IFC class based on layer name."""
         layer_upper = layer.upper()
@@ -863,6 +941,9 @@ class MultiFloorProcessor:
             # Extract bounding box dimensions
             length, width, height = self._extract_bbox_dimensions(entity)
 
+            # Extract actual entity geometry (Phase 1: CIRCLE radius, etc.)
+            entity_geom = self._extract_entity_geometry(entity)
+
             # Create element
             elem = BuildingElement(
                 guid=str(uuid.uuid4()),
@@ -878,7 +959,8 @@ class MultiFloorProcessor:
                 width=width,
                 height=height,
                 source_file=dxf_path.name,
-                source_layer=layer
+                source_layer=layer,
+                entity_geom=entity_geom  # Enhanced geometry data
             )
 
             str_elements.append(elem)
@@ -907,7 +989,8 @@ class MultiFloorProcessor:
                 length=template['length'],
                 width=template['width'],
                 height=template['height'],
-                source_layer=template['layer']
+                source_layer=template['layer'],
+                entity_geom=template.get('entity_geom')  # Enhanced geometry data
             )
             arc_elements.append(elem)
 
@@ -1246,15 +1329,16 @@ class MultiFloorProcessor:
             viewport_y = norm_y - global_offset_y
             viewport_z = norm_z - global_offset_z
 
-            # Generate geometry at viewport-relative position
-            vertices_blob, faces_blob, normals_blob, geom_hash = generate_element_geometry(
-                elem.ifc_class,
-                length_m,
-                width_m,
-                height_m,
-                viewport_x,
-                viewport_y,
-                viewport_z
+            # Generate geometry at viewport-relative position (enhanced with actual DXF shapes)
+            vertices_blob, faces_blob, normals_blob, geom_hash = generate_element_geometry_enhanced(
+                entity_geom=elem.entity_geom,  # Actual DXF entity geometry (CIRCLE radius, etc.)
+                ifc_class=elem.ifc_class,
+                length=length_m,
+                width=width_m,
+                height=height_m,
+                center_x=viewport_x,
+                center_y=viewport_y,
+                center_z=viewport_z
             )
 
             # Debug: Log first 5 elements
