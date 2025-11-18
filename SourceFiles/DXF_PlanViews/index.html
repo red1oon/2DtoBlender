@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Terminal 1 - All DXF Plan Views</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background: #f5f5f5;
+            padding: 12px 15px;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+        .arc-header { background: linear-gradient(to right, #ff7f00, #ffa040); color: white; }
+        .str-header { background: linear-gradient(to right, #666, #888); color: white; }
+        .card-body {
+            padding: 15px;
+            background: #fafafa;
+            min-height: 400px;
+            max-height: 600px;
+            overflow: auto;
+        }
+        .card-body img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            background: white;
+        }
+        .stats {
+            padding: 10px 15px;
+            background: white;
+            border-top: 1px solid #ddd;
+            font-size: 11px;
+            font-family: monospace;
+            color: #666;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 15px 20px;
+            font-size: 13px;
+            color: #856404;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Terminal 1 Main Building - All DXF Plan Views</h1>
+            <p>Architect + Structure | 6 DXF Files | Filtered to Terminal 1 DOME Building (60m × 40m)</p>
+        </div>
+
+        <div class="note">
+            <strong>📐 What you're seeing:</strong> Direct extraction from DXF files exported by the modeller. Each view shows Terminal 1 geometry only (spatial filter applied using cheatsheet bounds). ARC contains all floors in one file. STR has separate files per floor level.
+        </div>
+
+        <div class="grid">
+            <!-- ARC -->
+            <div class="card">
+                <div class="card-header arc-header">ARC - ARCHITECT (All Floors) - DOME BUILDING</div>
+                <div class="card-body">
+                    <img src="ARC_AllFloors.svg" alt="ARC All Floors">
+                </div>
+                <div class="stats">
+                    File: 2. BANGUNAN TERMINAL 1.dxf | Bounds: X=[-1620k, -1560k] Y=[-90k, -40k] mm
+                </div>
+            </div>
+
+            <!-- STR GB -->
+            <div class="card">
+                <div class="card-header str-header">STR - Ground/Basement (GB) - Z=-4.0m</div>
+                <div class="card-body">
+                    <img src="STR_GB.svg" alt="STR GB">
+                </div>
+                <div class="stats">
+                    File: T1-2.0_Lyt_GB_e2P2_240711.dxf | Bounds: X=[2k, 62k] Y=[-86k, -46k] mm
+                </div>
+            </div>
+
+            <!-- STR 1F -->
+            <div class="card">
+                <div class="card-header str-header">STR - 1st Floor (1F) - Z=0.0m</div>
+                <div class="card-body">
+                    <img src="STR_1F.svg" alt="STR 1F">
+                </div>
+                <div class="stats">
+                    File: T1-2.1_Lyt_1FB_e1P1_240530.dxf | Bounds: X=[2k, 62k] Y=[-86k, -46k] mm
+                </div>
+            </div>
+
+            <!-- STR 3F -->
+            <div class="card">
+                <div class="card-header str-header">STR - 3rd Floor (3F) - Z=8.0m</div>
+                <div class="card-body">
+                    <img src="STR_3F.svg" alt="STR 3F">
+                </div>
+                <div class="stats">
+                    File: T1-2.3_Lyt_3FB_e1P1_240530.dxf | Bounds: X=[2k, 62k] Y=[-86k, -46k] mm
+                </div>
+            </div>
+
+            <!-- STR 4F-6F -->
+            <div class="card">
+                <div class="card-header str-header">STR - 4th-6th Floors (4F-6F) - Z=12-20m</div>
+                <div class="card-body">
+                    <img src="STR_4F-6F.svg" alt="STR 4F-6F">
+                </div>
+                <div class="stats">
+                    File: T1-2.4_Lyt_4FB-6FB_e1P1_240530.dxf | Bounds: X=[2k, 62k] Y=[-86k, -46k] mm
+                </div>
+            </div>
+
+            <!-- STR RF -->
+            <div class="card">
+                <div class="card-header str-header">STR - Roof Truss (RF) - Z=24.0m</div>
+                <div class="card-body">
+                    <img src="STR_RF.svg" alt="STR Roof">
+                </div>
+                <div class="stats">
+                    File: T1-2.5_Lyt_5R_Truss_e3P0_29Oct'23.dxf | Bounds: X=[2k, 62k] Y=[-86k, -46k] mm
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

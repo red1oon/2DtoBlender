@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: Arial; }
+    .title { font-size: 20px; font-weight: bold; fill: #333; }
+    .info { font-size: 12px; fill: #666; }
+  </style>
+  <rect width="1600" height="1200" fill="#ffffff"/>
+  <text x="800.0" y="30" class="title" text-anchor="middle">Terminal 1 - STRUCTURE 4th-6th Floors (4F-6F)</text>
+  <text x="800.0" y="50" class="info" text-anchor="middle">Total: 6 entities | Scale: 1:315</text>
+  <path d="M 1006.738633355675,653.9860419282999 A 0.03767108756036918,0.03767108756036918 0 0,0 1006.6664687225962,653.9866192909791" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 543.5315088176553,1099.699528532503 A 0.03767108756036918,0.03767108756036918 0 0,0 543.4593441845765,1099.7001058951823" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 987.7127761290004,1144.1236034121553 A 0.03767108756036918,0.03767108756036918 0 0,0 987.6406114959216,1144.1241807748345" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 1474.9983246569495,1149.9888906699045 A 0.03767108756036918,0.03767108756036918 0 0,0 1474.9261600238706,1149.9894680325838" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 50.07366683207009,677.3930519276298 A 0.03767108756036918,0.03767108756036918 0 0,0 50.00150219899129,677.393629290309" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 55.61807371420906,1103.11280917468 A 0.03767108756036918,0.03767108756036918 0 0,0 55.54590908113048,1103.1133865373583" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+</svg>

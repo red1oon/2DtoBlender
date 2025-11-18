@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: Arial; }
+    .title { font-size: 20px; font-weight: bold; fill: #333; }
+    .info { font-size: 12px; fill: #666; }
+  </style>
+  <rect width="1600" height="1200" fill="#ffffff"/>
+  <text x="800.0" y="30" class="title" text-anchor="middle">Terminal 1 - STRUCTURE Ground/Basement (GB)</text>
+  <text x="800.0" y="50" class="info" text-anchor="middle">Total: 9 entities | Scale: 1:309</text>
+  <path d="M 735.3142860998026,104.98584237026324 A 0.04800769307237034,0.04800769307237034 0 0,0 735.22232014448,104.98657815603664" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 50.075104275298074,752.1983235400453 A 0.03840615445789631,0.03840615445789631 0 0,0 50.00153151104002,752.1989121686639" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 312.80805497233285,632.2008828970711 A 4.684844396574204,4.684844396574204 0 0,0 303.43836617918447,632.2008828970711" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 288.5021670867899,703.3201467999395 A 0.9706169329919707,0.9706169329919707 0 0,0 289.1884969022549,704.9770935481987" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 288.27339048171024,703.0913701948504 A 1.294155910655961,1.294155910655961 0 0,0 289.1884969023302,705.3006325258626" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 319.8152182710231,704.9770935481996 A 2.9118507989759124,2.9118507989759124 0 0,0 321.87420771678245,704.124232194983" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 319.8152182710231,705.3006325258635 A 3.2353897766399027,3.2353897766399027 0 0,0 322.1029843218668,704.3530088000674" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 710.5224747901685,649.5563823498438 A 0.01895896469532096,0.01895896469532096 0 0,0 710.4861560423064,649.5566729227812" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 50.07510427529811,1149.9886738962107 A 0.03840615445789631,0.03840615445789631 0 0,0 50.00153151103995,1149.9892625248294" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+</svg>

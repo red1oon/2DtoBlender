@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: Arial; }
+    .title { font-size: 20px; font-weight: bold; fill: #333; }
+    .info { font-size: 12px; fill: #666; }
+  </style>
+  <rect width="1600" height="1200" fill="#ffffff"/>
+  <text x="800.0" y="30" class="title" text-anchor="middle">Terminal 1 - STRUCTURE 3rd Floor (3F)</text>
+  <text x="800.0" y="50" class="info" text-anchor="middle">Total: 9 entities | Scale: 1:282</text>
+  <circle cx="1038.1858505647506" cy="1015.014948595388" r="1.914486124024856" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <circle cx="1038.1858505647506" cy="999.3267984124068" r="1.914486124024856" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <circle cx="1038.1858505647506" cy="1009.874198817914" r="1.914486124024856" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <circle cx="1038.1858505647506" cy="1005.5878762413402" r="1.914486124024856" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 578.9050262688513,145.1908561178156 A 0.04208551814803229,0.04208551814803229 0 0,0 578.824405130154,145.19150113788504" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 50.082299370652024,569.592912180809 A 0.04208551814803229,0.04208551814803229 0 0,0 50.001678231954614,569.5935572008784" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 620.6818281922949,569.5929121808089 A 0.04208551814803229,0.04208551814803229 0 0,0 620.6012070535976,569.5935572008783" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 620.6818281922948,888.3857716513555 A 0.04208551814803229,0.04208551814803229 0 0,0 620.6012070535977,888.386416671425" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  <path d="M 1474.998128334356,1149.9875888395154 A 0.04208551814803229,0.04208551814803229 0 0,0 1474.9175071956588,1149.9882338595837" fill="none" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+</svg>
