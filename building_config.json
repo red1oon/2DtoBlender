@@ -193,6 +193,7 @@
     "generate_conduits": false,
     "generate_fire_protection": true,
     "generate_electrical": true,
+    "generate_acmv": true,
     "apply_materials": true,
     "cylinder_segments": 12,
     "dome_segments": 32
@@ -232,6 +233,24 @@
         "branch_width_m": 0.1,
         "branch_height_m": 0.05,
         "z_offset_from_ceiling_m": -0.7
+      }
+    },
+    "acmv": {
+      "discipline": "ACMV",
+      "color_rgba": [0.3, 0.7, 1.0, 1.0],
+      "diffuser": {
+        "spacing_m": 5.0,
+        "coverage_sqm": 25.0,
+        "size_m": 0.6,
+        "depth_m": 0.15,
+        "z_offset_from_ceiling_m": -0.4
+      },
+      "duct": {
+        "main_width_m": 0.4,
+        "main_height_m": 0.3,
+        "branch_width_m": 0.25,
+        "branch_height_m": 0.2,
+        "z_offset_from_ceiling_m": -0.9
       }
     }
   },

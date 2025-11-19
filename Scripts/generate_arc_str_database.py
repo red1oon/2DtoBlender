@@ -814,6 +814,11 @@ def extract_dxf_entities(dxf_path: Path, discipline: str, floor: str,
                 px_rot, py_rot = apply_rotation_transform(px_m, py_m)
                 polyline_points_transformed.append((px_rot + offset_x, py_rot + offset_y))
 
+        # Skip oversized beams (likely DXF artifacts or reference lines)
+        # Typical structural beam span is 6-12m, max 15m
+        if ifc_class == 'IfcBeam' and length_m > 15.0:
+            continue
+
         guid = str(uuid.uuid4()).replace('-', '')[:22]
         elements.append({
             'guid': guid,

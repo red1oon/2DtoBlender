@@ -403,8 +403,124 @@ class ACMVGenerator(DisciplineGenerator):
     def generate(self, floors_config: Dict, acmv_config: Dict) -> List[Dict]:
         """Generate ACMV elements with zone-based placement."""
         elements = []
-        # TODO: Implement ACMV generation with duct routing
-        # Will use zone_manager.get_zones('ac_equipment') for AHU positions
+
+        diffuser_config = acmv_config.get('diffuser', {})
+        duct_config = acmv_config.get('duct', {})
+
+        spacing = diffuser_config.get('spacing_m', 5.0)
+        z_offset_diffuser = self.zone_manager.get_z_offset('ACMV_diffuser')
+        z_offset_duct_main = self.zone_manager.get_z_offset('ACMV_duct_main')
+        z_offset_duct_branch = self.zone_manager.get_z_offset('ACMV_duct_branch')
+
+        margin = 12.0  # Stay away from building edges
+        grid_offset = spacing / 2  # Offset from other grids
+
+        min_x = self.bounds['min_x'] + margin
+        max_x = self.bounds['max_x'] - margin
+        min_y = self.bounds['min_y'] + margin
+        max_y = self.bounds['max_y'] - margin
+        slab_cx = self.bounds['slab_cx']
+        slab_cy = self.bounds['slab_cy']
+
+        for floor_id, floor_data in floors_config.items():
+            if floor_id == 'ROOF':
+                continue
+
+            elevation = floor_data.get('elevation_m', 0.0)
+            floor_height = floor_data.get('floor_to_floor_m', 4.0)
+            ceiling_z = elevation + floor_height
+
+            # Generate diffuser grid (offset from ELEC grid)
+            y = min_y + grid_offset * 1.5  # Additional offset from ELEC
+            row_diffusers = []
+            while y <= max_y:
+                x = min_x + grid_offset * 1.5
+                row = []
+                while x <= max_x:
+                    diffuser_z = ceiling_z + z_offset_diffuser
+
+                    # Check for clashes
+                    clear_x, clear_y = self.clash_checker.find_clear_position(
+                        x, y, diffuser_z, 0.25, 'ACMV'
+                    )
+
+                    elements.append({
+                        'guid': self._create_guid(),
+                        'discipline': 'ACMV',
+                        'ifc_class': 'IfcAirTerminal',
+                        'floor': floor_id,
+                        'center_x': clear_x,
+                        'center_y': clear_y,
+                        'center_z': diffuser_z,
+                        'rotation_z': 0,
+                        'length': diffuser_config.get('size_m', 0.6),
+                        'layer': f'DIFFUSER_{floor_id}',
+                        'source_file': 'zones_config.json',
+                        'polyline_points': None,
+                        'diffuser_config': {
+                            'size': diffuser_config.get('size_m', 0.6),
+                            'depth': diffuser_config.get('depth_m', 0.15)
+                        }
+                    })
+
+                    self._register_element(clear_x, clear_y, diffuser_z, 0.25)
+                    row.append((clear_x, clear_y))
+                    x += spacing
+                row_diffusers.append(row)
+                y += spacing
+
+            # Generate duct network
+            duct_z_main = ceiling_z + z_offset_duct_main
+            duct_z_branch = ceiling_z + z_offset_duct_branch
+
+            if row_diffusers:
+                # Main duct along Y axis (offset from FP and ELEC)
+                main_length = max_y - min_y
+                elements.append({
+                    'guid': self._create_guid(),
+                    'discipline': 'ACMV',
+                    'ifc_class': 'IfcDuctSegment',
+                    'floor': floor_id,
+                    'center_x': slab_cx - 3,  # Offset from ELEC
+                    'center_y': slab_cy,
+                    'center_z': duct_z_main,
+                    'rotation_z': math.pi/2,
+                    'length': main_length,
+                    'layer': f'ACMV_MAIN_{floor_id}',
+                    'source_file': 'zones_config.json',
+                    'polyline_points': None,
+                    'duct_config': {
+                        'length': main_length,
+                        'width': duct_config.get('main_width_m', 0.4),
+                        'height': duct_config.get('main_height_m', 0.3)
+                    }
+                })
+
+                # Branch ducts
+                for row in row_diffusers:
+                    if row:
+                        row_y = row[0][1]
+                        branch_length = max_x - min_x
+                        elements.append({
+                            'guid': self._create_guid(),
+                            'discipline': 'ACMV',
+                            'ifc_class': 'IfcDuctSegment',
+                            'floor': floor_id,
+                            'center_x': slab_cx,
+                            'center_y': row_y,
+                            'center_z': duct_z_branch,
+                            'rotation_z': 0,
+                            'length': branch_length,
+                            'layer': f'ACMV_BRANCH_{floor_id}',
+                            'source_file': 'zones_config.json',
+                            'polyline_points': None,
+                            'duct_config': {
+                                'length': branch_length,
+                                'width': duct_config.get('branch_width_m', 0.25),
+                                'height': duct_config.get('branch_height_m', 0.2)
+                            }
+                        })
+
         return elements
 
 
@@ -466,7 +582,11 @@ class MEPGeneratorOrchestrator:
             print(f"  ELEC: {len(elec_elements)} elements")
 
         # Generate ACMV (uses clash checker to avoid FP and ELEC)
-        # TODO: Implement when ACMVGenerator is complete
+        if gen_options.get('generate_acmv', False):
+            acmv_gen = ACMVGenerator(self.zone_manager, self.clash_checker, self.bounds)
+            acmv_elements = acmv_gen.generate(floors_config, mep_config.get('acmv', {}))
+            all_elements.extend(acmv_elements)
+            print(f"  ACMV: {len(acmv_elements)} elements")
 
         return all_elements
 
