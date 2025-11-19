@@ -1,0 +1,160 @@
+======================================================================
+DATABASE AUDIT REPORT
+Source: Terminal1_ARC_STR.db
+Generated: 2025-11-19 17:03:48
+======================================================================
+
+LAYER 0: SPATIAL LAYOUT (Orientation & Position)
+======================================================================
+
+BUILDING POSITION
+----------------------------------------------------------------------
+  Center: (-6.1, -7.2) - W of origin, S of origin
+  Extent: X[-61.2, 49.0] Y[-76.6, 62.1] Z[0.0, 12.0]
+  Orientation: Long axis runs N-S
+
+QUADRANT ANALYSIS (from origin)
+----------------------------------------------------------------------
+  NE (+X, +Y): 323 (44%)
+  NW (-X, +Y): 148 (20%)
+  SE (+X, -Y): 241 (33%)
+  SW (-X, -Y): 28 (4%) ⚠️ Sparse
+
+PERIMETER WALLS (clockwise from North)
+----------------------------------------------------------------------
+  North: 39.4m at Y=19.4, from X=-23 to X=16
+  East:  27.1m at X=16.7, from Y=-39 to Y=-12
+  South: 38.4m at Y=-40.8, from X=-22 to X=16
+  West:  27.1m at X=-23.3, from Y=-39 to Y=-12
+
+COLUMN GRID
+----------------------------------------------------------------------
+  Grid origin: (-23.7, -40.7)
+  Pattern: Irregular distribution
+
+
+LAYER 1: GEOMETRY (What Blender Sees)
+======================================================================
+
+BUILDING ENVELOPE
+----------------------------------------------------------------------
+  Bounding box:
+    X: [-61.2, 49.0] (110.2m)
+    Y: [-76.6, 62.1] (138.7m)
+    Z: [0.0, 12.0] (12.0m)
+  Overall dimensions: 110.2m x 138.7m x 12.0m
+
+WALLS (72 elements)
+----------------------------------------------------------------------
+  Top walls by length:
+    1. 39.4m E-W at Y=19.3
+    2. 39.4m E-W at Y=19.4
+    3. 38.4m E-W at Y=-10.8
+    4. 38.4m E-W at Y=-10.7
+    5. 38.4m E-W at Y=-40.8
+
+COLUMNS (45 elements)
+----------------------------------------------------------------------
+  Pattern: Irregular or insufficient for grid detection
+  Sample size: 0.75m x 0.75m x 4.0m
+
+BEAMS (111 elements)
+----------------------------------------------------------------------
+  Length range: 0.3m - 39.2m
+  Average length: 4.3m
+  Orientation: 110 E-W, 0 N-S
+
+
+LAYER 2: SEMANTICS (What Objects Mean)
+======================================================================
+
+BY IFC CLASS
+----------------------------------------------------------------------
+  IfcPlate: 418 (ARC)
+  IfcBeam: 111 (STR)
+  IfcSlab: 90 (STR)
+  IfcWall: 72 (ARC)
+  IfcColumn: 45 (STR)
+  IfcWindow: 4 (ARC)
+
+BY DISCIPLINE
+----------------------------------------------------------------------
+  ARC: 494
+  STR: 246
+  MEP: 0 (not present)
+
+BY FLOOR
+----------------------------------------------------------------------
+  1F: 597
+  3F: 115
+  4F-6F: 28
+
+
+LAYER 3: ANALYTICS (Space Characteristics)
+======================================================================
+
+PERIMETER ANALYSIS
+----------------------------------------------------------------------
+  Longest E-W walls:
+    1. 39.4m at Y=19.3 (North)
+    2. 39.4m at Y=19.4 (North)
+  Longest N-S walls:
+    1. 28.4m at X=-23.3 (West)
+    2. 28.4m at X=-23.1 (West)
+
+OPENINGS
+----------------------------------------------------------------------
+  Windows: 4
+  Doors: 0
+    (No doors detected)
+
+
+LAYER 4: SUMMARY (Aggregate Metrics)
+======================================================================
+
+ELEMENT COUNTS
+----------------------------------------------------------------------
+  Total elements: 740
+    IfcPlate: 418
+    IfcBeam: 111
+    IfcSlab: 90
+    IfcWall: 72
+    IfcColumn: 45
+    IfcWindow: 4
+
+WALL METRICS
+----------------------------------------------------------------------
+  Total wall length: 624.8m
+  Average wall length: 8.7m
+
+GEOMETRY STATISTICS
+----------------------------------------------------------------------
+  Total vertices: 7,298
+  Total faces: 11,636
+  Average vertices/element: 10
+  Average faces/element: 16
+
+VOLUME ESTIMATE
+----------------------------------------------------------------------
+  Bounding box volume: 183,523 m³
+
+
+LAYER 5: SHAPE CLASSIFICATION (Complexity)
+======================================================================
+
+BY PRIMITIVE TYPE
+----------------------------------------------------------------------
+  Box: 643 (87%)
+  Extruded: 52 (7%)
+  Cylinder: 45 (6%)
+
+MESH COMPLEXITY
+----------------------------------------------------------------------
+  Simplest: 8 vertices
+  Most complex: 26 vertices
+  Average: 10 vertices
+  Render performance: Good (mostly simple geometry)
+
+======================================================================
+END OF AUDIT REPORT
+======================================================================

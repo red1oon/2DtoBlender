@@ -473,6 +473,44 @@ def generate_report(db_path: str) -> str:
         report.append(f"  Orientation: {ew_count} E-W, {ns_count} N-S")
         report.append("")
 
+    # Dome analysis
+    domes = [e for e in element_data if e['ifc_class'] == 'IfcRoof']
+    if domes:
+        report.append(f"DOME ({len(domes)} elements)")
+        report.append("-" * 70)
+
+        for dome in domes:
+            dome_width = dome['bbox']['size'][0]
+            dome_depth = dome['bbox']['size'][1]
+            dome_height = dome['bbox']['size'][2]
+            dome_diameter = max(dome_width, dome_depth)
+
+            # Position
+            dome_cx = (dome['bbox']['min'][0] + dome['bbox']['max'][0]) / 2
+            dome_cy = (dome['bbox']['min'][1] + dome['bbox']['max'][1]) / 2
+            dome_base_z = dome['bbox']['min'][2]
+
+            report.append(f"  Diameter: {dome_diameter:.1f}m")
+            report.append(f"  Height: {dome_height:.1f}m")
+            report.append(f"  Position: ({dome_cx:.1f}, {dome_cy:.1f}) at Z={dome_base_z:.1f}m")
+
+            # Ratio to building
+            building_width = building_bbox['size'][0]
+            building_depth = building_bbox['size'][1]
+            ratio_width = (dome_diameter / building_width) * 100 if building_width > 0 else 0
+            ratio_depth = (dome_diameter / building_depth) * 100 if building_depth > 0 else 0
+
+            report.append(f"  Ratio to building: {ratio_width:.0f}% of width, {ratio_depth:.0f}% of depth")
+
+            # Assessment
+            if ratio_width > 30 or ratio_depth > 30:
+                report.append(f"  ⚠️ Dome appears large relative to building")
+            elif ratio_width < 10 and ratio_depth < 10:
+                report.append(f"  ⚠️ Dome appears small relative to building")
+            else:
+                report.append(f"  ✓ Dome proportions appear reasonable")
+        report.append("")
+
     # ==========================================================================
     # LAYER 2: SEMANTICS
     # ==========================================================================
@@ -639,6 +677,108 @@ def generate_report(db_path: str) -> str:
         report.append(f"  Render performance: Good (mostly simple geometry)")
     else:
         report.append(f"  Render performance: May be slow ({100-simple_pct:.0f}% complex)")
+    report.append("")
+
+    # ==========================================================================
+    # LAYER 6: VALIDATION CHECKLIST
+    # ==========================================================================
+    report.append("")
+    report.append("LAYER 6: VALIDATION CHECKLIST")
+    report.append("=" * 70)
+    report.append("")
+
+    checks = []
+
+    # Check 1: Building dimensions reasonable
+    bldg_w, bldg_d, bldg_h = building_bbox['size']
+    if 30 < bldg_w < 100 and 30 < bldg_d < 100:
+        checks.append(("Building footprint reasonable", True, f"{bldg_w:.0f}m x {bldg_d:.0f}m"))
+    else:
+        checks.append(("Building footprint reasonable", False, f"{bldg_w:.0f}m x {bldg_d:.0f}m - expected 30-100m"))
+
+    # Check 2: Has structural elements
+    has_columns = any(e['ifc_class'] == 'IfcColumn' for e in element_data)
+    has_beams = any(e['ifc_class'] == 'IfcBeam' for e in element_data)
+    if has_columns and has_beams:
+        checks.append(("Structural elements present", True, f"{len(columns)} columns, {len(beams)} beams"))
+    else:
+        checks.append(("Structural elements present", False, "Missing columns or beams"))
+
+    # Check 3: Has walls
+    if len(walls) > 50:
+        checks.append(("Sufficient walls", True, f"{len(walls)} walls"))
+    else:
+        checks.append(("Sufficient walls", False, f"Only {len(walls)} walls - expected >50"))
+
+    # Check 4: Floor slabs present
+    slabs = [e for e in element_data if e['ifc_class'] == 'IfcSlab']
+    # Check if any slab covers significant area (>100 m²)
+    large_slabs = [s for s in slabs if s['bbox']['size'][0] * s['bbox']['size'][1] > 100]
+    if large_slabs:
+        checks.append(("Floor slabs present", True, f"{len(large_slabs)} large slabs"))
+    elif slabs:
+        max_slab_area = max(s['bbox']['size'][0] * s['bbox']['size'][1] for s in slabs)
+        checks.append(("Floor slabs present", False, f"No large floor slabs - max area {max_slab_area:.1f}m²"))
+    else:
+        checks.append(("Floor slabs present", False, "No slabs found"))
+
+    # Check 5: Dome proportions (if present)
+    domes = [e for e in element_data if e['ifc_class'] == 'IfcRoof']
+    if domes:
+        dome = domes[0]
+        dome_diam = max(dome['bbox']['size'][0], dome['bbox']['size'][1])
+        dome_ratio = dome_diam / bldg_w * 100
+        if 10 <= dome_ratio <= 30:
+            checks.append(("Dome proportions", True, f"{dome_ratio:.0f}% of building width"))
+        else:
+            checks.append(("Dome proportions", False, f"{dome_ratio:.0f}% of building - expected 10-30%"))
+    else:
+        checks.append(("Dome present", False, "No dome found"))
+
+    # Check 6: Quadrant distribution
+    total = len(element_data)
+    sw_pct = sum(1 for e in element_data if e['center'][0] < 0 and e['center'][1] < 0) / total * 100
+    if sw_pct >= 10:
+        checks.append(("Balanced distribution", True, f"SW quadrant: {sw_pct:.0f}%"))
+    else:
+        checks.append(("Balanced distribution", False, f"SW quadrant sparse: {sw_pct:.0f}%"))
+
+    # Check 7: No orphan elements far from building
+    building_center_x = (building_bbox['min'][0] + building_bbox['max'][0]) / 2
+    building_center_y = (building_bbox['min'][1] + building_bbox['max'][1]) / 2
+    max_dist = max(bldg_w, bldg_d)
+    orphans = []
+    for e in element_data:
+        dist = ((e['center'][0] - building_center_x)**2 + (e['center'][1] - building_center_y)**2)**0.5
+        if dist > max_dist:
+            orphans.append(e)
+    if not orphans:
+        checks.append(("No orphan elements", True, "All elements within building bounds"))
+    else:
+        checks.append(("No orphan elements", False, f"{len(orphans)} elements far from building"))
+
+    # Check 8: Wall length distribution
+    short_walls = [w for w in walls if w['length'] < 0.5]
+    if len(short_walls) < len(walls) * 0.5:
+        checks.append(("Wall lengths reasonable", True, f"{len(short_walls)} short walls (<0.5m)"))
+    else:
+        checks.append(("Wall lengths reasonable", False, f"{len(short_walls)}/{len(walls)} walls <0.5m"))
+
+    # Output checklist
+    pass_count = sum(1 for c in checks if c[1])
+    total_checks = len(checks)
+
+    for check_name, passed, detail in checks:
+        status = "✓" if passed else "✗"
+        report.append(f"  [{status}] {check_name}")
+        report.append(f"      {detail}")
+
+    report.append("")
+    report.append(f"RESULT: {pass_count}/{total_checks} checks passed")
+    if pass_count == total_checks:
+        report.append("✓ All validations passed")
+    else:
+        report.append(f"⚠️ {total_checks - pass_count} issues need attention")
     report.append("")
 
     # Footer

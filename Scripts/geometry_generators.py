@@ -549,16 +549,37 @@ def generate_element_geometry(elem: Dict, templates: Dict) -> GeometryResult:
             return OrientedBoxGenerator.generate(wall_length, thickness, height,
                                                 cx, cy, cz, rotation)
 
-    elif ifc_class in ['IfcSlab', 'IfcPlate']:
-        # Thin horizontal slabs - use length for both dimensions if only one available
+    elif ifc_class == 'IfcPlate':
+        # Roof cladding panels - use fixed template dimensions, not line length
+        plate_width = params.get('width_m', 0.5)
+        plate_depth = params.get('depth_m', 0.15)
+        thickness = params.get('height_m', 0.11)  # Plate thickness
+        return SlabGenerator.generate(plate_width, plate_depth, thickness, cx, cy, cz)
+
+    elif ifc_class == 'IfcSlab':
+        # Check for floor slab config (large building floor plates)
+        if 'floor_slab_config' in elem:
+            config = elem['floor_slab_config']
+            return SlabGenerator.generate(
+                config['width'], config['depth'], config['thickness'],
+                cx, cy, cz
+            )
+        # Regular slabs - use length for dimensions
         slab_length = length if length > 0 else width
-        # For plates/slabs from LINE entities, make them square-ish
-        # or use depth from template if reasonable
         slab_depth = params.get('depth_m', slab_length)
-        if slab_depth < 1.0:  # If depth is too small (e.g., wall thickness), use length
+        if slab_depth < 1.0:
             slab_depth = slab_length
-        thickness = params.get('thickness_m', 0.15)
+        thickness = params.get('thickness_m', 0.3)
         return SlabGenerator.generate(slab_length, slab_depth, thickness, cx, cy, cz)
+
+    elif ifc_class == 'IfcRoof' and 'dome_config' in elem:
+        # Dome element from building_config.json
+        dome_config = elem['dome_config']
+        radius = dome_config.get('radius_m', 12.5)
+        dome_height = dome_config.get('height_m', 8.0)
+        h_segments = dome_config.get('segments_horizontal', 32)
+        v_segments = dome_config.get('segments_vertical', 16)
+        return DomeGenerator.generate(radius, dome_height, cx, cy, cz, h_segments, v_segments)
 
     else:
         # Default: axis-aligned box

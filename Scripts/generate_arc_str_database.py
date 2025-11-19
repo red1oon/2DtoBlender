@@ -59,6 +59,7 @@ from geometry_generators import (
     CylinderGenerator,
     ExtrudedPolylineGenerator,
     SlabGenerator,
+    DomeGenerator,
     compute_face_normal
 )
 
@@ -75,6 +76,7 @@ OUTPUT_DB = OUTPUT_DIR / "Terminal1_ARC_STR.db"
 
 # Also check for any .blend files to delete
 BLEND_OUTPUT = OUTPUT_DIR / "Terminal1_ARC_STR.blend"
+BLEND_FULL_OUTPUT = OUTPUT_DIR / "Terminal1_ARC_STR_full.blend"
 
 # ============================================================================
 # GEOMETRY UTILITIES
@@ -676,43 +678,40 @@ def extract_dxf_entities(dxf_path: Path, discipline: str, floor: str,
                 end = (points[i+1][0], points[i+1][1])
                 wall_segments.append((start, end))
 
-    # Merge wall segments into continuous chains
+    # Create individual wall elements from each segment (no merging for better accuracy)
     if wall_segments:
-        merged_chains = merge_wall_segments(wall_segments, tolerance=100.0)
-        print(f"    Walls: {len(wall_segments)} segments → {len(merged_chains)} merged chains")
+        print(f"    Walls: {len(wall_segments)} segments (keeping individual)")
 
-        # Create wall elements from merged chains
-        for chain in merged_chains:
-            if len(chain) < 2:
-                continue
-
-            # Calculate chain properties
-            total_length = 0
-            for i in range(len(chain) - 1):
-                dx = chain[i+1][0] - chain[i][0]
-                dy = chain[i+1][1] - chain[i][1]
-                total_length += math.sqrt(dx*dx + dy*dy)
+        for start, end in wall_segments:
+            # Calculate segment length
+            dx = end[0] - start[0]
+            dy = end[1] - start[1]
+            length = math.sqrt(dx*dx + dy*dy)
 
             # Skip very short walls (likely artifacts)
-            if total_length < 200:  # 200mm = 0.2m
+            if length < 500:  # 500mm = 0.5m (filter small segments that are DXF artifacts)
                 continue
 
-            # Calculate center
-            cx = sum(p[0] for p in chain) / len(chain)
-            cy = sum(p[1] for p in chain) / len(chain)
+            # Calculate center and rotation
+            cx = (start[0] + end[0]) / 2
+            cy = (start[1] + end[1]) / 2
+            rotation = math.atan2(dy, dx)
 
-            # Transform chain to world coordinates
-            transformed_chain = []
-            for px, py in chain:
-                px_m, py_m = px / 1000.0, py / 1000.0
-                px_rot, py_rot = apply_rotation_transform(px_m, py_m)
-                transformed_chain.append((px_rot + offset_x, py_rot + offset_y))
-
-            # Transform center
+            # Transform to world coordinates
             cx_m, cy_m = cx / 1000.0, cy / 1000.0
             cx_rot, cy_rot = apply_rotation_transform(cx_m, cy_m)
             cx_final = cx_rot + offset_x
             cy_final = cy_rot + offset_y
+
+            # Transform endpoints for polyline
+            start_m = (start[0] / 1000.0, start[1] / 1000.0)
+            end_m = (end[0] / 1000.0, end[1] / 1000.0)
+            start_rot = apply_rotation_transform(*start_m)
+            end_rot = apply_rotation_transform(*end_m)
+            transformed_chain = [
+                (start_rot[0] + offset_x, start_rot[1] + offset_y),
+                (end_rot[0] + offset_x, end_rot[1] + offset_y)
+            ]
 
             guid = str(uuid.uuid4()).replace('-', '')[:22]
             elements.append({
@@ -723,8 +722,8 @@ def extract_dxf_entities(dxf_path: Path, discipline: str, floor: str,
                 'center_x': cx_final,
                 'center_y': cy_final,
                 'center_z': 0,
-                'rotation_z': 0,
-                'length': total_length / 1000.0,
+                'rotation_z': rotation,
+                'length': length / 1000.0,
                 'layer': 'WALL',
                 'source_file': dxf_path.name,
                 'polyline_points': transformed_chain
@@ -800,6 +799,9 @@ def extract_dxf_entities(dxf_path: Path, discipline: str, floor: str,
         x_final = x_rot + offset_x
         y_final = y_rot + offset_y
 
+        # Also rotate the angle by 90° CCW to match coordinate rotation
+        rotation_transformed = rotation + math.pi / 2
+
         # Transform polyline points if present
         polyline_points_transformed = None
         if polyline_points_raw:
@@ -818,7 +820,7 @@ def extract_dxf_entities(dxf_path: Path, discipline: str, floor: str,
             'center_x': x_final,
             'center_y': y_final,
             'center_z': z_m,
-            'rotation_z': rotation,
+            'rotation_z': rotation_transformed,
             'length': length_m,
             'layer': layer_raw,
             'source_file': dxf_path.name,
@@ -841,11 +843,9 @@ def main():
         BLEND_OUTPUT.unlink()
         print(f"Deleted existing: {BLEND_OUTPUT.name}")
 
-    # Also delete _full.blend variant (created by Bonsai bake)
-    blend_full = OUTPUT_DIR / "Terminal1_ARC_STR_full.blend"
-    if blend_full.exists():
-        blend_full.unlink()
-        print(f"Deleted existing: {blend_full.name}")
+    if BLEND_FULL_OUTPUT.exists():
+        BLEND_FULL_OUTPUT.unlink()
+        print(f"Deleted existing: {BLEND_FULL_OUTPUT.name}")
 
     if OUTPUT_DB.exists():
         OUTPUT_DB.unlink()
@@ -914,7 +914,227 @@ def main():
         all_elements.extend(elements)
         print(f"  {dxf_path.name}: {len(elements)} elements")
 
-    print(f"\nTotal elements extracted: {len(all_elements)}")
+    print(f"\nTotal elements extracted from DXF: {len(all_elements)}")
+
+    # ========================================================================
+    # ADD DOME FROM BUILDING CONFIG
+    # ========================================================================
+    building_config_path = BASE_DIR / "building_config.json"
+    if building_config_path.exists():
+        with open(building_config_path) as f:
+            building_config = json.load(f)
+
+        dome_config = building_config.get('dome', {})
+        if dome_config.get('enabled', False):
+            print("\nGenerating dome element...")
+            dome_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            dome_element = {
+                'guid': dome_guid,
+                'discipline': 'ARC',
+                'ifc_class': 'IfcRoof',
+                'floor': 'ROOF',
+                'center_x': dome_config.get('center_x_m', 0.0),
+                'center_y': dome_config.get('center_y_m', 10.0),
+                'center_z': dome_config.get('base_elevation_m', 12.5),
+                'rotation_z': 0,
+                'length': dome_config.get('radius_m', 12.5) * 2,
+                'layer': 'DOME',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'dome_config': dome_config  # Pass config for geometry generation
+            }
+            all_elements.append(dome_element)
+            print(f"  Dome: radius={dome_config.get('radius_m')}m, height={dome_config.get('height_m')}m")
+
+        # Generate floor slabs from building_config
+        gen_options = building_config.get('generation_options', {})
+        if gen_options.get('generate_floor_slabs', True):
+            print("\nGenerating floor slabs...")
+            floors_config = building_config.get('floors', {})
+
+            # Calculate building footprint from existing elements
+            if all_elements:
+                min_x = min(e['center_x'] for e in all_elements) - 5
+                max_x = max(e['center_x'] for e in all_elements) + 5
+                min_y = min(e['center_y'] for e in all_elements) - 5
+                max_y = max(e['center_y'] for e in all_elements) + 5
+
+                slab_width = max_x - min_x
+                slab_depth = max_y - min_y
+                slab_cx = (min_x + max_x) / 2
+                slab_cy = (min_y + max_y) / 2
+
+                floor_count = 0
+                for floor_id, floor_data in floors_config.items():
+                    if floor_id == 'ROOF':
+                        continue  # Skip roof level
+
+                    elevation = floor_data.get('elevation_m', 0.0)
+                    thickness = floor_data.get('slab_thickness_m', 0.3)
+
+                    slab_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    slab_element = {
+                        'guid': slab_guid,
+                        'discipline': 'STR',
+                        'ifc_class': 'IfcSlab',
+                        'floor': floor_id,
+                        'center_x': slab_cx,
+                        'center_y': slab_cy,
+                        'center_z': elevation,
+                        'rotation_z': 0,
+                        'length': slab_width,  # Will use as both width and depth
+                        'layer': 'FLOOR_SLAB',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'floor_slab_config': {
+                            'width': slab_width,
+                            'depth': slab_depth,
+                            'thickness': thickness
+                        }
+                    }
+                    all_elements.append(slab_element)
+                    floor_count += 1
+
+                print(f"  Generated {floor_count} floor slabs ({slab_width:.1f}m x {slab_depth:.1f}m)")
+
+        # Generate perimeter walls (default enclosure)
+        if gen_options.get('generate_perimeter_walls', True) and all_elements:
+            print("\nGenerating perimeter walls...")
+
+            wall_height = 3.5  # Default wall height
+            wall_thickness = 0.2
+
+            # Create 4 perimeter walls (N, E, S, W)
+            perimeter_walls = [
+                # North wall (top edge, runs E-W)
+                {'start': (min_x, max_y), 'end': (max_x, max_y), 'name': 'North'},
+                # East wall (right edge, runs N-S)
+                {'start': (max_x, min_y), 'end': (max_x, max_y), 'name': 'East'},
+                # South wall (bottom edge, runs E-W)
+                {'start': (min_x, min_y), 'end': (max_x, min_y), 'name': 'South'},
+                # West wall (left edge, runs N-S)
+                {'start': (min_x, min_y), 'end': (min_x, max_y), 'name': 'West'},
+            ]
+
+            for wall in perimeter_walls:
+                start = wall['start']
+                end = wall['end']
+
+                # Calculate wall properties
+                dx = end[0] - start[0]
+                dy = end[1] - start[1]
+                length = math.sqrt(dx*dx + dy*dy)
+                cx = (start[0] + end[0]) / 2
+                cy = (start[1] + end[1]) / 2
+                rotation = math.atan2(dy, dx)
+
+                wall_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                wall_element = {
+                    'guid': wall_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcWall',
+                    'floor': '1F',
+                    'center_x': cx,
+                    'center_y': cy,
+                    'center_z': 0.0,
+                    'rotation_z': rotation,
+                    'length': length,
+                    'layer': f'PERIMETER_{wall["name"].upper()}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': [start, end]
+                }
+                all_elements.append(wall_element)
+
+            print(f"  Generated 4 perimeter walls ({slab_width:.1f}m x {slab_depth:.1f}m enclosure)")
+
+        # Generate default entrance doors (POC template)
+        if gen_options.get('generate_entrance_doors', True) and all_elements:
+            print("\nGenerating entrance doors...")
+
+            door_width = 2.0
+            door_height = 2.5
+            door_depth = 0.2
+
+            # Entrance doors on each side (centered)
+            entrance_doors = [
+                {'pos': (slab_cx, max_y), 'name': 'North_Entrance'},
+                {'pos': (max_x, slab_cy), 'name': 'East_Entrance'},
+                {'pos': (slab_cx, min_y), 'name': 'South_Entrance'},
+                {'pos': (min_x, slab_cy), 'name': 'West_Entrance'},
+            ]
+
+            for door in entrance_doors:
+                door_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                door_element = {
+                    'guid': door_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcDoor',
+                    'floor': '1F',
+                    'center_x': door['pos'][0],
+                    'center_y': door['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': door_width,
+                    'layer': f'DOOR_{door["name"].upper()}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None
+                }
+                all_elements.append(door_element)
+
+            print(f"  Generated 4 entrance doors")
+
+        # Generate default stairs (POC template - vertical circulation)
+        if gen_options.get('generate_stairs', True) and all_elements:
+            print("\nGenerating stairs...")
+
+            stair_width = 1.5
+            stair_run = 3.0
+            stair_rise = 4.0  # One floor height
+
+            # Stairs at corners for vertical circulation
+            stairs = [
+                {'pos': (min_x + 5, min_y + 5), 'name': 'SW_Stair'},
+                {'pos': (max_x - 5, min_y + 5), 'name': 'SE_Stair'},
+                {'pos': (min_x + 5, max_y - 5), 'name': 'NW_Stair'},
+                {'pos': (max_x - 5, max_y - 5), 'name': 'NE_Stair'},
+            ]
+
+            for stair in stairs:
+                stair_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                stair_element = {
+                    'guid': stair_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcStairFlight',
+                    'floor': '1F',
+                    'center_x': stair['pos'][0],
+                    'center_y': stair['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': stair_run,
+                    'layer': f'STAIR_{stair["name"].upper()}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'stair_config': {
+                        'width': stair_width,
+                        'run': stair_run,
+                        'rise': stair_rise,
+                        'treads': 12,
+                        'riser_height': stair_rise / 12
+                    }
+                }
+                all_elements.append(stair_element)
+
+            print(f"  Generated 4 stairs (vertical circulation)")
+
+        # Generate conduits for MEP routing (placeholder for future disciplines)
+        if gen_options.get('generate_conduits', False):
+            print("\nGenerating MEP conduits (placeholder)...")
+            # Future: Add vertical and horizontal conduit runs for MEP routing
+            # - Vertical risers at core locations
+            # - Horizontal runs along corridors
+            # - Connection points at floor levels
+
+    print(f"\nTotal elements (with dome, slabs, perimeter, doors): {len(all_elements)}")
 
     # Insert elements into database
     print("\nPopulating database...")
