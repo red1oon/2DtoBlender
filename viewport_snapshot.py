@@ -391,7 +391,8 @@ class DatabaseGeometryLoader:
             return self.DISCIPLINE_COLORS[discipline.upper()]
         return self.DEFAULT_COLOR
 
-    def load_meshes(self, surface_only=False, disciplines=None, exclude=None, color_by='class'):
+    def load_meshes(self, surface_only=False, disciplines=None, exclude=None, color_by='class',
+                    floor_z=None, floor_tolerance=2.0, bbox=None):
         """
         Load all meshes from database.
 
@@ -400,6 +401,9 @@ class DatabaseGeometryLoader:
             disciplines: List of disciplines to include (e.g., ['ARC', 'STR']), None for all
             exclude: List of disciplines to exclude (e.g., ['ARC', 'STR'])
             color_by: 'class' for IFC class colors, 'discipline' for discipline colors
+            floor_z: Filter by floor Z level (e.g., 0 for ground floor)
+            floor_tolerance: Z tolerance for floor filtering (default: 2.0m)
+            bbox: Bounding box tuple (min_x, min_y, max_x, max_y)
 
         Returns:
             List of (vertices, faces, color) tuples
@@ -471,10 +475,25 @@ class DatabaseGeometryLoader:
 
                 # Apply transform if present (center + rotation)
                 center_x = row['center_x']
+                center_y = row['center_y']
+                center_z = row['center_z']
                 if center_x is not None:
-                    center = [row['center_x'], row['center_y'], row['center_z']]
+                    center = [center_x, center_y, center_z]
                     rotation_z = row['rotation_z'] or 0.0
                     vertices = self.apply_center_transform(vertices, center, rotation_z)
+                else:
+                    center_z = None
+
+                # Floor filtering - check center_z against floor level
+                if floor_z is not None and center_z is not None:
+                    if abs(center_z - floor_z) > floor_tolerance:
+                        continue
+
+                # Bounding box filtering - check center_x, center_y
+                if bbox is not None and center_x is not None:
+                    min_x, min_y, max_x, max_y = bbox
+                    if not (min_x <= center_x <= max_x and min_y <= center_y <= max_y):
+                        continue
 
                 # Get color based on IFC class
                 ifc_class = row['ifc_class'] or 'Unknown'
@@ -555,7 +574,10 @@ def render_database(db_path: str, output_path: str = None,
                     surface_only: bool = False,
                     disciplines: list = None,
                     exclude: list = None,
-                    color_by: str = 'class'):
+                    color_by: str = 'class',
+                    floor_z: float = None,
+                    floor_tolerance: float = 2.0,
+                    bbox: tuple = None):
     """
     Render database geometry to PNG.
 
@@ -569,6 +591,9 @@ def render_database(db_path: str, output_path: str = None,
         disciplines: List of disciplines to include (e.g., ['ARC', 'STR'])
         exclude: List of disciplines to exclude (e.g., ['ARC', 'STR'])
         color_by: 'class' for IFC class colors, 'discipline' for discipline colors
+        floor_z: Filter by floor Z level (e.g., 0 for ground floor)
+        floor_tolerance: Z tolerance for floor filtering (default: 2.0m)
+        bbox: Bounding box tuple (min_x, min_y, max_x, max_y)
 
     Returns:
         Path to saved PNG file
@@ -580,12 +605,24 @@ def render_database(db_path: str, output_path: str = None,
         print(f"Excluding: {', '.join(exclude)}")
     if surface_only:
         print("Filtering: surface elements only")
+    if floor_z is not None:
+        print(f"Floor filter: Z={floor_z}m (tolerance: {floor_tolerance}m)")
+    if bbox:
+        print(f"Bbox filter: X=[{bbox[0]},{bbox[2]}], Y=[{bbox[1]},{bbox[3]}]")
     if color_by == 'discipline':
         print("Coloring by discipline")
 
     # Load geometry
     loader = DatabaseGeometryLoader(db_path)
-    meshes = loader.load_meshes(surface_only=surface_only, disciplines=disciplines, exclude=exclude, color_by=color_by)
+    meshes = loader.load_meshes(
+        surface_only=surface_only,
+        disciplines=disciplines,
+        exclude=exclude,
+        color_by=color_by,
+        floor_z=floor_z,
+        floor_tolerance=floor_tolerance,
+        bbox=bbox
+    )
 
     if not meshes:
         print("Error: No meshes loaded from database")
@@ -677,6 +714,21 @@ def main():
         default='class',
         help="Color elements by IFC class or discipline (default: class)"
     )
+    parser.add_argument(
+        "--floor", "-f",
+        type=float,
+        help="Filter by floor Z level (e.g., 0 for ground floor, 4 for level 1)"
+    )
+    parser.add_argument(
+        "--floor-tolerance",
+        type=float,
+        default=2.0,
+        help="Z tolerance for floor filtering (default: 2.0m)"
+    )
+    parser.add_argument(
+        "--bbox", "-b",
+        help="Bounding box region: minX,minY,maxX,maxY (e.g., -10,-20,10,20)"
+    )
 
     args = parser.parse_args()
 
@@ -698,6 +750,19 @@ def main():
         print(f"Invalid resolution format: {args.resolution}")
         sys.exit(1)
 
+    # Parse bounding box
+    bbox = None
+    if args.bbox:
+        try:
+            parts = [float(x.strip()) for x in args.bbox.split(',')]
+            if len(parts) != 4:
+                raise ValueError("Need exactly 4 values")
+            bbox = tuple(parts)  # (min_x, min_y, max_x, max_y)
+        except ValueError as e:
+            print(f"Invalid bbox format: {args.bbox} ({e})")
+            print("Expected format: minX,minY,maxX,maxY (e.g., -10,-20,10,20)")
+            sys.exit(1)
+
     # Render
     output = render_database(
         args.database,
@@ -708,7 +773,10 @@ def main():
         args.surface_only,
         disciplines,
         exclude,
-        args.color_by
+        args.color_by,
+        args.floor,
+        args.floor_tolerance,
+        bbox
     )
 
     if output:
