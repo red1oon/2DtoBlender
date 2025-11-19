@@ -142,7 +142,7 @@ class SoftwareRenderer:
 
     def draw_triangle(self, v0, v1, v2, color, cull_backface=True):
         """
-        Rasterize a single triangle with z-buffering.
+        Rasterize a single triangle with z-buffering (vectorized).
 
         Args:
             v0, v1, v2: Projected vertices (screen_x, screen_y, depth)
@@ -166,23 +166,55 @@ class SoftwareRenderer:
         if min_x > max_x or min_y > max_y:
             return
 
-        # Rasterize
-        for y in range(min_y, max_y + 1):
-            for x in range(min_x, max_x + 1):
-                bary = self.barycentric((x, y), v0, v1, v2)
-                if bary is None:
-                    continue
+        # Vectorized rasterization
+        # Create coordinate grid for bounding box
+        xs = np.arange(min_x, max_x + 1)
+        ys = np.arange(min_y, max_y + 1)
+        xx, yy = np.meshgrid(xs, ys)
 
-                u, v, w = bary
-                # Check if inside triangle
-                if u >= 0 and v >= 0 and w >= 0:
-                    # Interpolate depth
-                    z = u * v0[2] + v * v1[2] + w * v2[2]
+        # Compute barycentric coordinates for all pixels at once
+        v0v1 = np.array([v1[0] - v0[0], v1[1] - v0[1]])
+        v0v2 = np.array([v2[0] - v0[0], v2[1] - v0[1]])
+        v0p_x = xx - v0[0]
+        v0p_y = yy - v0[1]
 
-                    # Z-buffer test
-                    if z < self.depth_buffer[y, x]:
-                        self.depth_buffer[y, x] = z
-                        self.color_buffer[y, x] = color
+        dot00 = np.dot(v0v1, v0v1)
+        dot01 = np.dot(v0v1, v0v2)
+        dot11 = np.dot(v0v2, v0v2)
+
+        dot02 = v0v1[0] * v0p_x + v0v1[1] * v0p_y
+        dot12 = v0v2[0] * v0p_x + v0v2[1] * v0p_y
+
+        denom = dot00 * dot11 - dot01 * dot01
+        if abs(denom) < 1e-10:
+            return
+
+        inv_denom = 1.0 / denom
+        u = (dot11 * dot02 - dot01 * dot12) * inv_denom
+        v = (dot00 * dot12 - dot01 * dot02) * inv_denom
+        w = 1 - u - v
+
+        # Mask for pixels inside triangle
+        inside = (u >= 0) & (v >= 0) & (w >= 0)
+
+        if not np.any(inside):
+            return
+
+        # Interpolate depth for all inside pixels
+        z = u * v0[2] + v * v1[2] + w * v2[2]
+
+        # Get pixel coordinates that are inside
+        inside_y, inside_x = np.where(inside)
+        inside_y = inside_y + min_y
+        inside_x = inside_x + min_x
+        inside_z = z[inside]
+
+        # Z-buffer test and update (vectorized where possible)
+        for i in range(len(inside_x)):
+            px, py, pz = inside_x[i], inside_y[i], inside_z[i]
+            if pz < self.depth_buffer[py, px]:
+                self.depth_buffer[py, px] = pz
+                self.color_buffer[py, px] = color
 
     def render_mesh(self, vertices, faces, color):
         """
