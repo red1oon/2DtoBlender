@@ -86,7 +86,8 @@ class SoftwareRenderer:
         ])
 
         # Orthographic projection scale
-        self.ortho_scale = size * distance
+        # Adjusted to fill frame nicely with some margin
+        self.ortho_scale = size * distance * 0.7
 
     def project_vertex(self, vertex):
         """
@@ -216,9 +217,36 @@ class SoftwareRenderer:
                 self.depth_buffer[py, px] = pz
                 self.color_buffer[py, px] = color
 
+    def compute_face_normal(self, v0, v1, v2):
+        """Compute face normal vector."""
+        edge1 = np.array([v1[0] - v0[0], v1[1] - v0[1], v1[2] - v0[2]])
+        edge2 = np.array([v2[0] - v0[0], v2[1] - v0[1], v2[2] - v0[2]])
+        normal = np.cross(edge1, edge2)
+        length = np.linalg.norm(normal)
+        if length > 0:
+            return normal / length
+        return np.array([0, 0, 1])
+
+    def shade_color(self, color, normal):
+        """Apply simple directional lighting to color."""
+        # Light direction (from camera/above)
+        light_dir = np.array([0.4, 0.4, 0.8])
+        light_dir = light_dir / np.linalg.norm(light_dir)
+
+        # Diffuse lighting with higher ambient
+        diffuse = max(0, np.dot(normal, light_dir))
+        intensity = 0.5 + 0.5 * diffuse  # 50% ambient + 50% diffuse
+
+        # Apply to RGB channels
+        r = int(min(255, color[0] * intensity))
+        g = int(min(255, color[1] * intensity))
+        b = int(min(255, color[2] * intensity))
+
+        return (r, g, b, color[3])
+
     def render_mesh(self, vertices, faces, color):
         """
-        Render a mesh.
+        Render a mesh with shading.
 
         Args:
             vertices: List of (x, y, z) vertices
@@ -234,18 +262,29 @@ class SoftwareRenderer:
         # Draw each triangle
         for face in faces:
             if len(face) >= 3:
+                # Get 3D vertices for normal calculation
+                vert0 = vertices[face[0]]
+                vert1 = vertices[face[1]]
+                vert2 = vertices[face[2]]
+
+                # Compute face normal and shade color
+                normal = self.compute_face_normal(vert0, vert1, vert2)
+                shaded_color = self.shade_color(color, normal)
+
+                # Get projected vertices
                 v0 = projected[face[0]]
                 v1 = projected[face[1]]
                 v2 = projected[face[2]]
 
-                # Simple backface culling (optional)
-                # For now, draw all faces
-                self.draw_triangle(v0, v1, v2, color)
+                self.draw_triangle(v0, v1, v2, shaded_color)
 
                 # Handle quads by splitting into two triangles
                 if len(face) == 4:
                     v3 = projected[face[3]]
-                    self.draw_triangle(v0, v2, v3, color)
+                    vert3 = vertices[face[3]]
+                    normal2 = self.compute_face_normal(vert0, vert2, vert3)
+                    shaded_color2 = self.shade_color(color, normal2)
+                    self.draw_triangle(v0, v2, v3, shaded_color2)
 
     def get_image(self):
         """Get the rendered image as PIL Image."""
@@ -274,6 +313,20 @@ class DatabaseGeometryLoader:
         'IfcBuildingElementProxy': (200, 150, 100, 255),
     }
     DEFAULT_COLOR = (180, 180, 180, 255)
+
+    # Discipline colors
+    DISCIPLINE_COLORS = {
+        'ARC': (220, 220, 220, 255),    # Light gray - Architecture
+        'STR': (100, 150, 220, 255),    # Blue - Structural
+        'MEP': (100, 200, 100, 255),    # Green - MEP general
+        'ACMV': (100, 200, 150, 255),   # Teal - HVAC
+        'ELEC': (255, 200, 50, 255),    # Yellow - Electrical
+        'FP': (255, 100, 100, 255),     # Red - Fire Protection
+        'SP': (255, 150, 150, 255),     # Light red - Sprinkler
+        'REB': (180, 140, 100, 255),    # Brown - Rebar
+        'CW': (150, 200, 255, 255),     # Light blue - Curtain Wall
+        'LPG': (200, 100, 200, 255),    # Purple - LPG
+    }
 
     def __init__(self, db_path: str):
         self.db_path = db_path
@@ -332,7 +385,13 @@ class DatabaseGeometryLoader:
                 return color
         return self.DEFAULT_COLOR
 
-    def load_meshes(self, surface_only=False, disciplines=None, exclude=None):
+    def get_color_for_discipline(self, discipline: str):
+        """Get color for a discipline."""
+        if discipline and discipline.upper() in self.DISCIPLINE_COLORS:
+            return self.DISCIPLINE_COLORS[discipline.upper()]
+        return self.DEFAULT_COLOR
+
+    def load_meshes(self, surface_only=False, disciplines=None, exclude=None, color_by='class'):
         """
         Load all meshes from database.
 
@@ -340,6 +399,7 @@ class DatabaseGeometryLoader:
             surface_only: If True, only load surface elements (walls, slabs, roofs)
             disciplines: List of disciplines to include (e.g., ['ARC', 'STR']), None for all
             exclude: List of disciplines to exclude (e.g., ['ARC', 'STR'])
+            color_by: 'class' for IFC class colors, 'discipline' for discipline colors
 
         Returns:
             List of (vertices, faces, color) tuples
@@ -436,7 +496,11 @@ class DatabaseGeometryLoader:
                     if not is_surface:
                         continue
 
-                color = self.get_color_for_class(ifc_class)
+                # Get color based on color_by mode
+                if color_by == 'discipline':
+                    color = self.get_color_for_discipline(discipline)
+                else:
+                    color = self.get_color_for_class(ifc_class)
 
                 meshes.append((vertices, faces, color))
 
@@ -490,7 +554,8 @@ def render_database(db_path: str, output_path: str = None,
                     resolution: tuple = (1920, 1080),
                     surface_only: bool = False,
                     disciplines: list = None,
-                    exclude: list = None):
+                    exclude: list = None,
+                    color_by: str = 'class'):
     """
     Render database geometry to PNG.
 
@@ -503,6 +568,7 @@ def render_database(db_path: str, output_path: str = None,
         surface_only: Only render surface elements
         disciplines: List of disciplines to include (e.g., ['ARC', 'STR'])
         exclude: List of disciplines to exclude (e.g., ['ARC', 'STR'])
+        color_by: 'class' for IFC class colors, 'discipline' for discipline colors
 
     Returns:
         Path to saved PNG file
@@ -514,10 +580,12 @@ def render_database(db_path: str, output_path: str = None,
         print(f"Excluding: {', '.join(exclude)}")
     if surface_only:
         print("Filtering: surface elements only")
+    if color_by == 'discipline':
+        print("Coloring by discipline")
 
     # Load geometry
     loader = DatabaseGeometryLoader(db_path)
-    meshes = loader.load_meshes(surface_only=surface_only, disciplines=disciplines, exclude=exclude)
+    meshes = loader.load_meshes(surface_only=surface_only, disciplines=disciplines, exclude=exclude, color_by=color_by)
 
     if not meshes:
         print("Error: No meshes loaded from database")
@@ -603,6 +671,12 @@ def main():
         "--exclude", "-X",
         help="Comma-separated list of disciplines to exclude (e.g., ARC,STR)"
     )
+    parser.add_argument(
+        "--color-by", "-c",
+        choices=['class', 'discipline'],
+        default='class',
+        help="Color elements by IFC class or discipline (default: class)"
+    )
 
     args = parser.parse_args()
 
@@ -633,7 +707,8 @@ def main():
         resolution,
         args.surface_only,
         disciplines,
-        exclude
+        exclude,
+        args.color_by
     )
 
     if output:
