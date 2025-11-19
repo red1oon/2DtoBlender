@@ -40,7 +40,58 @@ The decode layer must **exactly replicate** how `blend_cache.py` interprets the 
 
 ---
 
-## Five Report Layers
+## Six Report Layers
+
+### Layer 0: Spatial Layout (Orientation & Position)
+
+Provides spatial context so humans can instantly validate correctness.
+
+```
+SPATIAL LAYOUT (Top-down view, North = +Y)
+═══════════════════════════════════════════════════════════
+
+BUILDING POSITION
+─────────────────────────────────────────────────────────
+Center: (X=-3.2, Y=-0.5) - slightly SW of origin
+Extent: X[-23, 16] Y[-20, 19] Z[0, 12]
+Orientation: Long axis runs E-W
+
+QUADRANT ANALYSIS (from origin)
+─────────────────────────────────────────────────────────
+  NE (+X, +Y): 312 elements (43%)
+  NW (-X, +Y): 198 elements (27%)
+  SE (+X, -Y): 156 elements (21%)
+  SW (-X, -Y): 74 elements (10%) ⚠️ Sparse
+
+PERIMETER WALLS (clockwise from North)
+─────────────────────────────────────────────────────────
+  North: 39.4m at Y=19.3, from X=-23 to X=16
+  East:  27.1m at X=16.4, from Y=-20 to Y=7
+  South: 39.4m at Y=-19.8, from X=-23 to X=16
+  West:  28.4m at X=-22.9, from Y=-20 to Y=7
+  Closure: ✓ Forms closed rectangle (gap < 0.5m)
+
+COLUMN GRID
+─────────────────────────────────────────────────────────
+  Grid origin: (-20, -15)
+  Spacing: 6.0m (X) × 5.0m (Y)
+  Pattern: 6 columns × 8 rows = 48 expected
+  Actual: 45 detected (3 missing in NE corner)
+
+MAJOR ZONES BY POSITION
+─────────────────────────────────────────────────────────
+  Center (0±5m): Main hall - high element density
+  North wing (Y>10): Office areas - 12 interior walls
+  South wing (Y<-10): Service areas - 8 interior walls
+  East side (X>10): Entry/lobby - windows detected
+  West side (X<-10): Back-of-house - no windows
+```
+
+**Why this layer is critical:**
+- Human reads "North wall at Y=19.3" → instantly validates position
+- "SW quadrant sparse" → knows something is missing
+- "Grid origin at (-20, -15)" → can verify alignment
+- No image AI needed - spatial description humans can validate
 
 ### Layer 1: Geometry (What Blender Sees)
 

@@ -165,13 +165,8 @@ def generate_report(db_path: str) -> str:
     report.append("=" * 70)
     report.append(f"DATABASE AUDIT REPORT")
     report.append(f"Source: {Path(db_path).name}")
-    report.append("=" * 70)
-    report.append("")
-
-    # ==========================================================================
-    # LAYER 1: GEOMETRY
-    # ==========================================================================
-    report.append("LAYER 1: GEOMETRY (What Blender Sees)")
+    from datetime import datetime
+    report.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     report.append("=" * 70)
     report.append("")
 
@@ -268,6 +263,146 @@ def generate_report(db_path: str) -> str:
 
     # Building envelope
     building_bbox = compute_bbox(all_vertices)
+
+    # ==========================================================================
+    # LAYER 0: SPATIAL LAYOUT
+    # ==========================================================================
+    report.append("LAYER 0: SPATIAL LAYOUT (Orientation & Position)")
+    report.append("=" * 70)
+    report.append("")
+
+    # Building position
+    center_x = (building_bbox['min'][0] + building_bbox['max'][0]) / 2
+    center_y = (building_bbox['min'][1] + building_bbox['max'][1]) / 2
+
+    report.append("BUILDING POSITION")
+    report.append("-" * 70)
+
+    # Determine which side of origin
+    pos_desc = []
+    if center_x > 1:
+        pos_desc.append("E of origin")
+    elif center_x < -1:
+        pos_desc.append("W of origin")
+    if center_y > 1:
+        pos_desc.append("N of origin")
+    elif center_y < -1:
+        pos_desc.append("S of origin")
+    pos_str = ", ".join(pos_desc) if pos_desc else "at origin"
+
+    report.append(f"  Center: ({center_x:.1f}, {center_y:.1f}) - {pos_str}")
+    report.append(f"  Extent: X[{building_bbox['min'][0]:.1f}, {building_bbox['max'][0]:.1f}] Y[{building_bbox['min'][1]:.1f}, {building_bbox['max'][1]:.1f}] Z[{building_bbox['min'][2]:.1f}, {building_bbox['max'][2]:.1f}]")
+
+    # Long axis orientation
+    if building_bbox['size'][0] > building_bbox['size'][1] * 1.2:
+        axis_orient = "Long axis runs E-W"
+    elif building_bbox['size'][1] > building_bbox['size'][0] * 1.2:
+        axis_orient = "Long axis runs N-S"
+    else:
+        axis_orient = "Roughly square footprint"
+    report.append(f"  Orientation: {axis_orient}")
+    report.append("")
+
+    # Quadrant analysis
+    report.append("QUADRANT ANALYSIS (from origin)")
+    report.append("-" * 70)
+
+    ne_count = sum(1 for e in element_data if e['center'][0] >= 0 and e['center'][1] >= 0)
+    nw_count = sum(1 for e in element_data if e['center'][0] < 0 and e['center'][1] >= 0)
+    se_count = sum(1 for e in element_data if e['center'][0] >= 0 and e['center'][1] < 0)
+    sw_count = sum(1 for e in element_data if e['center'][0] < 0 and e['center'][1] < 0)
+    total = len(element_data)
+
+    def quadrant_status(count, total):
+        pct = (count / total * 100) if total > 0 else 0
+        if pct < 10:
+            return f"{count} ({pct:.0f}%) ⚠️ Sparse"
+        return f"{count} ({pct:.0f}%)"
+
+    report.append(f"  NE (+X, +Y): {quadrant_status(ne_count, total)}")
+    report.append(f"  NW (-X, +Y): {quadrant_status(nw_count, total)}")
+    report.append(f"  SE (+X, -Y): {quadrant_status(se_count, total)}")
+    report.append(f"  SW (-X, -Y): {quadrant_status(sw_count, total)}")
+    report.append("")
+
+    # Perimeter walls analysis
+    walls = [e for e in element_data if e['ifc_class'] == 'IfcWall']
+    if walls and len(walls) >= 4:
+        report.append("PERIMETER WALLS (clockwise from North)")
+        report.append("-" * 70)
+
+        # Find walls at extremes
+        ew_walls = [w for w in walls if w['orientation'] == 'E-W']
+        ns_walls = [w for w in walls if w['orientation'] == 'N-S']
+
+        # North wall (highest Y, E-W orientation)
+        if ew_walls:
+            north_candidates = sorted(ew_walls, key=lambda w: (w['bbox']['max'][1] + w['bbox']['min'][1])/2, reverse=True)
+            if north_candidates:
+                w = north_candidates[0]
+                y_pos = (w['bbox']['min'][1] + w['bbox']['max'][1]) / 2
+                x_min, x_max = w['bbox']['min'][0], w['bbox']['max'][0]
+                report.append(f"  North: {w['length']:.1f}m at Y={y_pos:.1f}, from X={x_min:.0f} to X={x_max:.0f}")
+
+        # East wall (highest X, N-S orientation)
+        if ns_walls:
+            east_candidates = sorted(ns_walls, key=lambda w: (w['bbox']['max'][0] + w['bbox']['min'][0])/2, reverse=True)
+            if east_candidates:
+                w = east_candidates[0]
+                x_pos = (w['bbox']['min'][0] + w['bbox']['max'][0]) / 2
+                y_min, y_max = w['bbox']['min'][1], w['bbox']['max'][1]
+                report.append(f"  East:  {w['length']:.1f}m at X={x_pos:.1f}, from Y={y_min:.0f} to Y={y_max:.0f}")
+
+        # South wall (lowest Y, E-W orientation)
+        if ew_walls:
+            south_candidates = sorted(ew_walls, key=lambda w: (w['bbox']['max'][1] + w['bbox']['min'][1])/2)
+            if south_candidates:
+                w = south_candidates[0]
+                y_pos = (w['bbox']['min'][1] + w['bbox']['max'][1]) / 2
+                x_min, x_max = w['bbox']['min'][0], w['bbox']['max'][0]
+                report.append(f"  South: {w['length']:.1f}m at Y={y_pos:.1f}, from X={x_min:.0f} to X={x_max:.0f}")
+
+        # West wall (lowest X, N-S orientation)
+        if ns_walls:
+            west_candidates = sorted(ns_walls, key=lambda w: (w['bbox']['max'][0] + w['bbox']['min'][0])/2)
+            if west_candidates:
+                w = west_candidates[0]
+                x_pos = (w['bbox']['min'][0] + w['bbox']['max'][0]) / 2
+                y_min, y_max = w['bbox']['min'][1], w['bbox']['max'][1]
+                report.append(f"  West:  {w['length']:.1f}m at X={x_pos:.1f}, from Y={y_min:.0f} to Y={y_max:.0f}")
+
+        report.append("")
+
+    # Column grid with position
+    columns = [e for e in element_data if e['ifc_class'] == 'IfcColumn']
+    if columns:
+        report.append("COLUMN GRID")
+        report.append("-" * 70)
+
+        col_positions = [(c['center'][0], c['center'][1]) for c in columns]
+
+        # Find grid origin (minimum X, Y)
+        min_col_x = min(p[0] for p in col_positions)
+        min_col_y = min(p[1] for p in col_positions)
+        report.append(f"  Grid origin: ({min_col_x:.1f}, {min_col_y:.1f})")
+
+        grid = detect_grid_pattern(col_positions)
+        if grid and grid.get('regular'):
+            report.append(f"  Spacing: {grid['spacing_x']:.1f}m (X) × {grid['spacing_y']:.1f}m (Y)")
+            expected = grid['cols'] * grid['rows']
+            report.append(f"  Pattern: {grid['cols']} × {grid['rows']} = {expected} expected, {len(columns)} actual")
+        else:
+            report.append(f"  Pattern: Irregular distribution")
+        report.append("")
+
+    # ==========================================================================
+    # LAYER 1: GEOMETRY
+    # ==========================================================================
+    report.append("")
+    report.append("LAYER 1: GEOMETRY (What Blender Sees)")
+    report.append("=" * 70)
+    report.append("")
+
     report.append("BUILDING ENVELOPE")
     report.append("-" * 70)
     report.append(f"  Bounding box:")
@@ -527,6 +662,8 @@ def main():
     )
     parser.add_argument('database', help='Path to federation database (.db)')
     parser.add_argument('--output', '-o', help='Output file (default: stdout)')
+    parser.add_argument('--save', '-s', action='store_true',
+                       help='Save timestamped report to AuditReports directory')
 
     args = parser.parse_args()
 
@@ -537,11 +674,28 @@ def main():
 
     report = generate_report(str(db_path))
 
+    # Save timestamped report if requested
+    if args.save:
+        from datetime import datetime
+        reports_dir = Path(__file__).parent.parent / "AuditReports"
+        reports_dir.mkdir(exist_ok=True)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        db_name = db_path.stem
+        report_path = reports_dir / f"{db_name}_{timestamp}.txt"
+
+        with open(report_path, 'w') as f:
+            f.write(report)
+        print(f"Report saved to: {report_path}")
+
     if args.output:
         with open(args.output, 'w') as f:
             f.write(report)
         print(f"Report saved to: {args.output}")
+    elif not args.save:
+        print(report)
     else:
+        # If --save was used, still print to stdout
         print(report)
 
 
