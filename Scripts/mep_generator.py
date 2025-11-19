@@ -697,6 +697,67 @@ class ELECGenerator(DisciplineGenerator):
                     })
                     x_pos += emergency_spacing
 
+            # Wayfinding signage (directional signs for gates, restrooms, exits)
+            wayfinding_positions = [
+                # Main circulation junctions
+                (slab_cx - 15, slab_cy, 'GATES_A-B'),
+                (slab_cx + 15, slab_cy, 'GATES_C-D'),
+                (slab_cx, slab_cy - 12, 'DEPARTURE'),
+                (slab_cx, slab_cy + 12, 'ARRIVAL'),
+                # Near entrances
+                (min_x + 8, slab_cy, 'INFO_WC'),
+                (max_x - 8, slab_cy, 'INFO_WC'),
+            ]
+            for wx, wy, sign_type in wayfinding_positions:
+                elements.append({
+                    'guid': self._create_guid(),
+                    'discipline': 'ELEC',
+                    'ifc_class': 'IfcLightFixture',
+                    'floor': floor_id,
+                    'center_x': wx,
+                    'center_y': wy,
+                    'center_z': elevation + 2.6,  # Above head height
+                    'rotation_z': 0,
+                    'length': 0.6,
+                    'layer': f'WAYFINDING_{floor_id}',
+                    'source_file': 'zones_config.json',
+                    'polyline_points': None,
+                    'signage_config': {
+                        'type': sign_type,
+                        'width': 0.6,
+                        'height': 0.3,
+                        'backlit': True
+                    }
+                })
+
+            # Emergency call points (SOS/help buttons near restrooms and exits)
+            emergency_call_positions = [
+                (min_x + 5, min_y + 8),   # Near NW corner
+                (max_x - 5, min_y + 8),   # Near NE corner
+                (min_x + 5, max_y - 8),   # Near SW corner
+                (max_x - 5, max_y - 8),   # Near SE corner
+            ]
+            for ecx, ecy in emergency_call_positions:
+                elements.append({
+                    'guid': self._create_guid(),
+                    'discipline': 'ELEC',
+                    'ifc_class': 'IfcElectricAppliance',
+                    'floor': floor_id,
+                    'center_x': ecx,
+                    'center_y': ecy,
+                    'center_z': elevation + 1.2,  # Wall-mounted at reach height
+                    'rotation_z': 0,
+                    'length': 0.15,
+                    'layer': f'EMERGENCY_CALL_{floor_id}',
+                    'source_file': 'zones_config.json',
+                    'polyline_points': None,
+                    'call_point_config': {
+                        'type': 'SOS',
+                        'width': 0.12,
+                        'height': 0.18
+                    }
+                })
+
         return elements
 
 

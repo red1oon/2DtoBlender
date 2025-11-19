@@ -1744,6 +1744,67 @@ def main():
 
             print(f"  Generated 4 escalators (passenger circulation)")
 
+        # Generate accessible ramps with handrails
+        if gen_options.get('generate_escalators', True) and structural_elements:
+            print("\nGenerating accessible ramps with handrails...")
+
+            ramp_width = 1.5    # MS 1184 minimum
+            ramp_length = 6.0
+            handrail_height = 0.9  # ADA compliant
+
+            # Ramps near escalators for wheelchair access
+            ramp_positions = [
+                {'pos': (slab_cx - 12, max_y - 10), 'name': 'North_Ramp'},
+                {'pos': (slab_cx + 12, min_y + 10), 'name': 'South_Ramp'},
+            ]
+
+            for ramp in ramp_positions:
+                # Ramp surface
+                ramp_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': ramp_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcSlab',
+                    'floor': 'GF',
+                    'center_x': ramp['pos'][0],
+                    'center_y': ramp['pos'][1],
+                    'center_z': 0.15,  # Slight elevation
+                    'rotation_z': 0,
+                    'length': ramp_length,
+                    'layer': f'{ramp["name"].upper()}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'ramp_config': {
+                        'width': ramp_width,
+                        'length': ramp_length,
+                        'slope': '1:12'
+                    }
+                })
+
+                # Handrails (both sides)
+                for side in [-1, 1]:
+                    handrail_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': handrail_guid,
+                        'discipline': 'ARC',
+                        'ifc_class': 'IfcBeam',
+                        'floor': 'GF',
+                        'center_x': ramp['pos'][0] + side * (ramp_width / 2 + 0.05),
+                        'center_y': ramp['pos'][1],
+                        'center_z': handrail_height,
+                        'rotation_z': 0,
+                        'length': ramp_length,
+                        'layer': f'HANDRAIL_{ramp["name"].upper()}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'handrail_config': {
+                            'diameter': 0.04,
+                            'length': ramp_length
+                        }
+                    })
+
+            print(f"  Generated 2 accessible ramps with handrails")
+
         # ====================================================================
         # INTERIOR ELEMENTS - Restrooms, counters, seating, retail
         # ====================================================================
