@@ -1819,6 +1819,86 @@ def main():
 
             print(f"  Generated {len(atm_positions)} ATM kiosks")
 
+        # Generate planters (interior landscaping)
+        if gen_options.get('generate_seating', True) and structural_elements:
+            print("\nGenerating planters...")
+
+            planter_size = 1.2
+            planter_height = 0.8
+
+            floors_config = building_config.get('floors', {})
+            planter_count = 0
+
+            for floor_id, floor_data in floors_config.items():
+                if floor_id in ['ROOF', '4F-6F']:
+                    continue
+
+                elevation = floor_data.get('elevation_m', 0.0)
+
+                # Planters along main circulation
+                planter_positions = [
+                    {'pos': (slab_cx - 8, slab_cy + 8), 'name': f'Planter_NW_{floor_id}'},
+                    {'pos': (slab_cx + 8, slab_cy + 8), 'name': f'Planter_NE_{floor_id}'},
+                ]
+
+                for pl in planter_positions:
+                    pl_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': pl_guid,
+                        'discipline': 'ARC',
+                        'ifc_class': 'IfcFurniture',
+                        'floor': floor_id,
+                        'center_x': pl['pos'][0],
+                        'center_y': pl['pos'][1],
+                        'center_z': elevation,
+                        'rotation_z': 0,
+                        'length': planter_size,
+                        'layer': f'PLANTER_{pl["name"]}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'furniture_config': {
+                            'width': planter_size,
+                            'depth': planter_size,
+                            'height': planter_height
+                        }
+                    })
+                    planter_count += 1
+
+            print(f"  Generated {planter_count} planters")
+
+        # Generate first aid station (GF - safety requirement)
+        if gen_options.get('generate_restrooms', True) and structural_elements:
+            print("\nGenerating first aid station...")
+
+            aid_width = 3.0
+            aid_depth = 2.5
+            aid_height = 3.0
+
+            # Near central restrooms for accessibility
+            aid_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            all_elements.append({
+                'guid': aid_guid,
+                'discipline': 'ARC',
+                'ifc_class': 'IfcSpace',
+                'floor': 'GF',
+                'center_x': max_x - 10,
+                'center_y': slab_cy,
+                'center_z': 0.0,
+                'rotation_z': 0,
+                'length': aid_width,
+                'layer': 'FIRST_AID_STATION',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'space_config': {
+                    'width': aid_width,
+                    'depth': aid_depth,
+                    'height': aid_height,
+                    'space_type': 'First Aid'
+                }
+            })
+
+            print(f"  Generated 1 first aid station")
+
         # Generate glass partition walls in public areas
         if gen_options.get('generate_glass_partitions', True) and structural_elements:
             print("\nGenerating glass partition walls...")
