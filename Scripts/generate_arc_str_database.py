@@ -2772,6 +2772,160 @@ def main():
 
             print(f"  Generated 1 first aid station")
 
+        # Generate lost and found office (GF - passenger services)
+        if gen_options.get('generate_restrooms', True) and structural_elements:
+            print("\nGenerating lost and found office...")
+
+            office_width = 3.5
+            office_depth = 3.0
+            office_height = 3.0
+
+            lost_found_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            all_elements.append({
+                'guid': lost_found_guid,
+                'discipline': 'ARC',
+                'ifc_class': 'IfcSpace',
+                'floor': 'GF',
+                'center_x': min_x + 10,
+                'center_y': slab_cy,
+                'center_z': 0.0,
+                'rotation_z': 0,
+                'length': office_width,
+                'layer': 'LOST_FOUND_OFFICE',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'space_config': {
+                    'width': office_width,
+                    'depth': office_depth,
+                    'height': office_height,
+                    'space_type': 'Lost and Found'
+                }
+            })
+
+            print(f"  Generated 1 lost and found office")
+
+        # Generate currency exchange booths (international terminal)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating currency exchange booths...")
+
+            exchange_width = 2.5
+            exchange_depth = 2.0
+            exchange_height = 2.8
+
+            # Near arrivals and main entrance
+            exchange_positions = [
+                {'pos': (slab_cx - 18, min_y + 8), 'name': 'Exchange_Entrance'},
+                {'pos': (slab_cx + 18, max_y - 18), 'name': 'Exchange_Arrivals'},
+            ]
+
+            for ex in exchange_positions:
+                ex_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': ex_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcSpace',
+                    'floor': 'GF',
+                    'center_x': ex['pos'][0],
+                    'center_y': ex['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': exchange_width,
+                    'layer': f'{ex["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'space_config': {
+                        'width': exchange_width,
+                        'depth': exchange_depth,
+                        'height': exchange_height,
+                        'space_type': 'Currency Exchange'
+                    }
+                })
+
+            print(f"  Generated {len(exchange_positions)} currency exchange booths")
+
+        # Generate outdoor transit shelters (bus/taxi waiting areas)
+        if gen_options.get('generate_stairs', True) and structural_elements:
+            print("\nGenerating outdoor transit shelters...")
+
+            shelter_width = 8.0
+            shelter_depth = 3.0
+            shelter_height = 3.5
+
+            # Shelters outside south entrance (drop-off/pickup area)
+            shelter_positions = [
+                {'pos': (slab_cx - 12, min_y - 8), 'name': 'Shelter_Taxi'},
+                {'pos': (slab_cx + 12, min_y - 8), 'name': 'Shelter_Bus'},
+            ]
+
+            for sh in shelter_positions:
+                # Shelter roof
+                sh_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': sh_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcSlab',
+                    'floor': 'GF',
+                    'center_x': sh['pos'][0],
+                    'center_y': sh['pos'][1],
+                    'center_z': shelter_height,
+                    'rotation_z': 0,
+                    'length': shelter_width,
+                    'layer': f'{sh["name"]}_ROOF',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'slab_config': {
+                        'width': shelter_width,
+                        'depth': shelter_depth,
+                        'thickness': 0.2
+                    }
+                })
+
+                # Shelter columns (4 per shelter)
+                for cx_off, cy_off in [(-3, -1), (3, -1), (-3, 1), (3, 1)]:
+                    col_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': col_guid,
+                        'discipline': 'STR',
+                        'ifc_class': 'IfcColumn',
+                        'floor': 'GF',
+                        'center_x': sh['pos'][0] + cx_off,
+                        'center_y': sh['pos'][1] + cy_off,
+                        'center_z': shelter_height / 2,
+                        'rotation_z': 0,
+                        'length': 0.2,
+                        'layer': f'{sh["name"]}_COLUMN',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'column_config': {
+                            'diameter': 0.2,
+                            'height': shelter_height
+                        }
+                    })
+
+                # Bench seating
+                bench_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': bench_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': sh['pos'][0],
+                    'center_y': sh['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': 6.0,
+                    'layer': f'{sh["name"]}_BENCH',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': 6.0,
+                        'depth': 0.5,
+                        'height': 0.45
+                    }
+                })
+
+            print(f"  Generated {len(shelter_positions)} outdoor transit shelters")
+
         # Generate baggage claim carousel (GF - arrival facility)
         if gen_options.get('generate_counters', True) and structural_elements:
             print("\nGenerating baggage claim area...")
