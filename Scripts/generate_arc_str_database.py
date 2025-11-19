@@ -2888,6 +2888,114 @@ def main():
 
             print(f"  Generated {num_booths} immigration booths")
 
+        # Generate life jacket storage stations (ferry terminal safety)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating life jacket storage stations...")
+
+            storage_width = 1.5
+            storage_depth = 0.6
+            storage_height = 1.8
+
+            # Storage near jetty/boarding areas
+            storage_positions = [
+                {'pos': (slab_cx - 15, max_y - 5), 'name': 'LifeJacket_Gate_A'},
+                {'pos': (slab_cx - 5, max_y - 5), 'name': 'LifeJacket_Gate_B'},
+                {'pos': (slab_cx + 5, max_y - 5), 'name': 'LifeJacket_Gate_C'},
+                {'pos': (slab_cx + 15, max_y - 5), 'name': 'LifeJacket_Gate_D'},
+            ]
+
+            for st in storage_positions:
+                st_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': st_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': st['pos'][0],
+                    'center_y': st['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': storage_depth,
+                    'layer': f'{st["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'storage_config': {
+                        'width': storage_width,
+                        'depth': storage_depth,
+                        'height': storage_height,
+                        'capacity': 20
+                    }
+                })
+
+            print(f"  Generated {len(storage_positions)} life jacket storage stations")
+
+        # Generate weather monitoring display (ferry operations)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating weather monitoring display...")
+
+            weather_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            all_elements.append({
+                'guid': weather_guid,
+                'discipline': 'ELEC',
+                'ifc_class': 'IfcElectricAppliance',
+                'floor': 'GF',
+                'center_x': slab_cx,
+                'center_y': max_y - 8,  # Near boarding area
+                'center_z': 2.5,  # High visibility
+                'rotation_z': 0,
+                'length': 2.0,
+                'layer': 'WEATHER_DISPLAY',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'display_config': {
+                    'width': 2.0,
+                    'height': 1.0,
+                    'type': 'weather_monitor',
+                    'shows': ['tide', 'wind', 'visibility', 'sea_state']
+                }
+            })
+
+            print(f"  Generated 1 weather monitoring display")
+
+        # Generate water taxi ticket booths (additional ferry services)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating water taxi ticket booths...")
+
+            booth_width = 2.5
+            booth_depth = 2.0
+            booth_height = 2.5
+
+            # Booths near jetty entrance
+            booth_positions = [
+                {'pos': (slab_cx - 12, max_y - 10), 'name': 'WaterTaxi_1'},
+                {'pos': (slab_cx + 12, max_y - 10), 'name': 'WaterTaxi_2'},
+            ]
+
+            for booth in booth_positions:
+                booth_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': booth_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcSpace',
+                    'floor': 'GF',
+                    'center_x': booth['pos'][0],
+                    'center_y': booth['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': booth_width,
+                    'layer': f'{booth["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'space_config': {
+                        'width': booth_width,
+                        'depth': booth_depth,
+                        'height': booth_height,
+                        'space_type': 'Ticket Booth'
+                    }
+                })
+
+            print(f"  Generated {len(booth_positions)} water taxi ticket booths")
+
         # Generate glass partition walls in public areas
         if gen_options.get('generate_glass_partitions', True) and structural_elements:
             print("\nGenerating glass partition walls...")
