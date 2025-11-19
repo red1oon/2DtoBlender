@@ -296,6 +296,200 @@ class SlabGenerator:
         return BoxGenerator.generate(width, depth, thickness, cx, cy, cz)
 
 
+class DomeGenerator:
+    """Generate spherical dome cap geometry."""
+
+    @staticmethod
+    def generate(radius: float, height: float, cx: float, cy: float, cz: float,
+                 h_segments: int = 32, v_segments: int = 16) -> GeometryResult:
+        """
+        Generate dome (spherical cap) at world position.
+
+        Args:
+            radius: Dome base radius (meters)
+            height: Dome height from base to apex (meters)
+            cx, cy, cz: World position of dome center (base)
+            h_segments: Horizontal segments (around)
+            v_segments: Vertical segments (up)
+        """
+        # Calculate sphere radius from dome dimensions
+        # For a spherical cap: r = (radius^2 + height^2) / (2 * height)
+        sphere_r = (radius * radius + height * height) / (2 * height)
+        sphere_center_z = cz - (sphere_r - height)
+
+        vertices = []
+        faces = []
+
+        # Generate dome vertices
+        for v in range(v_segments + 1):
+            # Angle from bottom to top of dome
+            phi = (math.pi / 2) * (v / v_segments)  # 0 to 90 degrees
+            ring_r = sphere_r * math.cos(phi)
+            ring_z = sphere_center_z + sphere_r * math.sin(phi)
+
+            # Only include if within dome bounds
+            if ring_z >= cz:
+                for h in range(h_segments):
+                    theta = 2 * math.pi * h / h_segments
+                    vx = cx + ring_r * math.cos(theta)
+                    vy = cy + ring_r * math.sin(theta)
+                    vertices.append((vx, vy, ring_z))
+
+        # Add apex point
+        apex_idx = len(vertices)
+        vertices.append((cx, cy, cz + height))
+
+        # Generate faces
+        rings = len(vertices) // h_segments if h_segments > 0 else 0
+
+        for ring in range(rings - 1):
+            for h in range(h_segments):
+                v0 = ring * h_segments + h
+                v1 = ring * h_segments + (h + 1) % h_segments
+                v2 = (ring + 1) * h_segments + h
+                v3 = (ring + 1) * h_segments + (h + 1) % h_segments
+
+                if v2 < apex_idx and v3 < apex_idx:
+                    faces.append((v0, v2, v1))
+                    faces.append((v1, v2, v3))
+
+        # Connect to apex
+        if rings > 0:
+            last_ring_start = (rings - 1) * h_segments
+            for h in range(h_segments):
+                v0 = last_ring_start + h
+                v1 = last_ring_start + (h + 1) % h_segments
+                faces.append((v0, apex_idx, v1))
+
+        # Base cap (optional - close the dome base)
+        # Add center point for base
+        base_center_idx = len(vertices)
+        vertices.append((cx, cy, cz))
+        for h in range(h_segments):
+            v0 = h
+            v1 = (h + 1) % h_segments
+            faces.append((base_center_idx, v1, v0))
+
+        normals = [compute_face_normal(vertices[f[0]], vertices[f[1]], vertices[f[2]]) for f in faces]
+        return GeometryResult(vertices, faces, normals)
+
+
+class FloorSlabGenerator:
+    """Generate large floor slab from boundary polygon."""
+
+    @staticmethod
+    def generate(boundary_points: List[Tuple[float, float]], thickness: float,
+                 cz: float) -> GeometryResult:
+        """
+        Generate floor slab from polygon boundary.
+
+        Args:
+            boundary_points: List of (x, y) points defining floor outline
+            thickness: Slab thickness (meters)
+            cz: Z elevation of slab bottom
+        """
+        if len(boundary_points) < 3:
+            # Fallback to box
+            return BoxGenerator.generate(10.0, 10.0, thickness, 0, 0, cz)
+
+        n = len(boundary_points)
+        vertices = []
+
+        # Bottom face vertices
+        for px, py in boundary_points:
+            vertices.append((px, py, cz))
+
+        # Top face vertices
+        for px, py in boundary_points:
+            vertices.append((px, py, cz + thickness))
+
+        faces = []
+
+        # Triangulate polygon (simple fan triangulation for convex polygons)
+        # Bottom face
+        for i in range(1, n - 1):
+            faces.append((0, i + 1, i))
+
+        # Top face
+        for i in range(1, n - 1):
+            faces.append((n, n + i, n + i + 1))
+
+        # Side faces
+        for i in range(n):
+            b0 = i
+            b1 = (i + 1) % n
+            t0 = n + i
+            t1 = n + (i + 1) % n
+            faces.append((b0, b1, t1))
+            faces.append((b0, t1, t0))
+
+        normals = [compute_face_normal(vertices[f[0]], vertices[f[1]], vertices[f[2]]) for f in faces]
+        return GeometryResult(vertices, faces, normals)
+
+
+class RoofGenerator:
+    """Generate roof geometry from outline."""
+
+    @staticmethod
+    def generate(boundary_points: List[Tuple[float, float]], thickness: float,
+                 cz: float, slope_percent: float = 2.0) -> GeometryResult:
+        """
+        Generate sloped roof from polygon boundary.
+
+        Args:
+            boundary_points: List of (x, y) points defining roof outline
+            thickness: Roof thickness (meters)
+            cz: Z elevation of roof base
+            slope_percent: Roof slope percentage (for drainage)
+        """
+        if len(boundary_points) < 3:
+            return BoxGenerator.generate(10.0, 10.0, thickness, 0, 0, cz)
+
+        n = len(boundary_points)
+        vertices = []
+
+        # Calculate centroid for slope direction
+        cx = sum(p[0] for p in boundary_points) / n
+        cy = sum(p[1] for p in boundary_points) / n
+
+        # Bottom face vertices (flat)
+        for px, py in boundary_points:
+            vertices.append((px, py, cz))
+
+        # Top face vertices (sloped toward center)
+        slope_factor = slope_percent / 100.0
+        for px, py in boundary_points:
+            # Distance from centroid
+            dist = math.sqrt((px - cx)**2 + (py - cy)**2)
+            # Lower at edges, higher at center
+            z_offset = thickness - dist * slope_factor
+            if z_offset < thickness * 0.5:
+                z_offset = thickness * 0.5
+            vertices.append((px, py, cz + z_offset))
+
+        faces = []
+
+        # Bottom face
+        for i in range(1, n - 1):
+            faces.append((0, i + 1, i))
+
+        # Top face
+        for i in range(1, n - 1):
+            faces.append((n, n + i, n + i + 1))
+
+        # Side faces
+        for i in range(n):
+            b0 = i
+            b1 = (i + 1) % n
+            t0 = n + i
+            t1 = n + (i + 1) % n
+            faces.append((b0, b1, t1))
+            faces.append((b0, t1, t0))
+
+        normals = [compute_face_normal(vertices[f[0]], vertices[f[1]], vertices[f[2]]) for f in faces]
+        return GeometryResult(vertices, faces, normals)
+
+
 # ============================================================================
 # FACTORY FUNCTION
 # ============================================================================
