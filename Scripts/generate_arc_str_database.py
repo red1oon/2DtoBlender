@@ -1098,6 +1098,44 @@ def main():
 
             print(f"  Generated 4 entrance doors")
 
+        # Generate security checkpoints (GF - near entrances)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating security checkpoints...")
+
+            # Security screening lanes
+            lane_width = 1.2
+            lane_depth = 3.0
+            lane_height = 2.0
+
+            # Checkpoint near south entrance (main departure)
+            num_lanes = 4
+            lane_spacing = 2.0
+            start_x = slab_cx - (num_lanes - 1) * lane_spacing / 2
+
+            for i in range(num_lanes):
+                security_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': security_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': start_x + i * lane_spacing,
+                    'center_y': min_y + 25,  # After ticketing area
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': lane_depth,
+                    'layer': f'SECURITY_LANE_{i+1}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': lane_width,
+                        'depth': lane_depth,
+                        'height': lane_height
+                    }
+                })
+
+            print(f"  Generated {num_lanes} security screening lanes")
+
         # Generate default stairs (POC template - vertical circulation)
         if gen_options.get('generate_stairs', True) and all_elements:
             print("\nGenerating stairs...")
@@ -1741,6 +1779,45 @@ def main():
                 info_count += 1
 
             print(f"  Generated {info_count} information displays")
+
+        # Generate ATM/service kiosks (GF only)
+        if gen_options.get('generate_retail', True) and structural_elements:
+            print("\nGenerating ATM kiosks...")
+
+            atm_width = 0.6
+            atm_depth = 0.8
+            atm_height = 1.8
+
+            # ATMs along west wall near entrance
+            atm_positions = [
+                {'pos': (min_x + 3, slab_cy - 5), 'name': 'ATM_1'},
+                {'pos': (min_x + 3, slab_cy), 'name': 'ATM_2'},
+                {'pos': (min_x + 3, slab_cy + 5), 'name': 'ATM_3'},
+            ]
+
+            for atm in atm_positions:
+                atm_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': atm_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': atm['pos'][0],
+                    'center_y': atm['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': math.pi / 2,  # Facing into building
+                    'length': atm_depth,
+                    'layer': f'ATM_{atm["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': atm_width,
+                        'depth': atm_depth,
+                        'height': atm_height
+                    }
+                })
+
+            print(f"  Generated {len(atm_positions)} ATM kiosks")
 
         # Generate glass partition walls in public areas
         if gen_options.get('generate_glass_partitions', True) and structural_elements:
