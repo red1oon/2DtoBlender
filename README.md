@@ -13,6 +13,8 @@ Pure Python 3D renderer for federation database geometry. Renders to PNG **witho
 - **Hi-res support**: Up to 8K (7680x4320) and beyond
 - **Backface culling**: Only renders front-facing surfaces
 - **Z-buffering**: Proper depth ordering - obscured elements automatically hidden
+- **Floor filtering**: Render specific floor levels for interior inspection
+- **Bounding box**: Zoom into specific XY regions for close-up views
 
 ## Installation
 
@@ -72,6 +74,9 @@ python3 -m venv venv
 | `--discipline` | `-D` | Disciplines to show (comma-separated) | All |
 | `--exclude` | `-X` | Disciplines to hide (comma-separated) | None |
 | `--color-by` | `-c` | Color by 'class' or 'discipline' | class |
+| `--floor` | `-f` | Filter by floor Z level (meters) | None |
+| `--floor-tolerance` | | Z tolerance for floor filtering | 2.0 |
+| `--bbox` | `-b` | Bounding box: minX,minY,maxX,maxY | None |
 
 ## Camera Angles
 
@@ -115,6 +120,30 @@ python Scripts/generate_database.py
 # Review structural only
 ./venv/bin/python viewport_snapshot.py model.db --discipline STR
 ```
+
+### Floor and Region Filtering
+
+For large models (230m+ scenes), filter by floor and region to inspect small elements:
+
+```bash
+# Ground floor only (Z=0m, default tolerance 2m)
+./venv/bin/python viewport_snapshot.py model.db --floor 0 --angle top
+
+# Level 1 (Z=4m) with tighter tolerance
+./venv/bin/python viewport_snapshot.py model.db --floor 4 --floor-tolerance 1.5
+
+# Specific XY region (20x30m area)
+./venv/bin/python viewport_snapshot.py model.db --bbox="-10,-20,10,10"
+
+# Combined: Ground floor, specific region, discipline colors
+./venv/bin/python viewport_snapshot.py model.db \
+    --floor 0 \
+    --bbox="-10,-20,10,10" \
+    --angle top \
+    --color-by discipline
+```
+
+**Note**: Use `=` syntax for bbox with negative values (e.g., `--bbox="-10,-20,10,10"`).
 
 ## Performance
 
