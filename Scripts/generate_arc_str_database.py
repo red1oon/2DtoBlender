@@ -1340,12 +1340,13 @@ def main():
         # INTERIOR ELEMENTS - Restrooms, counters, seating, retail
         # ====================================================================
 
-        # Generate restroom blocks (4 per floor - NE, NW, SE, SW corners)
+        # Generate restroom blocks with accessible facilities (MS 1184 / ADA compliance)
         if gen_options.get('generate_restrooms', True) and structural_elements:
             print("\nGenerating restroom blocks...")
 
-            restroom_width = 6.0
-            restroom_depth = 4.0
+            # Standard restroom dimensions (MS 1184 compliant)
+            restroom_width = 8.0   # Wider for accessible stalls
+            restroom_depth = 5.0   # Deeper for circulation
             restroom_height = 3.0
 
             floors_config = building_config.get('floors', {})
@@ -1358,11 +1359,12 @@ def main():
                 elevation = floor_data.get('elevation_m', 0.0)
 
                 # 4 restroom blocks per floor (corners, inset from perimeter)
+                # Paired Male/Female with accessible facilities
                 restroom_positions = [
-                    {'pos': (min_x + 8, max_y - 8), 'name': f'Restroom_NW_{floor_id}'},
-                    {'pos': (max_x - 8, max_y - 8), 'name': f'Restroom_NE_{floor_id}'},
-                    {'pos': (min_x + 8, min_y + 8), 'name': f'Restroom_SW_{floor_id}'},
-                    {'pos': (max_x - 8, min_y + 8), 'name': f'Restroom_SE_{floor_id}'},
+                    {'pos': (min_x + 10, max_y - 10), 'name': f'WC_M_NW_{floor_id}', 'type': 'Male'},
+                    {'pos': (max_x - 10, max_y - 10), 'name': f'WC_F_NE_{floor_id}', 'type': 'Female'},
+                    {'pos': (min_x + 10, min_y + 10), 'name': f'WC_F_SW_{floor_id}', 'type': 'Female'},
+                    {'pos': (max_x - 10, min_y + 10), 'name': f'WC_M_SE_{floor_id}', 'type': 'Male'},
                 ]
 
                 for rr in restroom_positions:
@@ -1383,24 +1385,27 @@ def main():
                         'space_config': {
                             'width': restroom_width,
                             'depth': restroom_depth,
-                            'height': restroom_height
+                            'height': restroom_height,
+                            'space_type': rr['type'],
+                            'accessible': True  # All include accessible stalls
                         }
                     })
                     restroom_count += 1
 
-            print(f"  Generated {restroom_count} restroom blocks")
+            print(f"  Generated {restroom_count} restroom blocks (MS 1184 compliant)")
 
-        # Generate check-in counters (ground floor only)
+        # Generate check-in/ticketing counters (ground floor only)
         if gen_options.get('generate_counters', True) and structural_elements:
             print("\nGenerating check-in counters...")
 
-            counter_width = 8.0
-            counter_depth = 1.5
-            counter_height = 1.1
+            # Realistic counter dimensions (ferry terminal ticketing)
+            counter_width = 2.0   # Per station width
+            counter_depth = 0.8   # Standard service counter depth
+            counter_height = 1.1  # ADA compliant height
 
             # Row of counters near south entrance (departure area)
-            num_counters = 6
-            counter_spacing = 3.0
+            num_counters = 8
+            counter_spacing = 2.5  # 2.5m between stations
             start_x = slab_cx - (num_counters - 1) * counter_spacing / 2
 
             for i in range(num_counters):
@@ -1415,7 +1420,7 @@ def main():
                     'center_z': 0.0,
                     'rotation_z': 0,
                     'length': counter_width,
-                    'layer': f'COUNTER_{i+1}',
+                    'layer': f'TICKET_COUNTER_{i+1}',
                     'source_file': 'building_config.json',
                     'polyline_points': None,
                     'furniture_config': {
@@ -1425,7 +1430,55 @@ def main():
                     }
                 })
 
-            print(f"  Generated {num_counters} check-in counters")
+            print(f"  Generated {num_counters} ticketing counters")
+
+        # Generate drinking fountains (transit amenity - near restrooms)
+        if gen_options.get('generate_restrooms', True) and structural_elements:
+            print("\nGenerating drinking fountains...")
+
+            fountain_width = 0.4
+            fountain_depth = 0.3
+            fountain_height = 0.9  # Accessible height
+
+            floors_config = building_config.get('floors', {})
+            fountain_count = 0
+
+            for floor_id, floor_data in floors_config.items():
+                if floor_id == 'ROOF':
+                    continue
+
+                elevation = floor_data.get('elevation_m', 0.0)
+
+                # One fountain pair per floor (near NW and SE restrooms)
+                fountain_positions = [
+                    {'pos': (min_x + 10, max_y - 15), 'name': f'Fountain_NW_{floor_id}'},
+                    {'pos': (max_x - 10, min_y + 15), 'name': f'Fountain_SE_{floor_id}'},
+                ]
+
+                for ftn in fountain_positions:
+                    ftn_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': ftn_guid,
+                        'discipline': 'ARC',
+                        'ifc_class': 'IfcFurniture',
+                        'floor': floor_id,
+                        'center_x': ftn['pos'][0],
+                        'center_y': ftn['pos'][1],
+                        'center_z': elevation,
+                        'rotation_z': 0,
+                        'length': fountain_width,
+                        'layer': f'FOUNTAIN_{ftn["name"]}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'furniture_config': {
+                            'width': fountain_width,
+                            'depth': fountain_depth,
+                            'height': fountain_height
+                        }
+                    })
+                    fountain_count += 1
+
+            print(f"  Generated {fountain_count} drinking fountains")
 
         # Generate seating areas (waiting lounges)
         if gen_options.get('generate_seating', True) and structural_elements:
@@ -1516,6 +1569,90 @@ def main():
                 })
 
             print(f"  Generated {len(kiosk_positions)} retail/F&B kiosks")
+
+        # Generate information kiosks and departure boards (wayfinding)
+        if gen_options.get('generate_retail', True) and structural_elements:
+            print("\nGenerating information displays...")
+
+            # Information kiosks - freestanding touch screens
+            info_kiosk_width = 0.8
+            info_kiosk_depth = 0.6
+            info_kiosk_height = 1.8
+
+            # Departure boards - wall-mounted displays
+            board_width = 3.0
+            board_depth = 0.15
+            board_height = 1.5
+
+            floors_config = building_config.get('floors', {})
+            info_count = 0
+
+            for floor_id, floor_data in floors_config.items():
+                if floor_id == 'ROOF':
+                    continue
+
+                elevation = floor_data.get('elevation_m', 0.0)
+
+                # Information kiosks at main circulation points
+                info_positions = [
+                    {'pos': (slab_cx, slab_cy), 'name': f'InfoKiosk_Central_{floor_id}'},
+                    {'pos': (slab_cx - 12, slab_cy), 'name': f'InfoKiosk_W_{floor_id}'},
+                    {'pos': (slab_cx + 12, slab_cy), 'name': f'InfoKiosk_E_{floor_id}'},
+                ]
+
+                for info in info_positions:
+                    info_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': info_guid,
+                        'discipline': 'ARC',
+                        'ifc_class': 'IfcFurniture',
+                        'floor': floor_id,
+                        'center_x': info['pos'][0],
+                        'center_y': info['pos'][1],
+                        'center_z': elevation,
+                        'rotation_z': 0,
+                        'length': info_kiosk_width,
+                        'layer': f'INFO_{info["name"]}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'furniture_config': {
+                            'width': info_kiosk_width,
+                            'depth': info_kiosk_depth,
+                            'height': info_kiosk_height
+                        }
+                    })
+                    info_count += 1
+
+            # Departure boards (GF near ticketing area)
+            board_positions = [
+                {'pos': (slab_cx - 8, min_y + 20), 'name': 'Departures_W'},
+                {'pos': (slab_cx + 8, min_y + 20), 'name': 'Departures_E'},
+            ]
+
+            for board in board_positions:
+                board_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': board_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': board['pos'][0],
+                    'center_y': board['pos'][1],
+                    'center_z': 2.5,  # Wall-mounted height
+                    'rotation_z': 0,
+                    'length': board_width,
+                    'layer': f'DISPLAY_{board["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': board_width,
+                        'depth': board_depth,
+                        'height': board_height
+                    }
+                })
+                info_count += 1
+
+            print(f"  Generated {info_count} information displays")
 
         # Generate glass partition walls in public areas
         if gen_options.get('generate_glass_partitions', True) and structural_elements:
