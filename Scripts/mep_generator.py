@@ -258,6 +258,63 @@ class FPGenerator(DisciplineGenerator):
                             }
                         })
 
+            # Generate smoke detectors (sparser grid than sprinklers)
+            detector_spacing = spacing * 2  # Every other sprinkler position
+            y = min_y
+            while y <= max_y:
+                x = min_x
+                while x <= max_x:
+                    detector_z = ceiling_z + z_offset_sprinkler - 0.05  # Slightly below sprinklers
+                    elements.append({
+                        'guid': self._create_guid(),
+                        'discipline': 'FP',
+                        'ifc_class': 'IfcAlarm',
+                        'floor': floor_id,
+                        'center_x': x,
+                        'center_y': y,
+                        'center_z': detector_z,
+                        'rotation_z': 0,
+                        'length': 0.1,
+                        'layer': f'SMOKE_DETECTOR_{floor_id}',
+                        'source_file': 'zones_config.json',
+                        'polyline_points': None,
+                        'alarm_config': {
+                            'type': 'smoke_detector',
+                            'radius': 0.05
+                        }
+                    })
+                    x += detector_spacing
+                y += detector_spacing
+
+            # Generate break glass points near exits/corridors (wall-mounted)
+            break_glass_positions = [
+                (min_x + 2, slab_cy, 1.2),  # West entrance
+                (max_x - 2, slab_cy, 1.2),  # East entrance
+                (slab_cx, min_y + 2, 1.2),  # South entrance
+                (slab_cx, max_y - 2, 1.2),  # North entrance
+            ]
+
+            for bgx, bgy, bgz in break_glass_positions:
+                elements.append({
+                    'guid': self._create_guid(),
+                    'discipline': 'FP',
+                    'ifc_class': 'IfcAlarm',
+                    'floor': floor_id,
+                    'center_x': bgx,
+                    'center_y': bgy,
+                    'center_z': elevation + bgz,
+                    'rotation_z': 0,
+                    'length': 0.1,
+                    'layer': f'BREAK_GLASS_{floor_id}',
+                    'source_file': 'zones_config.json',
+                    'polyline_points': None,
+                    'alarm_config': {
+                        'type': 'break_glass',
+                        'width': 0.1,
+                        'height': 0.15
+                    }
+                })
+
         return elements
 
 
@@ -389,6 +446,88 @@ class ELECGenerator(DisciplineGenerator):
                                 'height': conduit_config.get('branch_height_m', 0.05)
                             }
                         })
+
+            # Generate power outlets along perimeter (wall-mounted)
+            outlet_height = 0.4  # Standard outlet height from floor
+            outlet_spacing = 6.0  # Every 6 meters along walls
+
+            # West and East walls
+            for wall_x in [min_x + 1, max_x - 1]:
+                y_pos = min_y + outlet_spacing
+                while y_pos <= max_y - outlet_spacing:
+                    elements.append({
+                        'guid': self._create_guid(),
+                        'discipline': 'ELEC',
+                        'ifc_class': 'IfcElectricAppliance',
+                        'floor': floor_id,
+                        'center_x': wall_x,
+                        'center_y': y_pos,
+                        'center_z': elevation + outlet_height,
+                        'rotation_z': 0,
+                        'length': 0.1,
+                        'layer': f'OUTLET_{floor_id}',
+                        'source_file': 'zones_config.json',
+                        'polyline_points': None,
+                        'outlet_config': {
+                            'type': 'power_outlet',
+                            'width': 0.08,
+                            'height': 0.12
+                        }
+                    })
+                    y_pos += outlet_spacing
+
+            # North and South walls
+            for wall_y in [min_y + 1, max_y - 1]:
+                x_pos = min_x + outlet_spacing
+                while x_pos <= max_x - outlet_spacing:
+                    elements.append({
+                        'guid': self._create_guid(),
+                        'discipline': 'ELEC',
+                        'ifc_class': 'IfcElectricAppliance',
+                        'floor': floor_id,
+                        'center_x': x_pos,
+                        'center_y': wall_y,
+                        'center_z': elevation + outlet_height,
+                        'rotation_z': 0,
+                        'length': 0.1,
+                        'layer': f'OUTLET_{floor_id}',
+                        'source_file': 'zones_config.json',
+                        'polyline_points': None,
+                        'outlet_config': {
+                            'type': 'power_outlet',
+                            'width': 0.08,
+                            'height': 0.12
+                        }
+                    })
+                    x_pos += outlet_spacing
+
+            # Light switches near doors (4 per floor, at entrances)
+            switch_positions = [
+                (min_x + 3, slab_cy),
+                (max_x - 3, slab_cy),
+                (slab_cx, min_y + 3),
+                (slab_cx, max_y - 3),
+            ]
+            for sx, sy in switch_positions:
+                elements.append({
+                    'guid': self._create_guid(),
+                    'discipline': 'ELEC',
+                    'ifc_class': 'IfcElectricAppliance',
+                    'floor': floor_id,
+                    'center_x': sx,
+                    'center_y': sy,
+                    'center_z': elevation + 1.2,  # Switch height
+                    'rotation_z': 0,
+                    'length': 0.08,
+                    'layer': f'SWITCH_{floor_id}',
+                    'source_file': 'zones_config.json',
+                    'polyline_points': None,
+                    'outlet_config': {
+                        'type': 'light_switch',
+                        'width': 0.08,
+                        'height': 0.12
+                    }
+                })
 
         return elements
 

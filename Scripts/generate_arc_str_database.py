@@ -1800,7 +1800,62 @@ def main():
                     })
                     restroom_count += 1
 
-            print(f"  Generated {restroom_count} restroom blocks (MS 1184 compliant)")
+                    # Add sanitary fixtures inside restroom
+                    rr_x, rr_y = rr['pos']
+
+                    # Toilets (3 per restroom, 2 standard + 1 accessible)
+                    toilet_positions = [
+                        (rr_x - 2.5, rr_y),     # Left standard
+                        (rr_x, rr_y),           # Center accessible (larger stall)
+                        (rr_x + 2.5, rr_y),     # Right standard
+                    ]
+                    for i, (tx, ty) in enumerate(toilet_positions):
+                        toilet_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                        all_elements.append({
+                            'guid': toilet_guid,
+                            'discipline': 'ARC',
+                            'ifc_class': 'IfcSanitaryTerminal',
+                            'floor': floor_id,
+                            'center_x': tx,
+                            'center_y': ty + 1.5,  # Back of restroom
+                            'center_z': elevation,
+                            'rotation_z': 0,
+                            'length': 0.4,
+                            'layer': f'TOILET_{rr["name"]}_{i}',
+                            'source_file': 'building_config.json',
+                            'polyline_points': None,
+                            'sanitary_config': {
+                                'type': 'toilet',
+                                'accessible': (i == 1)
+                            }
+                        })
+
+                    # Basins (2 per restroom)
+                    basin_positions = [
+                        (rr_x - 1.5, rr_y - 1.5),
+                        (rr_x + 1.5, rr_y - 1.5),
+                    ]
+                    for i, (bx, by) in enumerate(basin_positions):
+                        basin_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                        all_elements.append({
+                            'guid': basin_guid,
+                            'discipline': 'ARC',
+                            'ifc_class': 'IfcFlowTerminal',
+                            'floor': floor_id,
+                            'center_x': bx,
+                            'center_y': by,
+                            'center_z': elevation + 0.85,  # Counter height
+                            'rotation_z': 0,
+                            'length': 0.5,
+                            'layer': f'BASIN_{rr["name"]}_{i}',
+                            'source_file': 'building_config.json',
+                            'polyline_points': None,
+                            'sanitary_config': {
+                                'type': 'basin'
+                            }
+                        })
+
+            print(f"  Generated {restroom_count} restroom blocks with fixtures (MS 1184 compliant)")
 
         # Generate check-in/ticketing counters (ground floor only)
         if gen_options.get('generate_counters', True) and structural_elements:
