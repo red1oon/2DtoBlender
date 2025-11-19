@@ -1938,6 +1938,83 @@ def main():
 
             print(f"  Generated {len(carousel_positions)} baggage carousels")
 
+        # Generate boarding gates (GF - departure points)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating boarding gates...")
+
+            # Gate counter/desk
+            gate_width = 3.0
+            gate_depth = 1.5
+            gate_height = 1.1
+
+            # Gates along north wall (jetty side)
+            num_gates = 4
+            gate_spacing = 8.0
+            start_x = slab_cx - (num_gates - 1) * gate_spacing / 2
+
+            for i in range(num_gates):
+                gate_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': gate_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': start_x + i * gate_spacing,
+                    'center_y': max_y - 8,  # Near north exit to jetty
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': gate_width,
+                    'layer': f'GATE_{i+1}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': gate_width,
+                        'depth': gate_depth,
+                        'height': gate_height
+                    }
+                })
+
+            print(f"  Generated {num_gates} boarding gates")
+
+        # Generate customs/immigration checkpoint (GF - international terminal)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating customs checkpoint...")
+
+            # Immigration booth
+            booth_width = 2.0
+            booth_depth = 2.0
+            booth_height = 2.5
+
+            # Booths in row for passport control
+            num_booths = 6
+            booth_spacing = 3.0
+            start_x = slab_cx - (num_booths - 1) * booth_spacing / 2
+
+            for i in range(num_booths):
+                booth_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': booth_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcSpace',
+                    'floor': 'GF',
+                    'center_x': start_x + i * booth_spacing,
+                    'center_y': max_y - 20,  # After security, before gates
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': booth_width,
+                    'layer': f'IMMIGRATION_BOOTH_{i+1}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'space_config': {
+                        'width': booth_width,
+                        'depth': booth_depth,
+                        'height': booth_height,
+                        'space_type': 'Immigration'
+                    }
+                })
+
+            print(f"  Generated {num_booths} immigration booths")
+
         # Generate glass partition walls in public areas
         if gen_options.get('generate_glass_partitions', True) and structural_elements:
             print("\nGenerating glass partition walls...")
