@@ -2926,6 +2926,107 @@ def main():
 
             print(f"  Generated {len(shelter_positions)} outdoor transit shelters")
 
+        # Generate bicycle parking racks (sustainable transport)
+        if gen_options.get('generate_stairs', True) and structural_elements:
+            print("\nGenerating bicycle parking racks...")
+
+            rack_length = 4.0
+            rack_height = 1.0
+
+            # Racks near main entrance (encourages cycling)
+            rack_positions = [
+                {'pos': (min_x - 5, slab_cy - 10), 'name': 'BikeRack_West_1'},
+                {'pos': (min_x - 5, slab_cy + 10), 'name': 'BikeRack_West_2'},
+                {'pos': (max_x + 5, slab_cy), 'name': 'BikeRack_East'},
+            ]
+
+            for rack in rack_positions:
+                rack_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': rack_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': rack['pos'][0],
+                    'center_y': rack['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': math.pi / 2,
+                    'length': rack_length,
+                    'layer': f'{rack["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'rack_config': {
+                        'length': rack_length,
+                        'height': rack_height,
+                        'capacity': 10
+                    }
+                })
+
+            print(f"  Generated {len(rack_positions)} bicycle parking racks")
+
+        # Generate designated smoking area (outdoor, away from entrances)
+        if gen_options.get('generate_stairs', True) and structural_elements:
+            print("\nGenerating designated smoking area...")
+
+            smoking_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            all_elements.append({
+                'guid': smoking_guid,
+                'discipline': 'ARC',
+                'ifc_class': 'IfcSpace',
+                'floor': 'GF',
+                'center_x': max_x + 8,
+                'center_y': max_y - 15,  # Away from main flow
+                'center_z': 0.0,
+                'rotation_z': 0,
+                'length': 4.0,
+                'layer': 'SMOKING_AREA',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'space_config': {
+                    'width': 4.0,
+                    'depth': 3.0,
+                    'height': 3.0,
+                    'space_type': 'Smoking Area',
+                    'outdoor': True
+                }
+            })
+
+            print(f"  Generated 1 designated smoking area")
+
+        # Generate operations control room (terminal management)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating operations control room...")
+
+            control_width = 6.0
+            control_depth = 5.0
+            control_height = 3.0
+
+            # Control room on upper floor for overview
+            control_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            all_elements.append({
+                'guid': control_guid,
+                'discipline': 'ARC',
+                'ifc_class': 'IfcSpace',
+                'floor': '1F',
+                'center_x': slab_cx,
+                'center_y': min_y + 8,  # Near entrance for security view
+                'center_z': 4.0,  # 1F elevation
+                'rotation_z': 0,
+                'length': control_width,
+                'layer': 'OPERATIONS_CONTROL',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'space_config': {
+                    'width': control_width,
+                    'depth': control_depth,
+                    'height': control_height,
+                    'space_type': 'Control Room',
+                    'features': ['CCTV_monitors', 'PA_system', 'ferry_scheduling']
+                }
+            })
+
+            print(f"  Generated 1 operations control room")
+
         # Generate baggage claim carousel (GF - arrival facility)
         if gen_options.get('generate_counters', True) and structural_elements:
             print("\nGenerating baggage claim area...")
