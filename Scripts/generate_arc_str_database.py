@@ -2445,6 +2445,230 @@ def main():
 
             print(f"  Generated {partition_count} glass partition wall panels")
 
+        # Generate automated entrance doors (sliding/revolving)
+        if gen_options.get('generate_entrance_doors', True) and structural_elements:
+            print("\nGenerating automated entrance doors...")
+
+            auto_door_count = 0
+
+            # Main entrances get automatic sliding doors
+            auto_door_positions = [
+                {'pos': (slab_cx, min_y + 0.5), 'name': 'South_AutoDoor', 'type': 'sliding', 'rotation': 0},
+                {'pos': (slab_cx, max_y - 0.5), 'name': 'North_AutoDoor', 'type': 'sliding', 'rotation': 0},
+                {'pos': (min_x + 0.5, slab_cy), 'name': 'West_AutoDoor', 'type': 'revolving', 'rotation': math.pi/2},
+                {'pos': (max_x - 0.5, slab_cy), 'name': 'East_AutoDoor', 'type': 'revolving', 'rotation': math.pi/2},
+            ]
+
+            for auto_door in auto_door_positions:
+                # Door frame/housing
+                door_guid = str(uuid.uuid4()).replace('-', '')[:22]
+
+                # Sliding doors are wider, revolving are square
+                if auto_door['type'] == 'sliding':
+                    door_width = 4.0  # Wide sliding glass doors
+                    door_depth = 0.3
+                else:  # revolving
+                    door_width = 2.5  # Revolving door diameter
+                    door_depth = 2.5
+
+                all_elements.append({
+                    'guid': door_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcDoor',
+                    'floor': 'GF',
+                    'center_x': auto_door['pos'][0],
+                    'center_y': auto_door['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': auto_door['rotation'],
+                    'length': door_width,
+                    'layer': f'AUTO_DOOR_{auto_door["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'door_config': {
+                        'width': door_width,
+                        'depth': door_depth,
+                        'height': 2.8,
+                        'door_type': auto_door['type']
+                    }
+                })
+                auto_door_count += 1
+
+            print(f"  Generated {auto_door_count} automated entrance doors")
+
+        # Generate ceiling fans for waiting areas
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating ceiling fans...")
+
+            fan_count = 0
+            fan_diameter = 1.2
+            fan_height = 0.3
+
+            floors_config = building_config.get('floors', {})
+
+            for floor_id, floor_data in floors_config.items():
+                if floor_id == 'ROOF':
+                    continue
+
+                elevation = floor_data.get('elevation_m', 0.0)
+                ceiling_z = floor_data.get('ceiling_m', elevation + 4.0)
+
+                # Fans in waiting areas (east and west lounges)
+                fan_positions = [
+                    # West waiting lounge (3 fans in row)
+                    (slab_cx - 15, slab_cy - 3),
+                    (slab_cx - 15, slab_cy),
+                    (slab_cx - 15, slab_cy + 3),
+                    # East waiting lounge (3 fans in row)
+                    (slab_cx + 15, slab_cy - 3),
+                    (slab_cx + 15, slab_cy),
+                    (slab_cx + 15, slab_cy + 3),
+                ]
+
+                for i, pos in enumerate(fan_positions):
+                    fan_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': fan_guid,
+                        'discipline': 'ELEC',
+                        'ifc_class': 'IfcFurniture',
+                        'floor': floor_id,
+                        'center_x': pos[0],
+                        'center_y': pos[1],
+                        'center_z': ceiling_z - fan_height,  # Hang from ceiling
+                        'rotation_z': 0,
+                        'length': fan_diameter,
+                        'layer': f'CEILING_FAN_{floor_id}_{i+1}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'furniture_config': {
+                            'width': fan_diameter,
+                            'depth': fan_diameter,
+                            'height': fan_height
+                        }
+                    })
+                    fan_count += 1
+
+            print(f"  Generated {fan_count} ceiling fans")
+
+        # Generate canteen/F&B space with seating (1F)
+        if gen_options.get('generate_kiosks', True) and structural_elements:
+            print("\nGenerating canteen area...")
+
+            # Canteen location on 1F (northeast corner)
+            canteen_cx = slab_cx + 12
+            canteen_cy = max_y - 18
+            canteen_z = 4.0  # 1F elevation
+
+            canteen_count = 0
+
+            # Canteen space enclosure
+            canteen_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            all_elements.append({
+                'guid': canteen_guid,
+                'discipline': 'ARC',
+                'ifc_class': 'IfcSpace',
+                'floor': '1F',
+                'center_x': canteen_cx,
+                'center_y': canteen_cy,
+                'center_z': canteen_z,
+                'rotation_z': 0,
+                'length': 10.0,
+                'layer': 'CANTEEN_SPACE',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'space_config': {
+                    'width': 10.0,
+                    'depth': 8.0,
+                    'height': 3.5,
+                    'space_type': 'Canteen'
+                }
+            })
+            canteen_count += 1
+
+            # Food service counter
+            counter_guid = str(uuid.uuid4()).replace('-', '')[:22]
+            all_elements.append({
+                'guid': counter_guid,
+                'discipline': 'ARC',
+                'ifc_class': 'IfcFurniture',
+                'floor': '1F',
+                'center_x': canteen_cx,
+                'center_y': canteen_cy + 2,  # North side for service
+                'center_z': canteen_z,
+                'rotation_z': 0,
+                'length': 6.0,
+                'layer': 'CANTEEN_COUNTER',
+                'source_file': 'building_config.json',
+                'polyline_points': None,
+                'furniture_config': {
+                    'width': 6.0,
+                    'depth': 0.8,
+                    'height': 1.1
+                }
+            })
+            canteen_count += 1
+
+            # Dining tables with seating (4 tables)
+            table_positions = [
+                (canteen_cx - 3, canteen_cy - 2),
+                (canteen_cx + 3, canteen_cy - 2),
+                (canteen_cx - 3, canteen_cy),
+                (canteen_cx + 3, canteen_cy),
+            ]
+
+            for i, pos in enumerate(table_positions):
+                # Table
+                table_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': table_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': '1F',
+                    'center_x': pos[0],
+                    'center_y': pos[1],
+                    'center_z': canteen_z,
+                    'rotation_z': 0,
+                    'length': 1.2,
+                    'layer': f'CANTEEN_TABLE_{i+1}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': 1.2,
+                        'depth': 0.8,
+                        'height': 0.75
+                    }
+                })
+                canteen_count += 1
+
+                # Chairs around table (4 per table)
+                chair_offsets = [
+                    (-0.6, 0), (0.6, 0),  # Left and right
+                    (0, -0.5), (0, 0.5),  # Front and back
+                ]
+                for j, offset in enumerate(chair_offsets):
+                    chair_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': chair_guid,
+                        'discipline': 'ARC',
+                        'ifc_class': 'IfcFurniture',
+                        'floor': '1F',
+                        'center_x': pos[0] + offset[0],
+                        'center_y': pos[1] + offset[1],
+                        'center_z': canteen_z,
+                        'rotation_z': 0,
+                        'length': 0.45,
+                        'layer': f'CANTEEN_CHAIR_{i+1}_{j+1}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'furniture_config': {
+                            'width': 0.45,
+                            'depth': 0.45,
+                            'height': 0.85
+                        }
+                    })
+                    canteen_count += 1
+
+            print(f"  Generated canteen area with {canteen_count} elements")
+
         # Generate conduits for MEP routing (placeholder for future disciplines)
         if gen_options.get('generate_conduits', False):
             print("\nGenerating MEP conduits (placeholder)...")
