@@ -2421,6 +2421,160 @@ def main():
 
             print(f"  Generated {len(atm_positions)} ATM kiosks")
 
+        # Generate USB charging stations (near seating areas)
+        if gen_options.get('generate_seating', True) and structural_elements:
+            print("\nGenerating USB charging stations...")
+
+            charging_width = 0.6
+            charging_depth = 0.3
+            charging_height = 1.2
+
+            floors_config = building_config.get('floors', {})
+            charging_count = 0
+
+            for floor_id, floor_data in floors_config.items():
+                if floor_id in ['ROOF', '4F-6F']:
+                    continue
+
+                elevation = floor_data.get('elevation_m', 0.0)
+
+                # Charging stations near seating clusters
+                charging_positions = [
+                    {'pos': (slab_cx - 10, slab_cy - 8), 'name': f'Charging_SW_{floor_id}'},
+                    {'pos': (slab_cx + 10, slab_cy - 8), 'name': f'Charging_SE_{floor_id}'},
+                    {'pos': (slab_cx - 10, slab_cy + 8), 'name': f'Charging_NW_{floor_id}'},
+                    {'pos': (slab_cx + 10, slab_cy + 8), 'name': f'Charging_NE_{floor_id}'},
+                ]
+
+                for cs in charging_positions:
+                    cs_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': cs_guid,
+                        'discipline': 'ELEC',
+                        'ifc_class': 'IfcElectricAppliance',
+                        'floor': floor_id,
+                        'center_x': cs['pos'][0],
+                        'center_y': cs['pos'][1],
+                        'center_z': elevation,
+                        'rotation_z': 0,
+                        'length': charging_depth,
+                        'layer': f'CHARGING_{cs["name"]}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'charging_config': {
+                            'width': charging_width,
+                            'depth': charging_depth,
+                            'height': charging_height,
+                            'ports': 8
+                        }
+                    })
+                    charging_count += 1
+
+            print(f"  Generated {charging_count} USB charging stations")
+
+        # Generate luggage weighing scales (near check-in and gates)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating luggage weighing scales...")
+
+            scale_size = 0.8
+            scale_height = 0.15
+
+            # Scales near check-in area and departure gates
+            scale_positions = [
+                {'pos': (slab_cx - 8, min_y + 18), 'name': 'Scale_CheckIn_1'},
+                {'pos': (slab_cx + 8, min_y + 18), 'name': 'Scale_CheckIn_2'},
+                {'pos': (slab_cx - 15, max_y - 15), 'name': 'Scale_Gate_A'},
+                {'pos': (slab_cx + 15, max_y - 15), 'name': 'Scale_Gate_B'},
+            ]
+
+            for scale in scale_positions:
+                scale_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': scale_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'GF',
+                    'center_x': scale['pos'][0],
+                    'center_y': scale['pos'][1],
+                    'center_z': 0.0,
+                    'rotation_z': 0,
+                    'length': scale_size,
+                    'layer': f'{scale["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'scale_config': {
+                        'size': scale_size,
+                        'height': scale_height,
+                        'capacity_kg': 50
+                    }
+                })
+
+            print(f"  Generated {len(scale_positions)} luggage weighing scales")
+
+        # Generate queue management barriers (at check-in and gates)
+        if gen_options.get('generate_counters', True) and structural_elements:
+            print("\nGenerating queue management barriers...")
+
+            barrier_length = 2.0
+            barrier_height = 1.0
+            barrier_count = 0
+
+            # Check-in queue barriers
+            for i in range(4):
+                for j in range(3):
+                    barrier_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': barrier_guid,
+                        'discipline': 'ARC',
+                        'ifc_class': 'IfcFurniture',
+                        'floor': 'GF',
+                        'center_x': slab_cx - 6 + i * 4,
+                        'center_y': min_y + 12 + j * 2.5,
+                        'center_z': 0.0,
+                        'rotation_z': 0,
+                        'length': barrier_length,
+                        'layer': f'QUEUE_BARRIER_{i}_{j}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'barrier_config': {
+                            'length': barrier_length,
+                            'height': barrier_height,
+                            'type': 'retractable_belt'
+                        }
+                    })
+                    barrier_count += 1
+
+            # Gate queue barriers
+            gate_barrier_positions = [
+                (slab_cx - 12, max_y - 12),
+                (slab_cx + 12, max_y - 12),
+            ]
+            for gx, gy in gate_barrier_positions:
+                for k in range(2):
+                    barrier_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                    all_elements.append({
+                        'guid': barrier_guid,
+                        'discipline': 'ARC',
+                        'ifc_class': 'IfcFurniture',
+                        'floor': 'GF',
+                        'center_x': gx,
+                        'center_y': gy + k * 2.5,
+                        'center_z': 0.0,
+                        'rotation_z': 0,
+                        'length': barrier_length,
+                        'layer': f'GATE_BARRIER_{gx}_{k}',
+                        'source_file': 'building_config.json',
+                        'polyline_points': None,
+                        'barrier_config': {
+                            'length': barrier_length,
+                            'height': barrier_height,
+                            'type': 'retractable_belt'
+                        }
+                    })
+                    barrier_count += 1
+
+            print(f"  Generated {barrier_count} queue management barriers")
+
         # Generate planters (interior landscaping)
         if gen_options.get('generate_seating', True) and structural_elements:
             print("\nGenerating planters...")
