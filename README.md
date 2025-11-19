@@ -7,9 +7,12 @@ Pure Python 3D renderer for federation database geometry. Renders to PNG **witho
 - **No external dependencies**: Pure software rasterization (numpy + PIL only)
 - **No display required**: Works headless on servers
 - **Discipline filtering**: Show/hide disciplines like Bonsai Outliner
+- **Color by discipline**: Visual differentiation of ARC/STR/MEP systems
+- **Directional lighting**: Shading for depth perception
 - **Camera presets**: iso, top, front, side, se
+- **Hi-res support**: Up to 8K (7680x4320) and beyond
 - **Backface culling**: Only renders front-facing surfaces
-- **Z-buffering**: Proper depth ordering
+- **Z-buffering**: Proper depth ordering - obscured elements automatically hidden
 
 ## Installation
 
@@ -68,6 +71,7 @@ python3 -m venv venv
 | `--surface-only` | `-s` | Only surface elements | False |
 | `--discipline` | `-D` | Disciplines to show (comma-separated) | All |
 | `--exclude` | `-X` | Disciplines to hide (comma-separated) | None |
+| `--color-by` | `-c` | Color by 'class' or 'discipline' | class |
 
 ## Camera Angles
 
@@ -114,11 +118,18 @@ python Scripts/generate_database.py
 
 ## Performance
 
-- 6 elements: ~instant
-- 800 elements: ~1-2 seconds
-- 35,000 elements: ~5-10 minutes
+Vectorized numpy rasterization enables fast rendering even at high resolutions:
+
+| Elements | Resolution | Time |
+|----------|------------|------|
+| 6 | 1080p | ~instant |
+| 647 | 4K | ~0.8 seconds |
+| 647 | 8K | ~3.5 seconds |
+| 35,000 | 1080p | ~2-3 minutes |
 
 For large models, use `--surface-only` and/or discipline filters to reduce mesh count.
+
+**Note**: Despite long render times for large models, the tool maintains full surface detail with proper occlusion - obscured elements behind visible surfaces are automatically filtered out via z-buffering.
 
 ## Requirements
 
@@ -129,7 +140,25 @@ For large models, use `--surface-only` and/or discipline filters to reduce mesh 
 ## Technical Notes
 
 - Pure software rasterization - no GPU/OpenGL
+- Vectorized numpy operations for performance
 - Barycentric coordinate interpolation for triangle filling
-- Z-buffer for depth sorting
+- Z-buffer for depth sorting (obscured elements filtered)
 - Backface culling via screen-space winding order
+- Directional lighting with ambient + diffuse shading
 - Supports both JSON-encoded and raw binary geometry BLOBs
+
+## Discipline Colors
+
+When using `--color-by discipline`:
+
+| Discipline | Color | Description |
+|------------|-------|-------------|
+| ARC | Light Gray | Architecture |
+| STR | Blue | Structural |
+| FP | Red | Fire Protection |
+| SP | Light Red | Sprinkler |
+| ELEC | Yellow | Electrical |
+| ACMV | Teal | HVAC |
+| REB | Brown | Rebar |
+| CW | Light Blue | Curtain Wall |
+| LPG | Purple | LPG |
