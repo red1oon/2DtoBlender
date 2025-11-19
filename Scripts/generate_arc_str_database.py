@@ -1183,6 +1183,104 @@ def main():
         # TRANSPORT HUB ELEMENTS - Glass facades, elevators, escalators
         # ====================================================================
 
+        # Generate rooftop mechanical equipment (ROOF level)
+        if gen_options.get('generate_curtain_walls', True) and structural_elements:
+            print("\nGenerating rooftop equipment...")
+
+            roof_z = 16.0  # Top of 4F-6F
+            equip_count = 0
+
+            # HVAC Chillers (large units)
+            chiller_positions = [
+                {'pos': (slab_cx - 12, slab_cy + 15), 'name': 'Chiller_1', 'size': (4.0, 2.5, 2.0)},
+                {'pos': (slab_cx + 12, slab_cy + 15), 'name': 'Chiller_2', 'size': (4.0, 2.5, 2.0)},
+            ]
+
+            for chiller in chiller_positions:
+                ch_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': ch_guid,
+                    'discipline': 'ACMV',
+                    'ifc_class': 'IfcFurniture',  # Mechanical equipment
+                    'floor': 'ROOF',
+                    'center_x': chiller['pos'][0],
+                    'center_y': chiller['pos'][1],
+                    'center_z': roof_z,
+                    'rotation_z': 0,
+                    'length': chiller['size'][0],
+                    'layer': f'MECH_{chiller["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': chiller['size'][0],
+                        'depth': chiller['size'][1],
+                        'height': chiller['size'][2]
+                    }
+                })
+                equip_count += 1
+
+            # Lift machine rooms (above elevator shafts)
+            lift_rooms = [
+                {'pos': (slab_cx - 3, slab_cy), 'name': 'LiftRoom_W', 'size': (3.0, 3.0, 2.5)},
+                {'pos': (slab_cx + 3, slab_cy), 'name': 'LiftRoom_E', 'size': (3.0, 3.0, 2.5)},
+            ]
+
+            for lift in lift_rooms:
+                lift_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': lift_guid,
+                    'discipline': 'ARC',
+                    'ifc_class': 'IfcSpace',
+                    'floor': 'ROOF',
+                    'center_x': lift['pos'][0],
+                    'center_y': lift['pos'][1],
+                    'center_z': roof_z,
+                    'rotation_z': 0,
+                    'length': lift['size'][0],
+                    'layer': f'PLANT_{lift["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'space_config': {
+                        'width': lift['size'][0],
+                        'depth': lift['size'][1],
+                        'height': lift['size'][2],
+                        'space_type': 'Lift Machine Room'
+                    }
+                })
+                equip_count += 1
+
+            # AHU units (air handling)
+            ahu_positions = [
+                {'pos': (slab_cx - 15, slab_cy - 10), 'name': 'AHU_1'},
+                {'pos': (slab_cx + 15, slab_cy - 10), 'name': 'AHU_2'},
+                {'pos': (slab_cx, slab_cy + 20), 'name': 'AHU_3'},
+            ]
+
+            for ahu in ahu_positions:
+                ahu_guid = str(uuid.uuid4()).replace('-', '')[:22]
+                all_elements.append({
+                    'guid': ahu_guid,
+                    'discipline': 'ACMV',
+                    'ifc_class': 'IfcFurniture',
+                    'floor': 'ROOF',
+                    'center_x': ahu['pos'][0],
+                    'center_y': ahu['pos'][1],
+                    'center_z': roof_z,
+                    'rotation_z': 0,
+                    'length': 3.0,
+                    'layer': f'MECH_{ahu["name"]}',
+                    'source_file': 'building_config.json',
+                    'polyline_points': None,
+                    'furniture_config': {
+                        'width': 3.0,
+                        'depth': 2.0,
+                        'height': 1.8
+                    }
+                })
+                equip_count += 1
+
+            print(f"  Generated {equip_count} rooftop mechanical equipment")
+
         # Generate glass curtain walls on all facades (multi-floor)
         if gen_options.get('generate_curtain_walls', True) and structural_elements:
             print("\nGenerating glass curtain walls...")
