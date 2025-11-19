@@ -3973,6 +3973,21 @@ def main():
         'IfcFlowTerminal': 'basin',
     }
 
+    # Map layer names to library fixture types (for IfcFurniture/IfcElectricAppliance)
+    layer_to_fixture_map = {
+        'ATM': 'atm_kiosk',
+        'VENDING': 'atm_kiosk',  # Similar shape
+        'CHARGING': 'usb_charging_station',
+        'SCALE': 'luggage_scale',
+        'QUEUE_BARRIER': 'retractable_stanchion',
+        'GATE_BARRIER': 'retractable_stanchion',
+        'WEATHER_DISPLAY': 'weather_display',
+        'EXCHANGE': 'currency_exchange_booth',
+        'LIFEJACKET': 'life_jacket_cabinet',
+        'BIKERACK': 'atm_kiosk',  # Use kiosk shape
+        'INFO': 'info_kiosk',
+    }
+
     stats = {'by_class': {}, 'by_discipline': {}, 'library_used': 0, 'generated': 0}
 
     for elem in all_elements:
@@ -3992,6 +4007,15 @@ def main():
 
         # Check if we can use library geometry for this element
         fixture_type = ifc_to_fixture_map.get(elem['ifc_class'])
+
+        # For furniture/appliances, check layer name for specific type
+        if not fixture_type and elem['ifc_class'] in ['IfcFurniture', 'IfcElectricAppliance']:
+            layer = elem.get('layer', '').upper()
+            for key, ftype in layer_to_fixture_map.items():
+                if key in layer:
+                    fixture_type = ftype
+                    break
+
         use_library = fixture_type and fixture_type in geometry_library
 
         if use_library:
@@ -4000,11 +4024,22 @@ def main():
             cx, cy, cz = elem['center_x'], elem['center_y'], elem['center_z']
 
             # Scale based on element type (library geometries may be different sizes)
-            scale = 1.0
-            if fixture_type == 'sprinkler_pendent':
-                scale = 0.5  # Sprinklers are small
-            elif fixture_type == 'light_fixture':
-                scale = 0.3  # Lights scaled down
+            scale_map = {
+                'sprinkler_pendent': 0.5,
+                'light_fixture': 0.3,
+                'smoke_detector': 0.3,
+                'toilet': 0.8,
+                'basin': 0.6,
+                'atm_kiosk': 1.5,
+                'usb_charging_station': 1.2,
+                'luggage_scale': 0.8,
+                'weather_display': 2.0,
+                'currency_exchange_booth': 2.5,
+                'life_jacket_cabinet': 1.5,
+                'retractable_stanchion': 1.0,
+                'info_kiosk': 1.0,
+            }
+            scale = scale_map.get(fixture_type, 1.0)
 
             v_blob = transform_library_geometry(lib_geom, cx, cy, cz, scale)
             f_blob = lib_geom['faces']
