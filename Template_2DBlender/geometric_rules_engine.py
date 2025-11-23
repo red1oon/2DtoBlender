@@ -21,7 +21,9 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass
 
-DB_PATH = "/home/red1/Documents/bonsai/DeepSeek/Ifc_Object_Library.db"
+# Use relative path to database in same directory as this script
+SCRIPT_DIR = Path(__file__).parent
+DB_PATH = str(SCRIPT_DIR / "Ifc_Object_Library.db")
 
 
 @dataclass

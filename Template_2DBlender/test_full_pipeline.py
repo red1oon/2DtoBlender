@@ -273,28 +273,78 @@ def generate_report(template: Dict, placed_objects: List[Dict]):
 
 
 def main():
-    """Run full pipeline test"""
+    """Run full pipeline test - always outputs artifacts"""
+    from datetime import datetime
 
-    if not TEMPLATE_PATH.exists():
-        print(f"❌ Template not found: {TEMPLATE_PATH}")
-        return
+    # Ensure output_artifacts directory exists
+    output_dir = SCRIPT_DIR / "output_artifacts"
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Load template
-    template = load_template(str(TEMPLATE_PATH))
+    # Generate timestamp for this run
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    # Place all objects
-    placed_objects = place_all_objects(template)
+    # Artifact paths
+    output_path = output_dir / f"TB_LKTN_placement_results_{timestamp}.json"
+    error_path = output_dir / f"TB_LKTN_error_log_{timestamp}.txt"
 
-    # Generate report
-    generate_report(template, placed_objects)
+    template = None
+    placed_objects = []
+    success = False
+    error_message = None
 
-    # Save results - relative to script directory
-    output_path = SCRIPT_DIR / "TB_LKTN_placement_results.json"
-    with open(output_path, 'w') as f:
-        json.dump(placed_objects, f, indent=2)
+    try:
+        if not TEMPLATE_PATH.exists():
+            error_message = f"Template not found: {TEMPLATE_PATH}"
+            raise FileNotFoundError(error_message)
 
-    print(f"💾 Detailed results saved to: {output_path}")
-    print()
+        # Load template
+        template = load_template(str(TEMPLATE_PATH))
+
+        # Place all objects
+        placed_objects = place_all_objects(template)
+
+        # Generate report
+        generate_report(template, placed_objects)
+
+        success = True
+
+    except Exception as e:
+        error_message = f"Error during placement: {str(e)}"
+        print(f"\n❌ {error_message}")
+        print(f"Traceback: {e.__class__.__name__}")
+
+        # Save error log
+        with open(error_path, 'w') as f:
+            import traceback
+            f.write(f"TB-LKTN Pipeline Error Log\n")
+            f.write(f"Timestamp: {timestamp}\n")
+            f.write(f"Error: {error_message}\n\n")
+            f.write("Full Traceback:\n")
+            f.write(traceback.format_exc())
+
+        print(f"💾 Error log saved to: {error_path}")
+
+    finally:
+        # ALWAYS save artifacts (source of truth POC)
+        artifact_data = {
+            "metadata": {
+                "timestamp": timestamp,
+                "success": success,
+                "error": error_message,
+                "template_path": str(TEMPLATE_PATH),
+                "total_objects": len(placed_objects)
+            },
+            "template": template if template else {"error": "Template not loaded"},
+            "placed_objects": placed_objects
+        }
+
+        with open(output_path, 'w') as f:
+            json.dump(artifact_data, f, indent=2)
+
+        print(f"\n{'✅' if success else '⚠️'} Artifacts ALWAYS saved to: {output_path}")
+        print(f"   Success: {success}")
+        print(f"   Objects placed: {len(placed_objects)}")
+        print()
 
 
 if __name__ == "__main__":

@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 Screenshots/
 *.png
+# Ignore large database files
+*.db

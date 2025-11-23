@@ -1,0 +1,509 @@
+{
+  "metadata": {
+    "timestamp": "20251124_021518",
+    "success": true,
+    "error": null,
+    "template_path": "/home/red1/Documents/bonsai/2DtoBlender/Template_2DBlender/input_templates/TB_LKTN_template.json",
+    "total_objects": 9
+  },
+  "template": {
+    "project": {
+      "name": "TB-LKTN_HOUSE",
+      "drawing_reference": "WD-1/01",
+      "location": "Malaysia",
+      "scale": 1.0,
+      "units": "meters"
+    },
+    "building": {
+      "walls": [
+        {
+          "name": "north_wall",
+          "start": [
+            0,
+            0
+          ],
+          "end": [
+            9.8,
+            0
+          ]
+        },
+        {
+          "name": "south_wall",
+          "start": [
+            0,
+            8.0
+          ],
+          "end": [
+            9.8,
+            8.0
+          ]
+        },
+        {
+          "name": "east_wall",
+          "start": [
+            0,
+            0
+          ],
+          "end": [
+            0,
+            8.0
+          ]
+        },
+        {
+          "name": "west_wall",
+          "start": [
+            9.8,
+            0
+          ],
+          "end": [
+            9.8,
+            8.0
+          ]
+        }
+      ],
+      "rooms": [
+        {
+          "name": "living_room",
+          "vertices": [
+            [
+              0,
+              0
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              0,
+              4
+            ]
+          ],
+          "entrance": [
+            3,
+            0
+          ]
+        },
+        {
+          "name": "master_bedroom",
+          "vertices": [
+            [
+              4,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              4,
+              8
+            ]
+          ],
+          "entrance": [
+            6,
+            4
+          ]
+        },
+        {
+          "name": "kitchen",
+          "vertices": [
+            [
+              0,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "entrance": [
+            2,
+            6
+          ]
+        },
+        {
+          "name": "bathroom",
+          "vertices": [
+            [
+              8,
+              0
+            ],
+            [
+              9.8,
+              0
+            ],
+            [
+              9.8,
+              4
+            ],
+            [
+              8,
+              4
+            ]
+          ],
+          "entrance": [
+            8,
+            2
+          ]
+        }
+      ]
+    },
+    "objects": [
+      {
+        "object_type": "door_single_900_lod300",
+        "position": [
+          2.0,
+          0.1,
+          0.0
+        ],
+        "name": "main_entrance",
+        "room": "living_room"
+      },
+      {
+        "object_type": "switch_1gang_lod300",
+        "position": [
+          2.5,
+          0.02,
+          0.0
+        ],
+        "name": "living_room_switch",
+        "room": "living_room"
+      },
+      {
+        "object_type": "door_single_900_lod300",
+        "position": [
+          6.0,
+          4.1,
+          0.0
+        ],
+        "name": "bedroom_door",
+        "room": "master_bedroom"
+      },
+      {
+        "object_type": "switch_1gang_lod300",
+        "position": [
+          6.5,
+          4.02,
+          0.0
+        ],
+        "name": "bedroom_switch",
+        "room": "master_bedroom"
+      },
+      {
+        "object_type": "outlet_3pin_ms589_lod300",
+        "position": [
+          1.0,
+          0.02,
+          0.0
+        ],
+        "name": "living_room_outlet_1",
+        "room": "living_room"
+      },
+      {
+        "object_type": "outlet_3pin_ms589_lod300",
+        "position": [
+          5.0,
+          3.98,
+          0.0
+        ],
+        "name": "living_room_outlet_2",
+        "room": "living_room"
+      },
+      {
+        "object_type": "door_single_900_lod300",
+        "position": [
+          8.0,
+          2.1,
+          0.0
+        ],
+        "name": "bathroom_door",
+        "room": "bathroom"
+      },
+      {
+        "object_type": "floor_mounted_toilet_lod300",
+        "position": [
+          9.0,
+          1.0,
+          0.0
+        ],
+        "name": "bathroom_toilet",
+        "room": "bathroom"
+      },
+      {
+        "object_type": "basin_residential_lod300",
+        "position": [
+          9.0,
+          3.0,
+          0.0
+        ],
+        "name": "bathroom_basin",
+        "room": "bathroom"
+      }
+    ]
+  },
+  "placed_objects": [
+    {
+      "name": "main_entrance",
+      "object_type": "door_single_900_lod300",
+      "room": "living_room",
+      "raw_position": [
+        2.0,
+        0.1,
+        0.0
+      ],
+      "final_position": [
+        2.0,
+        0.1,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -5.710593137499643,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 1.0m front clearance"
+      ]
+    },
+    {
+      "name": "living_room_switch",
+      "object_type": "switch_1gang_lod300",
+      "room": "living_room",
+      "raw_position": [
+        2.5,
+        0.02,
+        0.0
+      ],
+      "final_position": [
+        2.5,
+        0.02,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -2.2906100426385296,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.3m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "bedroom_door",
+      "object_type": "door_single_900_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        6.0,
+        4.1,
+        0.0
+      ],
+      "final_position": [
+        6.0,
+        4.1,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 0.0,
+      "rotation_room_entrance_deg": -90.0,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 1.0m front clearance"
+      ]
+    },
+    {
+      "name": "bedroom_switch",
+      "object_type": "switch_1gang_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        6.5,
+        4.02,
+        0.0
+      ],
+      "final_position": [
+        6.5,
+        4.02,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 0.0,
+      "rotation_room_entrance_deg": -177.70938995736154,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.3m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "living_room_outlet_1",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "room": "living_room",
+      "raw_position": [
+        1.0,
+        0.02,
+        0.0
+      ],
+      "final_position": [
+        1.0,
+        0.02,
+        0.3
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -0.5729386976834859,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.2m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "living_room_outlet_2",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "room": "living_room",
+      "raw_position": [
+        5.0,
+        3.98,
+        0.0
+      ],
+      "final_position": [
+        5.0,
+        3.98,
+        0.3
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 0.0,
+      "rotation_room_entrance_deg": -116.68010278853191,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.2m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "bathroom_door",
+      "object_type": "door_single_900_lod300",
+      "room": "bathroom",
+      "raw_position": [
+        8.0,
+        2.1,
+        0.0
+      ],
+      "final_position": [
+        8.0,
+        2.1,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 0.0,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 1.0m front clearance"
+      ]
+    },
+    {
+      "name": "bathroom_toilet",
+      "object_type": "floor_mounted_toilet_lod300",
+      "room": "bathroom",
+      "raw_position": [
+        9.0,
+        1.0,
+        0.0
+      ],
+      "final_position": [
+        9.0,
+        1.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        180.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 135.0,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to floor",
+        "Requires 0.6m front clearance"
+      ]
+    },
+    {
+      "name": "bathroom_basin",
+      "object_type": "basin_residential_lod300",
+      "room": "bathroom",
+      "raw_position": [
+        9.0,
+        3.0,
+        0.0
+      ],
+      "final_position": [
+        9.0,
+        3.0,
+        0.85
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": -135.0,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.5m front clearance"
+      ]
+    }
+  ]
+}
