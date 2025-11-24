@@ -1,0 +1,18 @@
+TB-LKTN Pipeline Error Log
+Timestamp: 20251124_032518
+Error: Error during placement: Object type not found: ict_tv_point
+
+Full Traceback:
+Traceback (most recent call last):
+  File "/home/red1/Documents/bonsai/2DtoBlender/Template_2DBlender/test_full_pipeline.py", line 312, in main
+    placed_objects = place_all_objects(template)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/red1/Documents/bonsai/2DtoBlender/Template_2DBlender/test_full_pipeline.py", line 99, in place_all_objects
+    placed = rules_engine.place_object(obj_type, raw_position.tolist(), context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/red1/Documents/bonsai/2DtoBlender/Template_2DBlender/geometric_rules_engine.py", line 289, in place_object
+    metadata = self.load_object_metadata(object_type)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/red1/Documents/bonsai/2DtoBlender/Template_2DBlender/geometric_rules_engine.py", line 109, in load_object_metadata
+    raise ValueError(f"Object type not found: {object_type}")
+ValueError: Object type not found: ict_tv_point

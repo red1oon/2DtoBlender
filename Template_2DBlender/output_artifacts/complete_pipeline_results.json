@@ -1,0 +1,716 @@
+{
+  "metadata": {
+    "test": "complete_pipeline",
+    "pdf_source": "TB-LKTN HOUSE.pdf",
+    "phases_completed": [
+      "1B",
+      "1C",
+      "1D",
+      "2"
+    ]
+  },
+  "calibration": {
+    "scale_x": 0.035284826250891674,
+    "scale_y": 0.03528189698402465,
+    "offset_x": 28.0,
+    "offset_y": 18.440000000000055,
+    "method": "drain_perimeter",
+    "confidence": 95,
+    "pdf_bounds": {
+      "min_x": 28.0,
+      "max_x": 813.04,
+      "min_y": 18.440000000000055,
+      "max_y": 576.8
+    }
+  },
+  "elevations": {
+    "data": {
+      "floor_level": 0.15,
+      "lintel_level": 2.1,
+      "ceiling_level": 3.0,
+      "window_sill": 1.0
+    },
+    "confidence": {
+      "floor_level": 95,
+      "lintel_level": 95,
+      "ceiling_level": 95,
+      "window_sill": 95
+    }
+  },
+  "rooms": [],
+  "schedules": {
+    "doors": {
+      "D1": {
+        "width": 0.9,
+        "height": 2.1,
+        "quantity": 1
+      },
+      "D2": {
+        "width": 0.9,
+        "height": 2.1,
+        "quantity": 1
+      },
+      "D3": {
+        "width": 0.75,
+        "height": 2.1,
+        "quantity": 1
+      }
+    },
+    "windows": {
+      "W1": {
+        "width": 1.8,
+        "height": 1.0,
+        "quantity": 1
+      },
+      "W2": {
+        "width": 1.2,
+        "height": 1.0,
+        "quantity": 4
+      },
+      "W3": {
+        "width": 0.6,
+        "height": 0.5,
+        "quantity": 2
+      }
+    }
+  },
+  "openings": {
+    "doors": [
+      {
+        "door_type": "D1",
+        "position": [
+          6.749281565270559,
+          5.743368398882441,
+          0.0
+        ],
+        "width": 0.9,
+        "height": 2.1,
+        "confidence": 90
+      },
+      {
+        "door_type": "D2",
+        "position": [
+          11.648226841944359,
+          8.080441255104232,
+          0.0
+        ],
+        "width": 0.9,
+        "height": 2.1,
+        "confidence": 90
+      },
+      {
+        "door_type": "D2",
+        "position": [
+          7.227743809232651,
+          8.825594919406832,
+          0.0
+        ],
+        "width": 0.9,
+        "height": 2.1,
+        "confidence": 90
+      },
+      {
+        "door_type": "D2",
+        "position": [
+          11.648226841944359,
+          9.02458481839673,
+          0.0
+        ],
+        "width": 0.9,
+        "height": 2.1,
+        "confidence": 90
+      },
+      {
+        "door_type": "D1",
+        "position": [
+          8.438719046163252,
+          11.315085570599612,
+          0.0
+        ],
+        "width": 0.9,
+        "height": 2.1,
+        "confidence": 90
+      },
+      {
+        "door_type": "D3",
+        "position": [
+          5.982895139101192,
+          5.984696574253168,
+          0.0
+        ],
+        "width": 0.75,
+        "height": 2.1,
+        "confidence": 90
+      },
+      {
+        "door_type": "D3",
+        "position": [
+          5.982895139101192,
+          7.995764702342571,
+          0.0
+        ],
+        "width": 0.75,
+        "height": 2.1,
+        "confidence": 90
+      }
+    ],
+    "windows": [
+      {
+        "window_type": "W3",
+        "position": [
+          5.318129012534393,
+          5.222607599398235,
+          1.5
+        ],
+        "width": 0.6,
+        "height": 0.5,
+        "confidence": 85,
+        "sill_height": 1.5,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W1",
+        "position": [
+          8.942586365025985,
+          5.248010565226732,
+          1.0
+        ],
+        "width": 1.8,
+        "height": 1.0,
+        "confidence": 85,
+        "sill_height": 1.0,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W2",
+        "position": [
+          12.960822378477529,
+          5.751836054158605,
+          1.0
+        ],
+        "width": 1.2,
+        "height": 1.0,
+        "confidence": 85,
+        "sill_height": 1.0,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W3",
+        "position": [
+          4.441653928462244,
+          7.648590836019771,
+          1.5
+        ],
+        "width": 0.6,
+        "height": 0.5,
+        "confidence": 85,
+        "sill_height": 1.5,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W2",
+        "position": [
+          6.190369917456435,
+          11.32778705351386,
+          1.0
+        ],
+        "width": 1.2,
+        "height": 1.0,
+        "confidence": 85,
+        "sill_height": 1.0,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W2",
+        "position": [
+          12.880372974625494,
+          11.32778705351386,
+          1.0
+        ],
+        "width": 1.2,
+        "height": 1.0,
+        "confidence": 85,
+        "sill_height": 1.0,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W2",
+        "position": [
+          10.424549067563436,
+          11.785040438426819,
+          1.0
+        ],
+        "width": 1.2,
+        "height": 1.0,
+        "confidence": 85,
+        "sill_height": 1.0,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W3",
+        "position": [
+          7.951788443900947,
+          13.313813615301953,
+          1.5
+        ],
+        "width": 0.6,
+        "height": 0.5,
+        "confidence": 85,
+        "sill_height": 1.5,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W3",
+        "position": [
+          11.085081014980128,
+          13.29264447711154,
+          1.5
+        ],
+        "width": 0.6,
+        "height": 0.5,
+        "confidence": 85,
+        "sill_height": 1.5,
+        "lintel_height": 2.0
+      },
+      {
+        "window_type": "W3",
+        "position": [
+          16.61491898501987,
+          13.61220515022566,
+          1.5
+        ],
+        "width": 0.6,
+        "height": 0.5,
+        "confidence": 85,
+        "sill_height": 1.5,
+        "lintel_height": 2.0
+      }
+    ]
+  },
+  "wall_filtering_pipeline": {
+    "raw_candidates": 169,
+    "after_deduplication": 109,
+    "high_confidence": 1,
+    "medium_confidence": 16,
+    "low_confidence": 92,
+    "validated_with_4criteria": 17,
+    "room_boundary_filtered": 7,
+    "final_internal_walls": 7,
+    "final_total_walls": 11
+  },
+  "final_walls": {
+    "outer_walls": [
+      {
+        "wall_id": "exterior_south",
+        "start_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "end_point": [
+          27.7,
+          0.0,
+          0.0
+        ],
+        "height": 3.0,
+        "thickness": 0.15,
+        "type": "external",
+        "confidence": 95
+      },
+      {
+        "wall_id": "exterior_east",
+        "start_point": [
+          27.7,
+          0.0,
+          0.0
+        ],
+        "end_point": [
+          27.7,
+          19.7,
+          0.0
+        ],
+        "height": 3.0,
+        "thickness": 0.15,
+        "type": "external",
+        "confidence": 95
+      },
+      {
+        "wall_id": "exterior_north",
+        "start_point": [
+          27.7,
+          19.7,
+          0.0
+        ],
+        "end_point": [
+          0.0,
+          19.7,
+          0.0
+        ],
+        "height": 3.0,
+        "thickness": 0.15,
+        "type": "external",
+        "confidence": 95
+      },
+      {
+        "wall_id": "exterior_west",
+        "start_point": [
+          0.0,
+          19.7,
+          0.0
+        ],
+        "end_point": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "height": 3.0,
+        "thickness": 0.15,
+        "type": "external",
+        "confidence": 95
+      }
+    ],
+    "internal_walls": [
+      {
+        "wall_id": "candidate_35",
+        "start_point": [
+          3.886976459798227,
+          7.150934880722113,
+          0.0
+        ],
+        "end_point": [
+          7.621522470192602,
+          7.150934880722113,
+          0.0
+        ],
+        "length": 3.734546010394375,
+        "angle": 0.0,
+        "linewidth": 6.0,
+        "height": 3.0,
+        "thickness": 0.1,
+        "type": "internal",
+        "material": "brick_wall_100_lod300",
+        "source": "vector_line",
+        "confidence": 99,
+        "validation_scores": {
+          "connection": 1.0,
+          "opening_proximity": 1.0,
+          "room_boundary": 1.0,
+          "parallelism": 1.0
+        }
+      },
+      {
+        "wall_id": "candidate_20",
+        "start_point": [
+          4.056343625802506,
+          7.324521813883515,
+          0.0
+        ],
+        "end_point": [
+          4.056343625802506,
+          14.848033526756929,
+          0.0
+        ],
+        "length": 7.523511712873414,
+        "angle": 90.0,
+        "linewidth": 6.0,
+        "height": 3.0,
+        "thickness": 0.1,
+        "type": "internal",
+        "material": "brick_wall_100_lod300",
+        "source": "vector_line",
+        "confidence": 82,
+        "validation_scores": {
+          "connection": 0.7,
+          "opening_proximity": 1.0,
+          "room_boundary": 0.7,
+          "parallelism": 1.0
+        }
+      },
+      {
+        "wall_id": "candidate_22",
+        "start_point": [
+          3.886976459798227,
+          7.150934880722113,
+          0.0
+        ],
+        "end_point": [
+          3.886976459798227,
+          15.021620459918333,
+          0.0
+        ],
+        "length": 7.87068557919622,
+        "angle": 90.0,
+        "linewidth": 6.0,
+        "height": 3.0,
+        "thickness": 0.1,
+        "type": "internal",
+        "material": "brick_wall_100_lod300",
+        "source": "vector_line",
+        "confidence": 70,
+        "validation_scores": {
+          "connection": 1.0,
+          "opening_proximity": 0.0,
+          "room_boundary": 1.0,
+          "parallelism": 1.0
+        }
+      },
+      {
+        "wall_id": "candidate_24",
+        "start_point": [
+          3.7853561601956587,
+          7.053556845046206,
+          0.0
+        ],
+        "end_point": [
+          3.7853561601956587,
+          15.11899849559424,
+          0.0
+        ],
+        "length": 8.065441650548035,
+        "angle": 90.0,
+        "linewidth": 6.0,
+        "height": 3.0,
+        "thickness": 0.1,
+        "type": "internal",
+        "material": "brick_wall_100_lod300",
+        "source": "vector_line",
+        "confidence": 70,
+        "validation_scores": {
+          "connection": 1.0,
+          "opening_proximity": 0.0,
+          "room_boundary": 1.0,
+          "parallelism": 1.0
+        }
+      },
+      {
+        "wall_id": "candidate_33",
+        "start_point": [
+          4.056343625802506,
+          7.324521813883515,
+          0.0
+        ],
+        "end_point": [
+          7.795123815346988,
+          7.324521813883515,
+          0.0
+        ],
+        "length": 3.7387801895444825,
+        "angle": 0.0,
+        "linewidth": 6.0,
+        "height": 3.0,
+        "thickness": 0.1,
+        "type": "internal",
+        "material": "brick_wall_100_lod300",
+        "source": "vector_line",
+        "confidence": 82,
+        "validation_scores": {
+          "connection": 0.7,
+          "opening_proximity": 1.0,
+          "room_boundary": 0.7,
+          "parallelism": 1.0
+        }
+      },
+      {
+        "wall_id": "candidate_106",
+        "start_point": [
+          12.622088046468969,
+          11.69806576402321,
+          0.0
+        ],
+        "end_point": [
+          14.061708957505349,
+          11.69806576402321,
+          0.0
+        ],
+        "length": 1.4396209110363802,
+        "angle": 0.0,
+        "linewidth": 6.0,
+        "height": 3.0,
+        "thickness": 0.1,
+        "type": "internal",
+        "material": "brick_wall_100_lod300",
+        "source": "vector_line",
+        "confidence": 82,
+        "validation_scores": {
+          "connection": 0.7,
+          "opening_proximity": 1.0,
+          "room_boundary": 0.7,
+          "parallelism": 1.0
+        }
+      },
+      {
+        "wall_id": "candidate_107",
+        "start_point": [
+          12.622088046468969,
+          11.558349451966473,
+          0.0
+        ],
+        "end_point": [
+          14.061708957505349,
+          11.558349451966473,
+          0.0
+        ],
+        "length": 1.4396209110363802,
+        "angle": 0.0,
+        "linewidth": 6.0,
+        "height": 3.0,
+        "thickness": 0.1,
+        "type": "internal",
+        "material": "brick_wall_100_lod300",
+        "source": "vector_line",
+        "confidence": 82,
+        "validation_scores": {
+          "connection": 0.7,
+          "opening_proximity": 1.0,
+          "room_boundary": 0.7,
+          "parallelism": 1.0
+        }
+      }
+    ]
+  },
+  "inference_chain": [
+    {
+      "step": "drain_perimeter_calibration",
+      "phase": "1B",
+      "source": "discharge_plan_page7",
+      "input": {
+        "building_width": 27.7,
+        "building_length": 19.7
+      },
+      "inference": "Calibrated scale: 0.035285",
+      "confidence": 0.95,
+      "validated_by": [
+        "drain_perimeter"
+      ],
+      "timestamp": "2025-11-24T09:50:24.125733"
+    },
+    {
+      "step": "vector_wall_detection",
+      "phase": "1C",
+      "source": "floor_plan_page1",
+      "input": {
+        "criteria": "length>1m, angle\u00b12\u00b0, thickness>0.3pt"
+      },
+      "inference": "Detected 109 internal wall candidates",
+      "confidence": 0.85,
+      "validated_by": [
+        "vector_line_filtering",
+        "robust_deduplication"
+      ],
+      "timestamp": "2025-11-24T09:50:27.796370"
+    },
+    {
+      "step": "elevation_extraction",
+      "phase": "1D",
+      "source": "elevation_views_page3_page4",
+      "input": {
+        "pages": [
+          3,
+          4
+        ]
+      },
+      "inference": "Extracted elevation data: ceiling=3.0m, sill=1.0m",
+      "confidence": 0.95,
+      "validated_by": [
+        "regex_patterns",
+        "cross_page_validation"
+      ],
+      "timestamp": "2025-11-24T09:50:29.214089"
+    },
+    {
+      "step": "room_label_extraction",
+      "phase": "1D",
+      "source": "floor_plan_text_labels",
+      "input": {
+        "patterns": "Malay_room_patterns"
+      },
+      "inference": "Extracted 0 room labels (Malay \u2192 English)",
+      "confidence": 0.9,
+      "validated_by": [
+        "pattern_matching",
+        "calibrated_coordinates"
+      ],
+      "timestamp": "2025-11-24T09:50:29.216210"
+    },
+    {
+      "step": "schedule_extraction",
+      "phase": "2",
+      "source": "page8_tables",
+      "input": {
+        "doors": 3,
+        "windows": 3
+      },
+      "inference": "Extracted 3 door types, 3 window types",
+      "confidence": 0.95,
+      "validated_by": [
+        "table_extraction"
+      ],
+      "timestamp": "2025-11-24T09:50:29.496833"
+    },
+    {
+      "step": "window_sill_inference",
+      "phase": "1D",
+      "source": "elevation_data + window_schedule",
+      "input": {
+        "windows": 10
+      },
+      "inference": "Inferred sill heights for 10 windows based on size",
+      "confidence": 0.85,
+      "validated_by": [
+        "window_size_rules",
+        "elevation_data"
+      ],
+      "timestamp": "2025-11-24T09:50:29.498552"
+    },
+    {
+      "step": "opening_position_extraction",
+      "phase": "2",
+      "source": "floor_plan_labels",
+      "input": {
+        "doors": 7,
+        "windows": 10
+      },
+      "inference": "Found 7 doors, 10 windows on floor plan",
+      "confidence": 0.9,
+      "validated_by": [
+        "label_matching",
+        "calibrated_coordinates"
+      ],
+      "timestamp": "2025-11-24T09:50:29.498559"
+    },
+    {
+      "step": "progressive_validation_4criteria",
+      "phase": "2",
+      "source": "wall_validator_enhanced",
+      "input": {
+        "candidates": 109,
+        "doors": 7,
+        "windows": 10
+      },
+      "inference": "Filtered 109 \u2192 17 walls using 4-criteria scoring",
+      "confidence": 0.92,
+      "validated_by": [
+        "connection",
+        "opening_proximity",
+        "room_boundary",
+        "parallelism"
+      ],
+      "timestamp": "2025-11-24T09:50:29.515133"
+    },
+    {
+      "step": "room_boundary_filtering",
+      "phase": "2",
+      "source": "room_boundary_detector",
+      "input": {
+        "validated_walls": 17
+      },
+      "inference": "Filtered to 7 walls that form room boundaries",
+      "confidence": 0.95,
+      "validated_by": [
+        "room_enclosure_logic",
+        "wall_connectivity"
+      ],
+      "timestamp": "2025-11-24T09:50:29.515406"
+    }
+  ]
+}

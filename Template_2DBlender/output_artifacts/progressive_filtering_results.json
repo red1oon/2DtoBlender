@@ -1,0 +1,2104 @@
+{
+  "metadata": {
+    "test": "progressive_wall_filtering",
+    "pdf_source": "TB-LKTN HOUSE.pdf",
+    "date": "2025-11-24T07:16:43.476979"
+  },
+  "calibration": {
+    "scale_x": 0.035284826250891674,
+    "scale_y": 0.03528189698402465,
+    "offset_x": 28.0,
+    "offset_y": 18.440000000000055,
+    "method": "drain_perimeter",
+    "confidence": 95,
+    "pdf_bounds": {
+      "min_x": 28.0,
+      "max_x": 813.04,
+      "min_y": 18.440000000000055,
+      "max_y": 576.8
+    }
+  },
+  "wall_filtering_pipeline": {
+    "raw_candidates": 169,
+    "after_deduplication": 136,
+    "high_confidence": 78,
+    "medium_confidence": 0,
+    "low_confidence": 58,
+    "validated_total": 78
+  },
+  "validated_walls": [
+    {
+      "wall_id": "candidate_7",
+      "start_point": [
+        0.0,
+        19.7,
+        0.0
+      ],
+      "end_point": [
+        27.7,
+        19.7,
+        0.0
+      ],
+      "length": 27.7,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_13",
+      "start_point": [
+        7.769718740446346,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        7.769718740446346,
+        9.758972705781217,
+        0.0
+      ],
+      "length": 1.6723619170427693,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_15",
+      "start_point": [
+        4.818495872821767,
+        12.709950569525038,
+        0.0
+      ],
+      "end_point": [
+        4.818495872821767,
+        14.085944551901997,
+        0.0
+      ],
+      "length": 1.3759939823769596,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_16",
+      "start_point": [
+        4.818495872821767,
+        11.134966688158178,
+        0.0
+      ],
+      "end_point": [
+        4.818495872821767,
+        12.612572533849129,
+        0.0
+      ],
+      "length": 1.4776058456909507,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_17",
+      "start_point": [
+        4.818495872821767,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        4.818495872821767,
+        11.037588652482267,
+        0.0
+      ],
+      "length": 2.9509778637438195,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_18",
+      "start_point": [
+        7.867104860898807,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        7.867104860898807,
+        10.986782720825275,
+        0.0
+      ],
+      "length": 2.9001719320868276,
+      "angle": 90.0,
+      "linewidth": 1.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_19",
+      "start_point": [
+        4.721109752369306,
+        7.989232753062539,
+        0.0
+      ],
+      "end_point": [
+        4.721109752369306,
+        14.183322587577907,
+        0.0
+      ],
+      "length": 6.194089834515368,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_20",
+      "start_point": [
+        4.056343625802506,
+        7.324521813883515,
+        0.0
+      ],
+      "end_point": [
+        4.056343625802506,
+        14.848033526756929,
+        0.0
+      ],
+      "length": 7.523511712873414,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_22",
+      "start_point": [
+        3.886976459798227,
+        7.150934880722113,
+        0.0
+      ],
+      "end_point": [
+        3.886976459798227,
+        15.021620459918333,
+        0.0
+      ],
+      "length": 7.87068557919622,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_24",
+      "start_point": [
+        3.7853561601956587,
+        7.053556845046206,
+        0.0
+      ],
+      "end_point": [
+        3.7853561601956587,
+        15.11899849559424,
+        0.0
+      ],
+      "length": 8.065441650548035,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_25",
+      "start_point": [
+        4.818495872821767,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        7.769718740446346,
+        8.086610788738447,
+        0.0
+      ],
+      "length": 2.951222867624579,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_26",
+      "start_point": [
+        9.04844084377866,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        11.411112809538366,
+        8.086610788738447,
+        0.0
+      ],
+      "length": 2.3626719657597057,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_27",
+      "start_point": [
+        11.508498929990827,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        14.459721797615408,
+        8.086610788738447,
+        0.0
+      ],
+      "length": 2.9512228676245815,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_28",
+      "start_point": [
+        4.818495872821767,
+        11.037588652482267,
+        0.0
+      ],
+      "end_point": [
+        6.787389177621522,
+        11.037588652482267,
+        0.0
+      ],
+      "length": 1.9688933047997548,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_29",
+      "start_point": [
+        11.508498929990827,
+        11.037588652482267,
+        0.0
+      ],
+      "end_point": [
+        14.459721797615408,
+        11.037588652482267,
+        0.0
+      ],
+      "length": 2.9512228676245815,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_30",
+      "start_point": [
+        4.818495872821767,
+        11.134966688158178,
+        0.0
+      ],
+      "end_point": [
+        5.99983185570162,
+        11.134966688158178,
+        0.0
+      ],
+      "length": 1.1813359828798529,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_31",
+      "start_point": [
+        11.411112809538366,
+        11.134966688158178,
+        0.0
+      ],
+      "end_point": [
+        14.459721797615408,
+        11.134966688158178,
+        0.0
+      ],
+      "length": 3.048608988077042,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_32",
+      "start_point": [
+        4.721109752369306,
+        7.989232753062539,
+        0.0
+      ],
+      "end_point": [
+        14.557107918067869,
+        7.989232753062539,
+        0.0
+      ],
+      "length": 9.835998165698562,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_33",
+      "start_point": [
+        4.056343625802506,
+        7.324521813883515,
+        0.0
+      ],
+      "end_point": [
+        7.795123815346988,
+        7.324521813883515,
+        0.0
+      ],
+      "length": 3.7387801895444825,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_35",
+      "start_point": [
+        3.886976459798227,
+        7.150934880722113,
+        0.0
+      ],
+      "end_point": [
+        7.621522470192602,
+        7.150934880722113,
+        0.0
+      ],
+      "length": 3.734546010394375,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_37",
+      "start_point": [
+        3.7853561601956587,
+        7.053556845046206,
+        0.0
+      ],
+      "end_point": [
+        7.5241363497401395,
+        7.053556845046206,
+        0.0
+      ],
+      "length": 3.7387801895444808,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_38",
+      "start_point": [
+        11.483093855090186,
+        7.324521813883515,
+        0.0
+      ],
+      "end_point": [
+        15.171063894833383,
+        7.324521813883515,
+        0.0
+      ],
+      "length": 3.687970039743197,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_40",
+      "start_point": [
+        11.656695200244574,
+        7.150934880722113,
+        0.0
+      ],
+      "end_point": [
+        15.344665239987771,
+        7.150934880722113,
+        0.0
+      ],
+      "length": 3.687970039743197,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_42",
+      "start_point": [
+        11.754081320697034,
+        7.053556845046206,
+        0.0
+      ],
+      "end_point": [
+        15.442051360440232,
+        7.053556845046206,
+        0.0
+      ],
+      "length": 3.687970039743197,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_43",
+      "start_point": [
+        7.5241363497401395,
+        5.038254889318718,
+        0.0
+      ],
+      "end_point": [
+        11.483093855090186,
+        5.038254889318718,
+        0.0
+      ],
+      "length": 3.958957505350046,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_44",
+      "start_point": [
+        14.459721797615408,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        14.459721797615408,
+        11.037588652482267,
+        0.0
+      ],
+      "length": 2.9509778637438195,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_45",
+      "start_point": [
+        14.459721797615408,
+        11.134966688158178,
+        0.0
+      ],
+      "end_point": [
+        14.459721797615408,
+        14.085944551901997,
+        0.0
+      ],
+      "length": 2.9509778637438195,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_46",
+      "start_point": [
+        11.411112809538366,
+        8.086610788738447,
+        0.0
+      ],
+      "end_point": [
+        11.411112809538366,
+        10.156952503761014,
+        0.0
+      ],
+      "length": 2.0703417150225665,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_47",
+      "start_point": [
+        11.411112809538366,
+        12.015602836879431,
+        0.0
+      ],
+      "end_point": [
+        11.411112809538366,
+        14.085944551901997,
+        0.0
+      ],
+      "length": 2.0703417150225665,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_50",
+      "start_point": [
+        14.557107918067869,
+        7.989232753062539,
+        0.0
+      ],
+      "end_point": [
+        14.557107918067869,
+        14.183322587577907,
+        0.0
+      ],
+      "length": 6.194089834515368,
+      "angle": 90.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_51",
+      "start_point": [
+        15.171063894833383,
+        7.324521813883515,
+        0.0
+      ],
+      "end_point": [
+        15.171063894833383,
+        14.848033526756929,
+        0.0
+      ],
+      "length": 7.523511712873414,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_53",
+      "start_point": [
+        15.344665239987771,
+        7.150934880722113,
+        0.0
+      ],
+      "end_point": [
+        15.344665239987771,
+        15.021620459918333,
+        0.0
+      ],
+      "length": 7.87068557919622,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_55",
+      "start_point": [
+        15.442051360440232,
+        7.053556845046206,
+        0.0
+      ],
+      "end_point": [
+        15.442051360440232,
+        15.11899849559424,
+        0.0
+      ],
+      "length": 8.065441650548035,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_56",
+      "start_point": [
+        11.508498929990827,
+        14.085944551901997,
+        0.0
+      ],
+      "end_point": [
+        14.459721797615408,
+        14.085944551901997,
+        0.0
+      ],
+      "length": 2.9512228676245815,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_57",
+      "start_point": [
+        7.867104860898807,
+        14.085944551901997,
+        0.0
+      ],
+      "end_point": [
+        11.411112809538366,
+        14.085944551901997,
+        0.0
+      ],
+      "length": 3.5440079486395595,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_59",
+      "start_point": [
+        4.818495872821767,
+        14.085944551901997,
+        0.0
+      ],
+      "end_point": [
+        5.99983185570162,
+        14.085944551901997,
+        0.0
+      ],
+      "length": 1.1813359828798529,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_60",
+      "start_point": [
+        4.818495872821767,
+        12.709950569525038,
+        0.0
+      ],
+      "end_point": [
+        5.99983185570162,
+        12.709950569525038,
+        0.0
+      ],
+      "length": 1.1813359828798529,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_62",
+      "start_point": [
+        4.721109752369306,
+        14.183322587577907,
+        0.0
+      ],
+      "end_point": [
+        14.557107918067869,
+        14.183322587577907,
+        0.0
+      ],
+      "length": 9.835998165698562,
+      "angle": 0.0,
+      "linewidth": 3.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_63",
+      "start_point": [
+        4.056343625802506,
+        14.848033526756929,
+        0.0
+      ],
+      "end_point": [
+        15.171063894833383,
+        14.848033526756929,
+        0.0
+      ],
+      "length": 11.114720269030876,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_65",
+      "start_point": [
+        3.886976459798227,
+        15.021620459918333,
+        0.0
+      ],
+      "end_point": [
+        15.344665239987771,
+        15.021620459918333,
+        0.0
+      ],
+      "length": 11.457688780189544,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_67",
+      "start_point": [
+        3.7853561601956587,
+        15.11899849559424,
+        0.0
+      ],
+      "end_point": [
+        15.442051360440232,
+        15.11899849559424,
+        0.0
+      ],
+      "length": 11.656695200244574,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_71",
+      "start_point": [
+        7.837465606848059,
+        15.711734364925853,
+        0.0
+      ],
+      "end_point": [
+        11.440752063589116,
+        15.711734364925853,
+        0.0
+      ],
+      "length": 3.603286456741057,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_73",
+      "start_point": [
+        2.8157291348211553,
+        8.056973995271866,
+        0.0
+      ],
+      "end_point": [
+        2.8157291348211553,
+        11.06722544594885,
+        0.0
+      ],
+      "length": 3.010251450676984,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_78",
+      "start_point": [
+        4.818495872821767,
+        8.776724693745969,
+        0.0
+      ],
+      "end_point": [
+        6.588382757566493,
+        8.776724693745969,
+        0.0
+      ],
+      "length": 1.769886884744726,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_79",
+      "start_point": [
+        6.588382757566493,
+        8.776724693745969,
+        0.0
+      ],
+      "end_point": [
+        6.588382757566493,
+        10.347474747474747,
+        0.0
+      ],
+      "length": 1.5707500537287782,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_81",
+      "start_point": [
+        5.174166921430754,
+        10.330539436922415,
+        0.0
+      ],
+      "end_point": [
+        6.571446040966064,
+        10.330539436922415,
+        0.0
+      ],
+      "length": 1.3972791195353098,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_83",
+      "start_point": [
+        6.215774992357077,
+        8.797893831936385,
+        0.0
+      ],
+      "end_point": [
+        6.215774992357077,
+        10.330539436922415,
+        0.0
+      ],
+      "length": 1.5326456049860298,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_85",
+      "start_point": [
+        6.33856618771018,
+        8.797893831936385,
+        0.0
+      ],
+      "end_point": [
+        6.33856618771018,
+        10.330539436922415,
+        0.0
+      ],
+      "length": 1.5326456049860298,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_86",
+      "start_point": [
+        5.174166921430754,
+        10.140017193208683,
+        0.0
+      ],
+      "end_point": [
+        6.571446040966064,
+        10.140017193208683,
+        0.0
+      ],
+      "length": 1.3972791195353098,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_89",
+      "start_point": [
+        11.559309079792111,
+        8.137416720395443,
+        0.0
+      ],
+      "end_point": [
+        11.559309079792111,
+        9.708166774124221,
+        0.0
+      ],
+      "length": 1.5707500537287782,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_93",
+      "start_point": [
+        7.795123815346988,
+        5.038254889318718,
+        0.0
+      ],
+      "end_point": [
+        7.795123815346988,
+        7.324521813883515,
+        0.0
+      ],
+      "length": 2.2862669245647975,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_94",
+      "start_point": [
+        7.769718740446346,
+        5.135632924994626,
+        0.0
+      ],
+      "end_point": [
+        7.769718740446346,
+        7.299118848055016,
+        0.0
+      ],
+      "length": 2.1634859230603904,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_95",
+      "start_point": [
+        7.621522470192602,
+        5.135632924994626,
+        0.0
+      ],
+      "end_point": [
+        7.621522470192602,
+        7.150934880722113,
+        0.0
+      ],
+      "length": 2.0153019557274874,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_97",
+      "start_point": [
+        7.5241363497401395,
+        5.038254889318718,
+        0.0
+      ],
+      "end_point": [
+        7.5241363497401395,
+        7.053556845046206,
+        0.0
+      ],
+      "length": 2.0153019557274883,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_98",
+      "start_point": [
+        11.483093855090186,
+        4.547130883301095,
+        0.0
+      ],
+      "end_point": [
+        11.483093855090186,
+        7.324521813883515,
+        0.0
+      ],
+      "length": 2.7773909305824205,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_100",
+      "start_point": [
+        11.656695200244574,
+        4.547130883301095,
+        0.0
+      ],
+      "end_point": [
+        11.656695200244574,
+        7.150934880722113,
+        0.0
+      ],
+      "length": 2.6038039974210188,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_102",
+      "start_point": [
+        11.754081320697034,
+        4.547130883301095,
+        0.0
+      ],
+      "end_point": [
+        11.754081320697034,
+        7.053556845046206,
+        0.0
+      ],
+      "length": 2.5064259617451112,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_103",
+      "start_point": [
+        12.622088046468969,
+        13.522845476036965,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        13.522845476036965,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_104",
+      "start_point": [
+        12.622088046468969,
+        13.666795615731786,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        13.666795615731786,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_106",
+      "start_point": [
+        12.622088046468969,
+        11.69806576402321,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        11.69806576402321,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_107",
+      "start_point": [
+        12.622088046468969,
+        11.558349451966473,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        11.558349451966473,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_109",
+      "start_point": [
+        12.622088046468969,
+        10.474489576617234,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        10.474489576617234,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_110",
+      "start_point": [
+        12.622088046468969,
+        10.618439716312057,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        10.618439716312057,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_112",
+      "start_point": [
+        12.622088046468969,
+        8.649709864603482,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        8.649709864603482,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_113",
+      "start_point": [
+        12.622088046468969,
+        8.50575972490866,
+        0.0
+      ],
+      "end_point": [
+        14.061708957505349,
+        8.50575972490866,
+        0.0
+      ],
+      "length": 1.4396209110363802,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_120",
+      "start_point": [
+        11.301024151635584,
+        8.268665377176015,
+        0.0
+      ],
+      "end_point": [
+        11.301024151635584,
+        9.941027294218783,
+        0.0
+      ],
+      "length": 1.6723619170427675,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_121",
+      "start_point": [
+        11.203638031183123,
+        8.344874274661509,
+        0.0
+      ],
+      "end_point": [
+        11.203638031183123,
+        9.869052224371373,
+        0.0
+      ],
+      "length": 1.5241779497098644,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_122",
+      "start_point": [
+        11.021568327728524,
+        8.294068343004513,
+        0.0
+      ],
+      "end_point": [
+        11.021568327728524,
+        9.919858156028369,
+        0.0
+      ],
+      "length": 1.6257898130238555,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_128",
+      "start_point": [
+        11.559309079792111,
+        12.464388566516226,
+        0.0
+      ],
+      "end_point": [
+        11.559309079792111,
+        14.035138620245002,
+        0.0
+      ],
+      "length": 1.5707500537287764,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_133",
+      "start_point": [
+        16.37780495261388,
+        16.931076724693746,
+        0.0
+      ],
+      "end_point": [
+        22.051605013757257,
+        16.931076724693746,
+        0.0
+      ],
+      "length": 5.673800061143378,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_135",
+      "start_point": [
+        16.37780495261388,
+        12.506726842897056,
+        0.0
+      ],
+      "end_point": [
+        22.051605013757257,
+        12.506726842897056,
+        0.0
+      ],
+      "length": 5.673800061143378,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_144",
+      "start_point": [
+        16.37780495261388,
+        12.506726842897056,
+        0.0
+      ],
+      "end_point": [
+        16.37780495261388,
+        16.931076724693746,
+        0.0
+      ],
+      "length": 4.42434988179669,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_145",
+      "start_point": [
+        22.051605013757257,
+        12.519428325811303,
+        0.0
+      ],
+      "end_point": [
+        22.051605013757257,
+        16.931076724693746,
+        0.0
+      ],
+      "length": 4.411648398882443,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_146",
+      "start_point": [
+        22.051605013757257,
+        12.506726842897056,
+        0.0
+      ],
+      "end_point": [
+        22.051605013757257,
+        16.22402750913389,
+        0.0
+      ],
+      "length": 3.7173006662368344,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 100,
+      "validation_scores": {
+        "connection": 1.0,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_149",
+      "start_point": [
+        16.37780495261388,
+        11.01218568665377,
+        0.0
+      ],
+      "end_point": [
+        22.051605013757257,
+        11.01218568665377,
+        0.0
+      ],
+      "length": 5.673800061143378,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_152",
+      "start_point": [
+        16.37780495261388,
+        1.8925209542230816,
+        0.0
+      ],
+      "end_point": [
+        16.37780495261388,
+        11.01218568665377,
+        0.0
+      ],
+      "length": 9.119664732430689,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_154",
+      "start_point": [
+        22.051605013757257,
+        1.8925209542230816,
+        0.0
+      ],
+      "end_point": [
+        22.051605013757257,
+        11.01218568665377,
+        0.0
+      ],
+      "length": 9.119664732430689,
+      "angle": 90.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    },
+    {
+      "wall_id": "candidate_163",
+      "start_point": [
+        16.37780495261388,
+        1.8925209542230816,
+        0.0
+      ],
+      "end_point": [
+        22.051605013757257,
+        1.8925209542230816,
+        0.0
+      ],
+      "length": 5.673800061143378,
+      "angle": 0.0,
+      "linewidth": 6.0,
+      "height": 3.0,
+      "thickness": 0.1,
+      "type": "internal",
+      "material": "brick_wall_100_lod300",
+      "source": "vector_line",
+      "confidence": 70,
+      "validation_scores": {
+        "connection": 0.7,
+        "opening_proximity": 0.0
+      }
+    }
+  ],
+  "inference_chain": [
+    {
+      "step": "drain_perimeter_calibration",
+      "phase": "1B",
+      "source": "discharge_plan_page7",
+      "input": {
+        "building_width": 27.7,
+        "building_length": 19.7
+      },
+      "inference": "Calibrated scale eliminates 17.6% error",
+      "confidence": 0.95,
+      "validated_by": [
+        "drain_perimeter_bounding_box"
+      ],
+      "timestamp": "2025-11-24T07:16:43.476979"
+    },
+    {
+      "step": "vector_wall_detection",
+      "phase": "1C",
+      "source": "floor_plan_page1_vector_lines",
+      "input": {
+        "criteria": "length>1m, angle\u00b12\u00b0, thickness>0.3pt"
+      },
+      "inference": "Detected 136 wall candidates (includes false positives)",
+      "confidence": 0.85,
+      "validated_by": [
+        "vector_line_filtering"
+      ],
+      "timestamp": "2025-11-24T07:16:47.130449"
+    },
+    {
+      "step": "progressive_wall_validation",
+      "phase": "2",
+      "source": "wall_validator_connection_scoring",
+      "input": {
+        "candidates": 136
+      },
+      "inference": "Filtered 136 \u2192 78 high-confidence + 0 medium-confidence walls",
+      "confidence": 0.9,
+      "validated_by": [
+        "connection_scoring"
+      ],
+      "timestamp": "2025-11-24T07:16:47.141657"
+    }
+  ]
+}

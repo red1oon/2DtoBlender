@@ -1,0 +1,1834 @@
+{
+  "metadata": {
+    "timestamp": "20251124_032129",
+    "success": true,
+    "error": null,
+    "template_path": "/home/red1/Documents/bonsai/2DtoBlender/Template_2DBlender/input_templates/TB_LKTN_COMPLETE_template.json",
+    "total_objects": 39
+  },
+  "template": {
+    "extraction_metadata": {
+      "extracted_by": "AI_OCR",
+      "extraction_date": "2025-11-24",
+      "pdf_source": "TB-LKTN HOUSE.pdf",
+      "extraction_version": "1.0"
+    },
+    "extraction_checklist": {
+      "_instructions": "OCR fills this checklist systematically. Mark YES/NO or count for each category.",
+      "project_metadata": {
+        "name_of_project": "YES",
+        "location_address": "YES",
+        "language": "English",
+        "number_of_pages": 1
+      },
+      "building_structure": {
+        "floor_plan": "YES",
+        "front_view": "YES",
+        "side_view": "NO",
+        "roof_plan": "YES",
+        "section_view": "NO",
+        "discharge_drain": "YES",
+        "residential_function": "R",
+        "storey_count": 1
+      },
+      "dimensions": {
+        "building_height": "YES",
+        "building_length": "YES",
+        "building_breadth": "YES",
+        "room_dimensions": "YES"
+      },
+      "rooms_checklist": {
+        "living_room": 1,
+        "dining_room": 0,
+        "kitchen": 1,
+        "master_bedroom": 1,
+        "bedroom_2": 1,
+        "bedroom_3": 0,
+        "bedroom_4": 0,
+        "washroom": 2,
+        "laundry_room": 0,
+        "store_room": 0,
+        "balcony": 0,
+        "porch": 0,
+        "garage": 0
+      },
+      "architectural_objects": {
+        "doors_single": 4,
+        "doors_double": 0,
+        "windows_standard": 4,
+        "windows_sliding": 0,
+        "windows_casement": 0,
+        "stairs": 0,
+        "railings": 0
+      },
+      "electrical_objects": {
+        "switches_1gang": 5,
+        "switches_2gang": 0,
+        "switches_3gang": 0,
+        "outlets_3pin": 4,
+        "lights_ceiling": 5,
+        "lights_wall": 0,
+        "lights_pendant": 0,
+        "fans_ceiling": 2,
+        "fans_exhaust": 0,
+        "distribution_board": 0
+      },
+      "plumbing_fixtures": {
+        "toilets_floor_mounted": 2,
+        "toilets_wall_mounted": 0,
+        "toilets_asian": 0,
+        "basins_residential": 2,
+        "basins_wall_mounted": 0,
+        "kitchen_sink": 1,
+        "showerheads": 2,
+        "faucets_basin": 2,
+        "faucets_kitchen": 1,
+        "floor_drains": 3,
+        "water_heaters": 0,
+        "washing_machine_point": 0
+      },
+      "hvac_objects": {
+        "air_conditioners": 0,
+        "diffusers_supply": 0,
+        "diffusers_return": 0,
+        "exhaust_fans": 0
+      },
+      "kitchen_appliances": {
+        "stove_gas": 1,
+        "stove_electric": 0,
+        "refrigerator": 1,
+        "oven": 0,
+        "dishwasher": 0,
+        "range_hood": 0,
+        "cabinets_upper": 0,
+        "cabinets_lower": 0
+      },
+      "furniture_residential": {
+        "beds": 0,
+        "wardrobes": 0,
+        "tables_dining": 0,
+        "chairs": 0,
+        "sofas": 0,
+        "shelves": 0
+      },
+      "external_drainage": {
+        "roof_gutters": 2,
+        "downpipes": 0,
+        "floor_drains_exterior": 0,
+        "inspection_chambers": 0
+      },
+      "fire_safety": {
+        "fire_extinguishers": 0,
+        "smoke_detectors": 0,
+        "sprinklers": 0,
+        "fire_alarms": 0
+      },
+      "gas_objects": {
+        "gas_meters": 0,
+        "gas_pipes": 0,
+        "gas_isolators": 0
+      },
+      "ict_objects": {
+        "data_points": 0,
+        "telephone_points": 0,
+        "tv_points": 0,
+        "cctv_cameras": 0
+      }
+    },
+    "project": {
+      "name": "TB-LKTN_HOUSE",
+      "drawing_reference": "WD-1/01",
+      "location": "Malaysia",
+      "language": "English",
+      "num_pages": 1,
+      "residential_function": "R",
+      "storey_count": 1,
+      "scale": 1.0,
+      "units": "meters",
+      "dimensions": {
+        "length": 9.8,
+        "breadth": 8.0,
+        "height": 3.0
+      }
+    },
+    "building": {
+      "floor": true,
+      "front_view": true,
+      "roof": true,
+      "walls": [
+        {
+          "name": "north_wall",
+          "start": [
+            0,
+            0
+          ],
+          "end": [
+            9.8,
+            0
+          ],
+          "height": 3.0
+        },
+        {
+          "name": "south_wall",
+          "start": [
+            0,
+            8.0
+          ],
+          "end": [
+            9.8,
+            8.0
+          ],
+          "height": 3.0
+        },
+        {
+          "name": "east_wall",
+          "start": [
+            0,
+            0
+          ],
+          "end": [
+            0,
+            8.0
+          ],
+          "height": 3.0
+        },
+        {
+          "name": "west_wall",
+          "start": [
+            9.8,
+            0
+          ],
+          "end": [
+            9.8,
+            8.0
+          ],
+          "height": 3.0
+        },
+        {
+          "name": "living_kitchen_divider",
+          "start": [
+            0,
+            6
+          ],
+          "end": [
+            4,
+            6
+          ],
+          "height": 3.0
+        },
+        {
+          "name": "bedroom1_divider",
+          "start": [
+            4,
+            4
+          ],
+          "end": [
+            8,
+            4
+          ],
+          "height": 3.0
+        },
+        {
+          "name": "bathroom_divider",
+          "start": [
+            8,
+            0
+          ],
+          "end": [
+            8,
+            4
+          ],
+          "height": 3.0
+        }
+      ],
+      "rooms": [
+        {
+          "name": "living_room",
+          "type": "LIVING ROOM",
+          "count": 1,
+          "vertices": [
+            [
+              0,
+              0
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              0,
+              6
+            ]
+          ],
+          "entrance": [
+            3,
+            0
+          ],
+          "dimensions": {
+            "length": 6.0,
+            "breadth": 6.0,
+            "height": 3.0
+          }
+        },
+        {
+          "name": "master_bedroom",
+          "type": "BEDROOM",
+          "count": 1,
+          "vertices": [
+            [
+              4,
+              4
+            ],
+            [
+              9.8,
+              4
+            ],
+            [
+              9.8,
+              8
+            ],
+            [
+              4,
+              8
+            ]
+          ],
+          "entrance": [
+            6,
+            4
+          ],
+          "dimensions": {
+            "length": 5.8,
+            "breadth": 4.0,
+            "height": 3.0
+          }
+        },
+        {
+          "name": "bedroom_2",
+          "type": "BEDROOM",
+          "count": 2,
+          "vertices": [
+            [
+              6,
+              0
+            ],
+            [
+              9.8,
+              0
+            ],
+            [
+              9.8,
+              4
+            ],
+            [
+              6,
+              4
+            ]
+          ],
+          "entrance": [
+            7,
+            4
+          ],
+          "dimensions": {
+            "length": 3.8,
+            "breadth": 4.0,
+            "height": 3.0
+          }
+        },
+        {
+          "name": "kitchen",
+          "type": "KITCHEN",
+          "count": 1,
+          "vertices": [
+            [
+              0,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "entrance": [
+            2,
+            6
+          ],
+          "dimensions": {
+            "length": 4.0,
+            "breadth": 2.0,
+            "height": 3.0
+          }
+        },
+        {
+          "name": "washroom_1",
+          "type": "WASHROOM",
+          "count": 1,
+          "vertices": [
+            [
+              8,
+              0
+            ],
+            [
+              9.8,
+              0
+            ],
+            [
+              9.8,
+              2
+            ],
+            [
+              8,
+              2
+            ]
+          ],
+          "entrance": [
+            8,
+            1
+          ],
+          "dimensions": {
+            "length": 1.8,
+            "breadth": 2.0,
+            "height": 3.0
+          }
+        },
+        {
+          "name": "washroom_2",
+          "type": "WASHROOM",
+          "count": 2,
+          "vertices": [
+            [
+              8,
+              2
+            ],
+            [
+              9.8,
+              2
+            ],
+            [
+              9.8,
+              4
+            ],
+            [
+              8,
+              4
+            ]
+          ],
+          "entrance": [
+            8,
+            3
+          ],
+          "dimensions": {
+            "length": 1.8,
+            "breadth": 2.0,
+            "height": 3.0
+          }
+        }
+      ]
+    },
+    "objects": [
+      {
+        "object_type": "door_single_900_lod300",
+        "position": [
+          3.0,
+          0.05,
+          0.0
+        ],
+        "name": "D1_main_entrance",
+        "room": "living_room",
+        "schedule_ref": "D1"
+      },
+      {
+        "object_type": "door_single_900_lod300",
+        "position": [
+          6.0,
+          4.05,
+          0.0
+        ],
+        "name": "D2_bedroom_door",
+        "room": "master_bedroom",
+        "schedule_ref": "D2"
+      },
+      {
+        "object_type": "door_single_750x2100_lod300",
+        "position": [
+          8.0,
+          1.05,
+          0.0
+        ],
+        "name": "D3_washroom_1_door",
+        "room": "washroom_1",
+        "schedule_ref": "D3"
+      },
+      {
+        "object_type": "door_single_750x2100_lod300",
+        "position": [
+          8.0,
+          3.05,
+          0.0
+        ],
+        "name": "D4_washroom_2_door",
+        "room": "washroom_2",
+        "schedule_ref": "D4"
+      },
+      {
+        "object_type": "window_aluminum_2panel_1200x1000_lod300",
+        "position": [
+          1.5,
+          0.05,
+          1.2
+        ],
+        "name": "W1_living_front",
+        "room": "living_room",
+        "schedule_ref": "W1"
+      },
+      {
+        "object_type": "window_aluminum_2panel_1200x1000_lod300",
+        "position": [
+          4.5,
+          0.05,
+          1.2
+        ],
+        "name": "W2_living_front",
+        "room": "living_room",
+        "schedule_ref": "W2"
+      },
+      {
+        "object_type": "window_aluminum_2panel_1200x1000_lod300",
+        "position": [
+          6.5,
+          7.95,
+          1.2
+        ],
+        "name": "W3_bedroom_back",
+        "room": "master_bedroom",
+        "schedule_ref": "W3"
+      },
+      {
+        "object_type": "window_aluminum_tophung_600x500_lod300",
+        "position": [
+          2.0,
+          7.95,
+          1.8
+        ],
+        "name": "W4_kitchen_back",
+        "room": "kitchen",
+        "schedule_ref": "W4"
+      },
+      {
+        "object_type": "switch_1gang_lod300",
+        "position": [
+          3.5,
+          0.02,
+          0.0
+        ],
+        "name": "SW1_living_entrance",
+        "room": "living_room"
+      },
+      {
+        "object_type": "switch_1gang_lod300",
+        "position": [
+          6.5,
+          4.02,
+          0.0
+        ],
+        "name": "SW2_bedroom_entrance",
+        "room": "master_bedroom"
+      },
+      {
+        "object_type": "switch_1gang_lod300",
+        "position": [
+          2.5,
+          6.02,
+          0.0
+        ],
+        "name": "SW3_kitchen_entrance",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "switch_1gang_lod300",
+        "position": [
+          8.5,
+          1.02,
+          0.0
+        ],
+        "name": "SW4_washroom1_entrance",
+        "room": "washroom_1"
+      },
+      {
+        "object_type": "switch_1gang_lod300",
+        "position": [
+          8.5,
+          3.02,
+          0.0
+        ],
+        "name": "SW5_washroom2_entrance",
+        "room": "washroom_2"
+      },
+      {
+        "object_type": "outlet_3pin_ms589_lod300",
+        "position": [
+          1.0,
+          0.02,
+          0.0
+        ],
+        "name": "OUT1_living_wall",
+        "room": "living_room"
+      },
+      {
+        "object_type": "outlet_3pin_ms589_lod300",
+        "position": [
+          5.0,
+          5.98,
+          0.0
+        ],
+        "name": "OUT2_living_wall",
+        "room": "living_room"
+      },
+      {
+        "object_type": "outlet_3pin_ms589_lod300",
+        "position": [
+          5.0,
+          7.98,
+          0.0
+        ],
+        "name": "OUT3_bedroom_wall",
+        "room": "master_bedroom"
+      },
+      {
+        "object_type": "outlet_3pin_ms589_lod300",
+        "position": [
+          1.0,
+          7.98,
+          0.0
+        ],
+        "name": "OUT4_kitchen_wall",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "ceiling_light_surface_lod300",
+        "position": [
+          3.0,
+          3.0,
+          0.0
+        ],
+        "name": "LIGHT1_living_center",
+        "room": "living_room"
+      },
+      {
+        "object_type": "ceiling_light_surface_lod300",
+        "position": [
+          6.5,
+          6.0,
+          0.0
+        ],
+        "name": "LIGHT2_bedroom_center",
+        "room": "master_bedroom"
+      },
+      {
+        "object_type": "ceiling_light_surface_lod300",
+        "position": [
+          2.0,
+          7.0,
+          0.0
+        ],
+        "name": "LIGHT3_kitchen_center",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "ceiling_light_surface_lod300",
+        "position": [
+          9.0,
+          1.0,
+          0.0
+        ],
+        "name": "LIGHT4_washroom1",
+        "room": "washroom_1"
+      },
+      {
+        "object_type": "ceiling_light_surface_lod300",
+        "position": [
+          9.0,
+          3.0,
+          0.0
+        ],
+        "name": "LIGHT5_washroom2",
+        "room": "washroom_2"
+      },
+      {
+        "object_type": "ceiling_fan_3blade_lod300",
+        "position": [
+          3.0,
+          3.0,
+          0.0
+        ],
+        "name": "FAN1_living_room",
+        "room": "living_room"
+      },
+      {
+        "object_type": "ceiling_fan_3blade_lod300",
+        "position": [
+          6.5,
+          6.0,
+          0.0
+        ],
+        "name": "FAN2_bedroom",
+        "room": "master_bedroom"
+      },
+      {
+        "object_type": "floor_mounted_toilet_lod300",
+        "position": [
+          9.2,
+          0.5,
+          0.0
+        ],
+        "name": "TOILET1_washroom1",
+        "room": "washroom_1"
+      },
+      {
+        "object_type": "basin_residential_lod300",
+        "position": [
+          8.5,
+          1.5,
+          0.0
+        ],
+        "name": "BASIN1_washroom1",
+        "room": "washroom_1"
+      },
+      {
+        "object_type": "showerhead_fixed_lod200",
+        "position": [
+          9.0,
+          1.8,
+          0.0
+        ],
+        "name": "SHOWER1_washroom1",
+        "room": "washroom_1"
+      },
+      {
+        "object_type": "floor_drain_lod200",
+        "position": [
+          9.2,
+          1.5,
+          0.0
+        ],
+        "name": "DRAIN1_washroom1",
+        "room": "washroom_1"
+      },
+      {
+        "object_type": "floor_mounted_toilet_lod300",
+        "position": [
+          9.2,
+          2.5,
+          0.0
+        ],
+        "name": "TOILET2_washroom2",
+        "room": "washroom_2"
+      },
+      {
+        "object_type": "basin_residential_lod300",
+        "position": [
+          8.5,
+          3.5,
+          0.0
+        ],
+        "name": "BASIN2_washroom2",
+        "room": "washroom_2"
+      },
+      {
+        "object_type": "showerhead_fixed_lod200",
+        "position": [
+          9.0,
+          3.8,
+          0.0
+        ],
+        "name": "SHOWER2_washroom2",
+        "room": "washroom_2"
+      },
+      {
+        "object_type": "floor_drain_lod200",
+        "position": [
+          9.2,
+          3.5,
+          0.0
+        ],
+        "name": "DRAIN2_washroom2",
+        "room": "washroom_2"
+      },
+      {
+        "object_type": "kitchen_sink_single_bowl",
+        "position": [
+          0.5,
+          7.5,
+          0.0
+        ],
+        "name": "SINK_kitchen",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "faucet_kitchen",
+        "position": [
+          0.5,
+          7.5,
+          0.0
+        ],
+        "name": "TAP_kitchen_sink",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "stove_residential_lod200",
+        "position": [
+          3.5,
+          7.5,
+          0.0
+        ],
+        "name": "STOVE_kitchen",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "refrigerator_residential_lod200",
+        "position": [
+          3.8,
+          6.2,
+          0.0
+        ],
+        "name": "FRIDGE_kitchen",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "floor_drain_lod200",
+        "position": [
+          1.0,
+          7.8,
+          0.0
+        ],
+        "name": "DRAIN3_kitchen",
+        "room": "kitchen"
+      },
+      {
+        "object_type": "roof_gutter_100_lod300",
+        "position": [
+          0.0,
+          0.0,
+          3.0
+        ],
+        "name": "GUTTER_north",
+        "room": "exterior",
+        "discharge_drain": true
+      },
+      {
+        "object_type": "roof_gutter_100_lod300",
+        "position": [
+          9.8,
+          0.0,
+          3.0
+        ],
+        "name": "GUTTER_west",
+        "room": "exterior",
+        "discharge_drain": true
+      }
+    ]
+  },
+  "placed_objects": [
+    {
+      "name": "D1_main_entrance",
+      "object_type": "door_single_900_lod300",
+      "room": "living_room",
+      "raw_position": [
+        3.0,
+        0.05,
+        0.0
+      ],
+      "final_position": [
+        3.0,
+        0.05,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -90.0,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 1.0m front clearance"
+      ]
+    },
+    {
+      "name": "D2_bedroom_door",
+      "object_type": "door_single_900_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        6.0,
+        4.05,
+        0.0
+      ],
+      "final_position": [
+        6.0,
+        4.05,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -126.52885536698517,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 1.0m front clearance"
+      ]
+    },
+    {
+      "name": "D3_washroom_1_door",
+      "object_type": "door_single_750x2100_lod300",
+      "room": "washroom_1",
+      "raw_position": [
+        8.0,
+        1.05,
+        0.0
+      ],
+      "final_position": [
+        8.0,
+        1.05,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 108.72578784527256,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "D4_washroom_2_door",
+      "object_type": "door_single_750x2100_lod300",
+      "room": "washroom_2",
+      "raw_position": [
+        8.0,
+        3.05,
+        0.0
+      ],
+      "final_position": [
+        8.0,
+        3.05,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 136.46880071438582,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "W1_living_front",
+      "object_type": "window_aluminum_2panel_1200x1000_lod300",
+      "room": "living_room",
+      "raw_position": [
+        1.5,
+        0.05,
+        1.2
+      ],
+      "final_position": [
+        1.5,
+        0.05,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -1.9091524329963763,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "W2_living_front",
+      "object_type": "window_aluminum_2panel_1200x1000_lod300",
+      "room": "living_room",
+      "raw_position": [
+        4.5,
+        0.05,
+        1.2
+      ],
+      "final_position": [
+        4.5,
+        0.05,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -178.09084756700364,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "W3_bedroom_back",
+      "object_type": "window_aluminum_2panel_1200x1000_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        6.5,
+        7.95,
+        1.2
+      ],
+      "final_position": [
+        6.5,
+        7.95,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -97.21426203920676,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "W4_kitchen_back",
+      "object_type": "window_aluminum_tophung_600x500_lod300",
+      "room": "kitchen",
+      "raw_position": [
+        2.0,
+        7.95,
+        1.8
+      ],
+      "final_position": [
+        2.0,
+        7.95,
+        1.8
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -90.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "SW1_living_entrance",
+      "object_type": "switch_1gang_lod300",
+      "room": "living_room",
+      "raw_position": [
+        3.5,
+        0.02,
+        0.0
+      ],
+      "final_position": [
+        3.5,
+        0.02,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -177.70938995736148,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.3m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "SW2_bedroom_entrance",
+      "object_type": "switch_1gang_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        6.5,
+        4.02,
+        0.0
+      ],
+      "final_position": [
+        6.5,
+        4.02,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -177.70938995736154,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.3m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "SW3_kitchen_entrance",
+      "object_type": "switch_1gang_lod300",
+      "room": "kitchen",
+      "raw_position": [
+        2.5,
+        6.02,
+        0.0
+      ],
+      "final_position": [
+        2.5,
+        6.02,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -177.70938995736154,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.3m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "SW4_washroom1_entrance",
+      "object_type": "switch_1gang_lod300",
+      "room": "washroom_1",
+      "raw_position": [
+        8.5,
+        1.02,
+        0.0
+      ],
+      "final_position": [
+        8.5,
+        1.02,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 116.71865879702736,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.3m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "SW5_washroom2_entrance",
+      "object_type": "switch_1gang_lod300",
+      "room": "washroom_2",
+      "raw_position": [
+        8.5,
+        3.02,
+        0.0
+      ],
+      "final_position": [
+        8.5,
+        3.02,
+        1.2
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 146.84207611532776,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.3m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "OUT1_living_wall",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "room": "living_room",
+      "raw_position": [
+        1.0,
+        0.02,
+        0.0
+      ],
+      "final_position": [
+        1.0,
+        0.02,
+        0.3
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -0.5729386976834859,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.2m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "OUT2_living_wall",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "room": "living_room",
+      "raw_position": [
+        5.0,
+        5.98,
+        0.0
+      ],
+      "final_position": [
+        5.0,
+        5.98,
+        0.3
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -108.49241698771579,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.2m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "OUT3_bedroom_wall",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        5.0,
+        7.98,
+        0.0
+      ],
+      "final_position": [
+        5.0,
+        7.98,
+        0.3
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -75.8960310559169,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.2m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "OUT4_kitchen_wall",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "room": "kitchen",
+      "raw_position": [
+        1.0,
+        7.98,
+        0.0
+      ],
+      "final_position": [
+        1.0,
+        7.98,
+        0.3
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -63.203918706026535,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.2m front clearance",
+        "Requires electrical connection"
+      ]
+    },
+    {
+      "name": "LIGHT1_living_center",
+      "object_type": "ceiling_light_surface_lod300",
+      "room": "living_room",
+      "raw_position": [
+        3.0,
+        3.0,
+        0.0
+      ],
+      "final_position": [
+        3.0,
+        3.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -90.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "LIGHT2_bedroom_center",
+      "object_type": "ceiling_light_surface_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        6.5,
+        6.0,
+        0.0
+      ],
+      "final_position": [
+        6.5,
+        6.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -104.03624346792648,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "LIGHT3_kitchen_center",
+      "object_type": "ceiling_light_surface_lod300",
+      "room": "kitchen",
+      "raw_position": [
+        2.0,
+        7.0,
+        0.0
+      ],
+      "final_position": [
+        2.0,
+        7.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -90.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "LIGHT4_washroom1",
+      "object_type": "ceiling_light_surface_lod300",
+      "room": "washroom_1",
+      "raw_position": [
+        9.0,
+        1.0,
+        0.0
+      ],
+      "final_position": [
+        9.0,
+        1.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 123.6900675259798,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "LIGHT5_washroom2",
+      "object_type": "ceiling_light_surface_lod300",
+      "room": "washroom_2",
+      "raw_position": [
+        9.0,
+        3.0,
+        0.0
+      ],
+      "final_position": [
+        9.0,
+        3.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 153.434948822922,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "FAN1_living_room",
+      "object_type": "ceiling_fan_3blade_lod300",
+      "room": "living_room",
+      "raw_position": [
+        3.0,
+        3.0,
+        0.0
+      ],
+      "final_position": [
+        3.0,
+        3.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -90.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "FAN2_bedroom",
+      "object_type": "ceiling_fan_3blade_lod300",
+      "room": "master_bedroom",
+      "raw_position": [
+        6.5,
+        6.0,
+        0.0
+      ],
+      "final_position": [
+        6.5,
+        6.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -104.03624346792648,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "TOILET1_washroom1",
+      "object_type": "floor_mounted_toilet_lod300",
+      "room": "washroom_1",
+      "raw_position": [
+        9.2,
+        0.5,
+        0.0
+      ],
+      "final_position": [
+        9.2,
+        0.5,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        180.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": 122.15229514128232,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to floor",
+        "Requires 0.6m front clearance"
+      ]
+    },
+    {
+      "name": "BASIN1_washroom1",
+      "object_type": "basin_residential_lod300",
+      "room": "washroom_1",
+      "raw_position": [
+        8.5,
+        1.5,
+        0.0
+      ],
+      "final_position": [
+        8.5,
+        1.5,
+        0.85
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 120.96375653207352,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.5m front clearance"
+      ]
+    },
+    {
+      "name": "SHOWER1_washroom1",
+      "object_type": "showerhead_fixed_lod200",
+      "room": "washroom_1",
+      "raw_position": [
+        9.0,
+        1.8,
+        0.0
+      ],
+      "final_position": [
+        9.0,
+        1.8,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 132.27368900609375,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "DRAIN1_washroom1",
+      "object_type": "floor_drain_lod200",
+      "room": "washroom_1",
+      "raw_position": [
+        9.2,
+        1.5,
+        0.0
+      ],
+      "final_position": [
+        9.2,
+        1.5,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 131.34777721969365,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "TOILET2_washroom2",
+      "object_type": "floor_mounted_toilet_lod300",
+      "room": "washroom_2",
+      "raw_position": [
+        9.2,
+        2.5,
+        0.0
+      ],
+      "final_position": [
+        9.2,
+        2.5,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        180.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 145.71312302279102,
+      "pivot_point": "bottom_center",
+      "rules_applied": [
+        "Requires connection to floor",
+        "Requires 0.6m front clearance"
+      ]
+    },
+    {
+      "name": "BASIN2_washroom2",
+      "object_type": "basin_residential_lod300",
+      "room": "washroom_2",
+      "raw_position": [
+        8.5,
+        3.5,
+        0.0
+      ],
+      "final_position": [
+        8.5,
+        3.5,
+        0.85
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 161.565051177078,
+      "pivot_point": "center",
+      "rules_applied": [
+        "Requires connection to wall",
+        "Requires 0.5m front clearance"
+      ]
+    },
+    {
+      "name": "SHOWER2_washroom2",
+      "object_type": "showerhead_fixed_lod200",
+      "room": "washroom_2",
+      "raw_position": [
+        9.0,
+        3.8,
+        0.0
+      ],
+      "final_position": [
+        9.0,
+        3.8,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 174.28940686250033,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "DRAIN2_washroom2",
+      "object_type": "floor_drain_lod200",
+      "room": "washroom_2",
+      "raw_position": [
+        9.2,
+        3.5,
+        0.0
+      ],
+      "final_position": [
+        9.2,
+        3.5,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 180.0,
+      "rotation_room_entrance_deg": 167.19573393471325,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "SINK_kitchen",
+      "object_type": "kitchen_sink_single_bowl",
+      "room": "kitchen",
+      "raw_position": [
+        0.5,
+        7.5,
+        0.0
+      ],
+      "final_position": [
+        0.5,
+        7.5,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -45.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "TAP_kitchen_sink",
+      "object_type": "faucet_kitchen",
+      "room": "kitchen",
+      "raw_position": [
+        0.5,
+        7.5,
+        0.0
+      ],
+      "final_position": [
+        0.5,
+        7.5,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -45.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "STOVE_kitchen",
+      "object_type": "stove_residential_lod200",
+      "room": "kitchen",
+      "raw_position": [
+        3.5,
+        7.5,
+        0.0
+      ],
+      "final_position": [
+        3.5,
+        7.5,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -135.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "FRIDGE_kitchen",
+      "object_type": "refrigerator_residential_lod200",
+      "room": "kitchen",
+      "raw_position": [
+        3.8,
+        6.2,
+        0.0
+      ],
+      "final_position": [
+        3.8,
+        6.2,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -173.65980825409008,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "DRAIN3_kitchen",
+      "object_type": "floor_drain_lod200",
+      "room": "kitchen",
+      "raw_position": [
+        1.0,
+        7.8,
+        0.0
+      ],
+      "final_position": [
+        1.0,
+        7.8,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": -60.94539590092286,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "GUTTER_north",
+      "object_type": "roof_gutter_100_lod300",
+      "room": "exterior",
+      "raw_position": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "final_position": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": 0.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    },
+    {
+      "name": "GUTTER_west",
+      "object_type": "roof_gutter_100_lod300",
+      "room": "exterior",
+      "raw_position": [
+        9.8,
+        0.0,
+        3.0
+      ],
+      "final_position": [
+        9.8,
+        0.0,
+        3.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_wall_normal_deg": 90.0,
+      "rotation_room_entrance_deg": 0.0,
+      "pivot_point": "center",
+      "rules_applied": []
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+# Database files (too large for git)
+Ifc_Object_Library.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Test outputs
+*.log
+*.blend1
+
+# IDE
+.vscode/
+.idea/
