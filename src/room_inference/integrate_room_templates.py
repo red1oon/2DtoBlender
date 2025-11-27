@@ -476,6 +476,145 @@ def calculate_position(placement_rule, bounds, center, index, spec):
         return [center[0], center[1], height]
 
 
+def generate_walls_from_grid_truth(grid_truth_path):
+    """
+    Generate wall segments from GridTruth room_bounds
+
+    Creates wall objects from room rectangle edges, handling shared walls
+    """
+    try:
+        with open(grid_truth_path) as f:
+            grid_truth = json.load(f)
+    except FileNotFoundError:
+        print(f"⚠️  GridTruth not found: {grid_truth_path}")
+        return []
+
+    room_bounds = grid_truth.get('room_bounds', {})
+    if not room_bounds:
+        print("⚠️  No room_bounds in GridTruth")
+        return []
+
+    # Track all wall segments to avoid duplicates
+    wall_segments = set()
+
+    for room_name, bounds in room_bounds.items():
+        if room_name.startswith('_'):  # Skip metadata like _note
+            continue
+
+        x_min, x_max = bounds['x_min'], bounds['x_max']
+        y_min, y_max = bounds['y_min'], bounds['y_max']
+
+        # Create 4 wall segments for this room (as tuples for deduplication)
+        segments = [
+            # South wall: (x_min, y_min) → (x_max, y_min)
+            ((x_min, y_min, 0.0), (x_max, y_min, 0.0)),
+            # North wall: (x_min, y_max) → (x_max, y_max)
+            ((x_min, y_max, 0.0), (x_max, y_max, 0.0)),
+            # West wall: (x_min, y_min) → (x_min, y_max)
+            ((x_min, y_min, 0.0), (x_min, y_max, 0.0)),
+            # East wall: (x_max, y_min) → (x_max, y_max)
+            ((x_max, y_min, 0.0), (x_max, y_max, 0.0)),
+        ]
+
+        for seg in segments:
+            # Add both directions (normalize to avoid duplicates)
+            normalized = tuple(sorted([seg[0], seg[1]]))
+            wall_segments.add(normalized)
+
+    # Convert to wall objects
+    walls = []
+    for i, (start, end) in enumerate(wall_segments):
+        # Determine if interior or exterior wall
+        # (simplified: exterior if on building perimeter)
+        is_exterior = (start[0] == 0.0 or start[1] == 0.0 or
+                       end[0] == 0.0 or end[1] == 0.0 or
+                       start[0] >= 11.0 or start[1] >= 8.0 or
+                       end[0] >= 11.0 or end[1] >= 8.0)
+
+        wall_type = "wall_brick_3m_lod300" if is_exterior else "wall_lightweight_100_lod300"
+        wall_category = "exterior" if is_exterior else "interior"
+
+        wall = {
+            "name": f"wall_{wall_category}_{i+1}",
+            "object_type": wall_type,
+            "position": list(start),
+            "end_point": list(end),
+            "height": 3.0,
+            "thickness": 0.15 if is_exterior else 0.10,
+            "placed": False,
+            "room": "structure",
+            "phase": "1C_structure"
+        }
+        walls.append(wall)
+
+    print(f"✅ Generated {len(walls)} wall segments from {len(room_bounds)-1} rooms")
+    return walls
+
+
+def generate_roof_and_drains(grid_truth_path):
+    """Generate roof and discharge perimeter from GridTruth"""
+    try:
+        with open(grid_truth_path) as f:
+            grid_truth = json.load(f)
+    except FileNotFoundError:
+        return []
+
+    elements = []
+
+    # Get building envelope
+    envelope = grid_truth.get('building_envelope', {})
+    if envelope:
+        x_min = envelope.get('x_min', 0.0)
+        x_max = envelope.get('x_max', 11.2)
+        y_min = envelope.get('y_min', 0.0)
+        y_max = envelope.get('y_max', 8.5)
+        height = envelope.get('height', 3.0)
+
+        # Generate roof slab (flat roof covering entire building)
+        roof = {
+            "name": "roof_main",
+            "object_type": "roof_slab_flat_lod300",
+            "position": [x_min, y_min, height],
+            "dimensions": {
+                "length": x_max - x_min,
+                "width": y_max - y_min,
+                "thickness": 0.15
+            },
+            "placed": False,
+            "room": "structure",
+            "phase": "1C_structure"
+        }
+        elements.append(roof)
+
+        # Generate discharge perimeter (gutter around roof)
+        perimeter_points = [
+            # South edge
+            ([x_min, y_min, height], [x_max, y_min, height]),
+            # East edge
+            ([x_max, y_min, height], [x_max, y_max, height]),
+            # North edge
+            ([x_max, y_max, height], [x_min, y_max, height]),
+            # West edge
+            ([x_min, y_max, height], [x_min, y_min, height])
+        ]
+
+        for i, (start, end) in enumerate(perimeter_points):
+            drain = {
+                "name": f"discharge_perimeter_{i+1}",
+                "object_type": "roof_gutter_100_lod300",
+                "position": start,
+                "end_point": end,
+                "placed": False,
+                "room": "structure",
+                "phase": "1B_calibration"
+            }
+            elements.append(drain)
+
+        print(f"✅ Generated roof and discharge perimeter (5 elements)")
+
+    return elements
+
+
 def augment_with_room_templates(extraction_output):
     """
     Augment text-based extraction with room template inference
@@ -510,8 +649,18 @@ def augment_with_room_templates(extraction_output):
     existing_objects = extraction_output.get('objects', [])
     print(f"✅ Keeping {len(existing_objects)} text-extracted objects (doors, windows, switches)")
 
+    # Generate walls from GridTruth room_bounds
+    # Determine GridTruth path from extraction metadata or use default
+    pdf_source = metadata.get('pdf_source', 'examples/TB-LKTN_House/TB-LKTN HOUSE.pdf')
+    pdf_dir = Path(pdf_source).parent
+    grid_truth_path = pdf_dir / 'GridTruth.json'
+
+    print(f"📍 Looking for GridTruth: {grid_truth_path}")
+    walls = generate_walls_from_grid_truth(str(grid_truth_path))
+    roof_and_drains = generate_roof_and_drains(str(grid_truth_path))
+
     # Add inferred objects from templates
-    inferred_objects = []
+    inferred_objects = (walls + roof_and_drains) if (walls or roof_and_drains) else []
 
     for room in rooms:
         template_name = room['template']
@@ -577,14 +726,19 @@ if __name__ == "__main__":
     import os
 
     if len(sys.argv) < 2:
-        print("Usage: python3 integrate_room_templates.py <extraction_output.json>")
+        print("Usage: python3 integrate_room_templates.py <extraction_output.json> [pdf_path]")
         sys.exit(1)
 
     input_path = sys.argv[1]
+    pdf_path = sys.argv[2] if len(sys.argv) > 2 else None
 
     # Load extraction output
     with open(input_path) as f:
         extraction_output = json.load(f)
+
+    # Add PDF path to metadata if provided
+    if pdf_path:
+        extraction_output['extraction_metadata']['pdf_source'] = pdf_path
 
     # Augment with templates
     augmented = augment_with_room_templates(extraction_output)

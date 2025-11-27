@@ -126,7 +126,7 @@ echo ""
 # Step 2: Augment with templates + Run all automated fixes
 echo "🏠 STEP 2: Augmenting with room templates + Automated fixes..."
 echo "--------------------------------------------------------------------------------"
-PYTHONPATH="$PWD/src:$PYTHONPATH" venv/bin/python src/room_inference/integrate_room_templates.py "$EXTRACTION_OUTPUT"
+PYTHONPATH="$PWD/src:$PYTHONPATH" venv/bin/python src/room_inference/integrate_room_templates.py "$EXTRACTION_OUTPUT" "$PDF_FILE"
 
 # Find the final output
 FINAL_OUTPUT=$(ls -t output_artifacts/*_FINAL.json | head -1)
