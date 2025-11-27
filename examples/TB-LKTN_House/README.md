@@ -1,43 +1,65 @@
 # TB-LKTN House Example
 
-Example project files for the TB-LKTN House residential design.
+Example project for the TB-LKTN House residential design.
+
+## Structure
+
+```
+TB-LKTN_House/
+├── README.md                           # This file
+├── TB-LKTN HOUSE.pdf                   # Source PDF (store here, excluded from git)
+└── output/                             # Generated outputs (excluded from git)
+    └── TB-LKTN_reference_output.json   # Example pipeline output
+```
 
 ## Files
 
 ### Input (Not in Git)
-- `TB-LKTN HOUSE.pdf` - 8-page architectural drawing (excluded: binary)
-  - Location: Store in `2DBlenderWork/` for testing
-  - Source: Project sample PDF
+- `TB-LKTN HOUSE.pdf` - 8-page architectural drawing
+  - **Excluded:** Binary PDF (see .gitignore)
+  - **Location:** Place source PDF here for testing
 
-### Reference Output (Example Only)
-- `TB-LKTN_reference_output.json` - Example of expected pipeline output
-  - **⚠️  NOT FOR PIPELINE INPUT**: This is example output, not configuration
-  - **Purpose:** Shows structure of what pipeline SHOULD generate from PDF
-  - **Rule 0 Note:** Pipeline must derive this from PDF, not read this file
-  - **Usage:** Compare against actual pipeline output for validation
+### Generated Output (Not in Git)
+- `output/` - Pipeline-generated files
+  - **Excluded:** All outputs gitignored (examples/*/output/)
+  - **Contains:** Reference output for validation
 
 ## Running Pipeline on This Example
 
 ```bash
-# From working directory
+# 1. Place source PDF in this example folder
+cp "TB-LKTN HOUSE.pdf" /home/red1/Documents/bonsai/2DtoBlender/examples/TB-LKTN_House/
+
+# 2. Run pipeline from working directory
 cd /home/red1/Documents/bonsai/2DBlenderWork
+./bin/RUN_COMPLETE_PIPELINE.sh "../2DtoBlender/examples/TB-LKTN_House/TB-LKTN HOUSE.pdf"
 
-# Run pipeline
-./bin/RUN_COMPLETE_PIPELINE.sh "TB-LKTN HOUSE.pdf"
+# 3. Output goes to output_artifacts/ in working directory
+ls -l output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json
 
-# Compare output against reference (optional validation)
+# 4. (Optional) Save reference output to examples
+cp output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json \
+   ../2DtoBlender/examples/TB-LKTN_House/output/TB-LKTN_reference_output.json
+
+# 5. (Optional) Compare against reference
 diff output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json \
-     ../2DtoBlender/examples/TB-LKTN_House/TB-LKTN_reference_output.json
+     ../2DtoBlender/examples/TB-LKTN_House/output/TB-LKTN_reference_output.json
 ```
 
-## ⚠️  Important Notes
+## 📋 Testing Workflow
+
+**Where to Look:**
+1. **Input PDFs:** `examples/TB-LKTN_House/` (this folder)
+2. **Generated Output:** `2DBlenderWork/output_artifacts/`
+3. **Reference Output:** `examples/TB-LKTN_House/output/` (for comparison)
 
 **Rule 0 Compliance:**
-- Pipeline MUST derive all data from PDF input
-- Reference output is for validation ONLY, not pipeline input
-- Code must NEVER read from examples/ directory
+- Pipeline reads ONLY the source PDF
+- Pipeline generates output in working dir
+- Reference output is for comparison ONLY
+- Code NEVER reads from examples/output/
 
 **Purpose:**
-- This example demonstrates expected pipeline output structure
-- Reference file shows what correct extraction looks like
-- Used for regression testing and validation
+- Examples show project structure
+- Reference outputs for regression testing
+- Clear separation: source (tracked) vs generated (gitignored)

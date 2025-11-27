@@ -26,6 +26,9 @@ build/
 # Output artifacts (generated files)
 output_artifacts/
 
+# Example outputs (generated, not source)
+examples/*/output/
+
 # Local working directories (not in git)
 LocalLibrary/
 
