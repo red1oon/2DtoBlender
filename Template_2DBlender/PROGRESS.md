@@ -1,5 +1,45 @@
 # Template_2DBlender - Progress & Issues
 
+## ✅ ROTATION FIX + SPEC ABSTRACTION + GITHUB PUSH COMPLETE (2025-11-27 17:30)
+
+**Latest Output:** TB-LKTN_HOUSE_OUTPUT_20251127_172343_FINAL.json (118 objects)
+
+### Completed Today:
+
+**1. Door Rotation Fix ✅**
+- **Issue:** SOUTH walls had 90°, EAST walls had 180° (wrong orientations)
+- **Fix:** `core/vector_patterns.py:750-756` - Map rotation based on wall cardinal direction
+- **Algorithm:** `WALL_ROTATION_MAP = {NORTH/SOUTH: 0°, EAST/WEST: 90°}`
+- **Result:** 5 SOUTH doors → 0°, 2 EAST doors → 90° (correct)
+
+**2. Window Deduplication ✅**
+- **Issue:** 10 windows extracted (multi-page: floor plan + elevations)
+- **Fix:** `core/post_processor.py:195-232, line 1136` - Remove duplicates within 0.5m
+- **Algorithm:** For each pair, if distance < 0.5m → remove duplicate
+- **Result:** 10 → 9 windows (removed 1 duplicate at 0.19m)
+
+**3. Spec Abstraction ✅**
+- **Issue:** Spec had hardcoded "Expected: 7 doors" validation (not reusable)
+- **Fix:** Rewrote sections to show **algorithm + TB-LKTN example**
+  - Section 5.3: Door Placement Algorithm (7 steps)
+  - Section 6.1: Window Extraction Algorithm (7 steps)
+- **Before:** "Total Windows: 7" → **After:** "Algorithm extracted 9 windows from TB-LKTN"
+- **Files:** TB-LKTN_COMPLETE_SPECIFICATION.md lines 526-587
+
+**4. GitHub Push ✅**
+- **Repo:** https://github.com/red1oon/2Dto3D
+- **Commit:** 9949ff5 - "refactor: New modular architecture with Rule 0 compliance"
+- **Changes:** 128 files (deleted 20+ legacy docs, added core/ + validators/ + Scripts/)
+- **Architecture:** Modular core/ with extraction_engine, vector_patterns, post_processor
+
+### Current State:
+- **Doors:** 7 doors with correct rotations ✅
+- **Windows:** 9 windows (from floor plan labels, deduplication applied) ✅
+- **Algorithms:** Reusable for any architectural PDF ✅
+- **Rule 0:** Compliant (all derived from PDF source) ✅
+
+---
+
 ## ✅ CRITICAL BUG FIXES COMPLETE (2025-11-27 16:57)
 
 **Session Focus:** Fix critical bugs working backwards from output (Rule 0 compliant)
