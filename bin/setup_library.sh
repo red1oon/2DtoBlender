@@ -42,7 +42,7 @@ echo ""
 # Run base_rotation fixer
 echo "📐 STEP 1: Analyzing geometry orientations..."
 echo "--------------------------------------------------------------------------------"
-python3 "$PROJECT_ROOT/tools/fix_library_base_rotations.py" \
+python3 "$PROJECT_ROOT/src/tools/fix_library_base_rotations.py" \
     --database "$DB_PATH" \
     $DRY_RUN
 

@@ -123,6 +123,41 @@ blender --background --python bin/blender_lod300_import.py -- \
 
 ---
 
+## 🗄️ Database
+
+### Schema
+The LOD300 geometry library uses SQLite with two main tables:
+
+| Table | Purpose |
+|-------|---------|
+| `base_geometries` | 3D mesh data (vertices, faces, normals as BLOBs) |
+| `object_catalog` | Object metadata, IFC class, dimensions, rotation |
+
+See [db/README.md](db/README.md) for full documentation.
+
+### Setup
+```bash
+# Validate library and fix geometry orientations (first time setup)
+./bin/setup_library.sh
+
+# Or dry-run to check without changes
+./bin/setup_library.sh --dry-run
+```
+
+### Schema Files
+```
+db/
+├── schema/
+│   ├── ifc_object_library.sql          # Full schema definition
+│   └── migrations/
+│       └── 002_add_base_rotation.sql   # Add rotation columns
+└── README.md                           # Database documentation
+```
+
+Tools: `src/tools/fix_library_base_rotations.py` (called by `bin/setup_library.sh`)
+
+---
+
 ## 🏗️ Key Features
 
 ### ✅ Rule 0 Compliance
