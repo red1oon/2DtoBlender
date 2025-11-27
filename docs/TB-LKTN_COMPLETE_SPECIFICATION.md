@@ -961,8 +961,8 @@ If pipeline breaks after incremental fixes:
 └──────────────────────────────────────────────────────────────┘
                               ↓
 ┌──────────────────────────────────────────────────────────────┐
-│ STAGE 2: AUGMENTATION + POST-PROCESSING                     │
-│ Script: room_inference/integrate_room_templates.py (541)    │
+│ STAGE 2: ROOM INFERENCE + PLACEMENT ENGINE                  │
+│ Script: src/room_inference/integrate_room_templates.py      │
 │ Input:  TB-LKTN_HOUSE_OUTPUT_*.json                         │
 │ Output: TB-LKTN_HOUSE_OUTPUT_*_FINAL.json                   │
 ├──────────────────────────────────────────────────────────────┤
@@ -971,6 +971,15 @@ If pipeline breaks after incremental fixes:
 │   • Apply room templates (bedroom_master, bathroom, etc.)   │
 │   • Add furniture/fixtures from templates (~35-40 objects)  │
 │   • Output: *_AUGMENTED.json                                │
+│                                                              │
+│ Sub-Step A2: PLACEMENT ENGINE (Critical!)                   │
+│   Module: src/standards/placement_engine.py                 │
+│   Purpose: Convert label positions → geometric positions    │
+│   • Assign objects to rooms (from GridTruth room_bounds)    │
+│   • Move to grid-based positions (not text label coords)    │
+│   • Apply MS_1184 height standards                          │
+│   • Generate wall geometry from room_bounds                 │
+│   ⚠️  WITHOUT THIS: Objects scatter at PDF label positions  │
 │                                                              │
 │ Sub-Step B: Wall Combining (wall_combiner.process_walls)    │
 │   • Merge collinear wall segments                           │
@@ -2265,6 +2274,20 @@ jq -r '.objects[].object_type' output_artifacts/blender_import.json | sort | uni
 **Fix Applied:**
 - Added RUANG_MAKAN at C1-D2 (3.7m × 2.3m = 8.51m²)
 - Marked as central dining room (largest central space with RUANG_TAMU)
+
+### Error 4: Objects Placed at PDF Label Positions (2025-11-28)
+**Issue:** Objects scattered incorrectly in Blender - placed at text label coordinates instead of geometric room positions.
+
+**Root Cause:** Placement engine (placement_engine.py) and room inference modules not integrated in pipeline - objects kept raw PDF extraction coordinates.
+
+**Fix Applied:**
+- Integrated src/room_inference/integrate_room_templates.py into pipeline
+- Added PYTHONPATH for standards.placement_engine module
+- Corrected pipeline paths: core/ → src/core/
+- Added room_templates.json to src/LocalLibrary/
+- **Result:** Objects now assigned to rooms with grid-based positions + heights
+
+**Commit:** 89b9ba2 (2025-11-28)
 
 ## 12.2 Corrections Log
 
@@ -3720,7 +3743,18 @@ grep -r "extract_page8_schedule.py" . --include="*.sh"
 □ Section 7.5 reference output file exists
 □ All file paths in spec exist on disk
 □ No orphaned databases (in spec but not generated)
+□ src/standards/placement_engine.py exists (CRITICAL - See Error 4)
+□ src/room_inference/ modules exist and integrated (CRITICAL)
 ```
+
+**Critical Module Alert (2025-11-28):**
+
+⚠️ **If objects scatter in Blender → Check these files exist:**
+- `src/standards/placement_engine.py` - Grid-based placement
+- `src/room_inference/integrate_room_templates.py` - Room templates
+- `src/LocalLibrary/room_templates.json` - Template definitions
+
+These modules convert label positions → geometric positions. Without them, objects appear at random PDF text coordinates instead of actual room locations.
 
 ## 14.3 Quarterly Spec Audit
 
