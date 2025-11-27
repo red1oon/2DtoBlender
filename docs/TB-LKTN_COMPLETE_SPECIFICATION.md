@@ -2996,13 +2996,11 @@ python3 apply_qa_corrections.py
 
 ---
 
-## 14. Extraction Template Architecture (master_reference_template.json)
+## 14. Master Reference Template Architecture
 
 ### 14.1 Purpose
 
-**Location:** `core/master_reference_template.json`
-
-The `master_reference_template.json` is the **TIER 1 EXTRACTION REFERENCE**. It defines:
+The `master_reference_template.json` is the **PERMANENT REFERENCE** for object extraction. It defines:
 - **WHAT** to search for (sequential instruction set)
 - **WHERE** to find it (page numbers, search text)
 - **WHICH** library object to use (object_type references)
