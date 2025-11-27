@@ -6,60 +6,70 @@ Example project for the TB-LKTN House residential design.
 
 ```
 TB-LKTN_House/
-├── README.md                           # This file
-├── TB-LKTN HOUSE.pdf                   # Source PDF (store here, excluded from git)
-└── output/                             # Generated outputs (excluded from git)
-    └── TB-LKTN_reference_output.json   # Example pipeline output
+├── README.md                  # This file
+├── TB-LKTN HOUSE.pdf         # Source PDF (gitignored: *.pdf)
+└── output/                    # ALL outputs from this PDF (gitignored: examples/*/output/)
+    ├── *.json                 # JSON outputs
+    ├── *.db                   # Database files
+    ├── *.blend                # Blender files
+    └── *.log                  # Logs
 ```
 
-## Files
+**Crystal clear concept:** One PDF → One output/ folder with everything it generates
 
-### Input (Not in Git)
-- `TB-LKTN HOUSE.pdf` - 8-page architectural drawing
-  - **Excluded:** Binary PDF (see .gitignore)
-  - **Location:** Place source PDF here for testing
+## What Goes Where
 
-### Generated Output (Not in Git)
-- `output/` - Pipeline-generated files
-  - **Excluded:** All outputs gitignored (examples/*/output/)
-  - **Contains:** Reference output for validation
+### Input (gitignored)
+- `TB-LKTN HOUSE.pdf` - Source PDF for testing
+  - Place PDF in this folder
+  - Pipeline reads from here
 
-## Running Pipeline on This Example
+### All Outputs (gitignored)
+- `output/` - **Everything** the pipeline generates
+  - JSON outputs (placement data, validation)
+  - Database files (if generated)
+  - Blender files (.blend)
+  - Logs and debug outputs
+  - **Everything in output/ is excluded from git**
+
+## Running Pipeline
 
 ```bash
-# 1. Place source PDF in this example folder
+# 1. Place PDF in example folder (if not already there)
 cp "TB-LKTN HOUSE.pdf" /home/red1/Documents/bonsai/2DtoBlender/examples/TB-LKTN_House/
 
-# 2. Run pipeline from working directory
+# 2. Run pipeline
 cd /home/red1/Documents/bonsai/2DBlenderWork
 ./bin/RUN_COMPLETE_PIPELINE.sh "../2DtoBlender/examples/TB-LKTN_House/TB-LKTN HOUSE.pdf"
 
-# 3. Output goes to output_artifacts/ in working directory
-ls -l output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json
-
-# 4. (Optional) Save reference output to examples
+# 3. Copy ALL outputs to example output/ folder
 cp output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json \
-   ../2DtoBlender/examples/TB-LKTN_House/output/TB-LKTN_reference_output.json
+   ../2DtoBlender/examples/TB-LKTN_House/output/
 
-# 5. (Optional) Compare against reference
-diff output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json \
-     ../2DtoBlender/examples/TB-LKTN_House/output/TB-LKTN_reference_output.json
+# (Optional) Copy other generated files
+cp *.blend ../2DtoBlender/examples/TB-LKTN_House/output/ 2>/dev/null || true
+cp *.db ../2DtoBlender/examples/TB-LKTN_House/output/ 2>/dev/null || true
+
+# 4. Compare entire output folder for regression testing
+diff -r output_artifacts/ ../2DtoBlender/examples/TB-LKTN_House/output/
 ```
 
 ## 📋 Testing Workflow
 
-**Where to Look:**
-1. **Input PDFs:** `examples/TB-LKTN_House/` (this folder)
-2. **Generated Output:** `2DBlenderWork/output_artifacts/`
-3. **Reference Output:** `examples/TB-LKTN_House/output/` (for comparison)
+**Simple concept:**
+- PDF goes here → Run pipeline → Everything it creates goes in output/
+
+**Locations:**
+1. **Source PDF:** `examples/TB-LKTN_House/TB-LKTN HOUSE.pdf`
+2. **All outputs:** `examples/TB-LKTN_House/output/*`
 
 **Rule 0 Compliance:**
 - Pipeline reads ONLY the source PDF
-- Pipeline generates output in working dir
-- Reference output is for comparison ONLY
-- Code NEVER reads from examples/output/
+- Pipeline NEVER reads from output/ (outputs are reference only)
+- For regression testing: compare new output/ vs old output/
 
-**Purpose:**
-- Examples show project structure
-- Reference outputs for regression testing
-- Clear separation: source (tracked) vs generated (gitignored)
+**Benefits:**
+- Crystal clear: One PDF = One output folder
+- Easy regression testing: diff entire output/ folders
+- Self-contained: Each example is complete
+- Gitignored: No generated files in repo
