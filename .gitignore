@@ -1,7 +1,83 @@
-venv/
+# Python
 __pycache__/
-*.pyc
-Screenshots/
-*.png
-# Ignore large database files
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+
+# Databases (schema in pipeline, not binary)
 *.db
+*.sqlite
+*.sqlite3
+
+# Large binary files
+*.blend
+*.blend1
+*.dxf
+*.dwg
+*.pdf
+
+# Output artifacts (generated files)
+output_artifacts/
+
+# Local working directories (not in git)
+LocalLibrary/
+
+# Logs
+*.log
+consolelogs/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary files
+*.tmp
+*.bak
+*.old
+
+# Config (may contain paths)
+config/*.txt
+config/*BACKUP*
+
+# Legacy/Archive (too messy for git)
+legacy/
+
+# Test outputs
+tests/output/
+tests/*.blend
+tests/*.db
+
+# Documentation output
+docs/output/
+
+# DeepSeek experiments
+DeepSeek/
+
+# Input templates (large files)
+input_templates/*.pdf
+input_templates/*.dxf
+
+# Exception: Keep essential configs
+!config/GridTruth*.json
+!config/master_template.json
+
+# Exception: Keep library schema generator
+!LocalLibrary/README.md
+
+# Exception: Keep small example outputs
+!output_artifacts/README.md

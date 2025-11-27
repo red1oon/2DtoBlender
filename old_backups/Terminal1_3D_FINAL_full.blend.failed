@@ -1,7 +1,0 @@
-Cache creation failed: no such table: element_geometry
-Traceback (most recent call last):
-  File "/home/red1/.config/blender/4.2/extensions/.local/lib/python3.11/site-packages/bonsai/bim/module/federation/bake_cache_background.py", line 67, in <module>
-    blend_cache.create_cache(
-  File "/home/red1/.config/blender/4.2/extensions/.local/lib/python3.11/site-packages/bonsai/bim/module/federation/blend_cache.py", line 157, in create_cache
-    cursor.execute("""
-sqlite3.OperationalError: no such table: element_geometry
