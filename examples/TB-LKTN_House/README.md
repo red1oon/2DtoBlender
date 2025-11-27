@@ -7,8 +7,9 @@ Example project for the TB-LKTN House residential design.
 ```
 TB-LKTN_House/
 ├── README.md                  # This file
-├── TB-LKTN HOUSE.pdf         # Source PDF (included in repo for testing)
-└── output/                    # ALL outputs from this PDF (gitignored: examples/*/output/)
+├── TB-LKTN HOUSE.pdf         # Source PDF (included in repo)
+├── GridTruth.json             # Ground truth calibration (included in repo)
+└── output/                    # ALL outputs from this PDF (gitignored)
     ├── *.json                 # JSON outputs
     ├── *.db                   # Database files
     ├── *.blend                # Blender files
@@ -19,10 +20,16 @@ TB-LKTN_House/
 
 ## What Goes Where
 
-### Input (included in repo)
+### Inputs (included in repo)
 - `TB-LKTN HOUSE.pdf` - Source PDF for testing
   - **Included in repository** so users can run examples
   - Pipeline reads from here
+
+- `GridTruth.json` - Verified ground truth dimensions
+  - Expert-verified real-world measurements (11.2m × 8.5m)
+  - Grid lines, room bounds, elevations
+  - Used for calibration validation
+  - **Fundamental reference data - committed to repo**
 
 ### All Outputs (gitignored)
 - `output/` - **Everything** the pipeline generates
@@ -35,23 +42,19 @@ TB-LKTN_House/
 ## Running Pipeline
 
 ```bash
-# 1. Place PDF in example folder (if not already there)
-cp "TB-LKTN HOUSE.pdf" /home/red1/Documents/bonsai/2DtoBlender/examples/TB-LKTN_House/
+# 1. Run pipeline on example (PDF and GridTruth.json already in folder)
+cd /home/red1/Documents/bonsai/2DtoBlender
+./bin/RUN_COMPLETE_PIPELINE.sh "examples/TB-LKTN_House/TB-LKTN HOUSE.pdf"
 
-# 2. Run pipeline
-cd /home/red1/Documents/bonsai/2DBlenderWork
-./bin/RUN_COMPLETE_PIPELINE.sh "../2DtoBlender/examples/TB-LKTN_House/TB-LKTN HOUSE.pdf"
+# Pipeline automatically finds GridTruth.json in same folder as PDF
 
-# 3. Copy ALL outputs to example output/ folder
-cp output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json \
-   ../2DtoBlender/examples/TB-LKTN_House/output/
+# 2. Outputs are in output_artifacts/ - copy to example folder for reference
+cp output_artifacts/TB-LKTN_HOUSE_OUTPUT_*.json examples/TB-LKTN_House/output/
+cp output_artifacts/TB-LKTN*.db examples/TB-LKTN_House/output/ 2>/dev/null || true
+cp *.blend examples/TB-LKTN_House/output/ 2>/dev/null || true
 
-# (Optional) Copy other generated files
-cp *.blend ../2DtoBlender/examples/TB-LKTN_House/output/ 2>/dev/null || true
-cp *.db ../2DtoBlender/examples/TB-LKTN_House/output/ 2>/dev/null || true
-
-# 4. Compare entire output folder for regression testing
-diff -r output_artifacts/ ../2DtoBlender/examples/TB-LKTN_House/output/
+# 3. For regression testing, compare outputs
+diff -r output_artifacts/ examples/TB-LKTN_House/output/
 ```
 
 ## 📋 Testing Workflow

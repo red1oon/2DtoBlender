@@ -85,8 +85,9 @@ input_templates/*.dxf
 # Exception: Keep small example outputs
 !output_artifacts/README.md
 
-# Exception: Keep example PDFs for users to test
+# Exception: Keep example PDFs and GridTruth for users to test
 !examples/**/*.pdf
+!examples/**/GridTruth.json
 
 # Working files (not in repo)
 PROGRESS.md
