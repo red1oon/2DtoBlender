@@ -88,4 +88,8 @@ input_templates/*.dxf
 # Exception: Keep example PDFs for users to test
 !examples/**/*.pdf
 
+# Working files (not in repo)
+PROGRESS.md
+WORKING_DIRECTORY.md
+
 staging/
