@@ -20,3 +20,4 @@ ENV/
 # IDE
 .vscode/
 .idea/
+output_artifacts/last_run_backup/

@@ -7,14 +7,15 @@
   },
   "object_selection_preferences": {
     "_note": "Edit these preferences to change which objects are selected from library",
+    "_smart_selection_note": "Template uses intelligent defaults based on room type and function",
     "building_type": "residential",
     "design_style": "modern",
     "reference_objects": {
       "default_toilet": "floor_mounted_toilet_lod300",
       "alternative_toilet_asian": "asian_toilet_lod300",
-      "default_basin": "basin_residential_lod300",
+      "default_basin": "basin_round_residential_lod300",
       "alternative_basin_wall": "wall_mounted_basin_lod300",
-      "default_kitchen_sink": "kitchen_sink_single_bowl",
+      "default_kitchen_sink": "kitchen_sink_single_bowl_with_drainboard_lod300",
       "alternative_sink_commercial": "sink_915x535_lod300",
       "default_shower": "showerhead_fixed_lod200",
       "alternative_shower_handheld": "showerhead_handheld",
@@ -27,12 +28,13 @@
       "default_ceiling_light": "ceiling_light_surface_lod300",
       "default_ceiling_fan": "ceiling_fan_3blade_lod300",
       "default_bed_master": "bed_queen_lod300",
-      "default_bed_single": "bed_single",
+      "default_bed_single": "bed_single_lod300",
+      "default_tv": "tv_flatscreen_40inch_lod300",
+      "default_tv_console": "tv_console_1500_lod300",
       "default_dining_table": "table_dining_1500x900_lod300",
       "default_dining_chair": "chair_dining",
       "default_wardrobe": "wardrobe_double_lod300",
       "default_sofa": "sofa_3seater_lod300",
-      "default_tv_console": "tv_console_1500_lod300",
       "default_kitchen_cabinet_base": "kitchen_base_cabinet_900_lod300",
       "default_kitchen_cabinet_wall": "kitchen_wall_cabinet_900_lod300",
       "default_wall_exterior": "wall_brick_3m_lod300",
@@ -41,6 +43,25 @@
       "default_floor_slab": "slab_floor_150_lod300",
       "default_stove": "stove_residential_lod200",
       "default_refrigerator": "refrigerator_residential_lod200"
+    },
+    "smart_selection_rules": {
+      "kitchen": {
+        "sink": "Prefer sink with drainboard/plate rack (1000-1200mm length)",
+        "reasoning": "Residential kitchens benefit from integrated dish drying area"
+      },
+      "washroom": {
+        "basin": "Prefer round basins (400-450mm diameter)",
+        "reasoning": "Round basins provide better aesthetics and space efficiency in residential washrooms"
+      },
+      "living_room": {
+        "tv": "Include flat screen TV model (40-50 inch typical)",
+        "reasoning": "Living rooms require TV model, not just outlet, for realistic visualization"
+      },
+      "bedrooms": {
+        "master": "Queen bed (1500mm x 2000mm)",
+        "secondary": "Single beds (1000mm x 2000mm)",
+        "reasoning": "Bed size selection based on room designation and size"
+      }
     }
   },
   "extraction_checklist": {
@@ -245,238 +266,24 @@
       }
     ]
   },
+  "_construction_sequence_note": "Objects ordered by construction sequence: 1.Structural 2.Enclosure 3.Openings 4.MEP 5.Built-ins 6.Furniture. This mirrors real house construction where furniture is placed LAST after rooms are built.",
   "objects": [
     {
-      "object_type": "door_single_900_lod300",
-      "position": [3.0, 0.05, 0.0],
-      "name": "D1_main_entrance",
-      "room": "living_room",
-      "schedule_ref": "D1"
+      "_phase": "1_structural",
+      "object_type": "slab_floor_150_lod300",
+      "position": [4.9, 4.0, -0.15],
+      "name": "FLOOR_slab",
+      "room": "building"
     },
     {
-      "object_type": "door_single_900_lod300",
-      "position": [6.0, 4.05, 0.0],
-      "name": "D2_bedroom_door",
-      "room": "master_bedroom",
-      "schedule_ref": "D2"
+      "_phase": "2_enclosure",
+      "object_type": "roof_tile_9.7x7_lod300",
+      "position": [4.9, 4.0, 3.0],
+      "name": "ROOF_tiles",
+      "room": "building"
     },
     {
-      "object_type": "door_single_750x2100_lod300",
-      "position": [8.0, 1.05, 0.0],
-      "name": "D3_washroom_1_door",
-      "room": "washroom_1",
-      "schedule_ref": "D3"
-    },
-    {
-      "object_type": "door_single_750x2100_lod300",
-      "position": [8.0, 3.05, 0.0],
-      "name": "D4_washroom_2_door",
-      "room": "washroom_2",
-      "schedule_ref": "D4"
-    },
-    {
-      "object_type": "window_aluminum_2panel_1200x1000_lod300",
-      "position": [1.5, 0.05, 1.2],
-      "name": "W1_living_front",
-      "room": "living_room",
-      "schedule_ref": "W1"
-    },
-    {
-      "object_type": "window_aluminum_2panel_1200x1000_lod300",
-      "position": [4.5, 0.05, 1.2],
-      "name": "W2_living_front",
-      "room": "living_room",
-      "schedule_ref": "W2"
-    },
-    {
-      "object_type": "window_aluminum_2panel_1200x1000_lod300",
-      "position": [6.5, 7.95, 1.2],
-      "name": "W3_bedroom_back",
-      "room": "master_bedroom",
-      "schedule_ref": "W3"
-    },
-    {
-      "object_type": "window_aluminum_tophung_600x500_lod300",
-      "position": [2.0, 7.95, 1.8],
-      "name": "W4_kitchen_back",
-      "room": "kitchen",
-      "schedule_ref": "W4"
-    },
-    {
-      "object_type": "switch_1gang_lod300",
-      "position": [3.5, 0.02, 0.0],
-      "name": "SW1_living_entrance",
-      "room": "living_room"
-    },
-    {
-      "object_type": "switch_1gang_lod300",
-      "position": [6.5, 4.02, 0.0],
-      "name": "SW2_bedroom_entrance",
-      "room": "master_bedroom"
-    },
-    {
-      "object_type": "switch_1gang_lod300",
-      "position": [2.5, 6.02, 0.0],
-      "name": "SW3_kitchen_entrance",
-      "room": "kitchen"
-    },
-    {
-      "object_type": "switch_1gang_lod300",
-      "position": [8.5, 1.02, 0.0],
-      "name": "SW4_washroom1_entrance",
-      "room": "washroom_1"
-    },
-    {
-      "object_type": "switch_1gang_lod300",
-      "position": [8.5, 3.02, 0.0],
-      "name": "SW5_washroom2_entrance",
-      "room": "washroom_2"
-    },
-    {
-      "object_type": "outlet_3pin_ms589_lod300",
-      "position": [1.0, 0.02, 0.0],
-      "name": "OUT1_living_wall",
-      "room": "living_room"
-    },
-    {
-      "object_type": "outlet_3pin_ms589_lod300",
-      "position": [5.0, 5.98, 0.0],
-      "name": "OUT2_living_wall",
-      "room": "living_room"
-    },
-    {
-      "object_type": "outlet_3pin_ms589_lod300",
-      "position": [5.0, 7.98, 0.0],
-      "name": "OUT3_bedroom_wall",
-      "room": "master_bedroom"
-    },
-    {
-      "object_type": "outlet_3pin_ms589_lod300",
-      "position": [1.0, 7.98, 0.0],
-      "name": "OUT4_kitchen_wall",
-      "room": "kitchen"
-    },
-    {
-      "object_type": "ceiling_light_surface_lod300",
-      "position": [3.0, 3.0, 0.0],
-      "name": "LIGHT1_living_center",
-      "room": "living_room"
-    },
-    {
-      "object_type": "ceiling_light_surface_lod300",
-      "position": [6.5, 6.0, 0.0],
-      "name": "LIGHT2_bedroom_center",
-      "room": "master_bedroom"
-    },
-    {
-      "object_type": "ceiling_light_surface_lod300",
-      "position": [2.0, 7.0, 0.0],
-      "name": "LIGHT3_kitchen_center",
-      "room": "kitchen"
-    },
-    {
-      "object_type": "ceiling_light_surface_lod300",
-      "position": [9.0, 1.0, 0.0],
-      "name": "LIGHT4_washroom1",
-      "room": "washroom_1"
-    },
-    {
-      "object_type": "ceiling_light_surface_lod300",
-      "position": [9.0, 3.0, 0.0],
-      "name": "LIGHT5_washroom2",
-      "room": "washroom_2"
-    },
-    {
-      "object_type": "ceiling_fan_3blade_lod300",
-      "position": [3.0, 3.0, 0.0],
-      "name": "FAN1_living_room",
-      "room": "living_room"
-    },
-    {
-      "object_type": "ceiling_fan_3blade_lod300",
-      "position": [6.5, 6.0, 0.0],
-      "name": "FAN2_bedroom",
-      "room": "master_bedroom"
-    },
-    {
-      "object_type": "floor_mounted_toilet_lod300",
-      "position": [9.2, 0.5, 0.0],
-      "name": "TOILET1_washroom1",
-      "room": "washroom_1"
-    },
-    {
-      "object_type": "basin_residential_lod300",
-      "position": [8.5, 1.5, 0.0],
-      "name": "BASIN1_washroom1",
-      "room": "washroom_1"
-    },
-    {
-      "object_type": "showerhead_fixed_lod200",
-      "position": [9.0, 1.8, 0.0],
-      "name": "SHOWER1_washroom1",
-      "room": "washroom_1"
-    },
-    {
-      "object_type": "floor_drain_lod200",
-      "position": [9.2, 1.5, 0.0],
-      "name": "DRAIN1_washroom1",
-      "room": "washroom_1"
-    },
-    {
-      "object_type": "floor_mounted_toilet_lod300",
-      "position": [9.2, 2.5, 0.0],
-      "name": "TOILET2_washroom2",
-      "room": "washroom_2"
-    },
-    {
-      "object_type": "basin_residential_lod300",
-      "position": [8.5, 3.5, 0.0],
-      "name": "BASIN2_washroom2",
-      "room": "washroom_2"
-    },
-    {
-      "object_type": "showerhead_fixed_lod200",
-      "position": [9.0, 3.8, 0.0],
-      "name": "SHOWER2_washroom2",
-      "room": "washroom_2"
-    },
-    {
-      "object_type": "floor_drain_lod200",
-      "position": [9.2, 3.5, 0.0],
-      "name": "DRAIN2_washroom2",
-      "room": "washroom_2"
-    },
-    {
-      "object_type": "kitchen_sink_single_bowl",
-      "position": [0.5, 7.5, 0.0],
-      "name": "SINK_kitchen",
-      "room": "kitchen"
-    },
-    {
-      "object_type": "faucet_kitchen",
-      "position": [0.5, 7.5, 0.0],
-      "name": "TAP_kitchen_sink",
-      "room": "kitchen"
-    },
-    {
-      "object_type": "stove_residential_lod200",
-      "position": [3.5, 7.5, 0.0],
-      "name": "STOVE_kitchen",
-      "room": "kitchen"
-    },
-    {
-      "object_type": "refrigerator_residential_lod200",
-      "position": [3.8, 6.2, 0.0],
-      "name": "FRIDGE_kitchen",
-      "room": "kitchen"
-    },
-    {
-      "object_type": "floor_drain_lod200",
-      "position": [1.0, 7.8, 0.0],
-      "name": "DRAIN3_kitchen",
-      "room": "kitchen"
-    },
-    {
+      "_phase": "2_enclosure",
       "object_type": "roof_gutter_100_lod300",
       "position": [0.0, 0.0, 3.0],
       "name": "GUTTER_north",
@@ -484,6 +291,7 @@
       "discharge_drain": true
     },
     {
+      "_phase": "2_enclosure",
       "object_type": "roof_gutter_100_lod300",
       "position": [9.8, 0.0, 3.0],
       "name": "GUTTER_west",
@@ -491,112 +299,384 @@
       "discharge_drain": true
     },
     {
+      "_phase": "3_openings",
+      "object_type": "door_single_900_lod300",
+      "position": [3.0, 0.05, 0.0],
+      "name": "D1_main_entrance",
+      "room": "living_room",
+      "schedule_ref": "D1"
+    },
+    {
+      "_phase": "3_openings",
+      "object_type": "door_single_900_lod300",
+      "position": [6.0, 4.05, 0.0],
+      "name": "D2_bedroom_door",
+      "room": "master_bedroom",
+      "schedule_ref": "D2"
+    },
+    {
+      "_phase": "3_openings",
+      "object_type": "door_single_750x2100_lod300",
+      "position": [8.0, 1.05, 0.0],
+      "name": "D3_washroom_1_door",
+      "room": "washroom_1",
+      "schedule_ref": "D3"
+    },
+    {
+      "_phase": "3_openings",
+      "object_type": "door_single_750x2100_lod300",
+      "position": [8.0, 3.05, 0.0],
+      "name": "D4_washroom_2_door",
+      "room": "washroom_2",
+      "schedule_ref": "D4"
+    },
+    {
+      "_phase": "3_openings",
+      "object_type": "window_aluminum_2panel_1200x1000_lod300",
+      "position": [1.5, 0.05, 1.2],
+      "name": "W1_living_front",
+      "room": "living_room",
+      "schedule_ref": "W1"
+    },
+    {
+      "_phase": "3_openings",
+      "object_type": "window_aluminum_2panel_1200x1000_lod300",
+      "position": [4.5, 0.05, 1.2],
+      "name": "W2_living_front",
+      "room": "living_room",
+      "schedule_ref": "W2"
+    },
+    {
+      "_phase": "3_openings",
+      "object_type": "window_aluminum_2panel_1200x1000_lod300",
+      "position": [6.5, 7.95, 1.2],
+      "name": "W3_bedroom_back",
+      "room": "master_bedroom",
+      "schedule_ref": "W3"
+    },
+    {
+      "_phase": "3_openings",
+      "object_type": "window_aluminum_tophung_600x500_lod300",
+      "position": [2.0, 7.95, 1.8],
+      "name": "W4_kitchen_back",
+      "room": "kitchen",
+      "schedule_ref": "W4"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "switch_1gang_lod300",
+      "position": [3.5, 0.02, 0.0],
+      "name": "SW1_living_entrance",
+      "room": "living_room"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "switch_1gang_lod300",
+      "position": [6.5, 4.02, 0.0],
+      "name": "SW2_bedroom_entrance",
+      "room": "master_bedroom"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "switch_1gang_lod300",
+      "position": [2.5, 6.02, 0.0],
+      "name": "SW3_kitchen_entrance",
+      "room": "kitchen"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "switch_1gang_lod300",
+      "position": [8.5, 1.02, 0.0],
+      "name": "SW4_washroom1_entrance",
+      "room": "washroom_1"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "switch_1gang_lod300",
+      "position": [8.5, 3.02, 0.0],
+      "name": "SW5_washroom2_entrance",
+      "room": "washroom_2"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [1.0, 0.02, 0.0],
+      "name": "OUT1_living_wall",
+      "room": "living_room"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [5.0, 5.98, 0.0],
+      "name": "OUT2_living_wall",
+      "room": "living_room"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [5.0, 7.98, 0.0],
+      "name": "OUT3_bedroom_wall",
+      "room": "master_bedroom"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [1.0, 7.98, 0.0],
+      "name": "OUT4_kitchen_wall",
+      "room": "kitchen"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [3.0, 3.0, 0.0],
+      "name": "LIGHT1_living_center",
+      "room": "living_room"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [6.5, 6.0, 0.0],
+      "name": "LIGHT2_bedroom_center",
+      "room": "master_bedroom"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [2.0, 7.0, 0.0],
+      "name": "LIGHT3_kitchen_center",
+      "room": "kitchen"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [9.0, 1.0, 0.0],
+      "name": "LIGHT4_washroom1",
+      "room": "washroom_1"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [9.0, 3.0, 0.0],
+      "name": "LIGHT5_washroom2",
+      "room": "washroom_2"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "ceiling_fan_3blade_lod300",
+      "position": [3.0, 3.0, 0.0],
+      "name": "FAN1_living_room",
+      "room": "living_room"
+    },
+    {
+      "_phase": "4_mep_electrical",
+      "object_type": "ceiling_fan_3blade_lod300",
+      "position": [6.5, 6.0, 0.0],
+      "name": "FAN2_bedroom",
+      "room": "master_bedroom"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "floor_mounted_toilet_lod300",
+      "position": [9.2, 0.5, 0.0],
+      "name": "TOILET1_washroom1",
+      "room": "washroom_1"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "basin_round_residential_lod300",
+      "position": [8.5, 1.5, 0.0],
+      "name": "BASIN1_washroom1",
+      "room": "washroom_1"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "showerhead_fixed_lod200",
+      "position": [9.0, 1.8, 0.0],
+      "name": "SHOWER1_washroom1",
+      "room": "washroom_1"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "floor_drain_lod200",
+      "position": [9.2, 1.5, 0.0],
+      "name": "DRAIN1_washroom1",
+      "room": "washroom_1"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "floor_mounted_toilet_lod300",
+      "position": [9.2, 2.5, 0.0],
+      "name": "TOILET2_washroom2",
+      "room": "washroom_2"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "basin_round_residential_lod300",
+      "position": [8.5, 3.5, 0.0],
+      "name": "BASIN2_washroom2",
+      "room": "washroom_2"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "showerhead_fixed_lod200",
+      "position": [9.0, 3.8, 0.0],
+      "name": "SHOWER2_washroom2",
+      "room": "washroom_2"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "floor_drain_lod200",
+      "position": [9.2, 3.5, 0.0],
+      "name": "DRAIN2_washroom2",
+      "room": "washroom_2"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "kitchen_sink_single_bowl_with_drainboard_lod300",
+      "position": [0.5, 7.5, 0.0],
+      "name": "SINK_kitchen",
+      "room": "kitchen"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "faucet_kitchen",
+      "position": [0.5, 7.5, 0.0],
+      "name": "TAP_kitchen_sink",
+      "room": "kitchen"
+    },
+    {
+      "_phase": "5_mep_plumbing",
+      "object_type": "floor_drain_lod200",
+      "position": [1.0, 7.8, 0.0],
+      "name": "DRAIN3_kitchen",
+      "room": "kitchen"
+    },
+    {
+      "_phase": "6_built_ins",
       "object_type": "shower_enclosure_900",
       "position": [9.3, 1.8, 0.0],
       "name": "SHOWER_ENCL_1",
       "room": "washroom_1"
     },
     {
+      "_phase": "6_built_ins",
       "object_type": "shower_enclosure_900",
       "position": [9.3, 3.8, 0.0],
       "name": "SHOWER_ENCL_2",
       "room": "washroom_2"
     },
     {
-      "object_type": "tv_outlet_coax_lod200",
-      "position": [3.0, 5.98, 0.0],
-      "name": "TV_living_room",
-      "room": "living_room"
-    },
-    {
-      "object_type": "tv_console_1500_lod300",
-      "position": [3.0, 5.9, 0.0],
-      "name": "TV_CONSOLE_living",
-      "room": "living_room"
-    },
-    {
-      "object_type": "table_dining_1500x900_lod300",
-      "position": [1.5, 3.0, 0.0],
-      "name": "TABLE_dining",
-      "room": "living_room"
-    },
-    {
-      "object_type": "chair_dining",
-      "position": [1.0, 2.5, 0.0],
-      "name": "CHAIR_1",
-      "room": "living_room"
-    },
-    {
-      "object_type": "chair_dining",
-      "position": [2.0, 2.5, 0.0],
-      "name": "CHAIR_2",
-      "room": "living_room"
-    },
-    {
-      "object_type": "chair_dining",
-      "position": [1.0, 3.5, 0.0],
-      "name": "CHAIR_3",
-      "room": "living_room"
-    },
-    {
-      "object_type": "chair_dining",
-      "position": [2.0, 3.5, 0.0],
-      "name": "CHAIR_4",
-      "room": "living_room"
-    },
-    {
-      "object_type": "sofa_3seater_lod300",
-      "position": [4.5, 1.0, 0.0],
-      "name": "SOFA_living",
-      "room": "living_room"
-    },
-    {
-      "object_type": "bed_queen_lod300",
-      "position": [6.5, 6.0, 0.0],
-      "name": "BED_master",
-      "room": "master_bedroom"
-    },
-    {
-      "object_type": "wardrobe_double_lod300",
-      "position": [9.5, 6.0, 0.0],
-      "name": "WARDROBE_master",
-      "room": "master_bedroom"
-    },
-    {
+      "_phase": "6_built_ins",
       "object_type": "kitchen_base_cabinet_900_lod300",
       "position": [1.0, 7.5, 0.0],
       "name": "CABINET_base_1",
       "room": "kitchen"
     },
     {
+      "_phase": "6_built_ins",
       "object_type": "kitchen_base_cabinet_900_lod300",
       "position": [2.5, 7.5, 0.0],
       "name": "CABINET_base_2",
       "room": "kitchen"
     },
     {
+      "_phase": "6_built_ins",
       "object_type": "kitchen_wall_cabinet_900_lod300",
       "position": [1.0, 7.9, 2.0],
       "name": "CABINET_wall_1",
       "room": "kitchen"
     },
     {
+      "_phase": "6_built_ins",
       "object_type": "kitchen_wall_cabinet_900_lod300",
       "position": [2.5, 7.9, 2.0],
       "name": "CABINET_wall_2",
       "room": "kitchen"
     },
     {
-      "object_type": "slab_floor_150_lod300",
-      "position": [4.9, 4.0, -0.15],
-      "name": "FLOOR_slab",
-      "room": "building"
+      "_phase": "7_furniture_equipment",
+      "_note": "Furniture placed LAST after rooms are built",
+      "object_type": "tv_flatscreen_40inch_lod300",
+      "position": [3.0, 5.98, 0.0],
+      "name": "TV_living_room",
+      "room": "living_room"
     },
     {
-      "object_type": "roof_tile_9.7x7_lod300",
-      "position": [4.9, 4.0, 3.0],
-      "name": "ROOF_tiles",
-      "room": "building"
+      "_phase": "7_furniture_equipment",
+      "object_type": "tv_console_1500_lod300",
+      "position": [3.0, 5.9, 0.0],
+      "name": "TV_CONSOLE_living",
+      "room": "living_room"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "sofa_3seater_lod300",
+      "position": [4.5, 1.0, 0.0],
+      "name": "SOFA_living",
+      "room": "living_room"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "table_dining_1500x900_lod300",
+      "position": [1.5, 3.0, 0.0],
+      "name": "TABLE_dining",
+      "room": "living_room"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "chair_dining",
+      "position": [1.0, 2.5, 0.0],
+      "name": "CHAIR_1",
+      "room": "living_room"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "chair_dining",
+      "position": [2.0, 2.5, 0.0],
+      "name": "CHAIR_2",
+      "room": "living_room"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "chair_dining",
+      "position": [1.0, 3.5, 0.0],
+      "name": "CHAIR_3",
+      "room": "living_room"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "chair_dining",
+      "position": [2.0, 3.5, 0.0],
+      "name": "CHAIR_4",
+      "room": "living_room"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "bed_queen_lod300",
+      "position": [6.5, 6.0, 0.0],
+      "name": "BED_master",
+      "room": "master_bedroom"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "wardrobe_double_lod300",
+      "position": [9.5, 6.0, 0.0],
+      "name": "WARDROBE_master",
+      "room": "master_bedroom"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "stove_residential_lod200",
+      "position": [3.5, 7.5, 0.0],
+      "name": "STOVE_kitchen",
+      "room": "kitchen"
+    },
+    {
+      "_phase": "7_furniture_equipment",
+      "object_type": "refrigerator_residential_lod200",
+      "position": [3.8, 6.2, 0.0],
+      "name": "FRIDGE_kitchen",
+      "room": "kitchen"
     }
   ]
 }

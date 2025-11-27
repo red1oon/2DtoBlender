@@ -1,0 +1,314 @@
+{
+  "_READ_ONLY": "⚠️  THIS FILE IS READ ONLY - NEVER MODIFY ⚠️",
+  "_description": "Master Reference Template - Extraction instructions for OCR engine",
+  "_note": "Permanent catalog of residential construction elements",
+
+  "_rules": {
+    "data_integrity": "ALL data from OCR code execution - NO manual SQL",
+    "page_strategy": "Floor plan (pg1) for labels, Electrical plan (pg2) for geometry",
+    "validation": "Stage N must pass before Stage N+1 starts"
+  },
+
+  "extraction_sequence": [
+    {
+      "_phase": "1B_calibration",
+      "item": "Outer Discharge Drain",
+      "detection_id": "CALIBRATION_DRAIN_PERIMETER",
+      "search_text": ["DISCHARGE"],
+      "pages": [1, 2, 6, 7],
+      "object_type": "roof_gutter_100_lod300"
+    },
+    {
+      "_phase": "1D_elevations",
+      "item": "Floor Level (FFL)",
+      "detection_id": "ELEVATION_TEXT_REGEX",
+      "search_text": ["FFL", "FLOOR LEVEL", "FINISHED FLOOR LEVEL"],
+      "pages": [3, 4],
+      "regex_patterns": ["FFL\\s*\\+?\\s*(\\d+\\.?\\d*)\\s*m", "FFL\\s*\\+?\\s*(\\d+)\\s*mm"],
+      "object_type": null
+    },
+    {
+      "_phase": "1D_elevations",
+      "item": "Lintel Level",
+      "detection_id": "ELEVATION_TEXT_REGEX",
+      "search_text": ["LINTEL", "DOOR HEAD"],
+      "pages": [3, 4],
+      "regex_patterns": ["LINTEL.*?(\\d+\\.?\\d*)\\s*m", "LINTEL.*?(\\d+)\\s*mm"],
+      "object_type": null
+    },
+    {
+      "_phase": "1D_elevations",
+      "item": "Ceiling Level",
+      "detection_id": "ELEVATION_TEXT_REGEX",
+      "search_text": ["CEILING", "SOFFIT", "ROOF LEVEL"],
+      "pages": [3, 4],
+      "regex_patterns": ["CEILING.*?(\\d+\\.?\\d*)\\s*m", "CEILING.*?(\\d+)\\s*mm"],
+      "object_type": null
+    },
+    {
+      "_phase": "1D_elevations",
+      "item": "Window Sill Height",
+      "detection_id": "ELEVATION_TEXT_REGEX",
+      "search_text": ["SILL", "W/S", "WINDOW SILL"],
+      "pages": [3, 4],
+      "regex_patterns": ["SILL.*?(\\d+\\.?\\d*)\\s*m", "W/?S.*?(\\d+\\.?\\d*)\\s*m"],
+      "object_type": null
+    },
+    {
+      "_phase": "1A_schedules",
+      "item": "Door Schedule",
+      "detection_id": "SCHEDULE_TABLE_EXTRACTION",
+      "search_text": ["DOOR SCHEDULE", "PINTU"],
+      "pages": [7],
+      "_note": "Page 8 in PDF = index 7 (0-based)",
+      "table_headers": ["TYPE", "SIZE", "WIDTH", "HEIGHT", "QUANTITY"],
+      "object_type": null
+    },
+    {
+      "_phase": "1A_schedules",
+      "item": "Window Schedule",
+      "detection_id": "SCHEDULE_TABLE_EXTRACTION",
+      "search_text": ["WINDOW SCHEDULE", "TINGKAP"],
+      "pages": [7],
+      "_note": "Page 8 in PDF = index 7 (0-based)",
+      "table_headers": ["TYPE", "SIZE", "WIDTH", "HEIGHT", "QUANTITY"],
+      "object_type": null
+    },
+    {
+      "_phase": "1C_structure",
+      "item": "Floor Slab",
+      "detection_id": "STRUCTURAL_PLANE_GENERATION",
+      "object_type": "slab_6x4_150_lod300",
+      "parametric": true
+    },
+    {
+      "_phase": "1C_structure",
+      "item": "Ceiling Plane",
+      "detection_id": "STRUCTURAL_PLANE_GENERATION",
+      "object_type": "ceiling_gypsum_lod300",
+      "parametric": true
+    },
+    {
+      "_phase": "1C_structure",
+      "item": "Roof Structure",
+      "detection_id": "STRUCTURAL_PLANE_GENERATION",
+      "object_type": "roof_slab_flat_lod300",
+      "parametric": true
+    },
+    {
+      "_phase": "1C_structure",
+      "item": "Porch Canopy",
+      "detection_id": "STRUCTURAL_PLANE_GENERATION",
+      "search_text": ["PORCH", "CANOPY"],
+      "pages": [0],
+      "object_type": "external_porch_canopy",
+      "parametric": true
+    },
+    {
+      "_phase": "1C_walls",
+      "item": "Walls (interior)",
+      "detection_id": "WALL_VECTOR_LINES",
+      "pages": [0],
+      "object_type": "wall_lightweight_100_lod300"
+    },
+    {
+      "_phase": "1C_walls",
+      "item": "Walls (exterior)",
+      "detection_id": "BUILDING_PERIMETER",
+      "pages": [0],
+      "object_type": "wall_brick_3m_lod300"
+    },
+    {
+      "_phase": "2_openings",
+      "item": "Doors (single)",
+      "detection_id": "TEXT_LABEL_SEARCH",
+      "search_text": ["D1", "D2", "D3", "D4", "D5"],
+      "pages": [0],
+      "_note": "Page 1 in PDF = index 0. object_type is fallback only - actual type derived from schedule dimensions (900mm→door_single_900_lod300, 750mm→door_single_750x2100_lod300)"
+    },
+    {
+      "_phase": "2_openings",
+      "item": "Windows",
+      "detection_id": "TEXT_LABEL_SEARCH",
+      "search_text": ["W1", "W2", "W3", "W4", "W5"],
+      "pages": [0],
+      "_note": "Page 1 in PDF = index 0. object_type is fallback only - actual type derived from schedule dimensions (1800x1000→3panel, 1200x1000→2panel, 600x500→tophung)"
+    },
+    {
+      "_phase": "3_electrical",
+      "item": "Switches (1-gang)",
+      "detection_id": "TEXT_MARKER_WITH_SYMBOL",
+      "search_text": ["SWS", "SW", "S"],
+      "pages": [0],
+      "object_type": "switch_1gang_lod300",
+      "height_rule": "1.2m_from_floor"
+    },
+    {
+      "_phase": "3_electrical",
+      "item": "Outlets (3-pin)",
+      "detection_id": "TEXT_MARKER_WITH_SYMBOL",
+      "search_text": ["PP", "P", "OUTLET"],
+      "pages": [0],
+      "object_type": "outlet_3pin_ms589_lod300",
+      "height_rule": "0.3m_from_floor"
+    },
+    {
+      "_phase": "3_electrical",
+      "item": "Ceiling Lights",
+      "detection_id": "TEXT_MARKER_WITH_SYMBOL",
+      "search_text": ["LC", "L", "LIGHT"],
+      "pages": [0],
+      "object_type": "ceiling_light_surface_lod300",
+      "height_rule": "ceiling_height"
+    },
+    {
+      "_phase": "3_electrical",
+      "item": "Ceiling Fans",
+      "detection_id": "TEXT_MARKER_WITH_SYMBOL",
+      "search_text": ["CF", "FAN"],
+      "pages": [0],
+      "object_type": "ceiling_fan_3blade_lod300",
+      "height_rule": "ceiling_height"
+    },
+    {
+      "_phase": "3_electrical",
+      "item": "Distribution Board",
+      "detection_id": "TEXT_MARKER_WITH_SYMBOL",
+      "search_text": ["DB", "CP", "DISTRIBUTION BOARD"],
+      "pages": [0],
+      "object_type": "distribution_board_residential_lod200",
+      "height_rule": "1.8m_from_floor"
+    },
+    {
+      "_phase": "4_plumbing",
+      "item": "Toilet (floor-mounted)",
+      "detection_id": "TOILET_BOWL_COMBO",
+      "search_text": ["WC", "wc", "TOILET"],
+      "pages": [0],
+      "object_type": "floor_mounted_toilet_lod300"
+    },
+    {
+      "_phase": "4_plumbing",
+      "item": "Basin (residential)",
+      "detection_id": "BASIN_SYMBOL",
+      "search_text": ["BASIN", "SINK", "WASH"],
+      "pages": [0],
+      "object_type": "basin_residential_lod300"
+    },
+    {
+      "_phase": "4_plumbing",
+      "item": "Kitchen Sink",
+      "detection_id": "SINK_SYMBOL",
+      "search_text": ["SINK", "KITCHEN"],
+      "pages": [0],
+      "object_type": "kitchen_sink_single_bowl_lod200"
+    },
+    {
+      "_phase": "4_plumbing",
+      "item": "Showerhead",
+      "detection_id": "SHOWER_SYMBOL",
+      "search_text": ["SHOWER", "SH"],
+      "pages": [0],
+      "object_type": "showerhead_fixed_lod200"
+    },
+    {
+      "_phase": "4_plumbing",
+      "item": "Floor Drain",
+      "detection_id": "DRAIN_SYMBOL",
+      "search_text": ["FD", "FLOOR DRAIN", "DRAIN"],
+      "pages": [0],
+      "object_type": "floor_drain_lod200"
+    },
+    {
+      "_phase": "4_plumbing",
+      "item": "Water Heater",
+      "detection_id": "TEXT_MARKER_WITH_SYMBOL",
+      "search_text": ["WH", "WATER HEATER", "HEATER"],
+      "pages": [0],
+      "object_type": "water_heater_tank_lod200",
+      "height_rule": "2.0m_from_floor"
+    },
+    {
+      "_phase": "5_built_ins",
+      "item": "Kitchen Cabinets (base)",
+      "detection_id": "CABINET_VECTOR_PATTERN",
+      "search_text": ["CABINET", "KB"],
+      "pages": [0],
+      "object_type": "kitchen_base_cabinet_900_lod300"
+    },
+    {
+      "_phase": "5_built_ins",
+      "item": "Kitchen Cabinets (wall)",
+      "detection_id": "CABINET_VECTOR_PATTERN",
+      "search_text": ["WALL CABINET", "WC"],
+      "pages": [0],
+      "object_type": "kitchen_wall_cabinet_900_lod300",
+      "height_rule": "2.0m_from_floor"
+    },
+    {
+      "_phase": "6_furniture",
+      "item": "Bed (queen)",
+      "detection_id": "FURNITURE_RECTANGLE_WITH_TEXT",
+      "search_text": ["BED", "KATIL"],
+      "pages": [0],
+      "object_type": "bed_queen_lod300"
+    },
+    {
+      "_phase": "6_furniture",
+      "item": "Wardrobe",
+      "detection_id": "FURNITURE_RECTANGLE_WITH_TEXT",
+      "search_text": ["WARDROBE", "WR", "ALMARI"],
+      "pages": [0],
+      "object_type": "wardrobe_double_lod300"
+    },
+    {
+      "_phase": "6_furniture",
+      "item": "Dining Table",
+      "detection_id": "FURNITURE_RECTANGLE_WITH_TEXT",
+      "search_text": ["TABLE", "DINING", "MEJA"],
+      "pages": [0],
+      "object_type": "table_dining_1500x900_lod300"
+    },
+    {
+      "_phase": "6_furniture",
+      "item": "Sofa",
+      "detection_id": "FURNITURE_RECTANGLE_WITH_TEXT",
+      "search_text": ["SOFA"],
+      "pages": [0],
+      "object_type": "sofa_3seater_lod300"
+    },
+    {
+      "_phase": "6_furniture",
+      "item": "TV Console",
+      "detection_id": "FURNITURE_RECTANGLE_WITH_TEXT",
+      "search_text": ["TV", "TELEVISION"],
+      "pages": [0],
+      "object_type": "tv_console_1500_lod300"
+    },
+    {
+      "_phase": "6_furniture",
+      "item": "Refrigerator",
+      "detection_id": "APPLIANCE_RECTANGLE_WITH_TEXT",
+      "search_text": ["REF", "FRIDGE", "REFRIGERATOR"],
+      "pages": [0],
+      "object_type": "refrigerator_residential_lod200"
+    },
+    {
+      "_phase": "6_furniture",
+      "item": "Stove",
+      "detection_id": "APPLIANCE_SYMBOL",
+      "search_text": ["STOVE", "COOKER", "DAPUR"],
+      "pages": [0],
+      "object_type": "stove_residential_lod200"
+    },
+    {
+      "_phase": "6_hvac",
+      "item": "Exhaust Fan",
+      "detection_id": "TEXT_MARKER_WITH_SYMBOL",
+      "search_text": ["EF", "EXHAUST", "VENT"],
+      "pages": [0],
+      "object_type": "exhaust_fan_250_lod300",
+      "height_rule": "ceiling_height"
+    }
+  ]
+}

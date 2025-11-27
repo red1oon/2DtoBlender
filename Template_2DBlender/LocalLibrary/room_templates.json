@@ -1,0 +1,546 @@
+{
+  "metadata": {
+    "project": "Generic Residential - Room Templates",
+    "purpose": "Template-based room furnishing system (reusable across projects)",
+    "version": "1.0",
+    "note": "Project-specific details derived from PDF filename at runtime. Dates auto-generated during pipeline execution."
+  },
+
+  "template_system": {
+    "approach": "Define room types → Generator applies templates based on room dimensions",
+    "benefits": [
+      "Reusable patterns across projects",
+      "Automatic object placement based on room bounds",
+      "No manual positioning of 145 objects",
+      "Smart spacing and arrangement logic"
+    ]
+  },
+
+  "room_templates": {
+    "bedroom_master": {
+      "type": "residential_bedroom",
+      "min_area_sqm": 12.0,
+      "furniture_set": {
+        "bed": {
+          "library_object": "bed_queen_lod300",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "center_against_wall",
+          "wall_preference": "longest_wall",
+          "clearance_front": 0.8
+        },
+        "wardrobe": {
+          "library_object": "wardrobe_double_lod300",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "corner_or_wall",
+          "wall_preference": "adjacent_to_bed_wall",
+          "clearance_front": 0.7
+        },
+        "nightstand": {
+          "library_object": "nightstand",
+          "ifc_class": "IfcFurniture",
+          "quantity": 2,
+          "placement_rule": "beside_bed_both_sides",
+          "offset_from_bed": 0.1
+        },
+        "dresser": {
+          "library_object": "dresser_6drawer",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "against_wall",
+          "wall_preference": "opposite_bed",
+          "clearance_front": 0.8
+        }
+      },
+      "electrical_pattern": {
+        "outlets": {
+          "quantity_formula": "2_per_bed_side + 1_dresser",
+          "height": 0.3,
+          "spacing_min": 2.0
+        },
+        "switches": {
+          "quantity": 1,
+          "placement_rule": "beside_door_entry",
+          "height": 1.4
+        },
+        "ceiling_light": {
+          "quantity": 1,
+          "placement_rule": "room_center",
+          "height": 2.95
+        },
+        "ceiling_fan": {
+          "quantity": 1,
+          "placement_rule": "above_bed_footend",
+          "height": 2.8
+        }
+      },
+      "acmv_pattern": {
+        "diffusers": {
+          "quantity_formula": "ceil(area_sqm / 10)",
+          "placement_rule": "room_center",
+          "height": 2.95,
+          "offset_y": 0.50
+        },
+        "return_grille": {
+          "quantity": 1,
+          "placement_rule": "high_on_wall",
+          "height": 2.5
+        }
+      }
+    },
+
+    "bedroom_standard": {
+      "type": "residential_bedroom",
+      "min_area_sqm": 9.0,
+      "furniture_set": {
+        "bed": {
+          "library_object": "bed_double_lod300",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "center_against_wall",
+          "wall_preference": "longest_wall"
+        },
+        "wardrobe": {
+          "library_object": "wardrobe_double_lod300",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "corner_or_wall"
+        },
+        "study_desk": {
+          "library_object": "table_study",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "against_wall",
+          "wall_preference": "window_wall"
+        },
+        "desk_chair": {
+          "library_object": "office_chair_ergonomic",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "in_front_of_desk"
+        },
+        "bookshelf": {
+          "library_object": "bookshelf_5tier",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "beside_desk"
+        }
+      },
+      "electrical_pattern": "bedroom_master",
+      "acmv_pattern": "bedroom_master"
+    },
+
+    "living_room": {
+      "type": "residential_living",
+      "min_area_sqm": 15.0,
+      "furniture_set": {
+        "sofa": {
+          "library_object": "sofa_3seater_lod300",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "facing_tv_wall",
+          "clearance_front": 1.2
+        },
+        "armchair": {
+          "library_object": "armchair",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "perpendicular_to_sofa",
+          "clearance": 0.8
+        },
+        "coffee_table": {
+          "library_object": "coffee_table",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "in_front_of_sofa",
+          "offset_from_sofa": 0.5
+        },
+        "tv_console": {
+          "library_object": "tv_console_1500_lod300",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "against_wall",
+          "wall_preference": "main_view_wall"
+        },
+        "dining_table": {
+          "library_object": "table_dining_1500x900_lod300",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "dining_area",
+          "clearance_all_sides": 0.8
+        },
+        "dining_chair": {
+          "library_object": "dining_chair",
+          "ifc_class": "IfcFurniture",
+          "quantity_formula": "table_seats",
+          "placement_rule": "around_dining_table",
+          "offset_from_table": 0.5
+        }
+      },
+      "electrical_pattern": {
+        "outlets": {
+          "quantity_formula": "1_tv_console + 1_sofa_side + 1_dining",
+          "height": 0.3
+        },
+        "switches": {
+          "quantity": 1,
+          "placement_rule": "beside_entry_door",
+          "height": 1.4
+        },
+        "ceiling_light": {
+          "quantity": 1,
+          "placement_rule": "room_center",
+          "height": 2.95
+        },
+        "ceiling_fan": {
+          "quantity": 1,
+          "placement_rule": "above_seating_area",
+          "height": 2.8
+        }
+      }
+    },
+
+    "kitchen": {
+      "type": "residential_kitchen",
+      "min_area_sqm": 6.0,
+      "furniture_set": {
+        "base_cabinet": {
+          "library_object_pattern": "kitchen_base_cabinet_{width}_lod300",
+          "widths": [600, 900],
+          "ifc_class": "IfcFurniture",
+          "quantity_formula": "fit_to_counter_length",
+          "placement_rule": "linear_along_wall",
+          "wall_preference": "work_wall"
+        },
+        "wall_cabinet": {
+          "library_object_pattern": "kitchen_wall_cabinet_{width}_lod300",
+          "widths": [600, 900],
+          "ifc_class": "IfcFurniture",
+          "quantity_formula": "match_base_cabinets",
+          "placement_rule": "above_base_cabinets",
+          "height": 1.5
+        },
+        "refrigerator": {
+          "library_object": "refrigerator_residential_lod200",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "end_of_counter",
+          "clearance_front": 0.9
+        },
+        "stove": {
+          "library_object": "stove_residential_lod200",
+          "ifc_class": "IfcFlowTerminal",
+          "quantity": 1,
+          "placement_rule": "on_counter_center",
+          "height": 0.9
+        }
+      },
+      "plumbing_pattern": {
+        "kitchen_sink": {
+          "library_object": "kitchen_sink_single_bowl_lod200",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "on_counter_beside_wall",
+          "height": 0.9,
+          "offset_y": 0.30
+        }
+      },
+      "electrical_pattern": {
+        "outlets": {
+          "quantity_formula": "3_above_counter",
+          "height": 1.2,
+          "spacing": 1.0
+        },
+        "ceiling_light": {
+          "quantity": 1,
+          "placement_rule": "room_center",
+          "height": 2.95
+        },
+        "ceiling_fan": {
+          "quantity": 1,
+          "placement_rule": "room_center",
+          "height": 2.8
+        }
+      },
+      "acmv_pattern": {
+        "exhaust_fan": {
+          "quantity": 1,
+          "placement_rule": "above_stove_area",
+          "height": 2.2
+        }
+      }
+    },
+
+    "bathroom": {
+      "type": "residential_bathroom",
+      "min_area_sqm": 3.0,
+      "plumbing_set": {
+        "toilet": {
+          "library_object": "toilet_residential_lod300",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "against_wall",
+          "clearance_front": 0.7
+        },
+        "basin": {
+          "library_object": "basin_residential_lod300",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "on_vanity",
+          "height": 0.85
+        },
+        "shower": {
+          "library_object": "showerhead_fixed_lod200",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "corner_wet_area",
+          "height": 2.0
+        },
+        "faucet": {
+          "library_object": "faucet_basin",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "on_basin",
+          "height_offset": 0.15
+        },
+        "water_heater": {
+          "library_object": "water_heater_250L",
+          "ifc_class": "IfcBoiler",
+          "quantity": 1,
+          "placement_rule": "high_on_wall",
+          "height": 2.3
+        }
+      },
+      "furniture_set": {
+        "vanity": {
+          "library_object": "bathroom_vanity_1000",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "under_basin",
+          "height": 0.0
+        },
+        "towel_rack": {
+          "library_object": "towel_rack_wall",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "beside_basin",
+          "height": 1.2
+        },
+        "toilet_paper_holder": {
+          "library_object": "toilet_paper_holder",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "beside_toilet",
+          "height": 0.8
+        }
+      },
+      "electrical_pattern": {
+        "switches": {
+          "quantity": 1,
+          "placement_rule": "outside_door",
+          "height": 1.4
+        },
+        "ceiling_light": {
+          "quantity": 1,
+          "placement_rule": "room_center",
+          "height": 2.95,
+          "offset_x": -0.30,
+          "offset_y": -0.18
+        }
+      },
+      "acmv_pattern": {
+        "exhaust_fan": {
+          "quantity": 1,
+          "placement_rule": "ceiling_center",
+          "height": 2.9,
+          "offset_x": 0.30,
+          "offset_y": 0.18
+        }
+      }
+    },
+
+    "toilet": {
+      "type": "residential_toilet",
+      "min_area_sqm": 2.0,
+      "plumbing_set": {
+        "toilet": {
+          "library_object": "toilet_residential_lod300",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "against_wall"
+        },
+        "basin": {
+          "library_object": "basin_wall_mounted",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "wall_beside_toilet",
+          "height": 0.9
+        },
+        "faucet": {
+          "library_object": "faucet_basin",
+          "ifc_class": "IfcSanitaryTerminal",
+          "quantity": 1,
+          "placement_rule": "on_basin"
+        }
+      },
+      "furniture_set": {
+        "toilet_paper_holder": {
+          "library_object": "toilet_paper_holder",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "beside_toilet",
+          "height": 0.8
+        }
+      },
+      "electrical_pattern": "bathroom",
+      "acmv_pattern": "bathroom"
+    },
+
+    "utility_room": {
+      "type": "residential_utility",
+      "min_area_sqm": 4.0,
+      "appliance_set": {
+        "washing_machine": {
+          "library_object": "washing_machine_residential_lod200",
+          "ifc_class": "IfcFlowTerminal",
+          "quantity": 1,
+          "placement_rule": "against_wall",
+          "clearance_front": 0.8
+        },
+        "drying_rack": {
+          "library_object": "drying_rack_standing",
+          "ifc_class": "IfcFurnishingElement",
+          "quantity": 1,
+          "placement_rule": "open_area",
+          "clearance": 0.6
+        },
+        "utility_shelving": {
+          "library_object": "utility_shelving_5tier",
+          "ifc_class": "IfcFurniture",
+          "quantity": 1,
+          "placement_rule": "against_wall"
+        }
+      },
+      "electrical_pattern": {
+        "outlets": {
+          "quantity": 1,
+          "placement_rule": "near_washing_machine",
+          "height": 0.3
+        }
+      },
+      "acmv_pattern": {
+        "exhaust_fan": {
+          "quantity": 1,
+          "placement_rule": "ceiling",
+          "height": 2.9
+        }
+      }
+    }
+  },
+
+  "placement_algorithms": {
+    "center_against_wall": {
+      "description": "Center object along longest/specified wall",
+      "algorithm": "Find wall midpoint, offset by half object width, place perpendicular"
+    },
+    "corner_or_wall": {
+      "description": "Place in corner if available, otherwise against wall",
+      "algorithm": "Check corners for clearance first, fallback to wall placement"
+    },
+    "beside_bed_both_sides": {
+      "description": "Place one nightstand each side of bed",
+      "algorithm": "Bed position ± (bed_width/2 + nightstand_width/2 + gap)"
+    },
+    "facing_tv_wall": {
+      "description": "Orient sofa to face TV/media wall",
+      "algorithm": "Place opposite TV wall, rotate 180° to face wall"
+    },
+    "around_dining_table": {
+      "description": "Place chairs evenly around table perimeter",
+      "algorithm": "Calculate table perimeter points, place chairs at intervals"
+    },
+    "linear_along_wall": {
+      "description": "Place cabinets in line along wall",
+      "algorithm": "Start from wall end, place objects touching, continue until wall end"
+    },
+    "fit_to_counter_length": {
+      "description": "Calculate how many cabinets fit in available length",
+      "algorithm": "counter_length / cabinet_width, use mix of 900mm and 600mm widths"
+    }
+  },
+
+  "generation_logic": {
+    "step1_identify_rooms": "Read GridTruth.json room_grid_bounds",
+    "step2_classify_rooms": "Match room names to templates (Bilik_Utama → bedroom_master)",
+    "step3_validate_area": "Check room area ≥ template.min_area_sqm",
+    "step4_apply_template": "For each object in template, run placement_algorithm",
+    "step5_resolve_conflicts": "Check overlaps, adjust positions if needed",
+    "step6_add_mep_patterns": "Apply electrical/plumbing/acmv patterns based on furniture layout",
+    "step7_output_manifest": "Generate ObjectManifest.json with calculated positions"
+  },
+
+  "room_classification_rules": {
+    "Bilik_Utama": "bedroom_master",
+    "Bilik_2": "bedroom_standard",
+    "Bilik_3": "bedroom_standard",
+    "Ruang_Tamu": "living_room",
+    "Dapur": "kitchen",
+    "Bilik_Mandi": "bathroom",
+    "Tandas": "toilet",
+    "Ruang_Basuh": "utility_room"
+  },
+
+  "validation_rules": {
+    "furniture_placement": {
+      "min_clearance_walking": 0.6,
+      "min_clearance_furniture_front": 0.7,
+      "min_clearance_door_swing": 0.9,
+      "max_furniture_to_wall_gap": 0.1
+    },
+    "electrical_placement": {
+      "outlet_spacing_max": 3.0,
+      "switch_beside_door_offset": 0.15,
+      "ceiling_fixture_min_height": 2.4
+    },
+    "plumbing_placement": {
+      "min_clearance_toilet_front": 0.6,
+      "min_clearance_basin_sides": 0.3,
+      "max_drain_run_length": 3.0
+    }
+  },
+
+  "usage_example": {
+    "input": {
+      "GridTruth.json": {
+        "room_grid_bounds": {
+          "Bilik_Utama": {
+            "x_range": [8.1, 10.45],
+            "y_range": [2.3, 7.75]
+          }
+        }
+      }
+    },
+    "processing": {
+      "room_name": "Bilik_Utama",
+      "matched_template": "bedroom_master",
+      "room_dimensions": {"width": 2.35, "length": 5.45, "area": 12.8},
+      "template_objects": ["bed", "wardrobe", "nightstand×2", "dresser"],
+      "placement_calculated": true,
+      "positions_generated": 5
+    },
+    "output": {
+      "ObjectManifest.json": {
+        "furniture": [
+          {
+            "id": "BED_BILIK_UTAMA",
+            "object_type": "bed_queen_lod300",
+            "position": {"x": 9.2, "y": 5.0, "z": 0.0},
+            "rotation_z": 0.0,
+            "placement_method": "template:bedroom_master:center_against_wall"
+          }
+        ]
+      }
+    }
+  }
+}

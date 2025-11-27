@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "generator": "door_swing_detector.py",
+    "spec_reference": "TB-LKTN_COMPLETE_SPECIFICATION.md v1.1",
+    "rule_0_compliant": true,
+    "total_doors": 6
+  },
+  "door_placements": [
+    {
+      "element_id": "D1_1",
+      "name": "D1_x27_y24",
+      "type": "door",
+      "code": "D1",
+      "object_type": "door_900x2100_lod300",
+      "position": {
+        "x": 2.7289513910119227,
+        "y": 2.478103116269074,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "wall": "SOUTH",
+      "swing_direction": "inward",
+      "orientation": 0,
+      "room": "BILIK_2",
+      "confidence": 0.8,
+      "requires_review": false,
+      "derivation": "Label at (2.73, 2.48) \u2192 Room BILIK_2 \u2192 Wall SOUTH \u2192 Swing inward"
+    },
+    {
+      "element_id": "D2_1",
+      "name": "D2_x47_y34",
+      "type": "door",
+      "code": "D2",
+      "object_type": "door_900x2100_lod300",
+      "position": {
+        "x": 4.709752369306023,
+        "y": 3.486484805501826,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "wall": "WEST",
+      "swing_direction": "inward",
+      "orientation": 90,
+      "room": "DAPUR",
+      "confidence": 0.7000000000000001,
+      "requires_review": false,
+      "derivation": "Label at (4.71, 3.49) \u2192 Room DAPUR \u2192 Wall WEST \u2192 Swing inward"
+    },
+    {
+      "element_id": "D2_2",
+      "name": "D2_x29_y38",
+      "type": "door",
+      "code": "D2",
+      "object_type": "door_900x2100_lod300",
+      "position": {
+        "x": 2.922409049220422,
+        "y": 3.8079978078658927,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "wall": "SOUTH",
+      "swing_direction": "inward",
+      "orientation": 0,
+      "room": "BILIK_2",
+      "confidence": 0.8,
+      "requires_review": false,
+      "derivation": "Label at (2.92, 3.81) \u2192 Room BILIK_2 \u2192 Wall SOUTH \u2192 Swing inward"
+    },
+    {
+      "element_id": "D1_2",
+      "name": "D1_x34_y48",
+      "type": "door",
+      "code": "D1",
+      "object_type": "door_900x2100_lod300",
+      "position": {
+        "x": 3.412045246102109,
+        "y": 4.882143520309477,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "wall": "SOUTH",
+      "swing_direction": "inward",
+      "orientation": 0,
+      "room": "BILIK_2",
+      "confidence": 0.8,
+      "requires_review": false,
+      "derivation": "Label at (3.41, 4.88) \u2192 Room BILIK_2 \u2192 Wall SOUTH \u2192 Swing inward"
+    },
+    {
+      "element_id": "D3_1",
+      "name": "D3_x24_y25",
+      "type": "door",
+      "code": "D3",
+      "object_type": "door_750x2100_lod300",
+      "position": {
+        "x": 2.4190767349434426,
+        "y": 2.5822294863528903,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.75,
+        "height": 2.1
+      },
+      "width_mm": 750,
+      "height_mm": 2100,
+      "wall": "SOUTH",
+      "swing_direction": "outward",
+      "orientation": 0,
+      "room": "BILIK_2",
+      "confidence": 0.7000000000000001,
+      "requires_review": false,
+      "derivation": "Label at (2.42, 2.58) \u2192 Room BILIK_2 \u2192 Wall SOUTH \u2192 Swing outward"
+    },
+    {
+      "element_id": "D3_2",
+      "name": "D3_x24_y34",
+      "type": "door",
+      "code": "D3",
+      "object_type": "door_750x2100_lod300",
+      "position": {
+        "x": 2.4190767349434426,
+        "y": 3.4499492370513636,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.75,
+        "height": 2.1
+      },
+      "width_mm": 750,
+      "height_mm": 2100,
+      "wall": "SOUTH",
+      "swing_direction": "outward",
+      "orientation": 0,
+      "room": "BILIK_2",
+      "confidence": 0.8,
+      "requires_review": false,
+      "derivation": "Label at (2.42, 3.45) \u2192 Room BILIK_2 \u2192 Wall SOUTH \u2192 Swing outward"
+    }
+  ],
+  "validation": {
+    "schedule_match": false,
+    "issues": [
+      "D2: Expected 3, got 2"
+    ],
+    "counts": {
+      "D1": 2,
+      "D2": 2,
+      "D3": 2
+    }
+  }
+}

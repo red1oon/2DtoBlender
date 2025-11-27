@@ -1,0 +1,272 @@
+{
+  "_metadata": {
+    "title": "Architectural Symbol Standards Reference",
+    "purpose": "Universal symbol dictionary for Malaysian residential drawings",
+    "standards": ["ISO 128", "ISO 4067", "MS 1064", "MS 1525", "Industry practice"],
+    "date_created": "2025-11-25",
+    "status": "Foundation version - expandable"
+  },
+
+  "plumbing_symbols": {
+    "water_supply": {
+      "CR": {
+        "full_name": "Cold Water Riser",
+        "description": "Cold water supply point",
+        "typical_locations": ["kitchen", "utility_room", "bathroom"],
+        "object_type": null,
+        "category": "plumbing_infrastructure",
+        "extraction_note": "Mark location, not physical object"
+      },
+      "CT": {
+        "full_name": "Cold Water Tank",
+        "description": "Cold water storage tank connection point",
+        "typical_locations": ["roof", "utility_room", "bathroom"],
+        "object_type": "water_heater_tank_lod200",
+        "category": "plumbing",
+        "extraction_note": "May indicate water heater or storage tank"
+      },
+      "HWR": {
+        "full_name": "Hot Water Riser",
+        "description": "Hot water supply point",
+        "typical_locations": ["bathroom", "kitchen"],
+        "object_type": null,
+        "category": "plumbing_infrastructure"
+      },
+      "SWS": {
+        "full_name": "Stop Water Supply / Stop Valve",
+        "description": "Water supply tap/valve",
+        "typical_locations": ["exterior", "utility_area"],
+        "object_type": null,
+        "category": "plumbing"
+      }
+    },
+
+    "drainage": {
+      "W3": {
+        "full_name": "Floor Trap",
+        "description": "Floor drain trap",
+        "typical_locations": ["bathroom", "utility_room", "kitchen"],
+        "object_type": "floor_drain_lod200",
+        "category": "plumbing"
+      },
+      "W4": {
+        "full_name": "Water Closet",
+        "description": "Toilet bowl (seating type)",
+        "typical_locations": ["bathroom"],
+        "object_type": "floor_mounted_toilet_lod300",
+        "category": "plumbing"
+      },
+      "TB": {
+        "full_name": "Gully Trap",
+        "description": "External drainage trap",
+        "typical_locations": ["exterior", "perimeter"],
+        "object_type": null,
+        "category": "plumbing"
+      },
+      "FT": {
+        "full_name": "Floor Trap",
+        "description": "Floor drain (alternate notation)",
+        "typical_locations": ["bathroom", "utility_room"],
+        "object_type": "floor_drain_lod200",
+        "category": "plumbing"
+      },
+      "GT": {
+        "full_name": "Gully Trap",
+        "description": "External drainage trap (alternate notation)",
+        "typical_locations": ["exterior"],
+        "object_type": null,
+        "category": "plumbing"
+      }
+    },
+
+    "fixtures": {
+      "GB": {
+        "full_name": "Gutter Bin / Kitchen Sink",
+        "description": "Aluminium kitchen sink",
+        "typical_locations": ["kitchen"],
+        "object_type": "kitchen_sink_single_bowl_lod200",
+        "category": "plumbing"
+      },
+      "CP": {
+        "full_name": "Clean out Point / Basin",
+        "description": "Wash basin",
+        "typical_locations": ["bathroom"],
+        "object_type": "basin_residential_lod300",
+        "category": "plumbing"
+      },
+      "WC": {
+        "full_name": "Water Closet",
+        "description": "Toilet bowl",
+        "typical_locations": ["bathroom"],
+        "object_type": "floor_mounted_toilet_lod300",
+        "category": "plumbing"
+      },
+      "SH": {
+        "full_name": "Shower",
+        "description": "Shower head fixture",
+        "typical_locations": ["bathroom"],
+        "object_type": "showerhead_fixed_lod200",
+        "category": "plumbing"
+      }
+    }
+  },
+
+  "electrical_symbols": {
+    "power": {
+      "PP": {
+        "full_name": "Power Point",
+        "description": "3-pin 13A power outlet",
+        "typical_locations": ["all_rooms"],
+        "object_type": "outlet_3pin_ms589_lod300",
+        "category": "electrical"
+      },
+      "DB": {
+        "full_name": "Distribution Board",
+        "description": "Electrical distribution panel",
+        "typical_locations": ["utility_room", "exterior"],
+        "object_type": "distribution_board_residential_lod200",
+        "category": "electrical"
+      },
+      "M": {
+        "full_name": "Meter",
+        "description": "Electricity meter",
+        "typical_locations": ["exterior", "meter_room"],
+        "object_type": null,
+        "category": "electrical"
+      }
+    },
+
+    "lighting": {
+      "LP": {
+        "full_name": "Light Point",
+        "description": "Ceiling light point",
+        "typical_locations": ["all_rooms"],
+        "object_type": "ceiling_light_surface_lod300",
+        "category": "electrical"
+      },
+      "FP": {
+        "full_name": "Fan Point",
+        "description": "Ceiling fan point",
+        "typical_locations": ["bedroom", "living_room"],
+        "object_type": "ceiling_fan_3blade_lod300",
+        "category": "electrical"
+      }
+    },
+
+    "switches": {
+      "S1": {
+        "full_name": "1-Gang Switch",
+        "description": "One-way light switch (1 gang)",
+        "typical_locations": ["room_entrance"],
+        "object_type": "switch_1gang_lod300",
+        "category": "electrical"
+      },
+      "S2": {
+        "full_name": "2-Gang Switch",
+        "description": "Two-way light switch (2 gang)",
+        "typical_locations": ["room_entrance"],
+        "object_type": "switch_2gang_lod300",
+        "category": "electrical"
+      }
+    }
+  },
+
+  "door_symbols": {
+    "D1": {
+      "description": "Single door 900×2100mm",
+      "typical_locations": ["bedroom", "bathroom"],
+      "object_type": "door_single_900_lod300"
+    },
+    "D2": {
+      "description": "Single door 900×2100mm",
+      "typical_locations": ["bedroom", "utility"],
+      "object_type": "door_single_900_lod300"
+    },
+    "D3": {
+      "description": "Single door 750×2100mm",
+      "typical_locations": ["bathroom"],
+      "object_type": "door_single_900_lod300"
+    }
+  },
+
+  "window_symbols": {
+    "W1": {
+      "description": "Window 1800×1000mm",
+      "typical_locations": ["living_room", "bedroom"],
+      "object_type": "window_aluminum_2panel_1200x1000_lod300"
+    },
+    "W2": {
+      "description": "Window 1200×1000mm",
+      "typical_locations": ["bedroom", "kitchen"],
+      "object_type": "window_aluminum_2panel_1200x1000_lod300"
+    },
+    "W3": {
+      "description": "Window 600×500mm",
+      "typical_locations": ["bathroom", "utility"],
+      "object_type": "window_aluminum_2panel_1200x1000_lod300"
+    }
+  },
+
+  "appliance_symbols": {
+    "REF": {
+      "full_name": "Refrigerator",
+      "description": "Residential refrigerator",
+      "typical_locations": ["kitchen"],
+      "object_type": "refrigerator_residential_lod200",
+      "category": "appliance"
+    },
+    "COOK": {
+      "full_name": "Cooking Stove",
+      "description": "Residential stove/cooktop",
+      "typical_locations": ["kitchen"],
+      "object_type": "stove_residential_lod200",
+      "category": "appliance"
+    },
+    "WM": {
+      "full_name": "Washing Machine",
+      "description": "Washing machine",
+      "typical_locations": ["utility_room"],
+      "object_type": "washing_machine_residential_lod200",
+      "category": "appliance"
+    },
+    "WH": {
+      "full_name": "Water Heater",
+      "description": "Water heating unit",
+      "typical_locations": ["bathroom", "utility_room"],
+      "object_type": "water_heater_tank_lod200",
+      "category": "plumbing"
+    },
+    "AC": {
+      "full_name": "Air Conditioner",
+      "description": "Air conditioning unit",
+      "typical_locations": ["bedroom", "living_room"],
+      "object_type": null,
+      "category": "hvac"
+    }
+  },
+
+  "extraction_priority": {
+    "description": "Order of extraction for dependency management",
+    "sequence": [
+      "calibration",
+      "schedules",
+      "dimensions",
+      "structure",
+      "walls",
+      "doors",
+      "windows",
+      "electrical_infrastructure",
+      "plumbing_infrastructure",
+      "fixtures",
+      "appliances",
+      "furniture"
+    ]
+  },
+
+  "usage_notes": {
+    "context_inference": "Use typical_locations to infer object context when room labels present",
+    "object_type_null": "null object_type means infrastructure marker, not physical object to place",
+    "regional_variants": "Symbols may have regional variations - prioritize project legend when available",
+    "extraction_strategy": "1. Check project legend first, 2. Use this standards reference as fallback"
+  }
+}

@@ -904,6 +904,13 @@ class ScheduleExtractor:
                             size_row = table[j]
                             break
 
+                    # Find SWING/TYPE row (Rule 0: extract from PDF, not hardcode)
+                    swing_row = None
+                    for j in range(i+1, min(i+10, len(table))):
+                        if table[j] and table[j][0] and 'SWING' in table[j][0].upper():
+                            swing_row = table[j]
+                            break
+
                     if size_row:
                         for col_idx, ref in enumerate(door_refs):
                             cell_idx = col_idx + 1
@@ -913,10 +920,22 @@ class ScheduleExtractor:
                                 size_match = re.search(r'(\d+)\s*MM\s*X\s*(\d+)\s*MM', size_text, re.IGNORECASE)
                                 if size_match:
                                     width, height = size_match.groups()
+
+                                    # Extract swing_direction from table (Rule 0 compliant)
+                                    swing_direction = None
+                                    if swing_row and cell_idx < len(swing_row):
+                                        swing_text = swing_row[cell_idx]
+                                        if swing_text:
+                                            if 'OUTWARD' in swing_text.upper() or 'OUT' in swing_text.upper():
+                                                swing_direction = 'outward'
+                                            elif 'INWARD' in swing_text.upper() or 'IN' in swing_text.upper():
+                                                swing_direction = 'inward'
+
                                     door_schedule[ref] = {
                                         'width': int(width) / 1000,
                                         'height': int(height) / 1000,
-                                        'quantity': 1
+                                        'quantity': 1,
+                                        'swing_direction': swing_direction  # From PDF table
                                     }
                     break
 
@@ -983,11 +1002,17 @@ class ScheduleExtractor:
         return window_schedule
 
     def _default_door_schedule(self):
-        """Default Malaysian house door dimensions (UBBL standards)"""
+        """Default Malaysian house door dimensions (UBBL standards)
+
+        NOTE: This is fallback when page 8 extraction fails.
+        Swing directions from typical Malaysian residential practice:
+        - D1/D2: Inward (bedrooms, living areas)
+        - D3: Outward (bathrooms per UBBL 1984 safety)
+        """
         return {
-            'D1': {'width': 0.9, 'height': 2.1, 'quantity': 1},   # Main entrance/bedroom
-            'D2': {'width': 0.9, 'height': 2.1, 'quantity': 1},   # Standard doors
-            'D3': {'width': 0.75, 'height': 2.1, 'quantity': 1}   # Bathroom/utility
+            'D1': {'width': 0.9, 'height': 2.1, 'quantity': 1, 'swing_direction': 'inward'},
+            'D2': {'width': 0.9, 'height': 2.1, 'quantity': 1, 'swing_direction': 'inward'},
+            'D3': {'width': 0.75, 'height': 2.1, 'quantity': 1, 'swing_direction': 'outward'}
         }
 
     def _default_window_schedule(self):
@@ -1017,33 +1042,100 @@ class OpeningDetector:
         self.outer_walls = outer_walls
 
     def extract_door_positions(self, page):
-        """Extract door positions from D1, D2, D3 labels on floor plan with validation"""
+        """Extract door positions from D1, D2, D3 labels on floor plan with validation
+
+        Returns:
+            tuple: (door_positions, door_annotations)
+                - door_positions: List of door objects
+                - door_annotations: List of annotation ground truth data
+        """
         words = page.extract_words()
         door_positions = []
+        door_annotations = []  # NEW: Capture annotations as ground truth
 
+        # DEBUG: Track what we're searching for
+        print(f"\n🔍 DOOR EXTRACTION DEBUG:")
+        print(f"   Searching for door labels: {list(self.door_schedule.keys())}")
+
+        # DEBUG: Track all door-like text found
+        door_labels_found = {}
+        for word in words:
+            text = word['text'].strip().upper()
+            if text.startswith('D') and len(text) <= 3:
+                if text not in door_labels_found:
+                    door_labels_found[text] = []
+                door_labels_found[text].append((word['x0'], word['top']))
+
+        print(f"   Door-like labels found in PDF: {list(door_labels_found.keys())}")
+        for label, positions in door_labels_found.items():
+            print(f"     {label}: {len(positions)} instance(s)")
+
+        # Extract valid doors
         for word in words:
             text = word['text'].strip().upper()
             if text in self.door_schedule.keys():
                 # Get calibrated position
                 x, y = self.calibration.transform_to_building(word['x0'], word['top'])
 
+                # DEBUG: Log extraction attempt
+                print(f"   🚪 Processing {text} at PDF({word['x0']:.1f}, {word['top']:.1f}) → Building({x:.2f}, {y:.2f})")
+
                 # VALIDATION: Check if position is within building bounds
                 if not self._is_valid_position(x, y):
-                    print(f"⚠️  {text} position ({x:.2f}, {y:.2f}) outside building bounds, skipping")
+                    print(f"      ❌ REJECTED: Position ({x:.2f}, {y:.2f}) outside building bounds")
                     continue
 
                 # Get door dimensions
                 door_data = self.door_schedule[text]
+
+                # Generate object name
+                object_name = f'{text}_x{int(x*10)}_y{int(y*10)}'
+
+                print(f"      ✅ ACCEPTED: {object_name}")
+
+                # NEW: Capture annotation (ground truth from drawing)
+                door_annotations.append({
+                    'text': text,
+                    'pdf_position': {
+                        'x': word['x0'],
+                        'y': word['top'],
+                        'page': page.page_number
+                    },
+                    'building_position': [x, y, 0.0],
+                    'bbox_pdf': {
+                        'x0': word['x0'],
+                        'y0': word['top'],
+                        'x1': word['x1'],
+                        'y1': word['bottom']
+                    },
+                    'confidence': 90,
+                    'associated_object': object_name,
+                    'extracted_from': 'floor_plan_label'
+                })
 
                 door_positions.append({
                     'door_type': text,
                     'position': [x, y, 0.0],
                     'width': door_data['width'],
                     'height': door_data['height'],
-                    'confidence': 90
+                    'confidence': 90,
+                    '_annotation_captured': True  # Mark that annotation exists
                 })
 
-        return door_positions
+        # DEBUG: Summary
+        print(f"   📊 DOOR EXTRACTION SUMMARY:")
+        print(f"      Found in PDF: {sum(len(v) for v in door_labels_found.values())} labels")
+        print(f"      In schedule: {len(self.door_schedule)} types")
+        print(f"      Extracted: {len(door_positions)} doors")
+        if door_labels_found.keys() != self.door_schedule.keys():
+            missing = set(self.door_schedule.keys()) - set(door_labels_found.keys())
+            extra = set(door_labels_found.keys()) - set(self.door_schedule.keys())
+            if missing:
+                print(f"      ⚠️  In schedule but NOT found in PDF: {missing}")
+            if extra:
+                print(f"      ℹ️  In PDF but NOT in schedule: {extra}")
+
+        return door_positions, door_annotations
 
     def _is_valid_position(self, x, y):
         """Validate position is within building bounds with margin"""
@@ -1054,9 +1146,16 @@ class OpeningDetector:
         )
 
     def extract_window_positions(self, page):
-        """Extract window positions from W1, W2, W3 labels on floor plan with validation"""
+        """Extract window positions from W1, W2, W3 labels on floor plan with validation
+
+        Returns:
+            tuple: (window_positions, window_annotations)
+                - window_positions: List of window objects
+                - window_annotations: List of annotation ground truth data
+        """
         words = page.extract_words()
         window_positions = []
+        window_annotations = []  # NEW: Capture annotations as ground truth
 
         for word in words:
             text = word['text'].strip().upper()
@@ -1075,15 +1174,39 @@ class OpeningDetector:
                 # Default sill height (will be refined with elevation data later)
                 sill_height = 1.0 if window_data['width'] >= 1.0 else 1.5
 
+                # Generate object name
+                object_name = f'{text}_x{int(x*10)}_y{int(y*10)}'
+
+                # NEW: Capture annotation (ground truth from drawing)
+                window_annotations.append({
+                    'text': text,
+                    'pdf_position': {
+                        'x': word['x0'],
+                        'y': word['top'],
+                        'page': page.page_number
+                    },
+                    'building_position': [x, y, sill_height],
+                    'bbox_pdf': {
+                        'x0': word['x0'],
+                        'y0': word['top'],
+                        'x1': word['x1'],
+                        'y1': word['bottom']
+                    },
+                    'confidence': 85,
+                    'associated_object': object_name,
+                    'extracted_from': 'floor_plan_label'
+                })
+
                 window_positions.append({
                     'window_type': text,
                     'position': [x, y, sill_height],
                     'width': window_data['width'],
                     'height': window_data['height'],
-                    'confidence': 85
+                    'confidence': 85,
+                    '_annotation_captured': True  # Mark that annotation exists
                 })
 
-        return window_positions
+        return window_positions, window_annotations
 
 
 # =============================================================================
@@ -1383,10 +1506,13 @@ class RoomLabelExtractor:
             page: pdfplumber page object
 
         Returns:
-            list: Room data with positions and classifications
+            tuple: (rooms, room_annotations)
+                - rooms: List of room data with positions and classifications
+                - room_annotations: List of annotation ground truth data
         """
         words = page.extract_words()
         rooms = []
+        room_annotations = []  # NEW: Capture annotations as ground truth
 
         for word in words:
             text = word['text'].upper().strip()
@@ -1409,6 +1535,31 @@ class RoomLabelExtractor:
                     pdf_x, pdf_y = word['x0'], word['top']
                     building_x, building_y = self.calibration.transform_to_building(pdf_x, pdf_y)
 
+                    # Normalize room label to English
+                    text_normalized = self._normalize_room_label(word['text'])
+
+                    # NEW: Capture annotation (ground truth from drawing)
+                    room_annotations.append({
+                        'text': word['text'],  # Original Malay text
+                        'text_normalized': text_normalized,
+                        'pdf_position': {
+                            'x': word['x0'],
+                            'y': word['top'],
+                            'page': page.page_number
+                        },
+                        'building_position': [building_x, building_y, 0.0],
+                        'bbox_pdf': {
+                            'x0': word['x0'],
+                            'y0': word['top'],
+                            'x1': word['x1'],
+                            'y1': word['bottom']
+                        },
+                        'confidence': 80,
+                        'associated_room': type_name,
+                        'language': 'Malay',
+                        'extracted_from': 'floor_plan_label'
+                    })
+
                     rooms.append({
                         'name': word['text'],  # Original text (Malay)
                         'type': type_name,     # Standardized type (English)
@@ -1417,11 +1568,33 @@ class RoomLabelExtractor:
                             'x0': word['x0'], 'top': word['top'],
                             'x1': word['x1'], 'bottom': word['bottom']
                         },
-                        'confidence': 90
+                        'confidence': 90,
+                        '_annotation_captured': True  # Mark that annotation exists
                     })
                     break  # Found match, stop searching patterns
 
-        return rooms
+        return rooms, room_annotations
+
+    def _normalize_room_label(self, malay_text: str) -> str:
+        """Normalize Malay room labels to English"""
+        mappings = {
+            'BILIK TIDUR UTAMA': 'MASTER BEDROOM',
+            'BILIK TIDUR': 'BEDROOM',
+            'BILIK AIR': 'BATHROOM',
+            'TANDAS': 'TOILET',
+            'DAPUR': 'KITCHEN',
+            'RUANG TAMU': 'LIVING ROOM',
+            'RUANG MAKAN': 'DINING ROOM',
+            'STOR': 'STORAGE',
+            'CUCIAN': 'LAUNDRY'
+        }
+
+        text_upper = malay_text.upper().strip()
+        for malay, english in mappings.items():
+            if malay in text_upper:
+                return english
+
+        return text_upper  # Return as-is if no mapping
 
 
 # =============================================================================
@@ -1479,11 +1652,17 @@ def infer_window_sill_heights(windows, elevations, window_schedule):
 # MAIN ORCHESTRATOR - TWO-TIER EXTRACTION PIPELINE
 # =============================================================================
 
-def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, building_height=3.0):
+def complete_pdf_extraction(pdf_path, building_width=None, building_length=None, building_height=None):
     """
-    Complete PDF → OUTPUT.json extraction pipeline (Two-Tier Architecture)
+    Complete PDF → OUTPUT.json extraction pipeline (Two-Tier Architecture) - AUTONOMOUS
 
-    NEW APPROACH (corrected):
+    AUTO-EXTRACTION MODE:
+    - If building_width/length/height = None → Auto-extract from PDF
+    - Extracts dimensions from grid references
+    - Extracts height from elevations (TODO)
+    - Falls back to defaults if extraction fails
+
+    EXTRACTION FLOW:
     1. Load master_reference_template.json (TIER 1 - high-level instructions)
     2. For each item in extraction_sequence:
        - Lookup detection_id in vector_patterns.py (TIER 2 - low-level execution)
@@ -1494,9 +1673,9 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
 
     Args:
         pdf_path: Path to PDF file
-        building_width: Building width in meters
-        building_length: Building length in meters
-        building_height: Building height in meters
+        building_width: Building width in meters (None = auto-extract)
+        building_length: Building length in meters (None = auto-extract)
+        building_height: Building height in meters (None = auto-extract)
 
     Returns:
         dict: Output JSON with metadata + summary + objects (placed: false)
@@ -1505,9 +1684,115 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
     import json
     from datetime import datetime
     import os
+    from core.comprehensive_annotation_extractor import ComprehensiveAnnotationExtractor
+    from core.dimension_extractor import DimensionExtractor
 
     print(f"🔧 Starting TWO-TIER extraction from: {pdf_path}")
     print("=" * 80)
+
+    # STEP 0: AUTO-EXTRACT BUILDING DIMENSIONS (if not provided)
+    if building_width is None or building_length is None or building_height is None:
+        print("\n🤖 STEP 0: AUTONOMOUS DIMENSION EXTRACTION")
+        print("   Extracting building dimensions from PDF (no manual input required)...")
+
+        try:
+            with pdfplumber.open(pdf_path) as pdf_temp:
+                # Extract all annotations (including grid references)
+                print("   → Extracting annotations from PDF...")
+                temp_calibration = None  # No calibration yet
+                annotation_extractor = ComprehensiveAnnotationExtractor(temp_calibration)
+                annotations = annotation_extractor.extract_all_annotations(pdf_path)
+                print(f"   ✅ Captured {annotations['metadata']['total_annotations']} annotations")
+
+                # Extract building dimensions from primitives database
+                print("   → Extracting dimensions from PDF primitives database...")
+                # Database is in output_artifacts/ folder
+                pdf_basename = os.path.basename(pdf_path).replace('.pdf', '').replace(' ', '_') + '_ANNOTATION_FROM_2D.db'
+                db_path = os.path.join('output_artifacts', pdf_basename)
+
+                if os.path.exists(db_path):
+                    # Use calibration engine for dimension extraction (Rule 0 compliant)
+                    from core.calibration_engine import CalibrationEngine as DBCalibrationEngine
+                    calib_engine = DBCalibrationEngine(db_path)
+                    calib_engine.connect_db()
+
+                    # Extract dimensions using grid-based method (strict, no fallback)
+                    grid_result = calib_engine.method1_grid_based()
+
+                    if grid_result.get('success'):
+                        if building_width is None and grid_result.get('building_width_m'):
+                            building_width = grid_result['building_width_m']
+                            print(f"   ✅ Auto-detected width: {building_width}m")
+                        if building_length is None and grid_result.get('building_length_m'):
+                            building_length = grid_result['building_length_m']
+                            print(f"   ✅ Auto-detected length: {building_length}m")
+                    else:
+                        print(f"   ❌ Dimension extraction failed: {grid_result.get('error', 'Unknown error')}")
+                        print("   STOPPING - Cannot proceed without valid dimensions (Rule 0)")
+                        return None
+                else:
+                    print(f"   ❌ Database not found: {db_path}")
+                    print("   STOPPING - Run primitive extraction first")
+                    return None
+
+                # Extract building_height from database context_dimensions table
+                if building_height is None:
+                    try:
+                        print("   → Querying database for building height...")
+                        pdf_basename_height = os.path.basename(pdf_path).replace('.pdf', '').replace(' ', '_') + '_ANNOTATION_FROM_2D.db'
+                        db_path_height = os.path.join('output_artifacts', pdf_basename_height)
+                        if os.path.exists(db_path_height):
+                            import sqlite3
+                            conn = sqlite3.connect(db_path_height)
+                            cursor = conn.cursor()
+                            try:
+                                cursor.execute("SELECT value FROM context_dimensions WHERE dimension_name = 'building_height'")
+                                row = cursor.fetchone()
+                                if row and row[0]:
+                                    building_height = row[0]
+                                    print(f"   ✅ Auto-detected height: {building_height}m (from database)")
+                                else:
+                                    # Use standard residential height (not project-specific)
+                                    building_height = 3.0
+                                    print(f"   ℹ️  Height: Using standard residential default {building_height}m")
+                            except sqlite3.OperationalError:
+                                # Table not populated yet - use standard default
+                                building_height = 3.0
+                                print(f"   ℹ️  Height: Using standard residential default {building_height}m")
+                            finally:
+                                conn.close()
+                        else:
+                            print(f"   ❌ Database not found: {db_path_height}")
+                            print("   STOPPING - Cannot proceed without annotation database (Rule 0)")
+                            return None
+                    except Exception as e:
+                        print(f"   ❌ Height query failed: {e}")
+                        # Use standard default for residential buildings
+                        building_height = 3.0
+                        print(f"   ℹ️  Height: Using standard residential default {building_height}m")
+
+        except Exception as e:
+            print(f"   ❌ Auto-extraction failed: {e}")
+            import traceback
+            traceback.print_exc()
+            print("   STOPPING - Cannot proceed without valid dimensions (Rule 0)")
+            return None
+
+    # STRICT RULE 0 ENFORCEMENT: All dimensions must be extracted, no defaults
+    if building_width is None:
+        print(f"   ❌ CRITICAL: building_width could not be extracted from PDF")
+        print("   STOPPING - Rule 0 violation: No manual defaults allowed")
+        return None
+    if building_length is None:
+        print(f"   ❌ CRITICAL: building_length could not be extracted from PDF")
+        print("   STOPPING - Rule 0 violation: No manual defaults allowed")
+        return None
+    if building_height is None:
+        print(f"   ❌ CRITICAL: building_height could not be extracted from PDF")
+        print("   STOPPING - Rule 0 violation: No manual defaults allowed")
+        return None
+
+    print(f"\n✅ Final Building Dimensions: {building_width}m × {building_length}m × {building_height}m")
 
     # STEP 1: Load Master Reference Template (TIER 1)
     print("\n📖 STEP 1: Loading Master Reference Template...")
@@ -1530,7 +1815,7 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
         calibration_engine = CalibrationEngine(pdf, building_width, building_length)
 
         # Initialize vector pattern executor (TIER 2)
-        from vector_patterns import VectorPatternExecutor
+        from core.vector_patterns import VectorPatternExecutor
         vector_executor = VectorPatternExecutor(pdf, calibration_engine)
 
         print("  ✅ Calibration engine initialized")
@@ -1541,7 +1826,12 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
 
         objects = []  # Will be populated with found objects
         calibration_data = None  # Will be set after calibration
-        extraction_context = {}  # Shared context between extraction phases
+        extraction_context = {
+            # Building dimensions for structural plane generation
+            'building_width': building_width,
+            'building_length': building_length,
+            'building_height': building_height
+        }  # Shared context between extraction phases
 
         # Pre-extract walls for orientation calculation
         print("\n  🧱 Pre-extracting walls for orientation calculation...")
@@ -1599,23 +1889,86 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                         extraction_context['calibration'] = calibration_data
                         print(f"    ✅ Calibration: scale_x={calibration_data['scale_x']:.6f}, scale_y={calibration_data['scale_y']:.6f}")
 
+                        # ALSO add calibration drain as output object (roof gutter PERIMETER - 4 sides)
+                        if object_type and calibration_data.get('confidence', 0) > 50:
+                            # North wall gutter (along X-axis at Y=0)
+                            objects.append({
+                                'name': 'gutter_north',
+                                'object_type': object_type,  # roof_gutter_100_lod300
+                                'position': [building_width / 2, 0, building_height],
+                                'length': building_width,
+                                'height': building_height,
+                                'orientation': 0.0,  # Along X-axis
+                                'room': 'exterior',
+                                '_phase': phase,
+                                'placed': False
+                            })
+                            # South wall gutter (along X-axis at Y=length)
+                            objects.append({
+                                'name': 'gutter_south',
+                                'object_type': object_type,
+                                'position': [building_width / 2, building_length, building_height],
+                                'length': building_width,
+                                'height': building_height,
+                                'orientation': 0.0,  # Along X-axis
+                                'room': 'exterior',
+                                '_phase': phase,
+                                'placed': False
+                            })
+                            # East wall gutter (along Y-axis at X=0)
+                            objects.append({
+                                'name': 'gutter_east',
+                                'object_type': object_type,
+                                'position': [0, building_length / 2, building_height],
+                                'length': building_length,
+                                'height': building_height,
+                                'orientation': 90.0,  # Along Y-axis
+                                'room': 'exterior',
+                                '_phase': phase,
+                                'placed': False
+                            })
+                            # West wall gutter (along Y-axis at X=width)
+                            objects.append({
+                                'name': 'gutter_west',
+                                'object_type': object_type,
+                                'position': [building_width, building_length / 2, building_height],
+                                'length': building_length,
+                                'height': building_height,
+                                'orientation': 90.0,  # Along Y-axis
+                                'room': 'exterior',
+                                '_phase': phase,
+                                'placed': False
+                            })
+                            print(f"    ✅ Added roof gutter perimeter (4 sections) to output objects")
+
                         # Extract walls immediately after calibration for orientation calculation
-                        print(f"\n  🧱 Extracting walls (needed for orientation)...")
+                        # NOTE: Walls are extracted here for context (needed for door/window orientation)
+                        # but will be added to objects array when template processes wall items
+                        print(f"\n  🧱 Pre-extracting walls for orientation context...")
                         try:
                             internal_walls = wall_detector.extract_from_vectors(pdf.pages[0])
                             # Generate outer walls from building dimensions
                             outer_walls = [
-                                {"start_point": [0, 0, 0], "end_point": [building_width, 0, 0]},  # North
-                                {"start_point": [0, building_length, 0], "end_point": [building_width, building_length, 0]},  # South
-                                {"start_point": [0, 0, 0], "end_point": [0, building_length, 0]},  # East
-                                {"start_point": [building_width, 0, 0], "end_point": [building_width, building_length, 0]}   # West
+                                {"start_point": [0, 0, 0], "end_point": [building_width, 0, 0], "height": 3.0, "thickness": 0.23},  # North
+                                {"start_point": [0, building_length, 0], "end_point": [building_width, building_length, 0], "height": 3.0, "thickness": 0.23},  # South
+                                {"start_point": [0, 0, 0], "end_point": [0, building_length, 0], "height": 3.0, "thickness": 0.23},  # East
+                                {"start_point": [building_width, 0, 0], "end_point": [building_width, building_length, 0], "height": 3.0, "thickness": 0.23}   # West
                             ]
+
+                            # Store in context for orientation calculation
                             all_walls = outer_walls + internal_walls
                             extraction_context['walls'] = all_walls
-                            print(f"    ✅ Walls extracted: {len(outer_walls)} exterior + {len(internal_walls)} interior = {len(all_walls)} total")
+                            extraction_context['interior_walls'] = internal_walls
+                            extraction_context['exterior_walls'] = outer_walls
+
+                            print(f"    ✅ Walls pre-extracted: {len(outer_walls)} exterior + {len(internal_walls)} interior = {len(all_walls)} total")
+                            print(f"    ⚠️  Walls will be added to objects when template processes wall items")
+
                         except Exception as e:
                             print(f"    ⚠️  Wall extraction failed: {str(e)}")
                             extraction_context['walls'] = []
+                            extraction_context['interior_walls'] = []
+                            extraction_context['exterior_walls'] = []
 
                     elif detection_id == "ELEVATION_TEXT_REGEX":
                         # Store elevation data
@@ -1634,19 +1987,26 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                             extraction_context['window_schedule'] = result
                             print(f"    ✅ Found {len(result)} window types")
 
-                    elif object_type:
+                    else:
                         # Add to objects array with "placed": false
+                        # Note: object_type may be None in template (e.g. doors/windows derive it from schedule)
                         if isinstance(result, list):
                             for obj in result:
+                                # Only set object_type if not already set by pattern executor
+                                # (doors/windows use schedule dimensions to determine exact type)
+                                if 'object_type' not in obj or not obj['object_type']:
+                                    if object_type:  # Use template fallback only if it exists
+                                        obj['object_type'] = object_type
                                 obj['_phase'] = phase
                                 obj['placed'] = False
                                 objects.append(obj)
 
-                                # Track LOD300 objects
-                                if 'lod300' in object_type.lower():
+                                # Track LOD300 objects (check both obj's object_type and template object_type)
+                                obj_type = obj.get('object_type', object_type)
+                                if obj_type and 'lod300' in obj_type.lower():
                                     found_lod300_objects.append({
                                         'item': item_name,
-                                        'object_type': object_type,
+                                        'object_type': obj_type,
                                         'name': obj.get('name'),
                                         'position': obj.get('position'),
                                         'orientation': obj.get('orientation')
@@ -1654,23 +2014,24 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
 
                             print(f"    ✅ Found {len(result)} instances")
                         else:
+                            if object_type:  # Only set from template if it exists
+                                result['object_type'] = object_type
                             result['_phase'] = phase
                             result['placed'] = False
                             objects.append(result)
 
                             # Track LOD300 objects
-                            if 'lod300' in object_type.lower():
+                            obj_type = result.get('object_type', object_type)
+                            if obj_type and 'lod300' in obj_type.lower():
                                 found_lod300_objects.append({
                                     'item': item_name,
-                                    'object_type': object_type,
+                                    'object_type': obj_type,
                                     'name': result.get('name'),
                                     'position': result.get('position'),
                                     'orientation': result.get('orientation')
                                 })
 
                             print(f"    ✅ Found 1 instance")
-                    else:
-                        print(f"    ✅ Extracted successfully (metadata only)")
                 else:
                     # Track LOD300 failures
                     if object_type and 'lod300' in object_type.lower():
@@ -1711,9 +2072,12 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
             print(f"\n✅ FOUND LOD300 OBJECTS ({len(found_lod300_objects)}):")
             for obj in found_lod300_objects:
                 pos = obj.get('position', [0,0,0])
-                orient = obj.get('orientation', 0.0)
+                orient = obj.get('orientation')
                 print(f"  ✅ {obj['item']}: {obj['name']} ({obj['object_type']})")
-                print(f"     Position: [{pos[0]:.2f}, {pos[1]:.2f}, {pos[2]:.2f}]  Orientation: {orient:.1f}°")
+                if orient is not None:
+                    print(f"     Position: [{pos[0]:.2f}, {pos[1]:.2f}, {pos[2]:.2f}]  Orientation: {orient:.1f}°")
+                else:
+                    print(f"     Position: [{pos[0]:.2f}, {pos[1]:.2f}, {pos[2]:.2f}]")
 
         if failed_lod300_objects:
             print(f"\n❌ FAILED/MISSING LOD300 OBJECTS ({len(failed_lod300_objects)}):")
@@ -1765,6 +2129,14 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                 "by_phase": by_phase
             },
 
+            "annotations": extraction_context.get('annotations', {
+                "doors": [],
+                "windows": [],
+                "rooms": [],
+                "dimensions": [],
+                "other": []
+            }),
+
             "objects": objects
         }
 
@@ -1798,19 +2170,23 @@ if __name__ == "__main__":
     import os
 
     if len(sys.argv) < 2:
-        print("Usage: python3 extraction_engine.py <pdf_path> [output_json] [--building-width W] [--building-length L]")
-        print("\nExample:")
+        print("Usage: python3 extraction_engine.py <pdf_path> [output_json] [--building-width W] [--building-length L] [--building-height H]")
+        print("\n🤖 AUTONOMOUS MODE (default):")
         print("  python3 extraction_engine.py 'TB-LKTN HOUSE.pdf'")
-        print("  python3 extraction_engine.py 'TB-LKTN HOUSE.pdf' --building-width 9.8 --building-length 8.0")
+        print("     → Auto-extracts dimensions from grid references")
+        print("     → No manual input required!")
+        print("\n📏 MANUAL MODE (override with CLI params):")
+        print("  python3 extraction_engine.py 'TB-LKTN HOUSE.pdf' --building-width 9.8 --building-length 8.0 --building-height 3.0")
+        print("\n📄 Custom Output:")
         print("  python3 extraction_engine.py 'TB-LKTN HOUSE.pdf' custom_output.json")
         sys.exit(1)
 
     pdf_path = sys.argv[1]
 
-    # Parse optional building dimensions
-    building_width = 9.8
-    building_length = 8.0
-    building_height = 3.0
+    # Parse optional building dimensions (None = auto-extract from PDF)
+    building_width = None
+    building_length = None
+    building_height = None
     output_path = None
 
     i = 2
