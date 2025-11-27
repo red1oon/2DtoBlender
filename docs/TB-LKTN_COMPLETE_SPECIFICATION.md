@@ -53,11 +53,20 @@ Convert 2D architectural PDF drawings (TB-LKTN HOUSE.pdf) into 3D Blender BIM mo
 | Page 8 | Door/window schedule (OCR ground truth) |
 | Ifc_Object_Library.db | LOD300 geometry database |
 
+| Template Files | Description |
+|--------|-------------|
+| core/master_reference_template.json | TIER 1: Extraction instructions (WHAT to find) |
+| config/master_template.json | TIER 2: Placement template (WHERE objects go) |
+
 | Output | Description |
 |--------|-------------|
-| master_template.json | Single source of truth (14 elements) |
+| TB-LKTN_HOUSE_OUTPUT_*.json | Final output with all placements |
 | blender_import.json | Blender-ready format |
 | TB-LKTN_House.blend | 3D model with positioned geometry |
+
+**Template Purpose:**
+- **master_reference_template.json**: Sequential extraction from PDF (Section 14)
+- **master_template.json**: Single source of truth for placement validation
 
 ## 1.3 Core Principles
 
@@ -151,16 +160,28 @@ Blender: Fetches geometry from Ifc_Object_Library.db matching "door_single"
 
 This prevents the "hidden automation" problem where code makes assumptions without traceability.
 
-## 1.5 Master Checklist Definition
+## 1.5 Master Templates Definition
 
-### What Is the Master Checklist?
+### Two Template System
 
-The **Master Checklist** (`master_template.json`) is the single source of truth that defines:
+**1. master_reference_template.json** (EXTRACTION - See Section 14)
+- **Location:** `core/master_reference_template.json`
+- **Purpose:** TIER 1 extraction instructions (WHAT to find in PDF)
+- **Usage:** Sequential extraction engine
+- **Read-only:** Modified only when extraction logic changes
+
+**2. master_template.json** (PLACEMENT - This Section)
+- **Location:** `config/master_template.json`
+- **Purpose:** Single source of truth for placement validation
+- **Contains:** Door placements, window placements, room bounds, validation rules
+- **Usage:** Validation and UBBL compliance checking
+
+### What Is master_template.json?
+
+The **placement template** (`config/master_template.json`) defines:
 1. **What objects MUST be placed** (mandatory items)
 2. **What objects CAN be placed** (optional items, user-configurable)
 3. **Processing rules** for iteration and validation
-
-**Location:** `/home/red1/Documents/bonsai/2DtoBlender/Template_2DBlender/master_template.json`
 
 ### Mandatory Items (POC Scope)
 
@@ -2962,6 +2983,7 @@ python3 apply_qa_corrections.py
 |---------|------|---------|
 | 1.0 | 2025-11-26 | Initial consolidated specification with UBBL 1984 compliance |
 | 1.1 | 2025-11-26 | Added Section 13: Database Schemas (placement_rules, connection_requirements, malaysian_standards, base_geometries, object_catalog) |
+| 1.2 | 2025-11-28 | Clarified two-template system: master_reference_template.json (extraction) vs master_template.json (placement). Removed master_template_CORRECTED.json. |
 
 ---
 
@@ -2974,11 +2996,13 @@ python3 apply_qa_corrections.py
 
 ---
 
-## 14. Master Reference Template Architecture
+## 14. Extraction Template Architecture (master_reference_template.json)
 
 ### 14.1 Purpose
 
-The `master_reference_template.json` is the **PERMANENT REFERENCE** for object extraction. It defines:
+**Location:** `core/master_reference_template.json`
+
+The `master_reference_template.json` is the **TIER 1 EXTRACTION REFERENCE**. It defines:
 - **WHAT** to search for (sequential instruction set)
 - **WHERE** to find it (page numbers, search text)
 - **WHICH** library object to use (object_type references)
