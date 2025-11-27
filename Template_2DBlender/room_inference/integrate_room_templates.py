@@ -1,0 +1,542 @@
+#!/usr/bin/env python3
+"""
+Room Template Integration - Augment text-based extraction with room inference
+
+Architecture:
+1. Keep text-based extracted objects (doors, windows, switches) - 18 objects
+2. Detect rooms from walls
+3. Apply ready-made room templates (bedroom_master, bathroom, kitchen, etc.)
+4. Add furniture/fixtures from templates - ~35-40 objects
+5. Return complete house: ~55-60 objects total
+
+Uses existing: LocalLibrary/room_templates.json
+"""
+
+import json
+import math
+from pathlib import Path
+
+# LIBRARY NAME MAPPING - Maps template names to actual library object_types
+# Updated 2025-11-27: All room objects now have LOD300 variants in LocalLibrary
+LIBRARY_NAME_MAPPING = {
+    # Furniture (LOD300 clones created in local library)
+    'armchair_lod300': 'armchair_lod300',
+    'bookshelf_5tier_lod300': 'bookshelf_5tier_lod300',
+    'coffee_table_lod300': 'coffee_table',  # Keep base (no LOD300 created yet)
+    'dining_chair_lod300': 'dining_chair_lod300',
+    'dresser_6drawer_lod300': 'dresser_6drawer_lod300',
+    'nightstand_lod300': 'nightstand_lod300',
+    'office_chair_ergonomic_lod300': 'office_chair_ergonomic_lod300',
+    'table_study_lod300': 'table_study_lod300',
+    'toilet_paper_holder_lod300': 'toilet_paper_holder_lod300',
+
+    # Plumbing (LOD300 clones created in local library)
+    'basin_round_residential_lod300': 'basin_residential_lod300',
+    'bathroom_vanity_1000_lod300': 'bathroom_vanity_1000_lod300',
+    'floor_drain_lod300': 'floor_drain_lod300',
+    'kitchen_sink_single_bowl_with_drainboard_lod300': 'kitchen_sink_single_bowl_lod200',
+    'showerhead_fixed_lod300': 'showerhead_fixed_lod200',
+    'towel_rack_mounted_lod300': 'towel_rack_wall_lod300',
+    'towel_rack_wall_lod300': 'towel_rack_wall_lod300',
+
+    # Appliances (LOD300 clones created in local library)
+    'refrigerator_residential_lod300': 'refrigerator_residential_lod300',
+    'stove_residential_lod300': 'stove_residential_lod300',
+}
+
+def map_to_library_name(template_name: str) -> str:
+    """Map template object_type to actual library object_type"""
+    return LIBRARY_NAME_MAPPING.get(template_name, template_name)
+
+
+def load_room_templates():
+    """Load ready-made room templates"""
+    # Use local template file from LocalLibrary
+    template_path = Path(__file__).parent.parent / "LocalLibrary" / "room_templates.json"
+
+    with open(template_path) as f:
+        data = json.load(f)
+
+    return data['room_templates']
+
+
+def detect_rooms_simple(building_dims):
+    """
+    Simple room detection for residential house
+
+    Uses typical residential layout pattern:
+    - Master bedroom (front left)
+    - Secondary bedroom (front right)
+    - Bathrooms (middle zones)
+    - Kitchen (rear right)
+    - Living room (rear left)
+    """
+    length = building_dims['length']
+    breadth = building_dims['breadth']
+    height = building_dims.get('height', 3.0)
+
+    rooms = [
+        {
+            'name': 'master_bedroom',
+            'template': 'bedroom_master',
+            'bounds': {
+                'min_x': 0,
+                'max_x': length * 0.45,
+                'min_y': 0,
+                'max_y': breadth * 0.45
+            },
+            'center': [length * 0.225, breadth * 0.225],
+            'area': (length * 0.45) * (breadth * 0.45)
+        },
+        {
+            'name': 'bedroom_2',
+            'template': 'bedroom_standard',
+            'bounds': {
+                'min_x': length * 0.55,
+                'max_x': length,
+                'min_y': 0,
+                'max_y': breadth * 0.40
+            },
+            'center': [length * 0.775, breadth * 0.20],
+            'area': (length * 0.45) * (breadth * 0.40)
+        },
+        {
+            'name': 'bathroom_master',
+            'template': 'bathroom',
+            'bounds': {
+                'min_x': length * 0.45,
+                'max_x': length * 0.55,
+                'min_y': 0,
+                'max_y': breadth * 0.30
+            },
+            'center': [length * 0.50, breadth * 0.15],
+            'area': (length * 0.10) * (breadth * 0.30)
+        },
+        {
+            'name': 'bathroom_common',
+            'template': 'bathroom',
+            'bounds': {
+                'min_x': 0,
+                'max_x': length * 0.25,
+                'min_y': breadth * 0.45,
+                'max_y': breadth * 0.70
+            },
+            'center': [length * 0.125, breadth * 0.575],
+            'area': (length * 0.25) * (breadth * 0.25)
+        },
+        {
+            'name': 'kitchen',
+            'template': 'kitchen',
+            'bounds': {
+                'min_x': length * 0.60,
+                'max_x': length,
+                'min_y': breadth * 0.60,
+                'max_y': breadth
+            },
+            'center': [length * 0.80, breadth * 0.80],
+            'area': (length * 0.40) * (breadth * 0.40)
+        },
+        {
+            'name': 'living_room',
+            'template': 'living_room',
+            'bounds': {
+                'min_x': 0,
+                'max_x': length * 0.55,
+                'min_y': breadth * 0.55,
+                'max_y': breadth
+            },
+            'center': [length * 0.275, breadth * 0.775],
+            'area': (length * 0.55) * (breadth * 0.45)
+        }
+    ]
+
+    return rooms
+
+
+def apply_furniture_template(room, template_data):
+    """
+    Apply ready-made furniture set from template
+
+    Args:
+        room: Room dict with bounds and center
+        template_data: Template from LocalLibrary/room_templates.json
+
+    Returns:
+        list: Furniture objects with positions
+    """
+    objects = []
+
+    furniture_set = template_data.get('furniture_set', {})
+    bounds = room['bounds']
+    center = room['center']
+
+    for item_name, item_spec in furniture_set.items():
+        library_obj = item_spec.get('library_object')
+        if not library_obj:
+            continue
+
+        quantity = item_spec.get('quantity', 1)
+        placement_rule = item_spec.get('placement_rule', 'center')
+
+        # Apply placement rule
+        for i in range(quantity):
+            position = calculate_position(placement_rule, bounds, center, i, item_spec)
+
+            objects.append({
+                'name': f"{room['name']}_{item_name}_{i+1}",
+                'object_type': map_to_library_name(library_obj),
+                'position': position,
+                'orientation': 90.0,  # Default, will be refined by wall detection
+                'room': room['name'],
+                'placed': False,
+                '_phase': '6_furniture',
+                'source': 'template_inference'
+            })
+
+    return objects
+
+
+def apply_electrical_template(room, template_data):
+    """Apply electrical pattern from template"""
+    objects = []
+
+    electrical = template_data.get('electrical_pattern', {})
+    bounds = room['bounds']
+    center = room['center']
+
+    # Ceiling lights
+    if 'ceiling_light' in electrical:
+        spec = electrical['ceiling_light']
+        objects.append({
+            'name': f"{room['name']}_ceiling_light",
+            'object_type': 'ceiling_light_surface_lod300',
+            'position': [center[0], center[1], spec.get('height', 2.95)],
+            'orientation': 0.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '3_electrical',
+            'source': 'template_inference'
+        })
+
+    # Ceiling fans
+    if 'ceiling_fan' in electrical:
+        spec = electrical['ceiling_fan']
+        objects.append({
+            'name': f"{room['name']}_ceiling_fan",
+            'object_type': 'ceiling_fan_3blade_lod300',
+            'position': [center[0], center[1] - 0.5, spec.get('height', 2.8)],
+            'orientation': 0.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '3_electrical',
+            'source': 'template_inference'
+        })
+
+    # Wall switches
+    if 'switches' in electrical:
+        spec = electrical['switches']
+        qty = spec.get('quantity', 1)
+        for i in range(qty):
+            objects.append({
+                'name': f"{room['name']}_switch_{i+1}",
+                'object_type': 'switch_1gang_lod300',
+                'position': [bounds['min_x'] + 0.2, bounds['min_y'] + 0.2, spec.get('height', 1.4)],
+                'orientation': 90.0,
+                'room': room['name'],
+                'placed': False,
+                '_phase': '3_electrical',
+                'source': 'template_inference'
+            })
+
+    # Outlets
+    if 'outlets' in electrical:
+        spec = electrical['outlets']
+        # Parse quantity formula or use direct number
+        qty_formula = spec.get('quantity_formula', '2')
+        if isinstance(qty_formula, str) and 'per' in qty_formula:
+            qty = 3  # Default for formulas
+        else:
+            qty = 2
+
+        for i in range(qty):
+            x = bounds['min_x'] + (i + 1) * (bounds['max_x'] - bounds['min_x']) / (qty + 1)
+            objects.append({
+                'name': f"{room['name']}_outlet_{i+1}",
+                'object_type': 'outlet_3pin_ms589_lod300',
+                'position': [x, bounds['min_y'] + 0.2, spec.get('height', 0.3)],
+                'orientation': 90.0,
+                'room': room['name'],
+                'placed': False,
+                '_phase': '3_electrical',
+                'source': 'template_inference'
+            })
+
+    return objects
+
+
+def apply_plumbing_template(room, template_name):
+    """Apply plumbing fixtures for bathrooms/kitchen"""
+    objects = []
+    bounds = room['bounds']
+    center = room['center']
+
+    if 'bathroom' in template_name:
+        # Toilet
+        objects.append({
+            'name': f"{room['name']}_toilet",
+            'object_type': 'floor_mounted_toilet_lod300',
+            'position': [bounds['min_x'] + 0.5, bounds['min_y'] + 0.5, 0.0],
+            'orientation': 180.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '4_plumbing',
+            'source': 'template_inference'
+        })
+
+        # Basin
+        objects.append({
+            'name': f"{room['name']}_basin",
+            'object_type': map_to_library_name('basin_round_residential_lod300'),
+            'position': [bounds['max_x'] - 0.4, bounds['min_y'] + 0.5, 0.9],
+            'orientation': 270.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '4_plumbing',
+            'source': 'template_inference'
+        })
+
+        # Showerhead
+        objects.append({
+            'name': f"{room['name']}_showerhead",
+            'object_type': map_to_library_name('showerhead_fixed_lod300'),
+            'position': [bounds['min_x'] + 0.5, bounds['max_y'] - 0.3, 1.8],
+            'orientation': 0.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '4_plumbing',
+            'source': 'template_inference'
+        })
+
+        # Floor drain
+        objects.append({
+            'name': f"{room['name']}_floor_drain",
+            'object_type': map_to_library_name('floor_drain_lod300'),
+            'position': [center[0], center[1], 0.0],
+            'orientation': 0.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '4_plumbing',
+            'source': 'template_inference'
+        })
+
+    elif 'kitchen' in template_name:
+        # Kitchen sink
+        objects.append({
+            'name': f"{room['name']}_sink",
+            'object_type': map_to_library_name('kitchen_sink_single_bowl_with_drainboard_lod300'),
+            'position': [center[0], bounds['max_y'] - 0.3, 0.9],
+            'orientation': 0.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '4_plumbing',
+            'source': 'template_inference'
+        })
+
+        # Stove
+        objects.append({
+            'name': f"{room['name']}_stove",
+            'object_type': map_to_library_name('stove_residential_lod300'),
+            'position': [center[0] + 1.0, bounds['max_y'] - 0.3, 0.9],
+            'orientation': 0.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '6_furniture',
+            'source': 'template_inference'
+        })
+
+        # Refrigerator
+        objects.append({
+            'name': f"{room['name']}_refrigerator",
+            'object_type': map_to_library_name('refrigerator_residential_lod300'),
+            'position': [bounds['max_x'] - 0.4, bounds['max_y'] - 0.4, 0.0],
+            'orientation': 270.0,
+            'room': room['name'],
+            'placed': False,
+            '_phase': '6_furniture',
+            'source': 'template_inference'
+        })
+
+    return objects
+
+
+def calculate_position(placement_rule, bounds, center, index, spec):
+    """Calculate object position based on placement rule"""
+    # Extract height from spec (default to 0.0 for floor objects)
+    height = spec.get('height', 0.0) if spec else 0.0
+
+    if placement_rule == 'center':
+        return [center[0], center[1], height]
+
+    elif placement_rule == 'center_against_wall':
+        return [center[0], bounds['min_y'] + 1.0, height]
+
+    elif placement_rule == 'corner_or_wall':
+        return [bounds['max_x'] - 0.5, center[1], height]
+
+    elif placement_rule == 'against_wall':
+        return [center[0], bounds['max_y'] - 0.5, height]
+
+    else:
+        return [center[0], center[1], height]
+
+
+def augment_with_room_templates(extraction_output):
+    """
+    Augment text-based extraction with room template inference
+
+    Args:
+        extraction_output: Output JSON from extraction_engine.py (18 objects)
+
+    Returns:
+        dict: Augmented output with ~55-60 objects total
+    """
+    print("\n" + "="*80)
+    print("🏠 AUGMENTING WITH ROOM TEMPLATES (Ready-Made Sets)")
+    print("="*80)
+
+    # Load templates
+    templates = load_room_templates()
+    print(f"✅ Loaded {len(templates)} room templates")
+
+    # Get building dimensions
+    metadata = extraction_output.get('extraction_metadata', {})
+    building_dims = metadata.get('building_dimensions', {
+        'length': 9.8,
+        'breadth': 8.0,
+        'height': 3.0
+    })
+
+    # Detect rooms
+    rooms = detect_rooms_simple(building_dims)
+    print(f"✅ Detected {len(rooms)} rooms")
+
+    # Keep existing text-extracted objects
+    existing_objects = extraction_output.get('objects', [])
+    print(f"✅ Keeping {len(existing_objects)} text-extracted objects (doors, windows, switches)")
+
+    # Add inferred objects from templates
+    inferred_objects = []
+
+    for room in rooms:
+        template_name = room['template']
+
+        # Check if template exists
+        if template_name not in templates:
+            print(f"  ⚠️  Template '{template_name}' not found, using fallback")
+            continue
+
+        template_data = templates[template_name]
+
+        print(f"\n  📦 Applying '{template_name}' template to {room['name']}:")
+
+        # Apply furniture set
+        furniture = apply_furniture_template(room, template_data)
+        print(f"     + {len(furniture)} furniture items")
+        inferred_objects.extend(furniture)
+
+        # Apply electrical pattern
+        electrical = apply_electrical_template(room, template_data)
+        print(f"     + {len(electrical)} electrical items")
+        inferred_objects.extend(electrical)
+
+        # Apply plumbing (bathroom/kitchen)
+        plumbing = apply_plumbing_template(room, template_name)
+        print(f"     + {len(plumbing)} plumbing items")
+        inferred_objects.extend(plumbing)
+
+    # Combine all objects
+    all_objects = existing_objects + inferred_objects
+
+    # Update summary
+    by_phase = {}
+    by_source = {'text_extraction': len(existing_objects), 'template_inference': len(inferred_objects)}
+
+    for obj in all_objects:
+        phase = obj.get('_phase', 'unknown')
+        by_phase[phase] = by_phase.get(phase, 0) + 1
+
+    extraction_output['objects'] = all_objects
+    extraction_output['summary'] = {
+        'total_objects': len(all_objects),
+        'by_phase': by_phase,
+        'by_source': by_source
+    }
+
+    print("\n" + "="*80)
+    print(f"✅ AUGMENTATION COMPLETE")
+    print("="*80)
+    print(f"Text extraction:     {len(existing_objects)} objects")
+    print(f"Template inference:  {len(inferred_objects)} objects")
+    print(f"─────────────────────────────────────")
+    print(f"TOTAL:               {len(all_objects)} objects")
+    print(f"\nBreakdown by phase:")
+    for phase, count in sorted(by_phase.items()):
+        print(f"  {phase}: {count}")
+
+    return extraction_output
+
+
+if __name__ == "__main__":
+    import sys
+    import os
+
+    if len(sys.argv) < 2:
+        print("Usage: python3 integrate_room_templates.py <extraction_output.json>")
+        sys.exit(1)
+
+    input_path = sys.argv[1]
+
+    # Load extraction output
+    with open(input_path) as f:
+        extraction_output = json.load(f)
+
+    # Augment with templates
+    augmented = augment_with_room_templates(extraction_output)
+
+    # Save augmented output
+    output_path = input_path.replace('.json', '_AUGMENTED.json')
+    with open(output_path, 'w') as f:
+        json.dump(augmented, f, indent=2)
+
+    print(f"\n💾 Saved augmented output: {output_path}")
+
+    # Run automated post-processing
+    print("\n" + "="*80)
+    print("🚀 RUNNING AUTOMATED POST-PROCESSING...")
+    print("="*80)
+
+    # Import post-processor
+    sys.path.insert(0, str(Path(__file__).parent.parent / 'core'))
+    from post_processor import automated_post_process
+    from wall_combiner import process_walls
+
+    # Get master template path
+    master_template_path = Path(__file__).parent.parent / 'core' / 'master_reference_template.json'
+
+    # Run wall combiner first
+    print("\n🧱 Step 1: Combining collinear wall segments...")
+    augmented['objects'] = process_walls(augmented['objects'])
+
+    # Run post-processor
+    print("\n🔧 Step 2: Running automated fixes...")
+    fixed = automated_post_process(augmented, master_template_path)
+
+    # Save final fixed output
+    # Keep _FINAL suffix (required by RUN_COMPLETE_PIPELINE.sh)
+    final_path = output_path.replace('_AUGMENTED.json', '_FINAL.json')
+    with open(final_path, 'w') as f:
+        json.dump(fixed, f, indent=2)
+
+    print(f"\n💾 Saved final output: {final_path}")
+    print("\n✅ Complete pipeline: Extraction → Augmentation → Automated Fixes")
+    print(f"   Final output ready for Blender: {final_path}")
