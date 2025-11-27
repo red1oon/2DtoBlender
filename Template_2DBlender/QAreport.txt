@@ -1,0 +1,25 @@
+TB-LKTN_HOUSE_OUTPUT_20251127_144306.json
+🚨 CRITICAL REGRESSION
+IssueStatusBuilding envelope 11.2×8.5✅ (exterior walls correct)Wall z=0✅Grid snapping❌ BROKENWall count❌ 91+ walls (should be ~20)
+❌ Major Problems
+1. Raw float coordinates (no grid snapping):
+jsonwall_interior_80: [6.875450932436563, 1.7664947345798407]  ❌
+wall_interior_81: [6.622072760623662, 0.8165699548678271]  ❌
+D1_x27_y24: [2.7289513910119227, 2.478103116269074]        ❌
+2. Massive wall duplication: 91+ interior walls vs expected ~15-20
+3. Door/window positions not snapped:
+jsonD2_x47_y34: [4.709752369306023, 3.486484805501826]  ❌
+W1_x36_y22: [3.6157749923570774, 2.264370040833869] ❌
+VERDICT: ❌ BROKEN - Pipeline regression
+This output is raw PDF vector extraction without grid-snapping post-processing.
+Required fix:
+python# After extraction, snap ALL coordinates
+GRID_X = [0, 1.3, 2.3, 4.4, 5.5, 8.1, 11.2]
+GRID_Y = [0, 2.3, 5.4, 7.0, 8.5]
+
+for obj in objects:
+    obj.position[0] = snap(obj.position[0], GRID_X)
+    obj.position[1] = snap(obj.position[1], GRID_Y)
+    
+# Then merge collinear/duplicate walls
+walls = merge_collinear_walls(walls)

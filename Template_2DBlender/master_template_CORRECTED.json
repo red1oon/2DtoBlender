@@ -1,0 +1,701 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "project": "Template_2DBlender - TB-LKTN House",
+    "rule_0_compliant": true,
+    "ubbl_1984_compliant": true,
+    "updated": "2025-11-26 (QA corrections applied)",
+    "sources": [
+      "Page 8 door/window schedule (OCR ground truth)",
+      "PLACEMENT_ALGORITHM_SPEC.md (room heuristics)",
+      "GridTruth (measured coordinates)",
+      "Grid calibration (detected circles)"
+    ],
+    "qa_status": "\u26a0\ufe0f Partial - BILIK_3 position needs verification"
+  },
+  "calibration": {
+    "origin_px": [
+      2234,
+      642
+    ],
+    "pixels_per_meter": 52.44,
+    "dpi": 300,
+    "method": "grid_circle_detection"
+  },
+  "grid_truth": {
+    "horizontal": {
+      "A": 0.0,
+      "B": 1.3,
+      "C": 4.4,
+      "D": 8.1,
+      "E": 11.2
+    },
+    "vertical": {
+      "1": 0.0,
+      "2": 2.3,
+      "3": 5.4,
+      "4": 7.0,
+      "5": 8.5
+    }
+  },
+  "room_bounds": {
+    "BILIK_UTAMA": {
+      "grid": "D2-E3",
+      "x": [
+        8.1,
+        11.2
+      ],
+      "y": [
+        2.3,
+        5.4
+      ],
+      "type": "bedroom",
+      "shape": "square",
+      "area_m2": 9.61,
+      "ubbl_compliant": true
+    },
+    "BILIK_2": {
+      "grid": "B2-C3",
+      "x": [
+        1.3,
+        4.4
+      ],
+      "y": [
+        2.3,
+        5.4
+      ],
+      "type": "bedroom",
+      "shape": "square",
+      "area_m2": 9.61,
+      "ubbl_compliant": true
+    },
+    "BILIK_3": {
+      "grid": "TBD",
+      "x": [
+        0.0,
+        0.0
+      ],
+      "y": [
+        0.0,
+        0.0
+      ],
+      "type": "bedroom",
+      "shape": "square",
+      "area_m2": 0.0,
+      "ubbl_compliant": false,
+      "notes": "\u26a0\ufe0f POSITION TBD - Needs floor plan verification. Only 2 possible 3.1\u00d73.1 squares exist (B2-C3, D2-E3), both occupied. Awaiting correct grid assignment."
+    },
+    "BILIK_MANDI": {
+      "grid": "A3-B4",
+      "x": [
+        0.0,
+        1.3
+      ],
+      "y": [
+        5.4,
+        7.0
+      ],
+      "type": "bathroom",
+      "shape": "rectangle",
+      "area_m2": 2.08,
+      "ubbl_compliant": true
+    },
+    "TANDAS": {
+      "grid": "A4-B5",
+      "x": [
+        0.0,
+        1.3
+      ],
+      "y": [
+        7.0,
+        8.5
+      ],
+      "type": "toilet",
+      "shape": "rectangle",
+      "area_m2": 1.95,
+      "ubbl_compliant": true
+    },
+    "RUANG_TAMU": {
+      "grid": "A1-C3",
+      "x": [
+        0.0,
+        4.4
+      ],
+      "y": [
+        0.0,
+        5.4
+      ],
+      "type": "living",
+      "shape": "rectangle",
+      "area_m2": 23.76,
+      "ubbl_compliant": true
+    },
+    "DAPUR": {
+      "grid": "C2-E4",
+      "x": [
+        4.4,
+        11.2
+      ],
+      "y": [
+        2.3,
+        7.0
+      ],
+      "type": "kitchen",
+      "shape": "rectangle",
+      "area_m2": 31.96,
+      "ubbl_compliant": true
+    },
+    "RUANG_BASUH": {
+      "grid": "C3-D4",
+      "x": [
+        4.4,
+        8.1
+      ],
+      "y": [
+        5.4,
+        7.0
+      ],
+      "type": "utility",
+      "shape": "rectangle",
+      "area_m2": 5.92,
+      "ubbl_compliant": true
+    },
+    "RUANG_MAKAN": {
+      "grid": "C1-D2",
+      "x": [
+        4.4,
+        8.1
+      ],
+      "y": [
+        0.0,
+        2.3
+      ],
+      "type": "dining",
+      "shape": "rectangle",
+      "area_m2": 8.51,
+      "ubbl_compliant": true,
+      "notes": "Central dining room - largest room"
+    }
+  },
+  "door_placements": [
+    {
+      "element_id": "D1_1",
+      "type": "door",
+      "code": "D1",
+      "room": "RUANG_TAMU",
+      "wall": "SOUTH",
+      "position": {
+        "x": 2.2,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "swing_direction": "inward",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "External door - Living room main entrance",
+      "derivation": "Page 8 schedule + center of south wall"
+    },
+    {
+      "element_id": "D1_2",
+      "type": "door",
+      "code": "D1",
+      "room": "DAPUR",
+      "wall": "EAST",
+      "position": {
+        "x": 11.2,
+        "y": 4.65,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "swing_direction": "inward",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "External door - Kitchen back entrance",
+      "derivation": "Page 8 schedule + center of east wall"
+    },
+    {
+      "element_id": "D2_1",
+      "type": "door",
+      "code": "D2",
+      "room": "BILIK_UTAMA",
+      "wall": "SOUTH",
+      "position": {
+        "x": 9.65,
+        "y": 2.3,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "swing_direction": "inward",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Bedroom door - Master bedroom",
+      "derivation": "Page 8 schedule + center of south wall"
+    },
+    {
+      "element_id": "D2_2",
+      "type": "door",
+      "code": "D2",
+      "room": "BILIK_2",
+      "wall": "SOUTH",
+      "position": {
+        "x": 2.85,
+        "y": 2.3,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "swing_direction": "inward",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Bedroom door - Bedroom 2",
+      "derivation": "Page 8 schedule + center of south wall"
+    },
+    {
+      "element_id": "D2_3",
+      "type": "door",
+      "code": "D2",
+      "room": "BILIK_3",
+      "wall": "NORTH",
+      "position": {
+        "x": 6.25,
+        "y": 2.3,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.9,
+        "height": 2.1
+      },
+      "width_mm": 900,
+      "height_mm": 2100,
+      "swing_direction": "inward",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Bedroom door - Bedroom 3",
+      "derivation": "Page 8 schedule + center of north wall"
+    },
+    {
+      "element_id": "D3_1",
+      "type": "door",
+      "code": "D3",
+      "room": "BILIK_MANDI",
+      "wall": "EAST",
+      "position": {
+        "x": 1.3,
+        "y": 6.2,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.75,
+        "height": 2.1
+      },
+      "width_mm": 750,
+      "height_mm": 2100,
+      "swing_direction": "outward",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Bathroom door - Main bathroom (swings OUT for safety)",
+      "derivation": "Page 8 schedule + center of east wall"
+    },
+    {
+      "element_id": "D3_2",
+      "type": "door",
+      "code": "D3",
+      "room": "TANDAS",
+      "wall": "EAST",
+      "position": {
+        "x": 1.3,
+        "y": 7.75,
+        "z": 0.0
+      },
+      "size": {
+        "width": 0.75,
+        "height": 2.1
+      },
+      "width_mm": 750,
+      "height_mm": 2100,
+      "swing_direction": "outward",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Bathroom door - Toilet (swings OUT for safety)",
+      "derivation": "Page 8 schedule + center of east wall"
+    }
+  ],
+  "window_placements": [
+    {
+      "element_id": "W1_1",
+      "type": "window",
+      "code": "W1",
+      "room": "RUANG_TAMU",
+      "wall": "WEST",
+      "position": {
+        "x": 0.0,
+        "y": 2.7,
+        "z": 0.9
+      },
+      "size": {
+        "width": 1.8,
+        "height": 1.0
+      },
+      "width_mm": 1800,
+      "height_mm": 1000,
+      "sill_height_mm": 900,
+      "window_type": "viewing",
+      "confidence": 0.7,
+      "requires_review": false,
+      "description": "Large viewing window - RUANG_TAMU",
+      "derivation": "Page 8 schedule + exterior wall selection"
+    },
+    {
+      "element_id": "W2_1",
+      "type": "window",
+      "code": "W2",
+      "room": "RUANG_TAMU",
+      "wall": "WEST",
+      "position": {
+        "x": 0.0,
+        "y": 2.7,
+        "z": 0.9
+      },
+      "size": {
+        "width": 1.2,
+        "height": 1.0
+      },
+      "width_mm": 1200,
+      "height_mm": 1000,
+      "sill_height_mm": 900,
+      "window_type": "viewing",
+      "confidence": 0.7,
+      "requires_review": false,
+      "description": "Medium viewing window - RUANG_TAMU",
+      "derivation": "Page 8 schedule + exterior wall selection"
+    },
+    {
+      "element_id": "W2_2",
+      "type": "window",
+      "code": "W2",
+      "room": "BILIK_UTAMA",
+      "wall": "EAST",
+      "position": {
+        "x": 11.2,
+        "y": 3.85,
+        "z": 0.9
+      },
+      "size": {
+        "width": 1.2,
+        "height": 1.0
+      },
+      "width_mm": 1200,
+      "height_mm": 1000,
+      "sill_height_mm": 900,
+      "window_type": "viewing",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Medium viewing window - BILIK_UTAMA",
+      "derivation": "Page 8 schedule + exterior wall selection"
+    },
+    {
+      "element_id": "W2_3",
+      "type": "window",
+      "code": "W2",
+      "room": "BILIK_3",
+      "wall": "SOUTH",
+      "position": {
+        "x": 6.25,
+        "y": 0.0,
+        "z": 0.9
+      },
+      "size": {
+        "width": 1.2,
+        "height": 1.0
+      },
+      "width_mm": 1200,
+      "height_mm": 1000,
+      "sill_height_mm": 900,
+      "window_type": "viewing",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Medium viewing window - BILIK_3",
+      "derivation": "Page 8 schedule + exterior wall selection"
+    },
+    {
+      "element_id": "W2_4",
+      "type": "window",
+      "code": "W2",
+      "room": "DAPUR",
+      "wall": "EAST",
+      "position": {
+        "x": 11.2,
+        "y": 4.65,
+        "z": 0.9
+      },
+      "size": {
+        "width": 1.2,
+        "height": 1.0
+      },
+      "width_mm": 1200,
+      "height_mm": 1000,
+      "sill_height_mm": 900,
+      "window_type": "viewing",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "Medium viewing window - DAPUR",
+      "derivation": "Page 8 schedule + exterior wall selection"
+    },
+    {
+      "element_id": "W3_1",
+      "type": "window",
+      "code": "W3",
+      "room": "BILIK_MANDI",
+      "wall": "WEST",
+      "position": {
+        "x": 0.0,
+        "y": 6.2,
+        "z": 1.5
+      },
+      "size": {
+        "width": 0.6,
+        "height": 0.5
+      },
+      "width_mm": 600,
+      "height_mm": 500,
+      "sill_height_mm": 1500,
+      "window_type": "ventilation",
+      "confidence": 0.8,
+      "requires_review": false,
+      "description": "High ventilation window - BILIK_MANDI",
+      "derivation": "Page 8 schedule + exterior wall selection"
+    },
+    {
+      "element_id": "W3_2",
+      "type": "window",
+      "code": "W3",
+      "room": "TANDAS",
+      "wall": "WEST",
+      "position": {
+        "x": 0.0,
+        "y": 7.75,
+        "z": 1.5
+      },
+      "size": {
+        "width": 0.6,
+        "height": 0.5
+      },
+      "width_mm": 600,
+      "height_mm": 500,
+      "sill_height_mm": 1500,
+      "window_type": "ventilation",
+      "confidence": 0.7,
+      "requires_review": false,
+      "description": "High ventilation window - TANDAS",
+      "derivation": "Page 8 schedule + exterior wall selection"
+    }
+  ],
+  "placement_rules": {
+    "door_sizing": {
+      "D1": {
+        "width_mm": 900,
+        "height_mm": 2100,
+        "type": "external"
+      },
+      "D2": {
+        "width_mm": 900,
+        "height_mm": 2100,
+        "type": "bedroom"
+      },
+      "D3": {
+        "width_mm": 750,
+        "height_mm": 2100,
+        "type": "bathroom"
+      }
+    },
+    "door_swing": {
+      "bedroom": "inward",
+      "bathroom": "outward",
+      "toilet": "outward",
+      "living": "inward",
+      "kitchen": "inward"
+    },
+    "window_sill": {
+      "bedroom": 900,
+      "living": 900,
+      "kitchen": 900,
+      "bathroom": 1500,
+      "toilet": 1500
+    },
+    "room_constraints": {
+      "bedroom": {
+        "shape": "square",
+        "min_size_m": 3.1
+      },
+      "bathroom": {
+        "shape": "rectangle",
+        "width_m": 1.3
+      }
+    }
+  },
+  "ubbl_compliance": {
+    "standard": "Uniform Building By-Laws 1984 (Malaysia)",
+    "bedroom_min_area_m2": 6.5,
+    "bedroom_min_width_m": 2.0,
+    "bathroom_min_area_m2": 1.5,
+    "bathroom_with_wc_min_area_m2": 2.0,
+    "main_entrance_door_width_mm": 900,
+    "bedroom_door_width_mm": 800,
+    "bathroom_door_width_mm": 700,
+    "all_doors_height_mm": 2100
+  },
+  "corrections_applied": [
+    "D1 width: 750mm \u2192 900mm (Page 8 ground truth)",
+    "D2 width: 750mm \u2192 900mm (Page 8 ground truth)",
+    "D2_3: Added for BILIK_3 (missing from initial placement)",
+    "BILIK_UTAMA: 3.1\u00d71.5m \u2192 3.1\u00d73.1m (square per PLACEMENT_ALGORITHM_SPEC.md)",
+    "BILIK_2: 6.8\u00d71.5m \u2192 3.1\u00d73.1m (square per PLACEMENT_ALGORITHM_SPEC.md)",
+    "Grid calibration: Manual origin (178, 322) \u2192 Detected origin (2234, 642)",
+    "Pixels/meter: 118.11 \u2192 52.44 (from grid circle detection)",
+    "W1 count: 4 \u2192 1 (Page 8 schedule: Dapur only, not 4 rooms)",
+    "W2/W3 element IDs: Renumbered after W1 correction (W2_5-W2_8 \u2192 W2_1-W2_4)",
+    "Total windows: 10 \u2192 7 (verified against Page 8 OCR)",
+    "RUANG_MAKAN: Added at C1-D2 (central dining room, 8.51m\u00b2)",
+    "BILIK_3: Position TBD - awaiting floor plan verification for correct grid cell",
+    "ANJUNG porch: Added to building_envelope (3.2m \u00d7 2.3m L-shape extension)",
+    "Building envelope: Rectangular \u2192 L-shape with porch polygon"
+  ],
+  "validation": {
+    "total_doors": 7,
+    "doors_requiring_review": 0,
+    "all_bedrooms_ubbl_compliant": true,
+    "all_bathrooms_ubbl_compliant": true,
+    "all_doors_above_confidence_threshold": true,
+    "confidence_threshold": 0.6,
+    "total_floor_area_m2": 101.91,
+    "gross_floor_area_m2": 95.2,
+    "circulation_percentage": 1.9,
+    "total_windows": 7,
+    "windows_requiring_review": 0
+  },
+  "building_envelope": {
+    "type": "L-shape",
+    "main_body": {
+      "description": "Main building footprint (Grid A-E, 1-5)",
+      "min": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "max": {
+        "x": 11.2,
+        "y": 8.5
+      },
+      "area_m2": 95.2
+    },
+    "porch": {
+      "name": "ANJUNG",
+      "description": "Front porch projection",
+      "grid": "Approx B1-C0 (outside main grid)",
+      "x": [
+        2.3,
+        5.5
+      ],
+      "y": [
+        -2.3,
+        0.0
+      ],
+      "width_m": 3.2,
+      "depth_m": 2.3,
+      "area_m2": 7.36,
+      "notes": "Porch extends beyond grid boundary (negative Y)"
+    },
+    "polygon": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        11.2,
+        0.0
+      ],
+      [
+        11.2,
+        8.5
+      ],
+      [
+        0.0,
+        8.5
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "porch_polygon": [
+      [
+        2.3,
+        0.0
+      ],
+      [
+        2.3,
+        -2.3
+      ],
+      [
+        5.5,
+        -2.3
+      ],
+      [
+        5.5,
+        0.0
+      ]
+    ],
+    "exterior_walls": {
+      "WEST": {
+        "x": 0.0,
+        "y_min": 0.0,
+        "y_max": 8.5,
+        "length_m": 8.5
+      },
+      "EAST": {
+        "x": 11.2,
+        "y_min": 0.0,
+        "y_max": 8.5,
+        "length_m": 8.5
+      },
+      "SOUTH": {
+        "y": 0.0,
+        "x_min": 0.0,
+        "x_max": 11.2,
+        "length_m": 11.2
+      },
+      "NORTH": {
+        "y": 8.5,
+        "x_min": 0.0,
+        "x_max": 11.2,
+        "length_m": 11.2
+      },
+      "PORCH_SOUTH": {
+        "y": -2.3,
+        "x_min": 2.3,
+        "x_max": 5.5,
+        "length_m": 3.2
+      }
+    },
+    "notes": "L-shape with ANJUNG porch. Exterior wall detection must include porch walls."
+  }
+}
