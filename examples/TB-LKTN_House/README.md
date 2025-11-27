@@ -7,7 +7,7 @@ Example project for the TB-LKTN House residential design.
 ```
 TB-LKTN_House/
 ├── README.md                  # This file
-├── TB-LKTN HOUSE.pdf         # Source PDF (gitignored: *.pdf)
+├── TB-LKTN HOUSE.pdf         # Source PDF (included in repo for testing)
 └── output/                    # ALL outputs from this PDF (gitignored: examples/*/output/)
     ├── *.json                 # JSON outputs
     ├── *.db                   # Database files
@@ -19,9 +19,9 @@ TB-LKTN_House/
 
 ## What Goes Where
 
-### Input (gitignored)
+### Input (included in repo)
 - `TB-LKTN HOUSE.pdf` - Source PDF for testing
-  - Place PDF in this folder
+  - **Included in repository** so users can run examples
   - Pipeline reads from here
 
 ### All Outputs (gitignored)

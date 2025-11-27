@@ -84,4 +84,8 @@ input_templates/*.dxf
 
 # Exception: Keep small example outputs
 !output_artifacts/README.md
+
+# Exception: Keep example PDFs for users to test
+!examples/**/*.pdf
+
 staging/
