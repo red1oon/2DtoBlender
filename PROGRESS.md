@@ -2,6 +2,22 @@
 
 ## Latest Update: 2025-11-28
 
+### Single Working Tree Consolidated ✅
+
+**All development now happens in ONE location:**
+`/home/red1/Documents/bonsai/2DtoBlender/`
+
+- ✅ output_artifacts/ - Pipeline outputs (gitignored)
+- ✅ staging/experts/ - Expert collaboration files (gitignored)
+- ✅ venv/ - Python environment (gitignored)
+- ✅ Everything in one tree for easy finding
+
+**Expert Request Generated:**
+- `staging/experts/request.txt` - Complete Blender output diagnostic
+- 68x scale error analysis
+- Pipeline gap identification
+- Recommended fixes
+
 ### Examples Structure Finalized ✅
 
 **Crystal Clear Concept**: One PDF → One output/ folder with everything it generates
