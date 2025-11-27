@@ -1,5 +1,11 @@
 # Database files (too large for git)
 Ifc_Object_Library.db
+*.db
+DatabaseFiles/*.db
+LocalLibrary/*.db
+
+# Exception: Keep small template databases
+!LocalLibrary/room_templates.json
 
 # Python cache
 __pycache__/
@@ -20,4 +26,12 @@ ENV/
 # IDE
 .vscode/
 .idea/
+
+# Output artifacts (generated files)
+output_artifacts/*.db
+output_artifacts/*.json
 output_artifacts/last_run_backup/
+output_artifacts/*.blend
+
+# Exception: Keep README in output_artifacts
+!output_artifacts/README.md
