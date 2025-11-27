@@ -103,14 +103,14 @@ echo "📦 STEP 0C: Creating fresh annotation database from PDF..."
 echo "--------------------------------------------------------------------------------"
 echo "   Source: $PDF_FILE"
 echo "   Database: $DB_PATH"
-PYTHONPATH="$PWD:$PYTHONPATH" venv/bin/python core/primitive_extractor_enhanced.py "$PDF_FILE" "$DB_PATH"
+PYTHONPATH="$PWD:$PYTHONPATH" venv/bin/python src/core/primitive_extractor_enhanced.py "$PDF_FILE" "$DB_PATH"
 echo "   ✅ Database created fresh"
 echo ""
 
 # Step 1: Extract from PDF
 echo "📖 STEP 1: Extracting from PDF..."
 echo "--------------------------------------------------------------------------------"
-PYTHONPATH="$PWD:$PYTHONPATH" venv/bin/python core/extraction_engine.py "$PDF_FILE"
+PYTHONPATH="$PWD:$PYTHONPATH" venv/bin/python src/core/extraction_engine.py "$PDF_FILE"
 
 # Find the latest extraction output
 EXTRACTION_OUTPUT=$(ls -t output_artifacts/${PDF_BASENAME}_OUTPUT_*.json | grep -v AUGMENTED | grep -v FINAL | head -1)
@@ -126,7 +126,7 @@ echo ""
 # Step 2: Augment with templates + Run all automated fixes
 echo "🏠 STEP 2: Augmenting with room templates + Automated fixes..."
 echo "--------------------------------------------------------------------------------"
-venv/bin/python room_inference/integrate_room_templates.py "$EXTRACTION_OUTPUT"
+PYTHONPATH="$PWD/src:$PYTHONPATH" venv/bin/python src/room_inference/integrate_room_templates.py "$EXTRACTION_OUTPUT"
 
 # Find the final output
 FINAL_OUTPUT=$(ls -t output_artifacts/*_FINAL.json | head -1)
