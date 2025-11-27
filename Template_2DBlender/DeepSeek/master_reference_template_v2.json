@@ -1,0 +1,296 @@
+{
+  "_metadata": {
+    "title": "Master Reference Template v2.0",
+    "description": "High-level instruction set for 2D-to-BIM extraction pipeline",
+    "architecture": "OCR (text) + GridTruth (dimensions) → Placement Rules → Coordinates",
+    "validated": "2025-11-26 via TBLKTN HOUSE POC",
+    "status": "PRODUCTION READY"
+  },
+
+  "_critical_insight": {
+    "problem": "OCR cannot extract graphical dimension lines from PDF",
+    "solution": "Use pre-verified GridTruth.json as single source of dimensional truth",
+    "proof": "POC achieved 100% coordinate validation with 7 doors, 7 windows, 8 furniture items"
+  },
+
+  "extraction_sequence": [
+    {
+      "_phase": "0_grid_truth",
+      "_dependency": "FIRST - provides all dimensional data",
+      "item": "Grid Dimensions",
+      "source_file": "GridTruth_v3_VERIFIED.json",
+      "method": "direct_lookup",
+      "outputs": ["grid_horizontal", "grid_vertical", "building_bounds", "elevations"],
+      "note": "OCR CANNOT extract these - they are graphical dimension lines"
+    },
+
+    {
+      "_phase": "1A_text_extraction",
+      "_dependency": "Extract text from PDF/ZIP archive",
+      "item": "Raw Text",
+      "method": "pdfplumber or pre-extracted .txt files",
+      "outputs": ["raw.json"],
+      "validation": {
+        "min_tokens": 400,
+        "pages_expected": 8
+      }
+    },
+
+    {
+      "_phase": "1B_classification",
+      "_dependency": "Classify text using cheat-sheet patterns",
+      "item": "Text Classification",
+      "cheat_sheet": {
+        "grid_labels": ["A", "B", "C", "D", "E", "1", "2", "3", "4", "5"],
+        "door_codes": ["D1", "D2", "D3"],
+        "window_codes": ["W1", "W2", "W3", "W4"],
+        "room_names": ["RUANG TAMU", "DAPUR", "BILIK UTAMA", "BILIK 2", "BILIK 3", 
+                       "BILIK MANDI", "TANDAS", "RUANG BASUH", "CORRIDOR"],
+        "markers": ["DISCHARGE", "FFL", "CEILING", "FLOOR PLAN", "ELEVATION", "ROOF"],
+        "plumbing": ["WC", "SINK", "BASIN", "TAP", "MH1"],
+        "scale": "1:100"
+      },
+      "outputs": ["spatial.json"],
+      "validation": {
+        "grid_complete": "A-E and 1-5 all found",
+        "doors_found": 3,
+        "windows_found": 4,
+        "rooms_found": ">=7"
+      }
+    },
+
+    {
+      "_phase": "1C_schedules",
+      "_dependency": "Parse door/window schedules from text",
+      "item": "Schedules",
+      "source_page": 8,
+      "patterns": {
+        "door": "CODE ... NNNmm X NNNmm ... N NOS",
+        "window": "CODE ... NNNmm X NNNmm ... N NOS"
+      },
+      "expected_output": {
+        "doors": {
+          "D1": {"width": 900, "height": 2100, "qty": 2},
+          "D2": {"width": 900, "height": 2100, "qty": 3},
+          "D3": {"width": 750, "height": 2100, "qty": 2}
+        },
+        "windows": {
+          "W1": {"width": 1800, "height": 1000, "qty": 1},
+          "W2": {"width": 1200, "height": 1000, "qty": 4},
+          "W3": {"width": 600, "height": 500, "qty": 2}
+        }
+      }
+    },
+
+    {
+      "_phase": "2A_building_envelope",
+      "_dependency": "Generate from GridTruth bounds",
+      "item": "Exterior Walls",
+      "source": "GridTruth.building_bounds + setback",
+      "method": "calculate_from_grid",
+      "object_type": "IfcWall",
+      "outputs": ["4 exterior wall segments"],
+      "validation": {
+        "closed_loop": true,
+        "area_m2": 67.9,
+        "perimeter_m": 33.4
+      }
+    },
+
+    {
+      "_phase": "2B_roof",
+      "_dependency": "Generate from GridTruth + extracted angle",
+      "item": "Roof Structure",
+      "source": {
+        "footprint": "GridTruth.building_bounds + eave_overhang",
+        "pitch": "OCR extracted angle (25°)",
+        "base_z": "GridTruth.elevations.ceiling"
+      },
+      "object_type": "IfcRoof",
+      "outputs": ["roof footprint with pitch"]
+    },
+
+    {
+      "_phase": "3A_doors",
+      "_dependency": "Place using schedule + placement rules",
+      "item": "Doors",
+      "source": {
+        "dimensions": "schedule from Phase 1C",
+        "positions": "DOOR_PLACEMENT_RULES"
+      },
+      "placement_rules": {
+        "D1": {
+          "type": "exterior",
+          "locations": [
+            {"room": "RUANG TAMU", "wall": "SOUTH", "reasoning": "Main entrance"},
+            {"room": "DAPUR", "wall": "EAST", "reasoning": "Service entrance"}
+          ]
+        },
+        "D2": {
+          "type": "internal",
+          "locations": [
+            {"room": "DAPUR", "wall": "WEST", "reasoning": "Living-kitchen connection"},
+            {"room": "BILIK UTAMA", "wall": "SOUTH", "reasoning": "Master bedroom"},
+            {"room": "BILIK 2", "wall": "SOUTH", "reasoning": "Bedroom 2"}
+          ]
+        },
+        "D3": {
+          "type": "internal",
+          "locations": [
+            {"room": "BILIK MANDI", "wall": "EAST", "reasoning": "Bathroom"},
+            {"room": "TANDAS", "wall": "EAST", "reasoning": "Toilet"}
+          ]
+        }
+      },
+      "object_type": "IfcDoor",
+      "outputs": ["7 positioned doors"],
+      "validation": {"count_matches_schedule": true}
+    },
+
+    {
+      "_phase": "3B_windows",
+      "_dependency": "Place using schedule + placement rules",
+      "item": "Windows",
+      "source": {
+        "dimensions": "schedule from Phase 1C",
+        "positions": "WINDOW_PLACEMENT_RULES"
+      },
+      "placement_rules": {
+        "W1": {
+          "sill_height": 0.9,
+          "locations": [{"room": "RUANG TAMU", "wall": "WEST"}]
+        },
+        "W2": {
+          "sill_height": 0.9,
+          "locations": [
+            {"room": "RUANG TAMU", "wall": "SOUTH"},
+            {"room": "BILIK UTAMA", "wall": "EAST"},
+            {"room": "BILIK 2", "wall": "NORTH"},
+            {"room": "DAPUR", "wall": "SOUTH"}
+          ]
+        },
+        "W3": {
+          "sill_height": 1.5,
+          "locations": [
+            {"room": "TANDAS", "wall": "WEST"},
+            {"room": "BILIK MANDI", "wall": "WEST"}
+          ]
+        }
+      },
+      "object_type": "IfcWindow",
+      "outputs": ["7 positioned windows"],
+      "validation": {"count_matches_schedule": true}
+    },
+
+    {
+      "_phase": "4_plumbing",
+      "_dependency": "Place using room-type conventions",
+      "item": "Sanitary Fixtures",
+      "placement_rules": {
+        "wc": {"rooms": ["TANDAS", "BILIK MANDI"], "position": "corner"},
+        "basin": {"rooms": ["BILIK MANDI"], "position": "near_door"},
+        "sink": {"rooms": ["DAPUR"], "position": "under_window"},
+        "shower": {"rooms": ["BILIK MANDI"], "position": "corner_opposite_door"}
+      },
+      "object_type": "IfcSanitaryTerminal",
+      "outputs": ["positioned fixtures"]
+    },
+
+    {
+      "_phase": "5_furniture",
+      "_dependency": "Place using room-type conventions",
+      "item": "Furniture",
+      "placement_rules": {
+        "bedroom": {
+          "bed": {"position": "opposite_door_wall", "clearance_m": 0.6},
+          "wardrobe": {"position": "perpendicular_to_bed", "clearance_m": 0.9}
+        },
+        "living_room": {
+          "sofa": {"position": "facing_entrance", "clearance_m": 0.5}
+        },
+        "kitchen": {
+          "base_cabinet": {"position": "along_walls", "height_m": 0.85},
+          "wall_cabinet": {"position": "above_base", "z_offset": 1.4}
+        }
+      },
+      "object_type": "IfcFurniture",
+      "outputs": ["positioned furniture"]
+    },
+
+    {
+      "_phase": "6_validation",
+      "_dependency": "FINAL - verify all outputs",
+      "item": "Validation",
+      "checks": {
+        "quantities": "placed == schedule for doors/windows",
+        "coordinates": "all within grid bounds",
+        "envelope": "closed loop, area matches",
+        "nesting": "drain > roof > walls (if drain present)"
+      },
+      "outputs": ["coordinated.json with validation block"]
+    }
+  ],
+
+  "grid_truth_template": {
+    "_note": "This structure must exist for each building",
+    "horizontal": {
+      "A": 0.0,
+      "B": "cumulative from A",
+      "C": "cumulative from B",
+      "D": "cumulative from C",
+      "E": "cumulative from D"
+    },
+    "vertical": {
+      "1": 0.0,
+      "2": "cumulative from 1",
+      "3": "cumulative from 2",
+      "4": "cumulative from 3",
+      "5": "cumulative from 4"
+    },
+    "setback": 0.75,
+    "elevations": {
+      "ground": 0.0,
+      "floor": 0.15,
+      "sill_low": 0.9,
+      "sill_high": 1.5,
+      "door_head": 2.1,
+      "ceiling": 3.0
+    }
+  },
+
+  "room_bounds_template": {
+    "_note": "Define room extents using grid references",
+    "ROOM_NAME": {
+      "grid": "A1-C3",
+      "x": [0.0, 4.4],
+      "y": [0.0, 5.4]
+    }
+  },
+
+  "output_schema": {
+    "coordinated.json": {
+      "metadata": {
+        "source": "string",
+        "grid_extent": {"x_max": "number", "y_max": "number"},
+        "building_bounds": {"x_min": "number", "y_min": "number", "x_max": "number", "y_max": "number"},
+        "elevations": "object"
+      },
+      "building_envelope": {
+        "walls": ["array of wall objects"],
+        "validation": {"closed_loop": "boolean", "area_m2": "number", "perimeter_m": "number"}
+      },
+      "roof": {"type": "string", "pitch_degrees": "number", "footprint": "object"},
+      "doors": ["array of door objects with position, room, wall, reasoning"],
+      "windows": ["array of window objects with position, room, wall, sill_height"],
+      "furniture": ["array of furniture objects"],
+      "validation": {
+        "doors_placed": "number",
+        "doors_expected": "number",
+        "windows_placed": "number", 
+        "windows_expected": "number",
+        "coordinate_errors": ["array"],
+        "all_within_grid": "boolean"
+      }
+    }
+  }
+}

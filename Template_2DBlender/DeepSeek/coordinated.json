@@ -1,0 +1,465 @@
+{
+  "metadata": {
+    "source": "GridTruth_v3 + OCR extraction",
+    "pipeline_version": "1.0",
+    "grid_extent": {
+      "x_max": 11.2,
+      "y_max": 8.5
+    },
+    "building_bounds": {
+      "x_min": 0.75,
+      "y_min": 0.75,
+      "x_max": 10.45,
+      "y_max": 7.75
+    },
+    "elevations": {
+      "ground": 0.0,
+      "floor": 0.15,
+      "sill_high": 1.5,
+      "sill_low": 0.9,
+      "door_head": 2.1,
+      "ceiling": 3.0
+    }
+  },
+  "building_envelope": {
+    "walls": [
+      {
+        "id": "WALL_SOUTH",
+        "start": [
+          0.75,
+          0.75
+        ],
+        "end": [
+          10.45,
+          0.75
+        ],
+        "length_m": 9.7,
+        "height_m": 3.0,
+        "type": "exterior"
+      },
+      {
+        "id": "WALL_EAST",
+        "start": [
+          10.45,
+          0.75
+        ],
+        "end": [
+          10.45,
+          7.75
+        ],
+        "length_m": 7.0,
+        "height_m": 3.0,
+        "type": "exterior"
+      },
+      {
+        "id": "WALL_NORTH",
+        "start": [
+          10.45,
+          7.75
+        ],
+        "end": [
+          0.75,
+          7.75
+        ],
+        "length_m": 9.7,
+        "height_m": 3.0,
+        "type": "exterior"
+      },
+      {
+        "id": "WALL_WEST",
+        "start": [
+          0.75,
+          7.75
+        ],
+        "end": [
+          0.75,
+          0.75
+        ],
+        "length_m": 7.0,
+        "height_m": 3.0,
+        "type": "exterior"
+      }
+    ],
+    "validation": {
+      "closed_loop": true,
+      "perimeter_m": 33.4,
+      "area_m2": 67.9,
+      "within_grid": true
+    }
+  },
+  "roof": {
+    "type": "gable",
+    "pitch_degrees": 25,
+    "base_z": 3.0,
+    "eave_overhang": 0.3,
+    "footprint": {
+      "x_min": 0.45,
+      "y_min": 0.45,
+      "x_max": 10.75,
+      "y_max": 8.05
+    },
+    "ridge_direction": "east_west",
+    "reasoning": "Standard Malaysian residential roof with 25\u00b0 pitch"
+  },
+  "doors": [
+    {
+      "id": "D1_1",
+      "type": "D1",
+      "ifc_class": "IfcDoor",
+      "width_m": 0.9,
+      "height_m": 2.1,
+      "position": {
+        "x": 2.2,
+        "y": 0.75,
+        "z": 0.15
+      },
+      "wall": "SOUTH",
+      "room": "RUANG TAMU",
+      "door_type": "exterior",
+      "reasoning": "Main entrance at south facade"
+    },
+    {
+      "id": "D1_2",
+      "type": "D1",
+      "ifc_class": "IfcDoor",
+      "width_m": 0.9,
+      "height_m": 2.1,
+      "position": {
+        "x": 10.45,
+        "y": 4.65,
+        "z": 0.15
+      },
+      "wall": "EAST",
+      "room": "DAPUR",
+      "door_type": "exterior",
+      "reasoning": "Kitchen service entrance"
+    },
+    {
+      "id": "D2_1",
+      "type": "D2",
+      "ifc_class": "IfcDoor",
+      "width_m": 0.9,
+      "height_m": 2.1,
+      "position": {
+        "x": 4.4,
+        "y": 4.65,
+        "z": 0.15
+      },
+      "wall": "WEST",
+      "room": "DAPUR",
+      "door_type": "internal",
+      "reasoning": "Connects living room to kitchen"
+    },
+    {
+      "id": "D2_2",
+      "type": "D2",
+      "ifc_class": "IfcDoor",
+      "width_m": 0.9,
+      "height_m": 2.1,
+      "position": {
+        "x": 9.65,
+        "y": 7.0,
+        "z": 0.15
+      },
+      "wall": "SOUTH",
+      "room": "BILIK UTAMA",
+      "door_type": "internal",
+      "reasoning": "Master bedroom from corridor"
+    },
+    {
+      "id": "D2_3",
+      "type": "D2",
+      "ifc_class": "IfcDoor",
+      "width_m": 0.9,
+      "height_m": 2.1,
+      "position": {
+        "x": 4.7,
+        "y": 7.0,
+        "z": 0.15
+      },
+      "wall": "SOUTH",
+      "room": "BILIK 2",
+      "door_type": "internal",
+      "reasoning": "Bedroom 2 from corridor"
+    },
+    {
+      "id": "D3_1",
+      "type": "D3",
+      "ifc_class": "IfcDoor",
+      "width_m": 1.8,
+      "height_m": 1.0,
+      "position": {
+        "x": 1.3,
+        "y": 6.2,
+        "z": 0.15
+      },
+      "wall": "EAST",
+      "room": "BILIK MANDI",
+      "door_type": "internal",
+      "reasoning": "Bathroom door from corridor"
+    },
+    {
+      "id": "D3_2",
+      "type": "D3",
+      "ifc_class": "IfcDoor",
+      "width_m": 1.8,
+      "height_m": 1.0,
+      "position": {
+        "x": 1.3,
+        "y": 7.75,
+        "z": 0.15
+      },
+      "wall": "EAST",
+      "room": "TANDAS",
+      "door_type": "internal",
+      "reasoning": "Toilet door from corridor"
+    }
+  ],
+  "windows": [
+    {
+      "id": "W1_1",
+      "type": "W1",
+      "ifc_class": "IfcWindow",
+      "width_m": 1.8,
+      "height_m": 1.0,
+      "position": {
+        "x": 0.75,
+        "y": 2.7,
+        "z": 0.9
+      },
+      "wall": "WEST",
+      "room": "RUANG TAMU",
+      "sill_height": 0.9,
+      "reasoning": "Main window in living room"
+    },
+    {
+      "id": "W2_1",
+      "type": "W2",
+      "ifc_class": "IfcWindow",
+      "width_m": 1.2,
+      "height_m": 1.0,
+      "position": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 0.9
+      },
+      "wall": "SOUTH",
+      "room": "RUANG TAMU",
+      "sill_height": 0.9,
+      "reasoning": "Front window beside entrance"
+    },
+    {
+      "id": "W2_2",
+      "type": "W2",
+      "ifc_class": "IfcWindow",
+      "width_m": 1.2,
+      "height_m": 1.0,
+      "position": {
+        "x": 10.45,
+        "y": 7.75,
+        "z": 0.9
+      },
+      "wall": "EAST",
+      "room": "BILIK UTAMA",
+      "sill_height": 0.9,
+      "reasoning": "Master bedroom window"
+    },
+    {
+      "id": "W2_3",
+      "type": "W2",
+      "ifc_class": "IfcWindow",
+      "width_m": 1.2,
+      "height_m": 1.0,
+      "position": {
+        "x": 4.7,
+        "y": 7.75,
+        "z": 0.9
+      },
+      "wall": "NORTH",
+      "room": "BILIK 2",
+      "sill_height": 0.9,
+      "reasoning": "Bedroom 2 window"
+    },
+    {
+      "id": "W2_4",
+      "type": "W2",
+      "ifc_class": "IfcWindow",
+      "width_m": 1.2,
+      "height_m": 1.0,
+      "position": {
+        "x": 7.8,
+        "y": 2.3,
+        "z": 0.9
+      },
+      "wall": "SOUTH",
+      "room": "DAPUR",
+      "sill_height": 0.9,
+      "reasoning": "Kitchen window"
+    },
+    {
+      "id": "W3_1",
+      "type": "W3",
+      "ifc_class": "IfcWindow",
+      "width_m": 0.6,
+      "height_m": 0.5,
+      "position": {
+        "x": 0.75,
+        "y": 7.75,
+        "z": 1.5
+      },
+      "wall": "WEST",
+      "room": "TANDAS",
+      "sill_height": 1.5,
+      "reasoning": "Toilet ventilation window"
+    },
+    {
+      "id": "W3_2",
+      "type": "W3",
+      "ifc_class": "IfcWindow",
+      "width_m": 0.6,
+      "height_m": 0.5,
+      "position": {
+        "x": 0.75,
+        "y": 6.2,
+        "z": 1.5
+      },
+      "wall": "WEST",
+      "room": "BILIK MANDI",
+      "sill_height": 1.5,
+      "reasoning": "Bathroom ventilation window"
+    }
+  ],
+  "furniture": [
+    {
+      "id": "BED_BILIK_UTAMA",
+      "type": "bed_queen",
+      "ifc_class": "IfcFurniture",
+      "width_m": 1.5,
+      "length_m": 2.0,
+      "height_m": 0.5,
+      "position": {
+        "x": 9.65,
+        "y": 7.5,
+        "z": 0.15
+      },
+      "room": "BILIK UTAMA",
+      "reasoning": "Bed placed against wall opposite door"
+    },
+    {
+      "id": "WARDROBE_BILIK_UTAMA",
+      "type": "wardrobe_double",
+      "ifc_class": "IfcFurniture",
+      "width_m": 1.2,
+      "depth_m": 0.6,
+      "height_m": 2.0,
+      "position": {
+        "x": 10.9,
+        "y": 7.75,
+        "z": 0.15
+      },
+      "room": "BILIK UTAMA",
+      "reasoning": "Wardrobe along wall perpendicular to bed"
+    },
+    {
+      "id": "BED_BILIK_2",
+      "type": "bed_single",
+      "ifc_class": "IfcFurniture",
+      "width_m": 0.9,
+      "length_m": 2.0,
+      "height_m": 0.5,
+      "position": {
+        "x": 4.7,
+        "y": 7.5,
+        "z": 0.15
+      },
+      "room": "BILIK 2",
+      "reasoning": "Bed placed against wall opposite door"
+    },
+    {
+      "id": "WARDROBE_BILIK_2",
+      "type": "wardrobe_double",
+      "ifc_class": "IfcFurniture",
+      "width_m": 1.2,
+      "depth_m": 0.6,
+      "height_m": 2.0,
+      "position": {
+        "x": 7.8,
+        "y": 7.75,
+        "z": 0.15
+      },
+      "room": "BILIK 2",
+      "reasoning": "Wardrobe along wall perpendicular to bed"
+    },
+    {
+      "id": "SOFA_RUANG_TAMU",
+      "type": "sofa_3seater",
+      "ifc_class": "IfcFurniture",
+      "width_m": 2.0,
+      "depth_m": 0.9,
+      "height_m": 0.85,
+      "position": {
+        "x": 2.2,
+        "y": 4.2,
+        "z": 0.15
+      },
+      "room": "RUANG TAMU",
+      "reasoning": "Sofa facing main entrance"
+    },
+    {
+      "id": "SINK_DAPUR",
+      "type": "kitchen_sink",
+      "ifc_class": "IfcSanitaryTerminal",
+      "width_m": 1.0,
+      "depth_m": 0.6,
+      "height_m": 0.85,
+      "position": {
+        "x": 7.8,
+        "y": 2.6,
+        "z": 0.85
+      },
+      "room": "DAPUR",
+      "reasoning": "Sink under south window for natural light"
+    },
+    {
+      "id": "WC_BILIK_MANDI",
+      "type": "wc_floor_mounted",
+      "ifc_class": "IfcSanitaryTerminal",
+      "width_m": 0.4,
+      "depth_m": 0.7,
+      "height_m": 0.4,
+      "position": {
+        "x": 0.5,
+        "y": 6.5,
+        "z": 0.15
+      },
+      "room": "BILIK MANDI",
+      "reasoning": "WC in corner for privacy"
+    },
+    {
+      "id": "WC_TANDAS",
+      "type": "wc_floor_mounted",
+      "ifc_class": "IfcSanitaryTerminal",
+      "width_m": 0.4,
+      "depth_m": 0.7,
+      "height_m": 0.4,
+      "position": {
+        "x": 0.5,
+        "y": 8.0,
+        "z": 0.15
+      },
+      "room": "TANDAS",
+      "reasoning": "WC in corner for privacy"
+    }
+  ],
+  "validation": {
+    "doors_placed": 7,
+    "doors_expected": 7,
+    "doors_match": true,
+    "windows_placed": 7,
+    "windows_expected": 7,
+    "windows_match": true,
+    "furniture_count": 8,
+    "coordinate_errors": [],
+    "all_within_grid": true
+  }
+}
