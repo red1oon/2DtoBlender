@@ -236,16 +236,17 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                             print(f"    ⚠️  Wall extraction failed: {str(e)}")
                             extraction_context['walls'] = []
 
-                        # Calibration succeeded - now generate drain objects via GridTruth
+                        # Calibration succeeded - now generate drain objects via Annotations DB
                         # (calibration is just coord transform metadata, we need actual drain objects)
                         if object_type and item.get('mandatory', False):
-                            print(f"    📍 Generating discharge drain objects from GridTruth...")
+                            print(f"    📍 Generating discharge drain objects from Annotations DB...")
                             try:
                                 from gridtruth_generator import generate_item as gridtruth_generate
-                                pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
-                                grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+                                from pathlib import Path
+                                pdf_basename = Path(pdf_path).stem.replace(' ', '_')
+                                annotation_db_path = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-                                drain_objects = gridtruth_generate(item, grid_truth_path, extraction_context)
+                                drain_objects = gridtruth_generate(item, context=extraction_context, annotation_db_path=str(annotation_db_path))
                                 if drain_objects:
                                     for obj in drain_objects:
                                         obj['_phase'] = phase
@@ -253,7 +254,7 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                                         # [FIFTH-D] Apply IFC properties at creation (ONE LINE)
                                         obj.update(naming_layer.get_properties(obj.get('object_type', '')))
                                         objects.append(obj)
-                                    print(f"    ✅ Generated {len(drain_objects)} discharge drains from GridTruth")
+                                    print(f"    ✅ Generated {len(drain_objects)} discharge drains from Annotations DB")
                             except Exception as e:
                                 print(f"    ⚠️  Drain generation failed: {str(e)}")
 
@@ -320,14 +321,15 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
 
                         if is_mandatory:
                             print(f"    ✅ Extracted successfully (metadata only)")
-                            print(f"    ⚠️  No objects created (object_type=null) - trying GridTruth fallback (MANDATORY)")
+                            print(f"    ⚠️  No objects created (object_type=null) - trying Annotations DB fallback (MANDATORY)")
 
                             try:
                                 from gridtruth_generator import generate_item as gridtruth_generate
-                                pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
-                                grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+                                from pathlib import Path
+                                pdf_basename = Path(pdf_path).stem.replace(' ', '_')
+                                annotation_db_path = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-                                generated_objects = gridtruth_generate(item, grid_truth_path, extraction_context)
+                                generated_objects = gridtruth_generate(item, context=extraction_context, annotation_db_path=str(annotation_db_path))
 
                                 if generated_objects:
                                     for obj in generated_objects:
@@ -336,11 +338,11 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                                         # [FIFTH-D] Apply IFC properties at creation (ONE LINE)
                                         obj.update(naming_layer.get_properties(obj.get('object_type', '')))
                                         objects.append(obj)
-                                    print(f"    ✅ GridTruth fallback SUCCESS: {len(generated_objects)} items generated")
+                                    print(f"    ✅ Annotations DB fallback SUCCESS: {len(generated_objects)} items generated")
                                 else:
-                                    print(f"    ⚠️  GridTruth fallback returned no objects")
+                                    print(f"    ⚠️  Annotations DB fallback returned no objects")
                             except Exception as e:
-                                print(f"    ⚠️  GridTruth fallback failed: {str(e)}")
+                                print(f"    ⚠️  Annotations DB fallback failed: {str(e)}")
                         else:
                             print(f"    ✅ Extracted successfully (metadata only)")
                 else:
@@ -349,25 +351,26 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                     is_mandatory = item.get('mandatory', False)
 
                     if is_mandatory:
-                        # Mandatory item failed PDF extraction - try GridTruth fallback
-                        print(f"    ⚠️  PDF extraction failed - trying GridTruth fallback (MANDATORY)")
+                        # Mandatory item failed PDF extraction - try Annotations DB fallback
+                        print(f"    ⚠️  PDF extraction failed - trying Annotations DB fallback (MANDATORY)")
 
                         try:
                             from gridtruth_generator import generate_item as gridtruth_generate
+                            from pathlib import Path
 
-                            # Determine GridTruth path from PDF location
-                            pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
-                            grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+                            # Determine Annotation DB path from PDF location
+                            pdf_basename = Path(pdf_path).stem.replace(' ', '_')
+                            annotation_db_path = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-                            # Try to generate from GridTruth (pass context for door_schedule, etc.)
-                            generated_objects = gridtruth_generate(item, grid_truth_path, extraction_context)
+                            # Try to generate from Annotations DB (pass context for door_schedule, etc.)
+                            generated_objects = gridtruth_generate(item, context=extraction_context, annotation_db_path=str(annotation_db_path))
 
                             if generated_objects:
                                 # Success! Add to output
                                 objects.extend(generated_objects)
-                                print(f"    ✅ GridTruth fallback SUCCESS: {len(generated_objects)} items generated")
+                                print(f"    ✅ Annotations DB fallback SUCCESS: {len(generated_objects)} items generated")
                             else:
-                                # Both PDF and GridTruth failed for mandatory item
+                                # Both PDF and Annotations DB failed for mandatory item
                                 error_msg = (
                                     f"\n{'='*80}\n"
                                     f"❌ PIPELINE FAILURE: MANDATORY ITEM NOT FULFILLED\n"
@@ -377,11 +380,11 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                                     f"Phase: {item.get('_phase', 'unknown')}\n"
                                     f"\n"
                                     f"  • PDF extraction: FAILED (not found)\n"
-                                    f"  • GridTruth fallback: FAILED (cannot generate)\n"
+                                    f"  • Annotations DB fallback: FAILED (cannot generate)\n"
                                     f"\n"
                                     f"Action required:\n"
-                                    f"  1. Verify GridTruth.json exists at: {grid_truth_path}\n"
-                                    f"  2. Verify GridTruth has required sections (room_bounds, building_envelope)\n"
+                                    f"  1. Verify Annotations DB exists at: {annotation_db_path}\n"
+                                    f"  2. Verify DB has required primitives (text, lines, rects)\n"
                                     f"  3. Verify template item is correctly marked as mandatory\n"
                                     f"{'='*80}\n"
                                 )
@@ -389,7 +392,7 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                         except ImportError:
                             raise RuntimeError("gridtruth_generator module not found - cannot fallback")
                         except Exception as e:
-                            raise RuntimeError(f"GridTruth fallback failed: {str(e)}")
+                            raise RuntimeError(f"Annotations DB fallback failed: {str(e)}")
                     else:
                         # Optional item - just log and skip
                         if object_type and 'lod300' in object_type.lower():
@@ -526,42 +529,43 @@ if __name__ == "__main__":
 
     pdf_path = sys.argv[1]
 
-    # [THIRD-D] Load building dimensions from GridTruth.json (Rule 0: expert-verified source)
-    # GridTruth contains expert-verified dimensions from PDF dimension annotations
-    building_width = 9.8   # Fallback default (overridden by GridTruth if available)
-    building_length = 8.0  # Fallback default (overridden by GridTruth if available)
-    building_height = 3.0  # Fallback default (overridden by GridTruth if available)
+    # [THIRD-D] Derive building dimensions from Annotations DB (Rule 0: extracted from PDF)
+    # Replaces manual GridTruth.json with automated derivation
+    building_width = 9.7   # Fallback default (overridden by derived data if available)
+    building_length = 7.0  # Fallback default (overridden by derived data if available)
+    building_height = 3.0  # Fallback default (overridden by derived data if available)
 
     try:
-        # Look for GridTruth.json in same directory as PDF
-        pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
-        grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+        # Construct annotation database path from PDF filename
+        from pathlib import Path
+        pdf_path_obj = Path(pdf_path)
+        pdf_basename = pdf_path_obj.stem.replace(' ', '_')
 
-        if os.path.exists(grid_truth_path):
-            with open(grid_truth_path, 'r') as f:
-                grid_truth = json.load(f)
+        # Check in output_artifacts/ (standard location)
+        annotation_db = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-            # [THIRD-D] Extract building envelope dimensions (WHERE)
-            envelope = grid_truth.get('building_envelope', {})
-            elevations = grid_truth.get('elevations', {})
+        if annotation_db.exists():
+            from src.core.annotation_derivation import derive_building_envelope, derive_elevations
 
-            if envelope:
-                # Use expert-verified dimensions from GridTruth
-                building_width = envelope.get('width', building_width)
-                building_length = envelope.get('depth', building_length)
-                print(f"📐 [THIRD-D] Loaded building dimensions from GridTruth.json:")
-                print(f"   Width: {building_width}m, Depth: {building_length}m")
+            # Derive building envelope from annotations
+            envelope = derive_building_envelope(str(annotation_db))
+            elevations = derive_elevations(str(annotation_db))
 
-            if elevations:
-                building_height = elevations.get('ceiling', building_height)
-                print(f"   Height: {building_height}m (from elevations.ceiling)")
+            # Extract dimensions
+            building_width = envelope.get('width', building_width)
+            building_length = envelope.get('depth', building_length)
+            building_height = elevations.get('ceiling', building_height)
+
+            print(f"📐 [THIRD-D] Derived building dimensions from Annotations DB:")
+            print(f"   Width: {building_width}m, Depth: {building_length}m")
+            print(f"   Height: {building_height}m (from elevations.ceiling)")
         else:
-            print(f"⚠️  GridTruth.json not found - using hardcoded defaults (Rule 0 warning)")
-            print(f"   Expected: {grid_truth_path}")
+            print(f"⚠️  Annotation DB not found - using defaults")
+            print(f"   Expected: {annotation_db}")
 
     except Exception as e:
-        print(f"⚠️  Could not load GridTruth.json: {e}")
-        print(f"   Using hardcoded defaults (Rule 0 warning)")
+        print(f"⚠️  Could not derive dimensions from Annotations DB: {e}")
+        print(f"   Using defaults")
 
     output_path = None
 

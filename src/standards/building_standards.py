@@ -243,6 +243,7 @@ STANDARD_OBJECT_DIMENSIONS = {
     # Plumbing
     'toilet': ObjectDimensions(0.4, 0.6, 0.4),
     'basin': ObjectDimensions(0.5, 0.4, 0.2),
+    'shower': ObjectDimensions(0.3, 0.3, 0.2),  # Showerhead fixture (not shower area)
     'shower_area': ObjectDimensions(0.9, 0.9, 2.2),
     'kitchen_sink': ObjectDimensions(0.6, 0.5, 0.2),
 

@@ -181,29 +181,97 @@ def apply_furniture_template(room, template_data):
     furniture_set = template_data.get('furniture_set', {})
     bounds = room['bounds']
     center = room['center']
+    room_width = bounds['max_x'] - bounds['min_x']
 
-    for item_name, item_spec in furniture_set.items():
-        library_obj = item_spec.get('library_object')
-        if not library_obj:
-            continue
+    # Two-pass approach: first pass for independent items, second pass for dependent items
+    # This ensures base_cabinets are generated before wall_cabinets that depend on them
+    for pass_num in [1, 2]:
+        for item_name, item_spec in furniture_set.items():
+            quantity_formula = item_spec.get('quantity_formula', '')
+            is_dependent = 'match_' in str(quantity_formula)
 
-        quantity = item_spec.get('quantity', 1)
-        placement_rule = item_spec.get('placement_rule', 'center')
+            # Pass 1: non-dependent items, Pass 2: dependent items
+            if pass_num == 1 and is_dependent:
+                continue
+            if pass_num == 2 and not is_dependent:
+                continue
 
-        # Apply placement rule
-        for i in range(quantity):
-            position = calculate_position(placement_rule, bounds, center, i, item_spec)
+            library_obj = item_spec.get('library_object')
+            library_pattern = item_spec.get('library_object_pattern')
 
-            objects.append({
-                'name': f"{room['name']}_{item_name}_{i+1}",
-                'object_type': map_to_library_name(library_obj),
-                'position': position,
-                'orientation': 90.0,  # Default, will be refined by wall detection
-                'room': room['name'],
-                'placed': False,
-                '_phase': '6_furniture',
-                'source': 'template_inference'
-            })
+            # Handle pattern-based objects (e.g., kitchen cabinets with widths)
+            if library_pattern and not library_obj:
+                widths = item_spec.get('widths', [900])  # Default to 900mm if not specified
+                quantity_formula = item_spec.get('quantity_formula', 'fit_to_counter_length')
+
+                # Calculate how many cabinets to generate
+                cabinets_to_generate = []
+
+                if quantity_formula == 'fit_to_counter_length':
+                    # Assume 60% of room width is counter space
+                    counter_length = room_width * 0.6
+                    remaining = counter_length
+
+                    # Fit cabinets (prefer 900mm, fill gaps with 600mm)
+                    for width_mm in sorted(widths, reverse=True):
+                        width_m = width_mm / 1000
+                        while remaining >= width_m:
+                            cabinets_to_generate.append(width_mm)
+                            remaining -= width_m
+
+                elif quantity_formula == 'match_base_cabinets':
+                    # Match previously generated base cabinets
+                    base_cabinets = [obj for obj in objects if 'base_cabinet' in obj['name']]
+                    for bc in base_cabinets:
+                        # Extract width from base cabinet object_type (e.g., kitchen_base_cabinet_900_lod300)
+                        bc_type = bc['object_type']
+                        if '_600_' in bc_type:
+                            cabinets_to_generate.append(600)
+                        elif '_900_' in bc_type:
+                            cabinets_to_generate.append(900)
+                        else:
+                            cabinets_to_generate.append(900)  # Default
+
+                # Generate cabinet objects
+                for i, width_mm in enumerate(cabinets_to_generate):
+                    cabinet_obj = {
+                        'name': f"{room['name']}_{item_name}_{i+1}",
+                        'object_type': library_pattern.format(width=width_mm),
+                        'position': calculate_position(
+                            item_spec.get('placement_rule', 'linear_along_wall'),
+                            bounds, center, i, item_spec
+                        ),
+                        'orientation': 90.0,
+                        'room': room['name'],
+                        'placed': False,
+                        '_phase': '6_furniture',
+                        'source': 'template_inference'
+                    }
+                    objects.append(cabinet_obj)
+
+                continue
+
+            # Handle regular library_object
+            if not library_obj:
+                continue
+
+            quantity = item_spec.get('quantity', 1)
+            placement_rule = item_spec.get('placement_rule', 'center')
+
+            # Apply placement rule
+            for i in range(quantity):
+                position = calculate_position(placement_rule, bounds, center, i, item_spec)
+
+                objects.append({
+                    'name': f"{room['name']}_{item_name}_{i+1}",
+                    'object_type': map_to_library_name(library_obj),
+                    'position': position,
+                    'orientation': 90.0,  # Default, will be refined by wall detection
+                    'room': room['name'],
+                    'placed': False,
+                    '_phase': '6_furniture',
+                    'source': 'template_inference'
+                })
 
     return objects
 
@@ -391,6 +459,47 @@ def apply_plumbing_template(room, template_name):
             'standards_compliant': True
         })
 
+    elif 'toilet' in template_name:
+        # Toilet room (smaller than bathroom, usually only has toilet + basin)
+        try:
+            result = engine.place_fixture('toilet', bounds, existing_objects, preferred_wall='south')
+            toilet_obj = {
+                'name': f"{room['name']}_toilet",
+                'object_type': 'floor_mounted_toilet_lod300',
+                'position': result.position,
+                'orientation': 180.0,
+                'room': room['name'],
+                'placed': True,
+                '_phase': '4_plumbing',
+                'source': 'template_inference',
+                'standards_compliant': True
+            }
+            objects.append(toilet_obj)
+            existing_objects.append(toilet_obj)
+        except (MSViolation, RoomTooSmallError, CollisionError) as e:
+            print(f"⚠️  Cannot place toilet in {room['name']}: {e}")
+
+        # Place basin (wall-mounted to save space)
+        try:
+            result = engine.place_fixture('basin', bounds, existing_objects, preferred_wall='east')
+            basin_height = MS_1184_HEIGHTS['basin_rim'].height
+
+            basin_obj = {
+                'name': f"{room['name']}_basin",
+                'object_type': 'basin_wall_mounted',  # Wall-mounted for small toilets
+                'position': [result.position[0], result.position[1], basin_height],
+                'orientation': 270.0,
+                'room': room['name'],
+                'placed': True,
+                '_phase': '4_plumbing',
+                'source': 'template_inference',
+                'standards_compliant': True
+            }
+            objects.append(basin_obj)
+            existing_objects.append(basin_obj)
+        except (MSViolation, RoomTooSmallError, CollisionError) as e:
+            print(f"⚠️  Cannot place basin in {room['name']}: {e}")
+
     elif 'kitchen' in template_name:
         # Place kitchen sink with MS 1184 clearances
         try:
@@ -472,6 +581,22 @@ def calculate_position(placement_rule, bounds, center, index, spec):
     elif placement_rule == 'against_wall':
         return [center[0], bounds['max_y'] - 0.5, height]
 
+    elif placement_rule == 'linear_along_wall' or placement_rule == 'above_base_cabinets':
+        # Space cabinets along wall (for kitchen cabinets)
+        # Assume cabinets are 0.9m wide (900mm), place along north wall
+        cabinet_width = 0.9  # meters
+        spacing = 0.05  # 50mm gap between cabinets
+        room_width = bounds['max_x'] - bounds['min_x']
+
+        # Start from left side of room
+        start_x = bounds['min_x'] + cabinet_width / 2
+        x_pos = start_x + index * (cabinet_width + spacing)
+
+        # Along north wall (max_y)
+        y_pos = bounds['max_y'] - 0.3  # 300mm from wall
+
+        return [x_pos, y_pos, height]
+
     else:
         return [center[0], center[1], height]
 
@@ -502,9 +627,62 @@ def augment_with_room_templates(extraction_output):
         'height': 3.0
     })
 
-    # Detect rooms
-    rooms = detect_rooms_simple(building_dims)
-    print(f"✅ Detected {len(rooms)} rooms")
+    # Use real extracted room bounds instead of fake percentage-based detection
+    # Import annotation derivation to get real room bounds from PDF extraction
+    import sys
+    from pathlib import Path as P
+    sys.path.insert(0, str(P(__file__).parent.parent))
+    from core.annotation_derivation import derive_room_bounds
+
+    # Get annotation DB path from metadata
+    pdf_source = metadata.get('pdf_source', 'examples/TB-LKTN_House/TB-LKTN HOUSE.pdf')
+    pdf_basename = Path(pdf_source).stem.replace(' ', '_')
+    annotation_db = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
+
+    # Derive real room bounds from annotations
+    real_room_bounds = derive_room_bounds(str(annotation_db))
+
+    # Map Malaysian room names to templates
+    room_template_mapping = {
+        'RUANG_TAMU': 'living_room',
+        'RUANG_MAKAN': 'living_room',  # Dining area (part of living room template)
+        'DAPUR': 'kitchen',
+        'BILIK_UTAMA': 'bedroom_master',
+        'BILIK_2': 'bedroom_standard',
+        'BILIK_3': 'bedroom_standard',
+        'BILIK_MANDI': 'bathroom',
+        'TANDAS': 'toilet',
+        'RUANG_BASUH': 'utility_room'
+    }
+
+    # Convert real bounds to room format expected by template system
+    rooms = []
+    for room_name, bounds in real_room_bounds.items():
+        if room_name not in room_template_mapping:
+            continue  # Skip rooms without template mapping
+
+        template_name = room_template_mapping[room_name]
+
+        # Convert bounds to expected format
+        width = bounds['x_max'] - bounds['x_min']
+        depth = bounds['y_max'] - bounds['y_min']
+        center_x = (bounds['x_min'] + bounds['x_max']) / 2
+        center_y = (bounds['y_min'] + bounds['y_max']) / 2
+
+        rooms.append({
+            'name': room_name.lower(),
+            'template': template_name,
+            'bounds': {
+                'min_x': bounds['x_min'],
+                'max_x': bounds['x_max'],
+                'min_y': bounds['y_min'],
+                'max_y': bounds['y_max']
+            },
+            'center': [center_x, center_y],
+            'area': width * depth
+        })
+
+    print(f"✅ Using {len(rooms)} real extracted rooms (not percentage-based)")
 
     # Keep existing text-extracted objects
     existing_objects = extraction_output.get('objects', [])

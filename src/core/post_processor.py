@@ -35,6 +35,7 @@ Bugs fixed:
 
 import json
 import math
+import os
 from pathlib import Path
 
 # Expert-verified grid coordinates from TB-LKTN HOUSE.pdf (Section 2.2)
@@ -691,18 +692,17 @@ def assign_doors_to_rooms(objects):
         'anjung': 'porch'
     }
 
-    # Load GridTruth room bounds
+    # Derive room bounds from Annotations DB
     try:
-        import os
-        # Find GridTruth.json (assume same directory as TB-LKTN HOUSE.pdf)
-        grid_truth_path = Path(__file__).parent.parent.parent / 'examples' / 'TB-LKTN_House' / 'GridTruth.json'
+        # Find annotation database (standard location)
+        annotation_db = Path('output_artifacts/TB-LKTN_HOUSE_ANNOTATION_FROM_2D.db')
 
-        if grid_truth_path.exists():
-            with open(grid_truth_path) as f:
-                grid_truth = json.load(f)
-                room_bounds = grid_truth.get('room_bounds', {})
+        if annotation_db.exists():
+            from src.core.annotation_derivation import derive_room_bounds
+            room_bounds = derive_room_bounds(str(annotation_db))
         else:
-            # Fallback: use hardcoded bounds from GridTruth
+            # Fallback: use validated default bounds
+            print(f"   ⚠️  Annotation DB not found, using default room bounds")
             room_bounds = {
                 'RUANG_TAMU': {'x_min': 0.0, 'x_max': 4.4, 'y_min': 0.0, 'y_max': 5.4},
                 'DAPUR': {'x_min': 4.4, 'x_max': 11.2, 'y_min': 2.3, 'y_max': 7.0},
@@ -714,7 +714,7 @@ def assign_doors_to_rooms(objects):
                 'CORRIDOR': {'x_min': 1.3, 'x_max': 4.4, 'y_min': 5.4, 'y_max': 7.0}
             }
     except Exception as e:
-        print(f"   ⚠️  Could not load GridTruth, using fallback room bounds")
+        print(f"   ⚠️  Could not derive room bounds: {e}")
         room_bounds = {}
 
     fixed_count = 0
@@ -1297,6 +1297,22 @@ def automated_post_process(extraction_output, master_template_path):
     # Update summary
     final_count = len(objects)
     extraction_output['summary']['total_objects'] = final_count
+
+    # [FIFTH-D] Apply IFC naming layer to ALL objects (including merged walls)
+    print("\n🔧 Fix 16: Applying FIFTH-D IFC classification to all objects...")
+    from src.core.ifc_naming_util import IfcNamingLayer
+    naming_layer_path = os.path.join(os.path.dirname(__file__), 'ifc_naming_layer.json')
+    naming_layer = IfcNamingLayer(naming_layer_path)
+
+    ifc_applied_count = 0
+    for obj in objects:
+        object_type = obj.get('object_type', '')
+        if object_type and not obj.get('ifc_class'):  # Only if missing IFC class
+            props = naming_layer.get_properties(object_type)
+            obj.update(props)
+            ifc_applied_count += 1
+
+    print(f"   🏷️  Applied IFC properties to {ifc_applied_count} objects")
 
     print("\n" + "="*80)
     print(f"✅ POST-PROCESSING COMPLETE")

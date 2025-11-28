@@ -36,24 +36,53 @@ class BuildingCanvas:
     [THIRD-D] Uses GridTruth as the validation space for all objects.
     """
 
-    def __init__(self, gridtruth_path: str, validation_rules_path: str):
+    def __init__(self, gridtruth_path: str = None, validation_rules_path: str = None, annotation_db_path: str = None):
         """
         Initialize the 3D canvas with validation rules.
 
         Args:
-            gridtruth_path: Path to GridTruth.json
+            gridtruth_path: Path to GridTruth.json (DEPRECATED - for compatibility)
             validation_rules_path: Path to validation_rules.json
+            annotation_db_path: Path to annotations DB (preferred, Rule 0 compliant)
         """
-        # Load GridTruth (defines the space)
-        with open(gridtruth_path, 'r') as f:
-            self.gridtruth = json.load(f)
+        # Load spatial data
+        if annotation_db_path:
+            # Rule 0 compliant: derive from annotations
+            from src.core.annotation_derivation import (
+                derive_building_envelope,
+                derive_room_bounds,
+                derive_elevations,
+                derive_grid_positions
+            )
+            envelope = derive_building_envelope(annotation_db_path)
+            rooms = derive_room_bounds(annotation_db_path)
+            elevations = derive_elevations(annotation_db_path)
+            grid_h, grid_v = derive_grid_positions(annotation_db_path)
+
+            # Build gridtruth-compatible structure
+            self.gridtruth = {
+                'building_envelope': envelope,
+                'room_bounds': rooms,
+                'elevations': elevations,
+                'grid_horizontal': grid_h,
+                'grid_vertical': grid_v
+            }
+        elif gridtruth_path:
+            # Legacy: load from GridTruth.json
+            with open(gridtruth_path, 'r') as f:
+                self.gridtruth = json.load(f)
+        else:
+            raise ValueError("Must provide either annotation_db_path or gridtruth_path")
 
         # Load validation rules (defines the checks)
-        with open(validation_rules_path, 'r') as f:
-            self.rules = json.load(f)
+        if validation_rules_path:
+            with open(validation_rules_path, 'r') as f:
+                self.rules = json.load(f)
+        else:
+            self.rules = {}
 
-        # Extract building envelope
-        self.envelope = self.gridtruth['building_envelope']
+        # Extract building components
+        self.envelope = self.gridtruth.get('building_envelope', {})
         self.rooms = self.gridtruth.get('room_bounds', {})
         self.elevations = self.gridtruth.get('elevations', {})
 
