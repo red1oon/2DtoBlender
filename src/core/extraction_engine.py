@@ -2,263 +2,29 @@
 """
 Extraction Engine - Class-Based Architecture for 2D to Blender BIM
 
-Modular, maintainable, testable classes for PDF extraction
+Orchestrator for PDF extraction pipeline.
+Imports modular components from separate files.
 """
 
 import math
 import re
 from datetime import datetime
 
+# Import modular components
+from src.core.calibration import CalibrationEngine
+from src.core.geometry_validator import GeometryValidator
+
 
 # =============================================================================
-# CALIBRATION ENGINE
+# WALL DETECTOR
 # =============================================================================
 
-class CalibrationEngine:
-    """
-    Drain perimeter calibration for precise coordinate transformation
-
-    Accuracy: 95% (eliminates 17.6% scale error)
-    """
-
-    def __init__(self, pdf, building_width, building_length):
-        self.pdf = pdf
-        self.building_width = building_width
-        self.building_length = building_length
-        self.calibration = None
-
-    def extract_drain_perimeter(self, page_number=6):
-        """
-        Extract drain perimeter from discharge plan
-
-        Args:
-            page_number: 0-indexed page (default: 6 = Page 7)
-
-        Returns:
-            dict: {scale_x, scale_y, offset_x, offset_y, confidence}
-        """
-        # ERROR HANDLING: Check if page exists
-        try:
-            page = self.pdf.pages[page_number]
-        except IndexError:
-            print(f"⚠️  Page {page_number} not found, using default calibration")
-            return self._default_calibration()
-
-        lines = page.lines
-
-        # ERROR HANDLING: Check if sufficient line data
-        if not lines or len(lines) < 10:
-            print(f"⚠️  Insufficient line data on page {page_number} ({len(lines) if lines else 0} lines), using default")
-            return self._default_calibration()
-
-        # Extract bounding box
-        all_x = [coord for line in lines for coord in [line['x0'], line['x1']]]
-        all_y = [coord for line in lines for coord in [line['y0'], line['y1']]]
-
-        pdf_min_x, pdf_max_x = min(all_x), max(all_x)
-        pdf_min_y, pdf_max_y = min(all_y), max(all_y)
-
-        # Calculate scale
-        pdf_width = pdf_max_x - pdf_min_x
-        pdf_height = pdf_max_y - pdf_min_y
-
-        scale_x = self.building_width / pdf_width
-        scale_y = self.building_length / pdf_height
-
-        # Verify scale consistency
-        scale_diff = abs(scale_x - scale_y) / scale_x * 100
-        confidence = 95 if scale_diff < 5 else 85
-
-        self.calibration = {
-            'scale_x': scale_x,
-            'scale_y': scale_y,
-            'offset_x': pdf_min_x,
-            'offset_y': pdf_min_y,
-            'method': 'drain_perimeter',
-            'confidence': confidence,
-            'pdf_bounds': {
-                'min_x': pdf_min_x, 'max_x': pdf_max_x,
-                'min_y': pdf_min_y, 'max_y': pdf_max_y
-            }
-        }
-
-        return self.calibration
-
-    def transform_to_building(self, pdf_x, pdf_y):
-        """
-        Transform PDF coordinates to building coordinates
-
-        Args:
-            pdf_x, pdf_y: Coordinates in PDF points
-
-        Returns:
-            tuple: (building_x, building_y) in meters
-        """
-        if not self.calibration:
-            raise ValueError("Calibration not performed. Call extract_drain_perimeter() first.")
-
-        building_x = (pdf_x - self.calibration['offset_x']) * self.calibration['scale_x']
-        building_y = (pdf_y - self.calibration['offset_y']) * self.calibration['scale_y']
-
-        return (building_x, building_y)
-
-    def _default_calibration(self):
-        """Default calibration based on typical A3 drawing scale"""
-        # Typical scale for A3 architectural drawings (1:100 at A3 size)
-        typical_scale = 0.0353
-        return {
-            'scale_x': typical_scale,
-            'scale_y': typical_scale,
-            'offset_x': 50.0,
-            'offset_y': 50.0,
-            'method': 'default_fallback',
-            'confidence': 60,  # Lower confidence for defaults
-            'pdf_bounds': {
-                'min_x': 0, 'max_x': 800,
-                'min_y': 0, 'max_y': 600
-            }
-        }
-
+# NOTE: CalibrationEngine and GeometryValidator moved to separate modules
+# Keeping wall detection classes here temporarily (to be refactored next)
 
 # =============================================================================
 # GEOMETRY VALIDATOR
 # =============================================================================
-
-class GeometryValidator:
-    """
-    Validate extracted geometry for physical plausibility
-
-    Ensures walls and openings conform to building standards
-    """
-
-    def __init__(self, building_dims):
-        self.building_width = building_dims['width']
-        self.building_length = building_dims['length']
-
-    def validate_wall(self, wall):
-        """
-        Validate wall geometry
-
-        Args:
-            wall: Wall dict with start_point, end_point, length, thickness
-
-        Returns:
-            list: Warning messages (non-critical issues)
-
-        Raises:
-            ValueError: If wall geometry is invalid
-        """
-        warnings = []
-
-        # Check 1: Minimum wall length
-        if wall['length'] < 0.3:
-            raise ValueError(
-                f"Wall {wall['wall_id']} too short: {wall['length']:.2f}m "
-                f"(minimum 0.3m for structural wall)"
-            )
-
-        # Check 2: Maximum wall length (sanity check)
-        max_length = max(self.building_width, self.building_length) * 1.5
-        if wall['length'] > max_length:
-            warnings.append(
-                f"Wall {wall['wall_id']} unusually long: {wall['length']:.2f}m "
-                f"(building max dimension: {max_length:.2f}m)"
-            )
-
-        # Check 3: Wall thickness range
-        if wall['thickness'] < 0.05:
-            raise ValueError(
-                f"Wall {wall['wall_id']} too thin: {wall['thickness']:.2f}m "
-                f"(minimum 50mm)"
-            )
-        if wall['thickness'] > 0.5:
-            warnings.append(
-                f"Wall {wall['wall_id']} very thick: {wall['thickness']:.2f}m "
-                f"(typical: 100-200mm)"
-            )
-
-        # Check 4: Zero-length wall (start == end)
-        dx = wall['end_point'][0] - wall['start_point'][0]
-        dy = wall['end_point'][1] - wall['start_point'][1]
-        if abs(dx) < 0.01 and abs(dy) < 0.01:
-            raise ValueError(
-                f"Wall {wall['wall_id']} has zero length (start == end point)"
-            )
-
-        # Check 5: Wall within building bounds
-        for point in [wall['start_point'], wall['end_point']]:
-            if not self._point_in_bounds(point):
-                warnings.append(
-                    f"Wall {wall['wall_id']} extends outside building bounds: "
-                    f"({point[0]:.2f}, {point[1]:.2f})"
-                )
-
-        return warnings
-
-    def validate_opening(self, opening, opening_type='door'):
-        """
-        Validate door/window dimensions
-
-        Args:
-            opening: Opening dict with width, height, position
-            opening_type: 'door' or 'window'
-
-        Returns:
-            list: Warning messages
-
-        Raises:
-            ValueError: If opening dimensions are invalid
-        """
-        warnings = []
-
-        # Typical ranges (Malaysian UBBL standards)
-        if opening_type == 'door':
-            min_width, max_width = 0.6, 1.2  # 600mm to 1200mm
-            min_height, max_height = 2.0, 2.4  # 2000mm to 2400mm
-        else:  # window
-            min_width, max_width = 0.3, 3.0  # 300mm to 3000mm
-            min_height, max_height = 0.3, 2.0  # 300mm to 2000mm
-
-        # Check width
-        if opening['width'] < min_width:
-            raise ValueError(
-                f"{opening_type.title()} {opening.get('door_type', opening.get('window_type'))} "
-                f"too narrow: {opening['width']:.2f}m (min: {min_width}m)"
-            )
-        if opening['width'] > max_width:
-            warnings.append(
-                f"{opening_type.title()} {opening.get('door_type', opening.get('window_type'))} "
-                f"very wide: {opening['width']:.2f}m (typical max: {max_width}m)"
-            )
-
-        # Check height
-        if opening['height'] < min_height:
-            warnings.append(
-                f"{opening_type.title()} height unusually low: {opening['height']:.2f}m"
-            )
-        if opening['height'] > max_height:
-            warnings.append(
-                f"{opening_type.title()} height unusually high: {opening['height']:.2f}m"
-            )
-
-        # Check position
-        pos = opening['position']
-        if not self._point_in_bounds(pos):
-            warnings.append(
-                f"{opening_type.title()} position outside building: "
-                f"({pos[0]:.2f}, {pos[1]:.2f})"
-            )
-
-        return warnings
-
-    def _point_in_bounds(self, point, margin=1.0):
-        """Check if point is within building bounds with margin"""
-        x, y = point[0], point[1]
-        return (
-            -margin <= x <= self.building_width + margin and
-            -margin <= y <= self.building_length + margin
-        )
-
 
 # =============================================================================
 # WALL DETECTOR
