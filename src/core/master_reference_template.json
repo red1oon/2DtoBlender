@@ -228,7 +228,7 @@
         "D5"
       ],
       "pages": [
-        0
+        1
       ],
       "_note": "Page 1 in PDF = index 0. object_type is fallback only - actual type derived from schedule dimensions (900mm\u2192door_single_900_lod300, 750mm\u2192door_single_750x2100_lod300)",
       "mandatory": true
@@ -245,7 +245,7 @@
         "W5"
       ],
       "pages": [
-        0
+        1
       ],
       "_note": "Page 1 in PDF = index 0. object_type is fallback only - actual type derived from schedule dimensions (1800x1000\u21923panel, 1200x1000\u21922panel, 600x500\u2192tophung)",
       "mandatory": false

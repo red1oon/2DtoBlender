@@ -329,7 +329,14 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                                 pdf_basename = Path(pdf_path).stem.replace(' ', '_')
                                 annotation_db_path = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-                                generated_objects = gridtruth_generate(item, context=extraction_context, annotation_db_path=str(annotation_db_path))
+                                # Get GridTruth.json path (same directory as PDF)
+                                pdf_dir = Path(pdf_path).parent
+                                gridtruth_path = pdf_dir / 'GridTruth.json'
+
+                                generated_objects = gridtruth_generate(item,
+                                                                      grid_truth_path=str(gridtruth_path) if gridtruth_path.exists() else None,
+                                                                      context=extraction_context,
+                                                                      annotation_db_path=str(annotation_db_path))
 
                                 if generated_objects:
                                     for obj in generated_objects:
@@ -362,8 +369,15 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                             pdf_basename = Path(pdf_path).stem.replace(' ', '_')
                             annotation_db_path = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-                            # Try to generate from Annotations DB (pass context for door_schedule, etc.)
-                            generated_objects = gridtruth_generate(item, context=extraction_context, annotation_db_path=str(annotation_db_path))
+                            # Get GridTruth.json path (same directory as PDF)
+                            pdf_dir = Path(pdf_path).parent
+                            gridtruth_path = pdf_dir / 'GridTruth.json'
+
+                            # Try to generate from GridTruth.json (preferred) or Annotations DB (fallback)
+                            generated_objects = gridtruth_generate(item,
+                                                                  grid_truth_path=str(gridtruth_path) if gridtruth_path.exists() else None,
+                                                                  context=extraction_context,
+                                                                  annotation_db_path=str(annotation_db_path))
 
                             if generated_objects:
                                 # Success! Add to output

@@ -635,20 +635,31 @@ def augment_with_room_templates(extraction_output):
         'height': 3.0
     })
 
-    # Use real extracted room bounds instead of fake percentage-based detection
-    # Import annotation derivation to get real room bounds from PDF extraction
+    # Use GridTruth.json room bounds (verified dimensions)
+    # Fallback to wall-based derivation only if GridTruth not available
     import sys
     from pathlib import Path as P
     sys.path.insert(0, str(P(__file__).parent.parent))
-    from core.annotation_derivation import derive_room_bounds
 
-    # Get annotation DB path from metadata
+    # Get PDF directory to find GridTruth.json
     pdf_source = metadata.get('pdf_source', 'examples/TB-LKTN_House/TB-LKTN HOUSE.pdf')
-    pdf_basename = Path(pdf_source).stem.replace(' ', '_')
-    annotation_db = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
+    pdf_dir = Path(pdf_source).parent if Path(pdf_source).exists() else Path('examples/TB-LKTN_House')
+    gridtruth_path = pdf_dir / 'GridTruth.json'
 
-    # Derive real room bounds from annotations
-    real_room_bounds = derive_room_bounds(str(annotation_db))
+    # Load room bounds from GridTruth.json (preferred - verified dimensions)
+    if gridtruth_path.exists():
+        import json
+        with open(gridtruth_path, 'r') as f:
+            gridtruth = json.load(f)
+        real_room_bounds = gridtruth.get('room_bounds', {})
+        print(f"✅ Using GridTruth.json room bounds: {len(real_room_bounds)} rooms")
+    else:
+        # Fallback to wall-based derivation (less accurate)
+        from core.annotation_derivation import derive_room_bounds
+        pdf_basename = Path(pdf_source).stem.replace(' ', '_')
+        annotation_db = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
+        real_room_bounds = derive_room_bounds(str(annotation_db))
+        print(f"⚠️  GridTruth.json not found, using wall-based derivation: {len(real_room_bounds)} rooms")
 
     # Map Malaysian room names to templates
     room_template_mapping = {

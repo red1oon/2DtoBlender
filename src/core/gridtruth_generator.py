@@ -246,20 +246,27 @@ def generate_walls(grid_truth_path=None, annotation_db_path=None):
     Returns:
         list: Wall objects with position, end_point, thickness
     """
-    # Get room bounds from appropriate source
-    if annotation_db_path:
-        from src.core.annotation_derivation import derive_room_bounds
-        room_bounds = derive_room_bounds(annotation_db_path)
-    elif grid_truth_path:
+    # Get room bounds from GridTruth.json (preferred) or wall-based derivation (fallback)
+    room_bounds = {}
+
+    if grid_truth_path and Path(grid_truth_path).exists():
+        # Preferred: Use GridTruth.json (manually verified dimensions)
         try:
             with open(grid_truth_path) as f:
                 grid_truth = json.load(f)
             room_bounds = grid_truth.get('room_bounds', {})
-        except FileNotFoundError:
-            print(f"⚠️  GridTruth not found: {grid_truth_path}")
-            return []
-    else:
-        print("⚠️  No spatial data source provided")
+            print(f"    ✅ Using GridTruth.json room bounds for door placement")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"    ⚠️  Error loading GridTruth: {e}")
+
+    # Fallback to wall-based derivation if GridTruth not available
+    if not room_bounds and annotation_db_path:
+        from src.core.annotation_derivation import derive_room_bounds
+        room_bounds = derive_room_bounds(annotation_db_path)
+        print(f"    ⚠️  GridTruth.json not found, using wall-based room detection for doors")
+
+    if not room_bounds:
+        print("    ⚠️  No spatial data source provided - cannot generate doors")
         return []
 
     if not room_bounds:
@@ -541,20 +548,27 @@ def generate_doors(grid_truth_path=None, door_schedule=None, annotation_db_path=
     Returns:
         list: Door objects with positions inferred from room boundaries
     """
-    # Get room bounds from appropriate source
-    if annotation_db_path:
-        from src.core.annotation_derivation import derive_room_bounds
-        room_bounds = derive_room_bounds(annotation_db_path)
-    elif grid_truth_path:
+    # Get room bounds from GridTruth.json (preferred) or wall-based derivation (fallback)
+    room_bounds = {}
+
+    if grid_truth_path and Path(grid_truth_path).exists():
+        # Preferred: Use GridTruth.json (manually verified dimensions)
         try:
             with open(grid_truth_path) as f:
                 grid_truth = json.load(f)
             room_bounds = grid_truth.get('room_bounds', {})
-        except FileNotFoundError:
-            print(f"⚠️  GridTruth not found: {grid_truth_path}")
-            return []
-    else:
-        print("⚠️  No spatial data source provided")
+            print(f"    ✅ Using GridTruth.json room bounds for door placement")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"    ⚠️  Error loading GridTruth: {e}")
+
+    # Fallback to wall-based derivation if GridTruth not available
+    if not room_bounds and annotation_db_path:
+        from src.core.annotation_derivation import derive_room_bounds
+        room_bounds = derive_room_bounds(annotation_db_path)
+        print(f"    ⚠️  GridTruth.json not found, using wall-based room detection for doors")
+
+    if not room_bounds:
+        print("    ⚠️  No spatial data source provided - cannot generate doors")
         return []
 
     if not room_bounds:
