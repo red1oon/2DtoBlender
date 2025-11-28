@@ -184,7 +184,17 @@
       ],
       "object_type": "external_porch_canopy",
       "parametric": true,
-      "mandatory": true
+      "mandatory": true,
+      "placement_zone": "envelope_front",
+      "height_rule": "door_head",
+      "extent_rule": "parametric",
+      "parametric_defaults": {
+        "width": 2.0,
+        "depth": 1.2,
+        "thickness": 0.1
+      },
+      "centered": true,
+      "default_room": "exterior"
     },
     {
       "_phase": "1C_walls",
