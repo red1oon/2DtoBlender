@@ -170,8 +170,12 @@ class BuildingCanvas:
 
         # Structural elements use grid bounds, not envelope bounds
         if is_structural:
-            grid_x_max = self.gridtruth.get('grid_horizontal', {}).get('E', 11.2)
-            grid_y_max = self.gridtruth.get('grid_vertical', {}).get('5', 8.5)
+            try:
+                grid_x_max = self.gridtruth['grid_horizontal']['E']
+                grid_y_max = self.gridtruth['grid_vertical']['5']
+            except KeyError as e:
+                self.error(f"{name}: Grid data incomplete - {e}")
+                return False
 
             # Check X bounds against grid
             if x < -0.1 or x > grid_x_max + 0.1:

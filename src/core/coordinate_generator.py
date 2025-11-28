@@ -94,13 +94,21 @@ class CoordinateGenerator:
                 self.window_detections = vector_data.get('windows', [])
                 self.grid_detections = vector_data.get('grids', [])
                 self.metadata = vector_data.get('metadata', {})
-                # Get calibration: pixels_per_meter
-                self.px_per_m = self.metadata.get('pixels_per_meter', 118.11)
+
+                # Get calibration: pixels_per_meter (Rule 0: No fallback)
+                if 'pixels_per_meter' not in self.metadata:
+                    raise ValueError(
+                        f"pixels_per_meter not found in {vector_file}\n"
+                        f"Cannot calibrate coordinate conversion without scale data.\n"
+                        f"Rule 0 violation: No hardcoded fallbacks allowed."
+                    )
+                self.px_per_m = self.metadata['pixels_per_meter']
         else:
-            self.wall_detections = []
-            self.window_detections = []
-            self.grid_detections = []
-            self.px_per_m = 118.11  # Default from PROGRESS.md
+            raise FileNotFoundError(
+                f"Vector detection file not found: {vector_file}\n"
+                f"Cannot generate coordinates without vector data.\n"
+                f"Rule 0 violation: No hardcoded fallbacks allowed."
+            )
 
         # Calculate origin offset from grid circles or walls
         self._calculate_origin_offset()

@@ -692,30 +692,19 @@ def assign_doors_to_rooms(objects):
         'anjung': 'porch'
     }
 
-    # Derive room bounds from Annotations DB
-    try:
-        # Find annotation database (standard location)
-        annotation_db = Path('output_artifacts/TB-LKTN_HOUSE_ANNOTATION_FROM_2D.db')
+    # Derive room bounds from Annotations DB (Rule 0: No fallbacks)
+    # Find annotation database (standard location)
+    annotation_db = Path('output_artifacts/TB-LKTN_HOUSE_ANNOTATION_FROM_2D.db')
 
-        if annotation_db.exists():
-            from src.core.annotation_derivation import derive_room_bounds
-            room_bounds = derive_room_bounds(str(annotation_db))
-        else:
-            # Fallback: use validated default bounds
-            print(f"   ⚠️  Annotation DB not found, using default room bounds")
-            room_bounds = {
-                'RUANG_TAMU': {'x_min': 0.0, 'x_max': 4.4, 'y_min': 0.0, 'y_max': 5.4},
-                'DAPUR': {'x_min': 4.4, 'x_max': 11.2, 'y_min': 2.3, 'y_max': 7.0},
-                'BILIK_UTAMA': {'x_min': 8.1, 'x_max': 11.2, 'y_min': 7.0, 'y_max': 8.5},
-                'BILIK_2': {'x_min': 1.3, 'x_max': 8.1, 'y_min': 7.0, 'y_max': 8.5},
-                'BILIK_MANDI': {'x_min': 0.0, 'x_max': 1.3, 'y_min': 5.4, 'y_max': 7.0},
-                'TANDAS': {'x_min': 0.0, 'x_max': 1.3, 'y_min': 7.0, 'y_max': 8.5},
-                'RUANG_BASUH': {'x_min': 4.4, 'x_max': 8.1, 'y_min': 5.4, 'y_max': 7.0},
-                'CORRIDOR': {'x_min': 1.3, 'x_max': 4.4, 'y_min': 5.4, 'y_max': 7.0}
-            }
-    except Exception as e:
-        print(f"   ⚠️  Could not derive room bounds: {e}")
-        room_bounds = {}
+    if not annotation_db.exists():
+        raise FileNotFoundError(
+            f"Annotation DB not found: {annotation_db}\n"
+            f"Cannot derive room bounds without source data.\n"
+            f"Rule 0 violation: No hardcoded fallbacks allowed."
+        )
+
+    from src.core.annotation_derivation import derive_room_bounds
+    room_bounds = derive_room_bounds(str(annotation_db))
 
     fixed_count = 0
     for door in doors:

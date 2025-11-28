@@ -104,10 +104,10 @@ class GridTruthGenerator:
             # Front edge (south) - reduced depth for porch canopy
             depth = item.get('parametric_defaults', {}).get('depth', 1.2)
             return {
-                'x_min': self.envelope.get('x_min', 0.0),
-                'x_max': self.envelope.get('x_max', 11.2),
-                'y_min': self.envelope.get('y_min', 0.0),
-                'y_max': self.envelope.get('y_min', 0.0) + depth
+                'x_min': self.envelope['x_min'],
+                'x_max': self.envelope['x_max'],
+                'y_min': self.envelope['y_min'],
+                'y_max': self.envelope['y_min'] + depth
             }
 
         elif placement.startswith('room:'):
@@ -148,10 +148,10 @@ class GridTruthGenerator:
             List of 4 segment objects
         """
         z = self._get_height(height_rule)
-        x_min = self.envelope.get('x_min', 0.0)
-        x_max = self.envelope.get('x_max', 11.2)
-        y_min = self.envelope.get('y_min', 0.0)
-        y_max = self.envelope.get('y_max', 8.5)
+        x_min = self.envelope['x_min']
+        x_max = self.envelope['x_max']
+        y_min = self.envelope['y_min']
+        y_max = self.envelope['y_max']
 
         segments = [
             # South edge
@@ -193,10 +193,10 @@ class GridTruthGenerator:
         Returns:
             Generated object dict
         """
-        x_min = bounds.get('x_min', 0.0)
-        x_max = bounds.get('x_max', 11.2)
-        y_min = bounds.get('y_min', 0.0)
-        y_max = bounds.get('y_max', 8.5)
+        x_min = bounds['x_min']
+        x_max = bounds['x_max']
+        y_min = bounds['y_min']
+        y_max = bounds['y_max']
 
         # Calculate dimensions based on extent rule
         if extent_rule == 'full_envelope':
@@ -351,10 +351,10 @@ def generate_roof(grid_truth_path=None, annotation_db_path=None):
     if not envelope:
         return None
 
-    x_min = envelope.get('x_min', 0.0)
-    x_max = envelope.get('x_max', 11.2)
-    y_min = envelope.get('y_min', 0.0)
-    y_max = envelope.get('y_max', 8.5)
+    x_min = envelope['x_min']
+    x_max = envelope['x_max']
+    y_min = envelope['y_min']
+    y_max = envelope['y_max']
     height = envelope.get('height', 3.0)
 
     roof = {
@@ -394,10 +394,10 @@ def generate_floor_slab(grid_truth_path=None, annotation_db_path=None):
     if not envelope:
         return None
 
-    x_min = envelope.get('x_min', 0.0)
-    x_max = envelope.get('x_max', 11.2)
-    y_min = envelope.get('y_min', 0.0)
-    y_max = envelope.get('y_max', 8.5)
+    x_min = envelope['x_min']
+    x_max = envelope['x_max']
+    y_min = envelope['y_min']
+    y_max = envelope['y_max']
 
     floor = {
         "name": "floor_slab_main",
@@ -436,10 +436,10 @@ def generate_ceiling(grid_truth_path=None, annotation_db_path=None):
     if not envelope:
         return None
 
-    x_min = envelope.get('x_min', 0.0)
-    x_max = envelope.get('x_max', 11.2)
-    y_min = envelope.get('y_min', 0.0)
-    y_max = envelope.get('y_max', 8.5)
+    x_min = envelope['x_min']
+    x_max = envelope['x_max']
+    y_min = envelope['y_min']
+    y_max = envelope['y_max']
     height = envelope.get('height', 3.0)
 
     ceiling = {
@@ -488,10 +488,10 @@ def generate_drains(grid_truth_path=None, annotation_db_path=None):
     if not envelope:
         return []
 
-    x_min = envelope.get('x_min', 0.0)
-    x_max = envelope.get('x_max', 11.2)
-    y_min = envelope.get('y_min', 0.0)
-    y_max = envelope.get('y_max', 8.5)
+    x_min = envelope['x_min']
+    x_max = envelope['x_max']
+    y_min = envelope['y_min']
+    y_max = envelope['y_max']
     height = envelope.get('height', 3.0)
 
     # Generate discharge perimeter (gutter around roof)
