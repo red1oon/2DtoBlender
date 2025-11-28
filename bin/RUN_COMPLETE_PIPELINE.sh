@@ -136,6 +136,19 @@ if [ -z "$FINAL_OUTPUT" ]; then
     exit 1
 fi
 
+echo ""
+echo "🔍 GATE 3: Validating structural completeness..."
+echo "--------------------------------------------------------------------------------"
+PYTHONPATH="$PWD/src:$PYTHONPATH" venv/bin/python src/core/structural_validator.py "$FINAL_OUTPUT"
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ PIPELINE FAILED - Structural validation failed"
+    echo "   Output is structurally incomplete (missing walls/roof/drains)"
+    echo "   Check GridTruth.json has room_bounds and building_envelope"
+    exit 1
+fi
+echo ""
+
 # Cleanup intermediate files (keep only FINAL)
 echo "🧹 Cleaning up intermediate files..."
 TIMESTAMP=$(basename "$FINAL_OUTPUT" | sed 's/.*OUTPUT_\([0-9_]*\)_FINAL.json/\1/')

@@ -1617,6 +1617,25 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                             print(f"    ⚠️  Wall extraction failed: {str(e)}")
                             extraction_context['walls'] = []
 
+                        # Calibration succeeded - now generate drain objects via GridTruth
+                        # (calibration is just coord transform metadata, we need actual drain objects)
+                        if object_type and item.get('mandatory', False):
+                            print(f"    📍 Generating discharge drain objects from GridTruth...")
+                            try:
+                                from gridtruth_generator import generate_item as gridtruth_generate
+                                pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
+                                grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+
+                                drain_objects = gridtruth_generate(item, grid_truth_path, extraction_context)
+                                if drain_objects:
+                                    for obj in drain_objects:
+                                        obj['_phase'] = phase
+                                        obj['placed'] = False
+                                        objects.append(obj)
+                                    print(f"    ✅ Generated {len(drain_objects)} discharge drains from GridTruth")
+                            except Exception as e:
+                                print(f"    ⚠️  Drain generation failed: {str(e)}")
+
                     elif detection_id == "ELEVATION_TEXT_REGEX":
                         # Store elevation data
                         if 'elevations' not in extraction_context:
@@ -1670,20 +1689,93 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
 
                             print(f"    ✅ Found 1 instance")
                     else:
-                        print(f"    ✅ Extracted successfully (metadata only)")
+                        # Result found but no object_type (metadata only, e.g., door labels)
+                        # Check if mandatory - may need GridTruth generation
+                        is_mandatory = item.get('mandatory', False)
+
+                        if is_mandatory:
+                            print(f"    ✅ Extracted successfully (metadata only)")
+                            print(f"    ⚠️  No objects created (object_type=null) - trying GridTruth fallback (MANDATORY)")
+
+                            try:
+                                from gridtruth_generator import generate_item as gridtruth_generate
+                                pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
+                                grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+
+                                generated_objects = gridtruth_generate(item, grid_truth_path, extraction_context)
+
+                                if generated_objects:
+                                    for obj in generated_objects:
+                                        obj['_phase'] = phase
+                                        obj['placed'] = False
+                                        objects.append(obj)
+                                    print(f"    ✅ GridTruth fallback SUCCESS: {len(generated_objects)} items generated")
+                                else:
+                                    print(f"    ⚠️  GridTruth fallback returned no objects")
+                            except Exception as e:
+                                print(f"    ⚠️  GridTruth fallback failed: {str(e)}")
+                        else:
+                            print(f"    ✅ Extracted successfully (metadata only)")
                 else:
-                    # Track LOD300 failures
-                    if object_type and 'lod300' in object_type.lower():
-                        failed_lod300_objects.append({
-                            'item': item_name,
-                            'object_type': object_type,
-                            'detection_id': detection_id,
-                            'search_text': search_text,
-                            'reason': 'Not found in PDF'
-                        })
-                        print(f"    ⚠️  NOT FOUND - LOD300 object missing!")
+                    # TEMPLATE CONTRACT ENFORCEMENT
+                    # Check if this is a mandatory item
+                    is_mandatory = item.get('mandatory', False)
+
+                    if is_mandatory:
+                        # Mandatory item failed PDF extraction - try GridTruth fallback
+                        print(f"    ⚠️  PDF extraction failed - trying GridTruth fallback (MANDATORY)")
+
+                        try:
+                            from gridtruth_generator import generate_item as gridtruth_generate
+
+                            # Determine GridTruth path from PDF location
+                            pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
+                            grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+
+                            # Try to generate from GridTruth (pass context for door_schedule, etc.)
+                            generated_objects = gridtruth_generate(item, grid_truth_path, extraction_context)
+
+                            if generated_objects:
+                                # Success! Add to output
+                                objects.extend(generated_objects)
+                                print(f"    ✅ GridTruth fallback SUCCESS: {len(generated_objects)} items generated")
+                            else:
+                                # Both PDF and GridTruth failed for mandatory item
+                                error_msg = (
+                                    f"\n{'='*80}\n"
+                                    f"❌ PIPELINE FAILURE: MANDATORY ITEM NOT FULFILLED\n"
+                                    f"{'='*80}\n"
+                                    f"Template item: {item_name}\n"
+                                    f"Object type: {object_type}\n"
+                                    f"Phase: {item.get('_phase', 'unknown')}\n"
+                                    f"\n"
+                                    f"  • PDF extraction: FAILED (not found)\n"
+                                    f"  • GridTruth fallback: FAILED (cannot generate)\n"
+                                    f"\n"
+                                    f"Action required:\n"
+                                    f"  1. Verify GridTruth.json exists at: {grid_truth_path}\n"
+                                    f"  2. Verify GridTruth has required sections (room_bounds, building_envelope)\n"
+                                    f"  3. Verify template item is correctly marked as mandatory\n"
+                                    f"{'='*80}\n"
+                                )
+                                raise RuntimeError(error_msg)
+                        except ImportError:
+                            raise RuntimeError("gridtruth_generator module not found - cannot fallback")
+                        except Exception as e:
+                            raise RuntimeError(f"GridTruth fallback failed: {str(e)}")
                     else:
-                        print(f"    ⚠️  Not found - skipping")
+                        # Optional item - just log and skip
+                        if object_type and 'lod300' in object_type.lower():
+                            failed_lod300_objects.append({
+                                'item': item_name,
+                                'object_type': object_type,
+                                'detection_id': detection_id,
+                                'search_text': search_text,
+                                'reason': 'Not found in PDF (optional)'
+                            })
+                            print(f"    ⚠️  Optional item not found - skipping")
+                        else:
+                            print(f"    ⚠️  Not found - skipping")
 
             except Exception as e:
                 # Track LOD300 failures
