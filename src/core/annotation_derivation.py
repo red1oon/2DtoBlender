@@ -359,10 +359,29 @@ def derive_grid_positions(db_path: str) -> Tuple[Dict[str, float], Dict[str, flo
         real_y = (origin_y - pdf_y) * scale_y
         grid_vertical[label] = round(real_y, 2)
 
+    # SANITY CHECKS: Validate building dimensions are reasonable for terrace house
+    grid_width = grid_horizontal.get('E', 0.0) - grid_horizontal.get('A', 0.0)
+    grid_depth = max(grid_vertical.values()) - min(grid_vertical.values())
+
+    if not (3.0 <= grid_width <= 15.0):
+        raise ValueError(
+            f"Grid width {grid_width:.1f}m unreasonable for terrace house (expected 3-15m).\n"
+            f"Likely cause: Wrong dimension matched or wrong grid cluster selected.\n"
+            f"Horizontal grids: {grid_horizontal}"
+        )
+
+    if not (5.0 <= grid_depth <= 20.0):
+        raise ValueError(
+            f"Grid depth {grid_depth:.1f}m unreasonable for terrace house (expected 5-20m).\n"
+            f"Likely cause: Wrong dimension matched or wrong grid cluster selected.\n"
+            f"Vertical grids: {grid_vertical}"
+        )
+
     print(f"✅ Derived grid positions from PDF coordinates + scale calibration")
     print(f"   Horizontal: {grid_horizontal}")
     print(f"   Vertical: {grid_vertical}")
     print(f"   Scale: {scale_x:.6f} m/unit (X), {scale_y:.6f} m/unit (Y)")
+    print(f"   Building size: {grid_width:.1f}m wide × {grid_depth:.1f}m deep")
 
     return (grid_horizontal, grid_vertical)
 
