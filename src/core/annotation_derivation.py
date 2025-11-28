@@ -145,16 +145,23 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
 
     # Find horizontal scale (from vertical dimensions like "1300", "3100")
     # These dimensions are between grid lines A-B, B-C, etc.
+    # Strategy: Find ALL candidate matches, prefer ADJACENT grids and SMALL dimensions
+    candidates = []
     for dim_text, dim_x, dim_y in dimensions:
         dim_value_mm = float(dim_text)
         dim_value_m = dim_value_mm / 1000.0
 
+        # Skip very large dimensions (likely total building size, not grid spacing)
+        if dim_value_m > 5.0:  # Grid spacings typically < 5m
+            continue
+
         # Check if this dimension is near horizontal grid pair
         # Dimension text typically appears between the grids it measures
-        grid_labels = list(h_grids.keys())
+        grid_labels = sorted(h_grids.keys())  # Sort alphabetically: A, B, C, D, E
         for i in range(len(grid_labels) - 1):
             label1, label2 = grid_labels[i], grid_labels[i + 1]
             x1, x2 = h_grids[label1], h_grids[label2]
+            midpoint = (x1 + x2) / 2.0
 
             # Check if dimension text is near this grid pair
             if min(x1, x2) - 50 <= dim_x <= max(x1, x2) + 50:
@@ -163,24 +170,36 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
 
                 # Sanity check: scale should be in reasonable range (0.001 to 0.1 m/unit)
                 if 0.001 <= calculated_scale <= 0.1:
-                    scale_x = calculated_scale
-                    print(f"   Found X scale from dimension '{dim_text}' between grids {label1}-{label2}")
-                    print(f"   PDF distance: {pdf_distance:.2f}, Real distance: {dim_value_m}m, Scale: {scale_x:.6f} m/unit")
-                    break
+                    # Calculate how close dimension is to grid midpoint (prefer centered dimensions)
+                    distance_to_midpoint = abs(dim_x - midpoint)
+                    # Prefer FIRST grid pair (A-B) and dimensions close to midpoint
+                    priority = i * 100 + distance_to_midpoint
+                    candidates.append((calculated_scale, dim_text, label1, label2, pdf_distance, dim_value_m, priority))
 
-        if scale_x:
-            break
+    # Select best candidate (lowest priority = first grid pair + closest to midpoint)
+    if candidates:
+        candidates.sort(key=lambda c: c[6])  # Sort by priority
+        scale_x, dim_text, label1, label2, pdf_distance, dim_value_m, _ = candidates[0]
+        print(f"   Found X scale from dimension '{dim_text}' between grids {label1}-{label2}")
+        print(f"   PDF distance: {pdf_distance:.2f}, Real distance: {dim_value_m}m, Scale: {scale_x:.6f} m/unit")
 
     # Find vertical scale (from horizontal dimensions)
+    # Strategy: Find ALL candidate matches, prefer ADJACENT grids and SMALL dimensions
+    candidates = []
     for dim_text, dim_x, dim_y in dimensions:
         dim_value_mm = float(dim_text)
         dim_value_m = dim_value_mm / 1000.0
 
+        # Skip very large dimensions (likely total building size, not grid spacing)
+        if dim_value_m > 5.0:  # Grid spacings typically < 5m
+            continue
+
         # Check if this dimension is near vertical grid pair
-        grid_labels = list(v_grids.keys())
+        grid_labels = sorted(v_grids.keys(), key=lambda x: int(x))  # Sort numerically: 1, 2, 3, 4, 5
         for i in range(len(grid_labels) - 1):
             label1, label2 = grid_labels[i], grid_labels[i + 1]
             y1, y2 = v_grids[label1], v_grids[label2]
+            midpoint = (y1 + y2) / 2.0
 
             # Check if dimension text is near this grid pair
             if min(y1, y2) - 50 <= dim_y <= max(y1, y2) + 50:
@@ -189,13 +208,18 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
 
                 # Sanity check
                 if 0.001 <= calculated_scale <= 0.1:
-                    scale_y = calculated_scale
-                    print(f"   Found Y scale from dimension '{dim_text}' between grids {label1}-{label2}")
-                    print(f"   PDF distance: {pdf_distance:.2f}, Real distance: {dim_value_m}m, Scale: {scale_y:.6f} m/unit")
-                    break
+                    # Calculate how close dimension is to grid midpoint (prefer centered dimensions)
+                    distance_to_midpoint = abs(dim_y - midpoint)
+                    # Prefer FIRST grid pair (1-2) and dimensions close to midpoint
+                    priority = i * 100 + distance_to_midpoint
+                    candidates.append((calculated_scale, dim_text, label1, label2, pdf_distance, dim_value_m, priority))
 
-        if scale_y:
-            break
+    # Select best candidate (lowest priority = first grid pair + closest to midpoint)
+    if candidates:
+        candidates.sort(key=lambda c: c[6])  # Sort by priority
+        scale_y, dim_text, label1, label2, pdf_distance, dim_value_m, _ = candidates[0]
+        print(f"   Found Y scale from dimension '{dim_text}' between grids {label1}-{label2}")
+        print(f"   PDF distance: {pdf_distance:.2f}, Real distance: {dim_value_m}m, Scale: {scale_y:.6f} m/unit")
 
     # If we didn't find both scales, use the one we found for both axes
     if scale_x and not scale_y:
@@ -267,8 +291,8 @@ def derive_grid_positions(db_path: str) -> Tuple[Dict[str, float], Dict[str, flo
                 h_positions[label] = []
             h_positions[label].append(x)
         h_grids_avg = {label: np.mean(xs) for label, xs in h_positions.items()}
-        # Sort by x position
-        h_grids_data = sorted(h_grids_avg.items(), key=lambda x: x[1])
+        # Sort by label order (A, B, C, D, E) not PDF position
+        h_grids_data = sorted(h_grids_avg.items(), key=lambda x: x[0])
     else:
         raise ValueError("Horizontal grid labels not found in database")
 
@@ -308,8 +332,9 @@ def derive_grid_positions(db_path: str) -> Tuple[Dict[str, float], Dict[str, flo
                 v_positions[label] = []
             v_positions[label].append(y)
         v_grids_avg = {label: np.mean(ys) for label, ys in v_positions.items()}
-        # Sort by y position
-        v_grids_data = sorted(v_grids_avg.items(), key=lambda x: x[1])
+        # Sort by label order (1, 2, 3, 4, 5) not PDF position
+        # PDF y-coordinates increase top-to-bottom, but grid 1 should be origin
+        v_grids_data = sorted(v_grids_avg.items(), key=lambda x: int(x[0]))
     else:
         raise ValueError("Vertical grid labels not found in database")
 
@@ -330,7 +355,8 @@ def derive_grid_positions(db_path: str) -> Tuple[Dict[str, float], Dict[str, flo
     grid_vertical = {}
     for label, pdf_y in v_grids_data:
         # Convert PDF coordinate to meters, relative to origin
-        real_y = (pdf_y - origin_y) * scale_y
+        # PDF y increases downward, so reverse the calculation
+        real_y = (origin_y - pdf_y) * scale_y
         grid_vertical[label] = round(real_y, 2)
 
     print(f"✅ Derived grid positions from PDF coordinates + scale calibration")
