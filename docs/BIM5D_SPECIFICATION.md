@@ -168,6 +168,151 @@ This design is intentional:
 - **[FOURTH-D]**: Defines WHEN they're built and dependencies
 - **Combined**: One file defines the complete construction checklist
 
+---
+
+## Blender Collection Hierarchy (Automatic from [FIFTH-D])
+
+**The [FIFTH-D] IFC naming layer automatically generates Blender-native collection structure:**
+
+```
+Scene Collection
+├─ 📁 ARC (Architectural)
+│  ├─ 📁 Walls
+│  │  ├─ wall_exterior_north
+│  │  ├─ wall_exterior_south
+│  │  └─ wall_interior_bedroom_1
+│  ├─ 📁 Doors
+│  │  ├─ door_main_entrance_D1
+│  │  ├─ door_bedroom_master_D2
+│  │  └─ door_bathroom_D3
+│  ├─ 📁 Windows
+│  │  └─ window_living_room_W1
+│  └─ 📁 Furniture
+│     ├─ sofa_living_room
+│     └─ bed_master_bedroom
+│
+├─ 📁 STR (Structural)
+│  ├─ 📁 Floor
+│  │  └─ floor_slab_main
+│  └─ 📁 Roofing
+│     └─ roof_slab_main
+│
+├─ 📁 MEP (Mechanical/Electrical/Plumbing)
+│  ├─ 📁 Electrical
+│  │  ├─ switch_living_room_S1
+│  │  └─ outlet_bedroom_P1
+│  └─ 📁 Lighting
+│     ├─ ceiling_light_living_room
+│     └─ ceiling_fan_bedroom
+│
+└─ 📁 PLUM (Plumbing)
+   ├─ 📁 Fixtures
+   │  ├─ toilet_bathroom_master
+   │  └─ basin_bathroom_common
+   └─ 📁 Drainage
+      ├─ floor_drain_bathroom
+      └─ discharge_perimeter_1
+```
+
+### How This Works (Automatic Pipeline)
+
+```python
+# Step 1: [FIFTH-D] provides discipline/group
+# (from ifc_naming_layer.json)
+obj['discipline'] = 'ARC'
+obj['group'] = 'Doors'
+obj['blender_name'] = 'ARC_Door_D1'
+
+# Step 2: unified_model.py generates collection hierarchy
+outliner = model.outliner_view()
+# Returns:
+# {
+#   "ARC": {
+#     "Doors": [door_D1, door_D2, door_D3],
+#     "Walls": [wall_north, wall_south],
+#   },
+#   "STR": {
+#     "Roofing": [roof_slab_main]
+#   }
+# }
+
+# Step 3: Blender import creates collections
+for discipline, groups in outliner.items():
+    disc_collection = create_collection(discipline)  # "ARC"
+    for group, objects in groups.items():
+        group_collection = create_collection(group, parent=disc_collection)  # "Doors"
+        for obj in objects:
+            import_object(obj, collection=group_collection)
+```
+
+### Why This Is Smooth for Blender
+
+**1. Native Blender Conventions** ✅
+- Collections = natural Blender organizational structure
+- Discipline/Group = exactly how architects work in Blender
+- Object naming follows Blender conventions (readable, hierarchical)
+
+**2. IFC Standard Compliance** ✅
+- Discipline codes (ARC, STR, MEP, PLUM) = ISO 19650 standard
+- IFC classes (IfcDoor, IfcWall, IfcSlab) = buildingSMART standard
+- Ready for IFC4 export from Blender via BlenderBIM
+
+**3. Multi-Discipline Coordination** ✅
+- Same structure as federated BIM models
+- Disciplines can be toggled on/off in Blender outliner
+- Matches how consultants deliver models (ARC.ifc, STR.ifc, MEP.ifc)
+
+**4. Already Implemented** ✅
+- `ifc_naming_layer.json` defines all disciplines/groups
+- `unified_model.py` has `outliner_view()` method ready
+- `BuildingElement.collection_path` property returns `[discipline, group]`
+- No new code needed - just use existing structure!
+
+### Comparison: Our Output vs Manual Blender Organization
+
+**Manual Blender Work (painful):**
+```
+❌ User manually creates collections
+❌ User manually moves objects into collections
+❌ User manually renames objects for clarity
+❌ Inconsistent naming across projects
+```
+
+**Our Pipeline (automatic):**
+```
+✅ Collections auto-created from [FIFTH-D]
+✅ Objects auto-placed in correct collections
+✅ Consistent naming: {discipline}_{type}_{identifier}
+✅ Same structure every project
+```
+
+### The Complete Flow to Blender
+
+```
+[CORE-D]     → object_type: "door_900_lod300"
+             → Gets LOD300 mesh from library
+
+[THIRD-D]    → position: [3.04, 2.17, 0.0]
+             → Spatial placement
+
+[FOURTH-D]   → phase: "2_openings"
+             → Construction sequence
+
+[FIFTH-D]    → ifc_class: "IfcDoor"
+             → discipline: "ARC"
+             → group: "Doors"
+             → blender_name: "ARC_Door_MainEntrance"
+             → collection_path: ["ARC", "Doors"]
+
+BLENDER      → Scene Collection
+             →   └─ ARC
+             →       └─ Doors
+             →           └─ ARC_Door_MainEntrance
+             →               (mesh at [3.04, 2.17, 0.0])
+```
+
+**Result:** Clean, organized, IFC-compliant Blender scene with zero manual sorting! 🎯
+
 ### Why GridTruth Is "Third D" Not "3D"
 
 **GridTruth alone is just numbers:**
