@@ -27,8 +27,8 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
     """
     Derive PDF-to-meters scale from dimension annotations
 
-    Matches dimension text (e.g., "1300" = 1.3m) to grid line spacings
-    to calculate the scale factor: meters / PDF_units
+    STRATEGY: Use TOTAL building dimensions (e.g., "11200" = 11.2m) to calibrate
+    full grid span (A→E or 1→5), not individual intervals (A→B).
 
     Args:
         db_path: Path to annotations database
@@ -39,18 +39,17 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    # Get dimension text (4-digit numbers like "1300", "3100")
+    # Get ALL dimension text (4-5 digits including total building dimensions)
+    # Search ALL pages to find total dimensions (8500mm may be on elevation pages)
     cursor.execute("""
-        SELECT text, x, y FROM primitives_text
-        WHERE text GLOB '[0-9][0-9][0-9][0-9]'
-        AND LENGTH(text) = 4
-        AND page = 1
+        SELECT text, x, y, page FROM primitives_text
+        WHERE (text GLOB '[0-9][0-9][0-9][0-9]' OR text GLOB '[0-9][0-9][0-9][0-9][0-9]')
+        AND (LENGTH(text) = 4 OR LENGTH(text) = 5)
     """)
     dimensions = cursor.fetchall()
 
     # Get grid label positions
-    # Strategy: Find the most common y-position for horizontal grids (they should be aligned)
-    # Then filter horizontal grids to that y-range
+    # Strategy: Select grid cluster with WIDEST SPAN (main floor plan is largest drawing)
     cursor.execute("""
         SELECT text, x, y FROM primitives_text
         WHERE text IN ('A','B','C','D','E')
@@ -58,7 +57,7 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
     """)
     all_h_grids = cursor.fetchall()
 
-    # Find the y-cluster with most complete grid set (A, B, C, D, E)
+    # Find the y-cluster with WIDEST SPAN (main floor plan, not detail view)
     if all_h_grids:
         # Group grids by y-position clusters (tolerance: 5 units)
         y_clusters = {}
@@ -73,14 +72,22 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
             if not found_cluster:
                 y_clusters[y] = [(label, x)]
 
-        # Find cluster with most unique labels
+        # Find cluster with WIDEST SPAN (largest drawing = main floor plan)
         best_cluster = None
-        max_unique = 0
+        max_span = 0
         best_cluster_y = None
         for cluster_y, grids in y_clusters.items():
-            unique_labels = len(set(label for label, _ in grids))
-            if unique_labels > max_unique:
-                max_unique = unique_labels
+            # Must have all 5 labels (A, B, C, D, E)
+            unique_labels = set(label for label, _ in grids)
+            if len(unique_labels) < 5:
+                continue  # Skip incomplete clusters
+
+            # Calculate span (max - min x position)
+            x_positions = [x for _, x in grids]
+            span = max(x_positions) - min(x_positions)
+
+            if span > max_span:
+                max_span = span
                 best_cluster = grids
                 best_cluster_y = cluster_y
 
@@ -89,8 +96,10 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
         for cluster_y, grids in sorted(y_clusters.items()):
             unique = len(set(label for label, _ in grids))
             labels = sorted(set(label for label, _ in grids))
-            print(f"  Y~{cluster_y:.1f}: {len(grids)} grids, {unique} unique ({', '.join(labels)})")
-        print(f"Selected cluster Y~{best_cluster_y:.1f} with {max_unique} unique labels")
+            x_positions = [x for _, x in grids]
+            span = max(x_positions) - min(x_positions) if x_positions else 0
+            print(f"  Y~{cluster_y:.1f}: {len(grids)} grids, {unique} unique ({', '.join(labels)}), span={span:.1f}")
+        print(f"Selected cluster Y~{best_cluster_y:.1f} with span={max_span:.1f} (widest = main floor plan)")
         print(f"\nGrid positions in selected cluster:")
         for label, x in sorted(best_cluster, key=lambda g: g[0]):
             print(f"  {label}: x={x:.1f}")
@@ -134,14 +143,22 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
             if not found_cluster:
                 x_clusters[x] = [(label, y)]
 
-        # Find cluster with most unique labels
+        # Find cluster with WIDEST SPAN (largest drawing = main floor plan)
         best_cluster = None
-        max_unique = 0
+        max_span = 0
         best_cluster_x = None
         for cluster_x, grids in x_clusters.items():
-            unique_labels = len(set(label for label, _ in grids))
-            if unique_labels > max_unique:
-                max_unique = unique_labels
+            # Must have all 5 labels (1, 2, 3, 4, 5)
+            unique_labels = set(label for label, _ in grids)
+            if len(unique_labels) < 5:
+                continue  # Skip incomplete clusters
+
+            # Calculate span (max - min y position)
+            y_positions = [y for _, y in grids]
+            span = max(y_positions) - min(y_positions)
+
+            if span > max_span:
+                max_span = span
                 best_cluster = grids
                 best_cluster_x = cluster_x
 
@@ -150,8 +167,10 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
         for cluster_x, grids in sorted(x_clusters.items()):
             unique = len(set(label for label, _ in grids))
             labels = sorted(set(label for label, _ in grids), key=lambda x: int(x))
-            print(f"  X~{cluster_x:.1f}: {len(grids)} grids, {unique} unique ({', '.join(labels)})")
-        print(f"Selected cluster X~{best_cluster_x:.1f} with {max_unique} unique labels")
+            y_positions = [y for _, y in grids]
+            span = max(y_positions) - min(y_positions) if y_positions else 0
+            print(f"  X~{cluster_x:.1f}: {len(grids)} grids, {unique} unique ({', '.join(labels)}), span={span:.1f}")
+        print(f"Selected cluster X~{best_cluster_x:.1f} with span={max_span:.1f} (widest = main floor plan)")
         print(f"\nGrid positions in selected cluster:")
         for label, y in sorted(best_cluster, key=lambda g: int(g[0])):
             print(f"  {label}: y={y:.1f}")
@@ -179,99 +198,88 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
     if len(h_grids) < 2 or len(v_grids) < 2:
         raise ValueError("Insufficient grid labels found for scale calibration")
 
-    # Match dimension text to grid pairs
-    # Strategy: Find dimension text near grid lines, match to spacing
+    # Calculate PDF span of full grids
+    pdf_width = max(h_grids.values()) - min(h_grids.values())  # A to E span
+    pdf_depth = max(v_grids.values()) - min(v_grids.values())  # 1 to 5 span
 
+    print(f"\n=== SCALE CALIBRATION ===")
+    print(f"Grid spans in PDF coordinates:")
+    print(f"  Horizontal (A→E): {pdf_width:.1f} PDF units")
+    print(f"  Vertical (1→5): {pdf_depth:.1f} PDF units")
+
+    # NEW STRATEGY: Use TOTAL building dimensions (5-15m range for terrace houses)
+    # These are 4-5 digit numbers representing full building width/depth
     scale_x = None
     scale_y = None
 
-    # Find horizontal scale (from vertical dimensions like "1300", "3100")
-    # These dimensions are between grid lines A-B, B-C, etc.
-    # Strategy: Find ALL candidate matches, prefer ADJACENT grids and SMALL dimensions
-    candidates = []
-    for dim_text, dim_x, dim_y in dimensions:
+    total_dimensions = []
+    for dim_text, dim_x, dim_y, page in dimensions:
         dim_value_mm = float(dim_text)
         dim_value_m = dim_value_mm / 1000.0
 
-        # Skip very large dimensions (likely total building size, not grid spacing)
-        if dim_value_m > 5.0:  # Grid spacings typically < 5m
-            continue
+        # Total building dimensions are typically 5-15m for terrace houses
+        if 5.0 <= dim_value_m <= 15.0:
+            total_dimensions.append((dim_text, dim_x, dim_y, page, dim_value_m))
 
-        # Check if this dimension is near horizontal grid pair
-        # Dimension text typically appears between the grids it measures
-        grid_labels = sorted(h_grids.keys())  # Sort alphabetically: A, B, C, D, E
-        for i in range(len(grid_labels) - 1):
-            label1, label2 = grid_labels[i], grid_labels[i + 1]
-            x1, x2 = h_grids[label1], h_grids[label2]
-            midpoint = (x1 + x2) / 2.0
+    print(f"\nFound {len(total_dimensions)} total dimension candidates (5-15m range):")
+    for dim_text, dim_x, dim_y, page, dim_value_m in sorted(total_dimensions, key=lambda d: d[4], reverse=True):
+        print(f"  {dim_text}mm = {dim_value_m:.1f}m at ({dim_x:.0f}, {dim_y:.0f}) page {page}")
 
-            # Check if dimension text is near this grid pair
-            if min(x1, x2) - 50 <= dim_x <= max(x1, x2) + 50:
-                pdf_distance = abs(x2 - x1)
-                calculated_scale = dim_value_m / pdf_distance
+    # Match total dimensions to full grid spans
+    # Strategy: Use LARGEST dimension for width, NEXT LARGEST for depth (terrace houses)
+    sorted_dims = sorted(total_dimensions, key=lambda d: d[4], reverse=True)
 
-                # Sanity check: scale should be in reasonable range (0.001 to 0.1 m/unit)
-                if 0.001 <= calculated_scale <= 0.1:
-                    # Calculate how close dimension is to grid midpoint (prefer centered dimensions)
-                    distance_to_midpoint = abs(dim_x - midpoint)
-                    # Prefer FIRST grid pair (A-B) and dimensions close to midpoint
-                    priority = i * 100 + distance_to_midpoint
-                    candidates.append((calculated_scale, dim_text, label1, label2, pdf_distance, dim_value_m, priority))
+    # Find width scale (use largest dimension)
+    for dim_text, dim_x, dim_y, page, dim_value_m in sorted_dims:
+        calculated_scale = dim_value_m / pdf_width
+        if 0.001 <= calculated_scale <= 0.1:
+            # Check if this gives reasonable result
+            test_ab = abs(h_grids['B'] - h_grids['A']) * calculated_scale
+            if 1.0 <= test_ab <= 2.0:  # A-B should be 1-2m
+                scale_x = calculated_scale
+                print(f"\n✅ Width calibration: {dim_text}mm ({dim_value_m:.1f}m) ÷ {pdf_width:.1f} PDF units = {scale_x:.6f} m/unit (page {page})")
+                break
 
-    # Select best candidate (lowest priority = first grid pair + closest to midpoint)
-    if candidates:
-        candidates.sort(key=lambda c: c[6])  # Sort by priority
-        scale_x, dim_text, label1, label2, pdf_distance, dim_value_m, _ = candidates[0]
-        print(f"   Found X scale from dimension '{dim_text}' between grids {label1}-{label2}")
-        print(f"   PDF distance: {pdf_distance:.2f}, Real distance: {dim_value_m}m, Scale: {scale_x:.6f} m/unit")
-
-    # Find vertical scale (from horizontal dimensions)
-    # Strategy: Find ALL candidate matches, prefer ADJACENT grids and SMALL dimensions
-    candidates = []
-    for dim_text, dim_x, dim_y in dimensions:
-        dim_value_mm = float(dim_text)
-        dim_value_m = dim_value_mm / 1000.0
-
-        # Skip very large dimensions (likely total building size, not grid spacing)
-        if dim_value_m > 5.0:  # Grid spacings typically < 5m
-            continue
-
-        # Check if this dimension is near vertical grid pair
-        grid_labels = sorted(v_grids.keys(), key=lambda x: int(x))  # Sort numerically: 1, 2, 3, 4, 5
-        for i in range(len(grid_labels) - 1):
-            label1, label2 = grid_labels[i], grid_labels[i + 1]
-            y1, y2 = v_grids[label1], v_grids[label2]
-            midpoint = (y1 + y2) / 2.0
-
-            # Check if dimension text is near this grid pair
-            if min(y1, y2) - 50 <= dim_y <= max(y1, y2) + 50:
-                pdf_distance = abs(y2 - y1)
-                calculated_scale = dim_value_m / pdf_distance
-
-                # Sanity check
-                if 0.001 <= calculated_scale <= 0.1:
-                    # Calculate how close dimension is to grid midpoint (prefer centered dimensions)
-                    distance_to_midpoint = abs(dim_y - midpoint)
-                    # Prefer FIRST grid pair (1-2) and dimensions close to midpoint
-                    priority = i * 100 + distance_to_midpoint
-                    candidates.append((calculated_scale, dim_text, label1, label2, pdf_distance, dim_value_m, priority))
-
-    # Select best candidate (lowest priority = first grid pair + closest to midpoint)
-    if candidates:
-        candidates.sort(key=lambda c: c[6])  # Sort by priority
-        scale_y, dim_text, label1, label2, pdf_distance, dim_value_m, _ = candidates[0]
-        print(f"   Found Y scale from dimension '{dim_text}' between grids {label1}-{label2}")
-        print(f"   PDF distance: {pdf_distance:.2f}, Real distance: {dim_value_m}m, Scale: {scale_y:.6f} m/unit")
+    # Find depth scale (try smaller dimensions first - depth usually < width for terrace)
+    for dim_text, dim_x, dim_y, page, dim_value_m in sorted(total_dimensions, key=lambda d: d[4]):  # Ascending order
+        calculated_scale = dim_value_m / pdf_depth
+        if 0.001 <= calculated_scale <= 0.1:
+            # Skip if same as width (prefer different dimension for depth)
+            if scale_x and abs(calculated_scale - scale_x) < 0.001:
+                continue
+            scale_y = calculated_scale
+            print(f"✅ Depth calibration: {dim_text}mm ({dim_value_m:.1f}m) ÷ {pdf_depth:.1f} PDF units = {scale_y:.6f} m/unit (page {page})")
+            break
 
     # If we didn't find both scales, use the one we found for both axes
     if scale_x and not scale_y:
         scale_y = scale_x
-        print(f"   Using X scale for Y axis (same scale assumed)")
+        print(f"\n   Using X scale for Y axis (same scale assumed)")
     elif scale_y and not scale_x:
         scale_x = scale_y
-        print(f"   Using Y scale for X axis (same scale assumed)")
+        print(f"\n   Using Y scale for X axis (same scale assumed)")
     elif not scale_x and not scale_y:
-        raise ValueError("Could not derive scale from dimension annotations")
+        raise ValueError(
+            "Could not derive scale from total building dimensions.\n"
+            f"Available dimensions: {[f'{d[0]}mm' for d in total_dimensions]}\n"
+            f"Grid spans: {pdf_width:.1f} (H) × {pdf_depth:.1f} (V) PDF units"
+        )
+
+    # CROSS-VALIDATION: Check if derived scale gives reasonable grid intervals
+    # Known: Grid A-B spacing should be ~1.3m for typical Malaysian terrace
+    print(f"\n=== CROSS-VALIDATION ===")
+    ab_pdf_distance = abs(h_grids['B'] - h_grids['A'])
+    ab_real_distance = ab_pdf_distance * scale_x
+    print(f"A-B spacing: {ab_pdf_distance:.1f} PDF units × {scale_x:.6f} = {ab_real_distance:.2f}m")
+
+    if not (1.0 <= ab_real_distance <= 2.0):
+        raise ValueError(
+            f"A-B spacing {ab_real_distance:.2f}m doesn't match expected 1.0-2.0m range.\n"
+            f"Scale calibration likely wrong - may have selected grids from detail view.\n"
+            f"Grid cluster selected: Y~{best_cluster_y:.1f}, span={max_span:.1f}"
+        )
+
+    print(f"✅ A-B spacing {ab_real_distance:.2f}m is reasonable (1.0-2.0m range)")
 
     return scale_x, scale_y
 
