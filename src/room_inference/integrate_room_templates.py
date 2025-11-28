@@ -632,6 +632,32 @@ if __name__ == "__main__":
     print("\n🔧 Step 2: Running automated fixes...")
     fixed = automated_post_process(augmented, master_template_path)
 
+    # [THIRD-D] Step 3: Validate in 3D Canvas (staging layer)
+    print("\n🎯 Step 3: Validating objects in 3D canvas...")
+    from src.core.building_canvas import validate_with_canvas
+
+    # Find GridTruth.json and validation_rules.json
+    pdf_dir = os.path.dirname(pdf_path) if pdf_path else os.path.dirname(input_json_path)
+    gridtruth_path = os.path.join(pdf_dir, 'GridTruth.json')
+    validation_rules_path = os.path.join(os.path.dirname(__file__),
+                                         '../LocalLibrary/validation_rules.json')
+
+    if os.path.exists(gridtruth_path) and os.path.exists(validation_rules_path):
+        # Validate and possibly fix objects in 3D canvas
+        validated_objects = validate_with_canvas(
+            fixed['objects'],
+            gridtruth_path,
+            validation_rules_path
+        )
+
+        # Replace objects with validated ones
+        fixed['objects'] = validated_objects
+
+        # Update summary count
+        fixed['summary']['total_objects'] = len(validated_objects)
+    else:
+        print(f"\n⚠️  Skipping 3D canvas validation (GridTruth.json or validation_rules.json not found)")
+
     # Save final fixed output
     # Keep _FINAL suffix (required by RUN_COMPLETE_PIPELINE.sh)
     final_path = output_path.replace('_AUGMENTED.json', '_FINAL.json')

@@ -596,6 +596,32 @@ if __name__ == "__main__":
     output_json = complete_pdf_extraction(pdf_path, building_width, building_length, building_height)
 
     if output_json:
+        # [THIRD-D] VALIDATE OBJECTS IN 3D CANVAS (staging layer)
+        from src.core.building_canvas import validate_with_canvas
+
+        # Find GridTruth.json and validation_rules.json
+        pdf_dir = os.path.dirname(pdf_path)
+        gridtruth_path = os.path.join(pdf_dir, 'GridTruth.json')
+        validation_rules_path = os.path.join(os.path.dirname(__file__),
+                                             '../LocalLibrary/validation_rules.json')
+
+        if os.path.exists(gridtruth_path) and os.path.exists(validation_rules_path):
+            # Validate and possibly fix objects in 3D canvas
+            validated_objects = validate_with_canvas(
+                output_json['objects'],
+                gridtruth_path,
+                validation_rules_path
+            )
+
+            # Replace objects with validated ones
+            output_json['objects'] = validated_objects
+
+            # Update summary count
+            output_json['summary']['total_objects'] = len(validated_objects)
+        else:
+            print(f"\n⚠️  Skipping 3D canvas validation (GridTruth.json or validation_rules.json not found)")
+
+    if output_json:
         # Save to JSON
         with open(output_path, 'w') as f:
             json.dump(output_json, f, indent=2)
