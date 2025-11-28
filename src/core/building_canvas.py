@@ -194,8 +194,12 @@ class BuildingCanvas:
 
             if is_opening:
                 # Doors/windows use grid bounds (can be on building face)
-                grid_x_max = self.gridtruth.get('grid_horizontal', {}).get('E', 11.2)
-                grid_y_max = self.gridtruth.get('grid_vertical', {}).get('5', 8.5)
+                try:
+                    grid_x_max = self.gridtruth['grid_horizontal']['E']
+                    grid_y_max = self.gridtruth['grid_vertical']['5']
+                except KeyError as e:
+                    self.error(f"{name}: Grid data incomplete - {e}")
+                    return False
 
                 if x < -0.1 or x > grid_x_max + 0.1:
                     self.error(f"{name}: X={x:.2f} outside grid [0, {grid_x_max:.2f}]")
@@ -230,7 +234,10 @@ class BuildingCanvas:
         y = pos[1]
 
         # Porch with negative Y or Y outside grid needs fixing
-        grid_y_max = self.gridtruth.get('grid_vertical', {}).get('5', 8.5)
+        try:
+            grid_y_max = self.gridtruth['grid_vertical']['5']
+        except KeyError:
+            return False  # Can't validate without grid data
         return y < 0 or y > grid_y_max
 
     def _fix_porch_coordinates(self, obj: Dict) -> bool:
