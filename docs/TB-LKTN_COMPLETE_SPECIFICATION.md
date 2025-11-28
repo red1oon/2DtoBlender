@@ -19,7 +19,12 @@ This is the **SINGLE DEFINITIVE SPECIFICATION** for the TB-LKTN House 2D-to-Blen
 # TABLE OF CONTENTS
 
 - [1. PROJECT OVERVIEW](#1-project-overview)
+  - [1.1 Goal](#11-goal)
+  - [1.2 Inputs & Outputs](#12-inputs--outputs)
+  - [1.3 Core Principles](#13-core-principles)
+  - [1.4 Element ID Naming Convention](#14-element-id-naming-convention)
   - [1.5 Master Checklist Definition](#15-master-checklist-definition)
+  - [1.6 BIM5D Architecture](#16-bim5d-architecture)
 - [2. GRID TRUTH & BUILDING ENVELOPE](#2-grid-truth--building-envelope)
 - [3. ROOM LAYOUT](#3-room-layout)
 - [4. CODE COMPLIANCE (UBBL 1984)](#4-code-compliance-ubbl-1984)
@@ -162,15 +167,76 @@ This prevents the "hidden automation" problem where code makes assumptions witho
 
 ## 1.5 Master Templates Definition
 
+## 1.6 BIM5D Architecture
+
+**This project implements the full BIM5D dimension framework:**
+
+| Dimension | Symbol | Question | Source File | Role | Output |
+|-----------|--------|----------|-------------|------|--------|
+| **2D (CORE-D)** | [CORE-D] | WHAT? | `Ifc_Object_Library.db` | Object definitions (LOD300 meshes, types) | - |
+| **3D (THIRD-D)** | [THIRD-D] | WHERE? | `GridTruth.json` + `ANNOTATION.db` | Spatial coordinates (building_envelope, room_bounds, elevations, PDF primitives) | - |
+| **→ IFC Model** | [IFC] | WHAT+WHERE | Combined | Placed 3D objects | `*_FINAL.json` |
+| **4D (FOURTH-D)** | [FOURTH-D] | WHEN? | `master_reference_template.json` | Phases, sequence, dependencies (metadata only) | - |
+| **→ BIM-4D** | [BIM-4D] | [IFC]+WHEN | IFC + FOURTH-D | Scheduled construction model | With `_phase` |
+| **5D (FIFTH-D)** | [FIFTH-D] | HOW MUCH? | `ifc_naming_layer.json` | IFC classes, disciplines, cost categories | - |
+| **→ FULL-BIM5D** | [FULL-BIM5D] | All combined | BIM-4D + FIFTH-D | Production BIM model | Complete |
+
+**Critical Distinctions:**
+
+1. **FOURTH-D ≠ BIM-4D:**
+   - FOURTH-D = Just schedule metadata (phases: 1B, 1C, 2, 3...)
+   - BIM-4D = IFC + FOURTH-D (placed objects WITH schedule)
+   - ⚠️ FOURTH-D is **incomplete alone** - needs object positions first!
+
+2. **Dependency Chain:**
+   ```
+   Step 1: CORE-D + THIRD-D = IFC
+           Ifc_Object_Library.db + (GridTruth.json + ANNOTATION.db)
+           → Placed 3D objects in space
+
+   Step 2: IFC + FOURTH-D = BIM-4D
+           Placed objects + master_reference_template.json (_phase fields)
+           → Scheduled construction model
+
+   Step 3: BIM-4D + FIFTH-D = FULL-BIM5D
+           Scheduled model + ifc_naming_layer.json (IFC classification)
+           → *_FINAL.json (production output)
+   ```
+
+3. **THIRD-D must come FIRST:**
+   - GridTruth.json provides building envelope, room bounds, elevations
+   - ANNOTATION database provides PDF primitives (text, vectors, coordinates)
+   - Objects get positioned → THEN schedule can be applied
+   - You cannot schedule unplaced objects!
+
+**Nomenclature:**
+- THIRD-D/FOURTH-D/FIFTH-D are **dimension layers** (data sources)
+- IFC/BIM-4D/FULL-BIM5D are **integrated models** (combined outputs)
+- Don't confuse "4D" (layer) with "BIM-4D" (scheduled model)
+
+See `docs/BIM5D_SPECIFICATION.md` for complete architecture documentation.
+
 ### Two Template System
 
-**1. master_reference_template.json** (EXTRACTION - See Section 14)
+**1. master_reference_template.json** (EXTRACTION - [FOURTH-D])
 - **Location:** `core/master_reference_template.json`
-- **Purpose:** TIER 1 extraction instructions (WHAT to find in PDF)
+- **Purpose:** TIER 1 extraction instructions (WHAT to find in PDF + WHEN to extract it)
+- **BIM5D Role:** [FOURTH-D] - Defines phases (1B, 1C, 2, 3...) and sequence
 - **Usage:** Sequential extraction engine
 - **Read-only:** Modified only when extraction logic changes
 
-**2. master_template.json** (PLACEMENT - This Section)
+**2. GridTruth.json + ANNOTATION.db** (SPATIAL - [THIRD-D])
+- **Location:**
+  - `examples/TB-LKTN_House/GridTruth.json` (expert-verified dimensions)
+  - `output_artifacts/TB-LKTN_HOUSE_ANNOTATION_FROM_2D.db` (PDF primitives)
+- **Purpose:** Complete spatial data (WHERE everything goes)
+- **BIM5D Role:** [THIRD-D] - Provides:
+  - GridTruth.json: building_envelope, room_bounds, elevations, grid coordinates
+  - ANNOTATION.db: PDF text positions, vector geometry, calibration data
+- **Critical:** THIRD-D must be complete BEFORE FOURTH-D can assign schedules
+- **Dependency:** Objects need positions (THIRD-D) before they can have schedules (FOURTH-D)
+
+**3. master_template.json** (PLACEMENT - Legacy)
 - **Location:** `config/master_template.json`
 - **Purpose:** Single source of truth for placement validation
 - **Contains:** Door placements, window placements, room bounds, validation rules
@@ -298,11 +364,15 @@ for pdf_item in extracted_PDF_data:
 
 ---
 
-# 2. GRID TRUTH & BUILDING ENVELOPE
+# 2. GRID TRUTH & BUILDING ENVELOPE [THIRD-D]
+
+**BIM5D Role:** [THIRD-D] - WHERE dimension (spatial coordinates)
+**Source File:** `examples/TB-LKTN_House/GridTruth.json` (expert-verified from PDF)
+**Purpose:** Provides spatial foundation for all object placement - building envelope, room bounds, elevations, and structural grid.
 
 ## 2.1 Grid Coordinates (Foundation of All Positions)
 
-**Source:** PDF page 1 grid detection (HoughCircles + OCR)
+**Extraction Source:** PDF page 1 grid detection (HoughCircles + OCR)
 
 ```
 ┌────────────────────────────────────────────────────┐
@@ -922,6 +992,11 @@ If pipeline breaks after incremental fixes:
 ---
 
 # 8. PIPELINE ARCHITECTURE
+
+**BIM5D Integration:** This pipeline combines all five dimensions:
+- [CORE-D] Object library → [THIRD-D] Spatial coords → [IFC] Placed model
+- [FOURTH-D] Phasing (master_reference_template.json) orchestrates extraction sequence
+- [FIFTH-D] Classification (ifc_naming_layer.json) applied at object creation
 
 ## 8.1 Production Pipeline (2-Stage Architecture)
 
@@ -3007,6 +3082,7 @@ python3 apply_qa_corrections.py
 | 1.0 | 2025-11-26 | Initial consolidated specification with UBBL 1984 compliance |
 | 1.1 | 2025-11-26 | Added Section 13: Database Schemas (placement_rules, connection_requirements, malaysian_standards, base_geometries, object_catalog) |
 | 1.2 | 2025-11-28 | Clarified two-template system: master_reference_template.json (extraction) vs master_template.json (placement). Removed master_template_CORRECTED.json. |
+| 1.3 | 2025-11-28 | **BIM5D Architecture Integration:** Tagged all sections with dimension roles. Section 2 [THIRD-D], Section 14 [FOURTH-D], Section 1.6 added. Critical distinction: FOURTH-D ≠ BIM-4D (schedule metadata vs scheduled model). Dependency chain clarified: THIRD-D (GridTruth+ANNOTATION) must come first for object placement, THEN FOURTH-D can assign schedules. |
 
 ---
 
@@ -3019,16 +3095,50 @@ python3 apply_qa_corrections.py
 
 ---
 
-## 14. Master Reference Template Architecture
+## 14. Master Reference Template Architecture [FOURTH-D]
+
+**BIM5D Role:** [FOURTH-D] - WHEN dimension (schedule metadata only)
+**Source File:** `src/core/master_reference_template.json`
+**Purpose:** Defines construction phases and extraction sequence
+
+**⚠️ CRITICAL:** FOURTH-D is **incomplete alone** - it only provides schedule metadata (`_phase` fields). Objects must first be placed using THIRD-D (GridTruth + ANNOTATION) before phases can be assigned.
+
+**Dependency Chain:**
+```
+Step 1: CORE-D + THIRD-D = IFC
+        Ifc_Object_Library.db + (GridTruth.json + ANNOTATION.db)
+        → Placed 3D objects
+
+Step 2: IFC + FOURTH-D = BIM-4D
+        Placed objects + master_reference_template.json (this file)
+        → Scheduled construction model with _phase fields
+
+Step 3: BIM-4D + FIFTH-D = FULL-BIM5D
+        Scheduled model + ifc_naming_layer.json
+        → *_FINAL.json (production output)
+```
 
 ### 14.1 Purpose
 
 The `master_reference_template.json` is the **PERMANENT REFERENCE** for object extraction. It defines:
 - **WHAT** to search for (sequential instruction set)
-- **WHERE** to find it (page numbers, search text)
+- **WHERE** in PDF to find it (page numbers, search text)
 - **WHICH** library object to use (object_type references)
+- **WHEN** to build it (phases: 1A→1B→1C→1D→2→3→4→5→6)
+
+**But NOT:** Object spatial positions (those come from THIRD-D: GridTruth + ANNOTATION)
 
 The extraction engine reads this template sequentially to know what objects to extract from the PDF.
+
+**FOURTH-D Integration:** Each item has a `_phase` field (1B_calibration, 1C_structure, 2_openings, etc.) that defines:
+1. Construction sequence (foundation → structure → openings → MEP → finishes)
+2. Dependency order (walls before doors, calibration before placement)
+3. Mandatory flags (structural elements that must exist)
+
+**Why "FOURTH-D" not "BIM-4D":**
+- This file contains only scheduling metadata (FOURTH-D)
+- BIM-4D = IFC model + this scheduling metadata
+- You need placed objects (IFC) before you can schedule them
 
 ### 14.2 Architecture: Two-Tier System
 

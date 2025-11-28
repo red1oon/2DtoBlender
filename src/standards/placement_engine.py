@@ -69,8 +69,8 @@ class StandardsPlacementEngine:
     - Room size adequate for object + clearances
     """
 
-    def __init__(self):
-        self.collision_tolerance = 0.1  # 100mm collision tolerance
+    def __init__(self, collision_tolerance=0.1):
+        self.collision_tolerance = collision_tolerance  # Default 100mm, can be reduced for tight spaces
 
     def place_fixture(
         self,
@@ -209,8 +209,9 @@ class StandardsPlacementEngine:
         candidates.append([center_x, center_y, 0.0])
 
         # Find first position without collisions
-        for pos in candidates:
-            if not self._has_collision(pos, dimensions, existing_objects):
+        for i, pos in enumerate(candidates):
+            has_collision = self._has_collision(pos, dimensions, existing_objects)
+            if not has_collision:
                 return pos
 
         # All positions blocked

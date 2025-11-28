@@ -1,0 +1,1777 @@
+{
+  "extraction_metadata": {
+    "extracted_by": "extraction_engine.py v2.0 (two-tier)",
+    "extraction_date": "2025-11-28",
+    "extraction_time": "13:17:12",
+    "pdf_source": "examples/TB-LKTN_House/TB-LKTN HOUSE.pdf",
+    "extraction_version": "2.0_two_tier",
+    "calibration": {
+      "scale_x": 0.012356058290023437,
+      "scale_y": 0.01253671466437424,
+      "offset_x": 28.0,
+      "offset_y": 18.440000000000055,
+      "method": "drain_perimeter",
+      "confidence": 95,
+      "pdf_bounds": {
+        "min_x": 28.0,
+        "max_x": 813.04,
+        "min_y": 18.440000000000055,
+        "max_y": 576.8
+      }
+    }
+  },
+  "summary": {
+    "total_objects": 97,
+    "by_phase": {
+      "1B_calibration": 4,
+      "1C_structure": 8,
+      "unknown": 54,
+      "2_openings": 7,
+      "3_electrical": 33,
+      "4_plumbing": 9,
+      "6_furniture": 26
+    },
+    "by_source": {
+      "text_extraction": 90,
+      "template_inference": 51
+    }
+  },
+  "objects": [
+    {
+      "name": "door_ruang_tamu",
+      "object_type": "door_single_900_lod300",
+      "position": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "orientation": 0.0,
+      "height": 2.1,
+      "width": 0.9,
+      "placed": false,
+      "room": "living_room",
+      "phase": "2_openings",
+      "_generation_method": "gridtruth_inference",
+      "_ubbl_compliant": true,
+      "_label": "D1",
+      "_phase": "2_openings",
+      "_comment": "=== DOORS ===",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}"
+    },
+    {
+      "name": "door_dapur",
+      "object_type": "door_single_900_lod300",
+      "position": [
+        4.4,
+        2.7999999999999994,
+        0.0
+      ],
+      "orientation": 90.0,
+      "height": 2.1,
+      "width": 0.75,
+      "placed": false,
+      "room": "kitchen",
+      "phase": "2_openings",
+      "_generation_method": "gridtruth_inference",
+      "_ubbl_compliant": true,
+      "_label": "D2",
+      "_phase": "2_openings",
+      "_comment": "=== DOORS ===",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}",
+      "_matched_from": "door_single_900_lod300"
+    },
+    {
+      "name": "door_bilik_utama",
+      "object_type": "door_single_900_lod300",
+      "position": [
+        8.6,
+        7.0,
+        0.0
+      ],
+      "orientation": 0.0,
+      "height": 2.1,
+      "width": 0.75,
+      "placed": false,
+      "room": "master_bedroom",
+      "phase": "2_openings",
+      "_generation_method": "gridtruth_inference",
+      "_ubbl_compliant": true,
+      "_label": "D2",
+      "_phase": "2_openings",
+      "_comment": "=== DOORS ===",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}",
+      "_matched_from": "door_single_900_lod300"
+    },
+    {
+      "name": "door_bilik_2",
+      "object_type": "door_single_900_lod300",
+      "position": [
+        1.8,
+        7.0,
+        0.0
+      ],
+      "orientation": 0.0,
+      "height": 2.1,
+      "width": 0.75,
+      "placed": false,
+      "room": "bedroom_2",
+      "phase": "2_openings",
+      "_generation_method": "gridtruth_inference",
+      "_ubbl_compliant": true,
+      "_label": "D2",
+      "_phase": "2_openings",
+      "_comment": "=== DOORS ===",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}",
+      "_matched_from": "door_single_900_lod300"
+    },
+    {
+      "name": "door_bilik_mandi",
+      "object_type": "door_single_900_lod300",
+      "position": [
+        1.3,
+        5.7,
+        0.0
+      ],
+      "orientation": 270.0,
+      "height": 2.1,
+      "width": 0.75,
+      "placed": false,
+      "room": "bathroom_master",
+      "phase": "2_openings",
+      "_generation_method": "gridtruth_inference",
+      "_ubbl_compliant": true,
+      "_label": "D3",
+      "_phase": "2_openings",
+      "_comment": "=== DOORS ===",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}",
+      "_matched_from": "door_single_900_lod300"
+    },
+    {
+      "name": "door_tandas",
+      "object_type": "door_single_900_lod300",
+      "position": [
+        1.3,
+        7.3,
+        0.0
+      ],
+      "orientation": 270.0,
+      "height": 2.1,
+      "width": 0.75,
+      "placed": false,
+      "room": "bathroom_common",
+      "phase": "2_openings",
+      "_generation_method": "gridtruth_inference",
+      "_ubbl_compliant": true,
+      "_label": "D3",
+      "_phase": "2_openings",
+      "_comment": "=== DOORS ===",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}",
+      "_matched_from": "door_single_900_lod300"
+    },
+    {
+      "name": "door_ruang_basuh",
+      "object_type": "door_single_900_lod300",
+      "position": [
+        4.3999999999999995,
+        5.4,
+        0.0
+      ],
+      "orientation": 90.0,
+      "height": 2.1,
+      "width": 0.75,
+      "placed": false,
+      "room": "unknown",
+      "phase": "2_openings",
+      "_generation_method": "gridtruth_inference",
+      "_ubbl_compliant": true,
+      "_label": "D3",
+      "_phase": "2_openings",
+      "_comment": "=== DOORS ===",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}",
+      "_matched_from": "door_single_900_lod300"
+    },
+    {
+      "name": "porch_wall_west",
+      "object_type": "wall_exterior",
+      "position": [
+        2.3,
+        0.0,
+        0.0
+      ],
+      "end_point": [
+        2.3,
+        -2.3,
+        0.0
+      ],
+      "orientation": 90,
+      "height": 2.4,
+      "room": "ANJUNG",
+      "_phase": "1C_structure",
+      "placed": false,
+      "_comment": "=== WALLS ===",
+      "ifc_class": "IfcWall",
+      "ifc_predefined_type": "SOLIDWALL",
+      "discipline": "ARC",
+      "group": "Walls",
+      "blender_name": "ARC_Wall_Ext_{direction}",
+      "_matched_from": "wall_exterior"
+    },
+    {
+      "name": "porch_wall_south",
+      "object_type": "wall_exterior",
+      "position": [
+        2.3,
+        -2.3,
+        0.0
+      ],
+      "end_point": [
+        5.5,
+        -2.3,
+        0.0
+      ],
+      "orientation": 0,
+      "height": 2.4,
+      "room": "ANJUNG",
+      "_phase": "1C_structure",
+      "placed": false,
+      "_comment": "=== WALLS ===",
+      "ifc_class": "IfcWall",
+      "ifc_predefined_type": "SOLIDWALL",
+      "discipline": "ARC",
+      "group": "Walls",
+      "blender_name": "ARC_Wall_Ext_{direction}",
+      "_matched_from": "wall_exterior"
+    },
+    {
+      "name": "porch_wall_east",
+      "object_type": "wall_exterior",
+      "position": [
+        5.5,
+        -2.3,
+        0.0
+      ],
+      "end_point": [
+        5.5,
+        0.0,
+        0.0
+      ],
+      "orientation": 90,
+      "height": 2.4,
+      "room": "ANJUNG",
+      "_phase": "1C_structure",
+      "placed": false,
+      "_comment": "=== WALLS ===",
+      "ifc_class": "IfcWall",
+      "ifc_predefined_type": "SOLIDWALL",
+      "discipline": "ARC",
+      "group": "Walls",
+      "blender_name": "ARC_Wall_Ext_{direction}",
+      "_matched_from": "wall_exterior"
+    },
+    {
+      "name": "wall_exterior_1_merged_merged_merged_merged_merged_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        0.0,
+        5.4,
+        0.0
+      ],
+      "end_point": [
+        8.1,
+        5.4,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_exterior_3_merged_merged_merged_merged_merged_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        0.0,
+        7.0,
+        0.0
+      ],
+      "end_point": [
+        11.2,
+        7.0,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_exterior_6_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        4.4,
+        2.3,
+        0.0
+      ],
+      "end_point": [
+        11.2,
+        2.3,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_exterior_7_merged_merged_merged_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        0.0,
+        8.5,
+        0.0
+      ],
+      "end_point": [
+        11.2,
+        8.5,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_exterior_8_merged_merged_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        11.2,
+        2.3,
+        0.0
+      ],
+      "end_point": [
+        11.2,
+        8.5,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_exterior_12_merged_merged_merged_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "end_point": [
+        0.0,
+        8.5,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_interior_13_merged_merged_merged",
+      "object_type": "wall_lightweight_100_lod300",
+      "position": [
+        1.3,
+        5.4,
+        0.0
+      ],
+      "end_point": [
+        1.3,
+        8.5,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.1,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_exterior_14_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        4.4,
+        0.0,
+        0.0
+      ],
+      "end_point": [
+        4.4,
+        5.4,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_exterior_15_merged",
+      "object_type": "wall_brick_3m_lod300",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "end_point": [
+        4.4,
+        0.0,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.15,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "wall_interior_23_merged_merged_merged",
+      "object_type": "wall_lightweight_100_lod300",
+      "position": [
+        8.1,
+        5.4,
+        0.0
+      ],
+      "end_point": [
+        8.1,
+        8.5,
+        0.0
+      ],
+      "height": 3.0,
+      "thickness": 0.1,
+      "placed": false,
+      "room": "structure",
+      "phase": "1C_walls"
+    },
+    {
+      "name": "bathroom_master_towel_rack_1",
+      "object_type": "towel_rack_wall",
+      "position": [
+        4.9,
+        1.2,
+        1.2
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_master",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_common_towel_rack_1",
+      "object_type": "towel_rack_wall",
+      "position": [
+        1.225,
+        4.6,
+        1.2
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_common",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "discharge_perimeter_1",
+      "object_type": "roof_slab",
+      "position": [
+        0.75,
+        0.75,
+        3.0
+      ],
+      "end_point": [
+        10.45,
+        0.75,
+        3.0
+      ],
+      "placed": false,
+      "room": "structure",
+      "phase": "1B_calibration",
+      "_phase": "1B_calibration",
+      "_comment": "=== STRUCTURAL / ENVELOPE ===",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "STR",
+      "group": "Roofing",
+      "blender_name": "STR_Roof_Main",
+      "_matched_from": "roof_slab"
+    },
+    {
+      "name": "discharge_perimeter_2",
+      "object_type": "roof_slab",
+      "position": [
+        10.45,
+        0.75,
+        3.0
+      ],
+      "end_point": [
+        10.45,
+        7.75,
+        3.0
+      ],
+      "placed": false,
+      "room": "structure",
+      "phase": "1B_calibration",
+      "_phase": "1B_calibration",
+      "_comment": "=== STRUCTURAL / ENVELOPE ===",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "STR",
+      "group": "Roofing",
+      "blender_name": "STR_Roof_Main",
+      "_matched_from": "roof_slab"
+    },
+    {
+      "name": "discharge_perimeter_3",
+      "object_type": "roof_slab",
+      "position": [
+        10.45,
+        7.75,
+        3.0
+      ],
+      "end_point": [
+        0.75,
+        7.75,
+        3.0
+      ],
+      "placed": false,
+      "room": "structure",
+      "phase": "1B_calibration",
+      "_phase": "1B_calibration",
+      "_comment": "=== STRUCTURAL / ENVELOPE ===",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "STR",
+      "group": "Roofing",
+      "blender_name": "STR_Roof_Main",
+      "_matched_from": "roof_slab"
+    },
+    {
+      "name": "discharge_perimeter_4",
+      "object_type": "roof_slab",
+      "position": [
+        0.75,
+        7.75,
+        3.0
+      ],
+      "end_point": [
+        0.75,
+        0.75,
+        3.0
+      ],
+      "placed": false,
+      "room": "structure",
+      "phase": "1B_calibration",
+      "_phase": "1B_calibration",
+      "_comment": "=== STRUCTURAL / ENVELOPE ===",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "STR",
+      "group": "Roofing",
+      "blender_name": "STR_Roof_Main",
+      "_matched_from": "roof_slab"
+    },
+    {
+      "name": "floor_slab_main",
+      "object_type": "slab_6x4_150_lod300",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": {
+        "length": 9.7,
+        "width": 7.0,
+        "thickness": 0.15
+      },
+      "orientation": 0.0,
+      "room": "structure",
+      "_phase": "1C_structure",
+      "_generation_method": "parametric_from_building_envelope",
+      "placed": false,
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "FLOOR",
+      "discipline": "STR",
+      "group": "Floor"
+    },
+    {
+      "name": "ceiling_main",
+      "object_type": "ceiling",
+      "position": [
+        0.0,
+        0.0,
+        2.9
+      ],
+      "dimensions": {
+        "length": 9.7,
+        "width": 7.0,
+        "thickness": 0.01
+      },
+      "orientation": 0.0,
+      "room": "structure",
+      "_phase": "1C_structure",
+      "_generation_method": "parametric_from_building_envelope",
+      "placed": false,
+      "ifc_class": "IfcCovering",
+      "ifc_predefined_type": "CEILING",
+      "discipline": "ARC",
+      "group": "Envelope",
+      "blender_name": "ARC_Ceiling_Main",
+      "_matched_from": "ceiling"
+    },
+    {
+      "name": "roof_slab_main",
+      "object_type": "roof_slab",
+      "position": [
+        0.0,
+        0.0,
+        3.5
+      ],
+      "dimensions": {
+        "length": 9.7,
+        "width": 7.0,
+        "thickness": 0.15
+      },
+      "orientation": 0.0,
+      "room": "structure",
+      "_phase": "1C_structure",
+      "_generation_method": "parametric_from_building_envelope",
+      "placed": false,
+      "_comment": "=== STRUCTURAL / ENVELOPE ===",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "STR",
+      "group": "Roofing",
+      "blender_name": "STR_Roof_Main",
+      "_matched_from": "roof_slab"
+    },
+    {
+      "name": "porch_canopy",
+      "object_type": "roof_slab",
+      "position": [
+        3.9,
+        -1.15,
+        2.4
+      ],
+      "dimensions": [
+        3.2,
+        2.3,
+        0.15
+      ],
+      "orientation": 0.0,
+      "room": "ANJUNG",
+      "_phase": "1C_structure",
+      "placed": false,
+      "_comment": "=== STRUCTURAL / ENVELOPE ===",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "STR",
+      "group": "Roofing",
+      "blender_name": "STR_Roof_Main",
+      "_matched_from": "roof_slab"
+    },
+    {
+      "name": "porch_floor",
+      "object_type": "slab_6x4_150_lod300",
+      "position": [
+        3.9,
+        -1.15,
+        0.0
+      ],
+      "dimensions": [
+        3.2,
+        2.3,
+        0.15
+      ],
+      "orientation": 0.0,
+      "room": "ANJUNG",
+      "_phase": "1C_structure",
+      "placed": false,
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "FLOOR",
+      "discipline": "STR",
+      "group": "Floor"
+    },
+    {
+      "name": "S_1",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        8.300078517166003,
+        4.32376463356974,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "SCALE_2",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        1.5998624273922346,
+        5.807556589297227,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "SWS_3",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        4.1190155915622135,
+        2.307199037180313,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "SWS_4",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        4.606832772852338,
+        2.820201401246507,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "SWS_5",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        3.7854020177315806,
+        3.256479071566731,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "SQM_6",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        6.776062366248853,
+        3.275250986460348,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "SWS_7",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        2.50432589422195,
+        3.411432864818396,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "SWS_8",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        5.801910730663405,
+        4.63974701053084,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "name": "PENDAFTARAN_1",
+      "object_type": "outlet_13a_twin_lod300",
+      "position": [
+        8.752454340507489,
+        4.34265893187191,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "ifc_class": "IfcOutlet",
+      "ifc_predefined_type": "POWEROUTLET",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Outlet_{room}",
+      "_matched_from": "outlet_13a_twin_lod300"
+    },
+    {
+      "name": "PP_2",
+      "object_type": "outlet_13a_twin_lod300",
+      "position": [
+        6.846920274653073,
+        3.2060483215130025,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "ifc_class": "IfcOutlet",
+      "ifc_predefined_type": "POWEROUTLET",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Outlet_{room}",
+      "_matched_from": "outlet_13a_twin_lod300"
+    },
+    {
+      "name": "L_1",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        8.159446652399877,
+        4.239517911025145,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - LIGHTING ===",
+      "ifc_class": "IfcLightFixture",
+      "ifc_predefined_type": "POINTSOURCE",
+      "discipline": "MEP",
+      "group": "Lighting",
+      "blender_name": "MEP_Light_{room}"
+    },
+    {
+      "name": "L_2",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        8.217119575573218,
+        4.32376463356974,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - LIGHTING ===",
+      "ifc_class": "IfcLightFixture",
+      "ifc_predefined_type": "POINTSOURCE",
+      "discipline": "MEP",
+      "group": "Lighting",
+      "blender_name": "MEP_Light_{room}"
+    },
+    {
+      "name": "LAM_3",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        9.035879174289207,
+        4.34265893187191,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "_comment": "=== MEP - LIGHTING ===",
+      "ifc_class": "IfcLightFixture",
+      "ifc_predefined_type": "POINTSOURCE",
+      "discipline": "MEP",
+      "group": "Lighting",
+      "blender_name": "MEP_Light_{room}"
+    },
+    {
+      "name": "CP_1",
+      "object_type": "distribution_board_residential_lod200",
+      "position": [
+        5.833047997554264,
+        5.310711979368149,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "3_electrical",
+      "placed": false,
+      "ifc_class": "IfcBuildingElementProxy",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Misc"
+    },
+    {
+      "name": "FINISH_1",
+      "object_type": "showerhead_fixed_lod200",
+      "position": [
+        6.263321777804952,
+        3.163924960240705,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "4_plumbing",
+      "placed": false,
+      "ifc_class": "IfcBuildingElementProxy",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Misc"
+    },
+    {
+      "name": "FINISH_2",
+      "object_type": "showerhead_fixed_lod200",
+      "position": [
+        7.1729981450321,
+        3.163924960240705,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "4_plumbing",
+      "placed": false,
+      "ifc_class": "IfcBuildingElementProxy",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Misc"
+    },
+    {
+      "name": "FINISH_3",
+      "object_type": "showerhead_fixed_lod200",
+      "position": [
+        6.263321777804952,
+        3.3023302901353966,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "unknown",
+      "_annotation_captured": true,
+      "_phase": "4_plumbing",
+      "placed": false,
+      "ifc_class": "IfcBuildingElementProxy",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Misc"
+    },
+    {
+      "name": "master_bedroom_bed_1",
+      "object_type": "bed_queen_lod300",
+      "position": [
+        2.205,
+        1.0,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_wardrobe_1",
+      "object_type": "wardrobe_double_lod300",
+      "position": [
+        3.91,
+        1.8,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_nightstand_1",
+      "object_type": "nightstand",
+      "position": [
+        2.205,
+        1.8,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_nightstand_2",
+      "object_type": "nightstand",
+      "position": [
+        2.205,
+        1.8,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_dresser_1",
+      "object_type": "dresser_6drawer",
+      "position": [
+        2.205,
+        3.1,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_ceiling_light",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        2.205,
+        1.8,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_ceiling_fan",
+      "object_type": "ceiling_fan_3blade_lod300",
+      "position": [
+        2.205,
+        1.3,
+        2.8
+      ],
+      "orientation": 0.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_switch_1",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        0.2,
+        0.2,
+        1.4
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_outlet_1",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [
+        1.1025,
+        0.2,
+        0.3
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_outlet_2",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [
+        2.205,
+        0.2,
+        0.3
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "master_bedroom_outlet_3",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [
+        3.3075,
+        0.2,
+        0.3
+      ],
+      "orientation": 90.0,
+      "room": "master_bedroom",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "bedroom_2_bed_1",
+      "object_type": "bed_double_lod300",
+      "position": [
+        7.595000000000001,
+        0.7,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "bedroom_2",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bedroom_2_wardrobe_1",
+      "object_type": "wardrobe_double_lod300",
+      "position": [
+        9.3,
+        1.6,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "bedroom_2",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bedroom_2_study_desk_1",
+      "object_type": "table_study",
+      "position": [
+        7.595000000000001,
+        2.7,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "bedroom_2",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bedroom_2_desk_chair_1",
+      "object_type": "office_chair_ergonomic",
+      "position": [
+        7.595000000000001,
+        1.6,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "bedroom_2",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bedroom_2_bookshelf_1",
+      "object_type": "bookshelf_5tier",
+      "position": [
+        7.595000000000001,
+        1.6,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "bedroom_2",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_master_vanity_1",
+      "object_type": "bathroom_vanity_1000",
+      "position": [
+        4.9,
+        1.2,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_master",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_master_toilet_paper_holder_1",
+      "object_type": "toilet_paper_holder",
+      "position": [
+        4.9,
+        1.2,
+        0.8
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_master",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_master_ceiling_light",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        4.9,
+        1.2,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "bathroom_master",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_master_switch_1",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        4.61,
+        0.2,
+        1.4
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_master",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_master_basin",
+      "object_type": "basin_residential_lod300",
+      "position": [
+        4.94,
+        0.7,
+        0.85
+      ],
+      "orientation": 270.0,
+      "room": "bathroom_master",
+      "placed": true,
+      "_phase": "4_plumbing",
+      "source": "template_inference",
+      "standards_compliant": true,
+      "clearances": {
+        "front": 0.5,
+        "sides": 0.2
+      }
+    },
+    {
+      "name": "bathroom_master_floor_drain",
+      "object_type": "floor_drain_lod300",
+      "position": [
+        4.94,
+        0.7,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "bathroom_master",
+      "placed": true,
+      "_phase": "4_plumbing",
+      "source": "template_inference",
+      "standards_compliant": true
+    },
+    {
+      "name": "bathroom_common_vanity_1",
+      "object_type": "bathroom_vanity_1000",
+      "position": [
+        1.225,
+        4.6,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_common",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_common_toilet_paper_holder_1",
+      "object_type": "toilet_paper_holder",
+      "position": [
+        1.225,
+        4.6,
+        0.8
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_common",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_common_ceiling_light",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        1.225,
+        4.6,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "bathroom_common",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_common_switch_1",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        0.2,
+        3.8000000000000003,
+        1.4
+      ],
+      "orientation": 90.0,
+      "room": "bathroom_common",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "bathroom_common_toilet",
+      "object_type": "floor_mounted_toilet_lod300",
+      "position": [
+        0.5,
+        4.5,
+        0.0
+      ],
+      "orientation": 180.0,
+      "room": "bathroom_common",
+      "placed": true,
+      "_phase": "4_plumbing",
+      "source": "template_inference",
+      "standards_compliant": true,
+      "clearances": {
+        "front": 0.6,
+        "sides": 0.3
+      }
+    },
+    {
+      "name": "bathroom_common_basin",
+      "object_type": "basin_residential_lod300",
+      "position": [
+        2.0,
+        4.3,
+        0.85
+      ],
+      "orientation": 270.0,
+      "room": "bathroom_common",
+      "placed": true,
+      "_phase": "4_plumbing",
+      "source": "template_inference",
+      "standards_compliant": true,
+      "clearances": {
+        "front": 0.5,
+        "sides": 0.2
+      }
+    },
+    {
+      "name": "bathroom_common_floor_drain",
+      "object_type": "floor_drain_lod300",
+      "position": [
+        2.0,
+        4.3,
+        0.0
+      ],
+      "orientation": 0.0,
+      "room": "bathroom_common",
+      "placed": true,
+      "_phase": "4_plumbing",
+      "source": "template_inference",
+      "standards_compliant": true
+    },
+    {
+      "name": "kitchen_refrigerator_1",
+      "object_type": "refrigerator_residential_lod200",
+      "position": [
+        7.840000000000001,
+        6.4,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "kitchen",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "kitchen_stove_1",
+      "object_type": "stove_residential_lod200",
+      "position": [
+        7.840000000000001,
+        6.4,
+        0.9
+      ],
+      "orientation": 90.0,
+      "room": "kitchen",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "kitchen_ceiling_light",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        7.840000000000001,
+        6.4,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "kitchen",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "kitchen_ceiling_fan",
+      "object_type": "ceiling_fan_3blade_lod300",
+      "position": [
+        7.840000000000001,
+        5.9,
+        2.8
+      ],
+      "orientation": 0.0,
+      "room": "kitchen",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "kitchen_outlet_1",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [
+        7.1866666666666665,
+        5.0,
+        1.2
+      ],
+      "orientation": 90.0,
+      "room": "kitchen",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "kitchen_outlet_2",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [
+        8.493333333333334,
+        5.0,
+        1.2
+      ],
+      "orientation": 90.0,
+      "room": "kitchen",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "kitchen_sink",
+      "object_type": "kitchen_sink_single_bowl_lod200",
+      "position": [
+        6.4799999999999995,
+        7.75,
+        0.9
+      ],
+      "orientation": 0.0,
+      "room": "kitchen",
+      "placed": true,
+      "_phase": "4_plumbing",
+      "source": "template_inference",
+      "standards_compliant": true
+    },
+    {
+      "name": "kitchen_stove",
+      "object_type": "stove_residential_lod300",
+      "position": [
+        7.84,
+        7.7,
+        0.9
+      ],
+      "orientation": 0.0,
+      "room": "kitchen",
+      "placed": true,
+      "_phase": "6_furniture",
+      "source": "template_inference",
+      "standards_compliant": true
+    },
+    {
+      "name": "kitchen_refrigerator",
+      "object_type": "refrigerator_residential_lod300",
+      "position": [
+        9.350000000000001,
+        5.749999999999999,
+        0.0
+      ],
+      "orientation": 270.0,
+      "room": "kitchen",
+      "placed": true,
+      "_phase": "6_furniture",
+      "source": "template_inference",
+      "standards_compliant": true
+    },
+    {
+      "name": "living_room_sofa_1",
+      "object_type": "sofa_3seater_lod300",
+      "position": [
+        2.6950000000000003,
+        6.2,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_armchair_1",
+      "object_type": "armchair",
+      "position": [
+        2.6950000000000003,
+        6.2,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_coffee_table_1",
+      "object_type": "coffee_table",
+      "position": [
+        2.6950000000000003,
+        6.2,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_tv_console_1",
+      "object_type": "tv_console_1500_lod300",
+      "position": [
+        2.6950000000000003,
+        7.5,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_dining_table_1",
+      "object_type": "table_dining_1500x900_lod300",
+      "position": [
+        2.6950000000000003,
+        6.2,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_dining_chair_1",
+      "object_type": "dining_chair",
+      "position": [
+        2.6950000000000003,
+        6.2,
+        0.0
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "6_furniture",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_ceiling_light",
+      "object_type": "ceiling_light_surface_lod300",
+      "position": [
+        2.6950000000000003,
+        6.2,
+        2.95
+      ],
+      "orientation": 0.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_ceiling_fan",
+      "object_type": "ceiling_fan_3blade_lod300",
+      "position": [
+        2.6950000000000003,
+        5.7,
+        2.8
+      ],
+      "orientation": 0.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_switch_1",
+      "object_type": "switch_1gang_lod300",
+      "position": [
+        0.2,
+        4.6000000000000005,
+        1.4
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_outlet_1",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [
+        1.7966666666666669,
+        4.6000000000000005,
+        0.3
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    },
+    {
+      "name": "living_room_outlet_2",
+      "object_type": "outlet_3pin_ms589_lod300",
+      "position": [
+        3.5933333333333337,
+        4.6000000000000005,
+        0.3
+      ],
+      "orientation": 90.0,
+      "room": "living_room",
+      "placed": false,
+      "_phase": "3_electrical",
+      "source": "template_inference"
+    }
+  ]
+}

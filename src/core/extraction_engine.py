@@ -466,6 +466,27 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
             phase = obj.get('_phase', 'unknown')
             by_phase[phase] = by_phase.get(phase, 0) + 1
 
+        # Load room_bounds and building_envelope from GridTruth.json
+        pdf_dir = os.path.dirname(pdf_path)
+        gridtruth_path = os.path.join(pdf_dir, 'GridTruth.json')
+
+        room_bounds = {}
+        building_envelope = {}
+
+        if os.path.exists(gridtruth_path):
+            try:
+                with open(gridtruth_path, 'r') as f:
+                    gridtruth = json.load(f)
+                    room_bounds = gridtruth.get('room_bounds', {})
+                    building_envelope = gridtruth.get('building_envelope', {})
+                print(f"  ✅ Loaded room_bounds and building_envelope from GridTruth.json")
+                print(f"     - Rooms: {len(room_bounds)}")
+                print(f"     - Envelope: {building_envelope.get('width', 0)}m × {building_envelope.get('depth', 0)}m")
+            except Exception as e:
+                print(f"  ⚠️  Error loading GridTruth.json: {e}")
+        else:
+            print(f"  ⚠️  GridTruth.json not found at {gridtruth_path}")
+
         # Build output JSON structure
         output_json = {
             "extraction_metadata": {
@@ -482,9 +503,14 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                 })
             },
 
+            "building_envelope": building_envelope,
+
+            "rooms": room_bounds,
+
             "summary": {
                 "total_objects": len(objects),
-                "by_phase": by_phase
+                "by_phase": by_phase,
+                "rooms_count": len(room_bounds)
             },
 
             "objects": objects

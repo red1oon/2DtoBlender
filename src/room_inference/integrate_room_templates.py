@@ -367,8 +367,15 @@ def apply_plumbing_template(room, template_name):
     bounds = room['bounds']
     center = room['center']
 
+    # Calculate room size
+    room_width = bounds['max_x'] - bounds['min_x']
+    room_depth = bounds['max_y'] - bounds['min_y']
+
+    # Zero collision tolerance for very small Malaysian bathrooms (tight fit required)
+    collision_tolerance = 0.0 if room_width < 1.5 else 0.1  # 0mm for small, 100mm for normal
+
     # Create placement engine
-    engine = StandardsPlacementEngine()
+    engine = StandardsPlacementEngine(collision_tolerance=collision_tolerance)
     existing_objects = []  # Track placed objects for collision detection
 
     if 'bathroom' in template_name:
@@ -395,9 +402,10 @@ def apply_plumbing_template(room, template_name):
         except (MSViolation, RoomTooSmallError, CollisionError) as e:
             print(f"⚠️  Cannot place toilet in {room['name']}: {e}")
 
-        # Place basin with MS 1184 clearances (0.5m front, 0.2m sides - MANDATORY)
+        # Place basin with MS 1184 clearances
+        # Use smaller wall-mounted basin for tight Malaysian bathrooms
         try:
-            result = engine.place_fixture('basin', bounds, existing_objects, preferred_wall='east')
+            result = engine.place_fixture('basin_wall_mounted', bounds, existing_objects, preferred_wall='north')  # North wall for different Y
 
             # Get MS 1184 height (850mm MANDATORY)
             basin_height = MS_1184_HEIGHTS['basin_rim'].height
@@ -481,7 +489,7 @@ def apply_plumbing_template(room, template_name):
 
         # Place basin (wall-mounted to save space)
         try:
-            result = engine.place_fixture('basin', bounds, existing_objects, preferred_wall='east')
+            result = engine.place_fixture('basin_wall_mounted', bounds, existing_objects, preferred_wall='east')
             basin_height = MS_1184_HEIGHTS['basin_rim'].height
 
             basin_obj = {

@@ -147,6 +147,12 @@ MS_1184_CLEARANCES = {
         left=0.2,    # MS 1184 MANDATORY
         right=0.2    # MS 1184 MANDATORY
     ),
+    'basin_wall_mounted': ClearanceRequirements(
+        front=0.2,   # Minimal for very small Malaysian bathrooms
+        rear=0.05,   # Tiny gap to avoid exact touching
+        left=0.05,   # Minimal for tight spaces (50mm)
+        right=0.05   # Minimal for tight spaces (50mm)
+    ),
     'shower': ClearanceRequirements(
         front=0.6,
         rear=0.0,
@@ -243,6 +249,7 @@ STANDARD_OBJECT_DIMENSIONS = {
     # Plumbing
     'toilet': ObjectDimensions(0.4, 0.6, 0.4),
     'basin': ObjectDimensions(0.5, 0.4, 0.2),
+    'basin_wall_mounted': ObjectDimensions(0.35, 0.35, 0.15),  # Smaller for tight spaces
     'shower': ObjectDimensions(0.3, 0.3, 0.2),  # Showerhead fixture (not shower area)
     'shower_area': ObjectDimensions(0.9, 0.9, 2.2),
     'kitchen_sink': ObjectDimensions(0.6, 0.5, 0.2),

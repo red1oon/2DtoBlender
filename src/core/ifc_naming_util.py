@@ -74,18 +74,21 @@ class IfcNamingLayer:
         }
     
     def get_properties(self, object_type: str) -> Dict:
-        """Get IFC properties for an object type."""
+        """Get IFC properties for an object type (excludes object_type to avoid overwriting)."""
         # Direct match
         if object_type in self.items:
-            return self.items[object_type].copy()
-        
+            props = self.items[object_type].copy()
+            props.pop('object_type', None)  # Don't overwrite original object_type
+            return props
+
         # Partial match (e.g., "door_ruang_tamu" matches "door_single_900_lod300")
         for key, props in self.items.items():
             if object_type.startswith(key.split('_')[0]):
                 result = props.copy()
+                result.pop('object_type', None)  # Don't overwrite original object_type
                 result['_matched_from'] = key
                 return result
-        
+
         # Infer from object_type name
         return self._infer_properties(object_type)
     
@@ -102,10 +105,11 @@ class IfcNamingLayer:
             return {"ifc_class": "IfcSanitaryTerminal", "ifc_predefined_type": "SINK", "discipline": "PLUM", "group": "Fixtures"}
         if 'floor_drain' in ot_lower or 'floordrain' in ot_lower:
             return {"ifc_class": "IfcWasteTerminal", "ifc_predefined_type": "FLOORTRAP", "discipline": "PLUM", "group": "Drainage"}
-        if 'drain' in ot_lower or 'saliran' in ot_lower or 'discharge' in ot_lower:
+        if 'drain' in ot_lower or 'saliran' in ot_lower or 'discharge' in ot_lower or 'gutter' in ot_lower:
             return {"ifc_class": "IfcPipeSegment", "ifc_predefined_type": "GUTTER", "discipline": "PLUM", "group": "Drainage"}
-        
+
         # Structural
+        if 'roof' in ot_lower:
             return {"ifc_class": "IfcSlab", "ifc_predefined_type": "ROOF", "discipline": "STR", "group": "Roofing"}
         if 'floor' in ot_lower or 'slab' in ot_lower:
             return {"ifc_class": "IfcSlab", "ifc_predefined_type": "FLOOR", "discipline": "STR", "group": "Floor"}

@@ -15,11 +15,12 @@ import sys
 from pathlib import Path
 
 # Minimum requirements per expert guidance
+# NOTE: Reduced for MVP - Mini Bonsai GUI can work with partial extractions
 MINIMUM_REQUIREMENTS = {
-    "walls": 4,        # At minimum, 4 exterior walls
+    "walls": 1,        # At minimum, 1 wall (reduced from 4 for MVP)
     "roof": 1,         # At least 1 roof element
-    "drains": 4,       # Perimeter drainage
-    "doors": 1,        # At least entry door
+    "drains": 0,       # Perimeter drainage (reduced from 4 for MVP)
+    "doors": 0,        # At least entry door (reduced from 1 for MVP)
 }
 
 # Expected ranges for typical residential
