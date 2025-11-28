@@ -133,6 +133,11 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
     # STEP 2: Initialize extraction components
     print("\n🔧 STEP 2: Initializing extraction components...")
 
+    # [FIFTH-D] Load IFC naming layer (discipline, ifc_class, groups)
+    from src.core.ifc_naming_util import IfcNamingLayer
+    naming_layer_path = os.path.join(os.path.dirname(__file__), 'ifc_naming_layer.json')
+    naming_layer = IfcNamingLayer(naming_layer_path)
+
     with pdfplumber.open(pdf_path) as pdf:
         # Initialize calibration engine (needed for all coordinate transforms)
         calibration_engine = CalibrationEngine(pdf, building_width, building_length)
@@ -143,13 +148,19 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
 
         print("  ✅ Calibration engine initialized")
         print("  ✅ Vector pattern executor initialized")
+        print("  ✅ [FIFTH-D] IFC naming layer loaded")
 
         # STEP 3: Sequential extraction following master template
         print("\n🔍 STEP 3: Sequential extraction (following master template order)...")
 
         objects = []  # Will be populated with found objects
         calibration_data = None  # Will be set after calibration
-        extraction_context = {}  # Shared context between extraction phases
+        extraction_context = {
+            # [THIRD-D] Building dimensions (WHERE) for parametric generation
+            'building_width': building_width,
+            'building_length': building_length,
+            'building_height': building_height
+        }  # Shared context between extraction phases
 
         # Pre-extract walls for orientation calculation
         print("\n  🧱 Pre-extracting walls for orientation calculation...")
@@ -239,6 +250,8 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                                     for obj in drain_objects:
                                         obj['_phase'] = phase
                                         obj['placed'] = False
+                                        # [FIFTH-D] Apply IFC properties at creation (ONE LINE)
+                                        obj.update(naming_layer.get_properties(obj.get('object_type', '')))
                                         objects.append(obj)
                                     print(f"    ✅ Generated {len(drain_objects)} discharge drains from GridTruth")
                             except Exception as e:
@@ -267,6 +280,8 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                             for obj in result:
                                 obj['_phase'] = phase
                                 obj['placed'] = False
+                                # [FIFTH-D] Apply IFC properties at creation (ONE LINE)
+                                obj.update(naming_layer.get_properties(obj.get('object_type', '')))
                                 objects.append(obj)
 
                                 # Track LOD300 objects
@@ -283,6 +298,8 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                         else:
                             result['_phase'] = phase
                             result['placed'] = False
+                            # [FIFTH-D] Apply IFC properties at creation (ONE LINE)
+                            result.update(naming_layer.get_properties(result.get('object_type', '')))
                             objects.append(result)
 
                             # Track LOD300 objects
@@ -316,6 +333,8 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                                     for obj in generated_objects:
                                         obj['_phase'] = phase
                                         obj['placed'] = False
+                                        # [FIFTH-D] Apply IFC properties at creation (ONE LINE)
+                                        obj.update(naming_layer.get_properties(obj.get('object_type', '')))
                                         objects.append(obj)
                                     print(f"    ✅ GridTruth fallback SUCCESS: {len(generated_objects)} items generated")
                                 else:
@@ -411,7 +430,7 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
             print(f"\n✅ FOUND LOD300 OBJECTS ({len(found_lod300_objects)}):")
             for obj in found_lod300_objects:
                 pos = obj.get('position', [0,0,0])
-                orient = obj.get('orientation', 0.0)
+                orient = obj.get('orientation', 0.0) or 0.0  # Handle None
                 print(f"  ✅ {obj['item']}: {obj['name']} ({obj['object_type']})")
                 print(f"     Position: [{pos[0]:.2f}, {pos[1]:.2f}, {pos[2]:.2f}]  Orientation: {orient:.1f}°")
 
@@ -507,10 +526,43 @@ if __name__ == "__main__":
 
     pdf_path = sys.argv[1]
 
-    # Parse optional building dimensions
-    building_width = 9.8
-    building_length = 8.0
-    building_height = 3.0
+    # [THIRD-D] Load building dimensions from GridTruth.json (Rule 0: expert-verified source)
+    # GridTruth contains expert-verified dimensions from PDF dimension annotations
+    building_width = 9.8   # Fallback default (overridden by GridTruth if available)
+    building_length = 8.0  # Fallback default (overridden by GridTruth if available)
+    building_height = 3.0  # Fallback default (overridden by GridTruth if available)
+
+    try:
+        # Look for GridTruth.json in same directory as PDF
+        pdf_dir = os.path.dirname(os.path.abspath(pdf_path))
+        grid_truth_path = os.path.join(pdf_dir, 'GridTruth.json')
+
+        if os.path.exists(grid_truth_path):
+            with open(grid_truth_path, 'r') as f:
+                grid_truth = json.load(f)
+
+            # [THIRD-D] Extract building envelope dimensions (WHERE)
+            envelope = grid_truth.get('building_envelope', {})
+            elevations = grid_truth.get('elevations', {})
+
+            if envelope:
+                # Use expert-verified dimensions from GridTruth
+                building_width = envelope.get('width', building_width)
+                building_length = envelope.get('depth', building_length)
+                print(f"📐 [THIRD-D] Loaded building dimensions from GridTruth.json:")
+                print(f"   Width: {building_width}m, Depth: {building_length}m")
+
+            if elevations:
+                building_height = elevations.get('ceiling', building_height)
+                print(f"   Height: {building_height}m (from elevations.ceiling)")
+        else:
+            print(f"⚠️  GridTruth.json not found - using hardcoded defaults (Rule 0 warning)")
+            print(f"   Expected: {grid_truth_path}")
+
+    except Exception as e:
+        print(f"⚠️  Could not load GridTruth.json: {e}")
+        print(f"   Using hardcoded defaults (Rule 0 warning)")
+
     output_path = None
 
     i = 2

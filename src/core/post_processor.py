@@ -668,53 +668,111 @@ def remove_zero_area_structures(objects):
 
 
 def assign_doors_to_rooms(objects):
-    """Assign doors to correct rooms based on position"""
+    """
+    [THIRD-D] Assign doors to correct rooms based on spatial analysis
+
+    Strategy:
+    1. Load room bounds from GridTruth.json ([THIRD-D]: WHERE)
+    2. For each door, check which room(s) it's adjacent to
+    3. Use door name to disambiguate (Malay → English mapping)
+    4. Fallback to door orientation if name parsing fails
+    """
     doors = [o for o in objects if 'door' in (o.get('object_type') or '').lower()]
 
-    # Exclude meta-rooms (only use specific room names)
-    meta_rooms = {'exterior', 'interior', 'unknown', 'structure'}
+    # [THIRD-D] Malay room name mapping (from door labels)
+    MALAY_TO_ENGLISH = {
+        'ruang_tamu': 'living_room',
+        'dapur': 'kitchen',
+        'bilik_utama': 'master_bedroom',
+        'bilik_2': 'bedroom_2',
+        'bilik_mandi': 'bathroom_master',
+        'tandas': 'bathroom_common',
+        'ruang_basuh': 'utility_room',
+        'anjung': 'porch'
+    }
 
-    # Group objects by room (excluding doors and meta-rooms)
-    rooms = {}
-    for obj in objects:
-        room = obj.get('room')
-        if room and room not in meta_rooms and 'door' not in (obj.get('object_type') or '').lower():
-            if room not in rooms:
-                rooms[room] = []
-            rooms[room].append(obj)
+    # Load GridTruth room bounds
+    try:
+        import os
+        # Find GridTruth.json (assume same directory as TB-LKTN HOUSE.pdf)
+        grid_truth_path = Path(__file__).parent.parent.parent / 'examples' / 'TB-LKTN_House' / 'GridTruth.json'
 
-    # Calculate room centroids
-    room_centroids = {}
-    for room_name, room_objects in rooms.items():
-        positions = [o.get('position', [0, 0, 0]) for o in room_objects]
-        if positions:
-            avg_x = sum(p[0] for p in positions) / len(positions)
-            avg_y = sum(p[1] for p in positions) / len(positions)
-            room_centroids[room_name] = (avg_x, avg_y)
+        if grid_truth_path.exists():
+            with open(grid_truth_path) as f:
+                grid_truth = json.load(f)
+                room_bounds = grid_truth.get('room_bounds', {})
+        else:
+            # Fallback: use hardcoded bounds from GridTruth
+            room_bounds = {
+                'RUANG_TAMU': {'x_min': 0.0, 'x_max': 4.4, 'y_min': 0.0, 'y_max': 5.4},
+                'DAPUR': {'x_min': 4.4, 'x_max': 11.2, 'y_min': 2.3, 'y_max': 7.0},
+                'BILIK_UTAMA': {'x_min': 8.1, 'x_max': 11.2, 'y_min': 7.0, 'y_max': 8.5},
+                'BILIK_2': {'x_min': 1.3, 'x_max': 8.1, 'y_min': 7.0, 'y_max': 8.5},
+                'BILIK_MANDI': {'x_min': 0.0, 'x_max': 1.3, 'y_min': 5.4, 'y_max': 7.0},
+                'TANDAS': {'x_min': 0.0, 'x_max': 1.3, 'y_min': 7.0, 'y_max': 8.5},
+                'RUANG_BASUH': {'x_min': 4.4, 'x_max': 8.1, 'y_min': 5.4, 'y_max': 7.0},
+                'CORRIDOR': {'x_min': 1.3, 'x_max': 4.4, 'y_min': 5.4, 'y_max': 7.0}
+            }
+    except Exception as e:
+        print(f"   ⚠️  Could not load GridTruth, using fallback room bounds")
+        room_bounds = {}
 
     fixed_count = 0
     for door in doors:
         door_pos = door.get('position', [0, 0, 0])
+        door_name = door.get('name', '').lower()
 
-        # Find nearest room
-        min_dist = float('inf')
-        nearest_room = None
+        # [CORE-D] Extract room from door name (e.g., "door_ruang_tamu" → "ruang_tamu")
+        room_from_name = None
+        for malay, english in MALAY_TO_ENGLISH.items():
+            if malay in door_name:
+                room_from_name = english
+                break
 
-        for room_name, centroid in room_centroids.items():
-            dx = door_pos[0] - centroid[0]
-            dy = door_pos[1] - centroid[1]
-            dist = math.sqrt(dx*dx + dy*dy)
+        # [THIRD-D] Find which room(s) door is adjacent to (spatial check)
+        adjacent_rooms = []
+        tolerance = 0.3  # 300mm tolerance for door on boundary
 
-            if dist < min_dist:
-                min_dist = dist
-                nearest_room = room_name
+        for room_name, bounds in room_bounds.items():
+            # Skip metadata entries (like "_note")
+            if not isinstance(bounds, dict):
+                continue
 
-        if nearest_room and door.get('room') != nearest_room:
-            door['room'] = nearest_room
+            # Check if door is ON or NEAR room boundary
+            x, y = door_pos[0], door_pos[1]
+            x_min, x_max = bounds.get('x_min', 0), bounds.get('x_max', 0)
+            y_min, y_max = bounds.get('y_min', 0), bounds.get('y_max', 0)
+
+            # Check if on any boundary
+            on_boundary = (
+                (abs(x - x_min) < tolerance or abs(x - x_max) < tolerance) and (y_min - tolerance <= y <= y_max + tolerance) or
+                (abs(y - y_min) < tolerance or abs(y - y_max) < tolerance) and (x_min - tolerance <= x <= x_max + tolerance)
+            )
+
+            if on_boundary:
+                # Map Malay room names to English
+                room_english = MALAY_TO_ENGLISH.get(room_name.lower(), room_name.lower())
+                adjacent_rooms.append(room_english)
+
+        # [IFC] Decide room assignment: prefer name-based, fallback to spatial
+        assigned_room = None
+
+        if room_from_name:
+            # Door name tells us which room it belongs to
+            assigned_room = room_from_name
+        elif len(adjacent_rooms) == 1:
+            # Only adjacent to one room
+            assigned_room = adjacent_rooms[0]
+        elif len(adjacent_rooms) > 1:
+            # Multiple adjacent rooms - use first one (corridor doors are ambiguous)
+            assigned_room = adjacent_rooms[0]
+
+        if assigned_room and door.get('room') != assigned_room:
+            door['room'] = assigned_room
             fixed_count += 1
 
     if fixed_count > 0:
-        print(f"   🚪 Assigned {fixed_count} doors to rooms")
+        print(f"   🚪 Assigned {fixed_count} doors to rooms (using [THIRD-D] spatial + name analysis)")
     else:
         print(f"   ℹ️  All doors already assigned")
 

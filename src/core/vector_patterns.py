@@ -1361,53 +1361,79 @@ class VectorPatternExecutor:
         # Determine which structural plane based on object_type
         # IMPORTANT: Check 'roof' BEFORE 'slab' to avoid collision with "roof_slab_flat_lod300"
         if 'roof' in object_type.lower() and not ('porch' in object_type.lower() or 'canopy' in object_type.lower()):
-            # Generate gable roof (2 slopes @ 25° + ridge)
-            # Malaysian standard: 25° pitch, ridge runs along X-axis at Y-center
-            import math
+            # [CORE-D + THIRD-D] → [IFC]: Generate roof structure based on type
 
-            ridge_y = building_length / 2
-            eave_height = building_height  # 3.0m
-            slope_degrees = 25
+            # Check if flat roof requested (BIM5D: WHAT defines HOW)
+            if 'flat' in object_type.lower() or 'slab' in object_type.lower():
+                # [CORE-D] Flat roof specification
+                # [THIRD-D] Position from building envelope + elevations
+                # [IFC] Combine WHAT + WHERE
+                roof_z = building_height + 0.5  # Above ceiling, accounting for roof structure
 
-            # Calculate ridge height from slope
-            # rise = (building_length / 2) * tan(25°)
-            rise = (building_length / 2) * math.tan(math.radians(slope_degrees))
-            ridge_height = eave_height + rise
-
-            # North slope (ridge to Y=max)
-            north_slope_run = building_length / 2
-            north_slope_length = north_slope_run / math.cos(math.radians(slope_degrees))
-
-            # South slope (ridge to Y=0)
-            south_slope_run = building_length / 2
-            south_slope_length = south_slope_run / math.cos(math.radians(slope_degrees))
-
-            return [
-                {
-                    'name': 'roof_north_slope',
-                    'object_type': 'roof_tile_9.7x7_lod300',
-                    'position': [building_width / 2, building_length, eave_height],
-                    'end_point': [building_width / 2, ridge_y, ridge_height],
-                    'dimensions': [building_width, north_slope_length, 0.02],
-                    'orientation': 0.0,
+                return {
+                    'name': 'roof_slab_main',
+                    'object_type': object_type,  # Use requested type (roof_slab_flat_lod300)
+                    'position': [0.0, 0.0, roof_z],
+                    'dimensions': {
+                        'length': building_width,
+                        'width': building_length,
+                        'thickness': 0.15
+                    },
+                    'orientation': 0.0,  # Flat roof, no rotation
                     'room': 'structure',
                     '_phase': '1C_structure',
-                    '_slope_degrees': slope_degrees,
-                    'placed': False
-                },
-                {
-                    'name': 'roof_south_slope',
-                    'object_type': 'roof_tile_9.7x7_lod300',
-                    'position': [building_width / 2, 0, eave_height],
-                    'end_point': [building_width / 2, ridge_y, ridge_height],
-                    'dimensions': [building_width, south_slope_length, 0.02],
-                    'orientation': 180.0,
-                    'room': 'structure',
-                    '_phase': '1C_structure',
-                    '_slope_degrees': slope_degrees,
+                    '_generation_method': 'parametric_from_building_envelope',
                     'placed': False
                 }
-            ]
+            else:
+                # [CORE-D] Gabled roof specification (traditional Malaysian)
+                # [THIRD-D] Position from building envelope + pitch angle
+                # [IFC] Combine WHAT + WHERE
+                import math
+
+                ridge_y = building_length / 2
+                eave_height = building_height  # 3.0m
+                slope_degrees = 25
+
+                # Calculate ridge height from slope
+                # rise = (building_length / 2) * tan(25°)
+                rise = (building_length / 2) * math.tan(math.radians(slope_degrees))
+                ridge_height = eave_height + rise
+
+                # North slope (ridge to Y=max)
+                north_slope_run = building_length / 2
+                north_slope_length = north_slope_run / math.cos(math.radians(slope_degrees))
+
+                # South slope (ridge to Y=0)
+                south_slope_run = building_length / 2
+                south_slope_length = south_slope_run / math.cos(math.radians(slope_degrees))
+
+                return [
+                    {
+                        'name': 'roof_north_slope',
+                        'object_type': 'roof_tile_9.7x7_lod300',
+                        'position': [building_width / 2, building_length, eave_height],
+                        'end_point': [building_width / 2, ridge_y, ridge_height],
+                        'dimensions': [building_width, north_slope_length, 0.02],
+                        'orientation': 0.0,
+                        'room': 'structure',
+                        '_phase': '1C_structure',
+                        '_slope_degrees': slope_degrees,
+                        'placed': False
+                    },
+                    {
+                        'name': 'roof_south_slope',
+                        'object_type': 'roof_tile_9.7x7_lod300',
+                        'position': [building_width / 2, 0, eave_height],
+                        'end_point': [building_width / 2, ridge_y, ridge_height],
+                        'dimensions': [building_width, south_slope_length, 0.02],
+                        'orientation': 180.0,
+                        'room': 'structure',
+                        '_phase': '1C_structure',
+                        '_slope_degrees': slope_degrees,
+                        'placed': False
+                    }
+                ]
 
         elif 'porch' in object_type.lower() or 'canopy' in object_type.lower():
             # Generate porch structure from context
@@ -1491,28 +1517,42 @@ class VectorPatternExecutor:
             ]
 
         elif 'ceiling' in object_type.lower() or 'gypsum' in object_type.lower():
-            # Ceiling plane
+            # [CORE-D] Ceiling specification (gypsum, plasterboard, etc.)
+            # [THIRD-D] Position from building envelope + ceiling elevation
+            # [IFC] Combine WHAT + WHERE
             return {
-                'name': 'ceiling_plane',
+                'name': 'ceiling_main',
                 'object_type': object_type,
-                'position': [building_width / 2, building_length / 2, building_height],
-                'dimensions': [building_width, building_length, 0.01],
+                'position': [0.0, 0.0, building_height - 0.1],  # Just below roof structure
+                'dimensions': {
+                    'length': building_width,
+                    'width': building_length,
+                    'thickness': 0.01
+                },
                 'orientation': 0.0,
                 'room': 'structure',
                 '_phase': '1C_structure',
+                '_generation_method': 'parametric_from_building_envelope',
                 'placed': False
             }
 
         elif 'slab' in object_type.lower() or 'floor' in object_type.lower():
-            # Floor slab
+            # [CORE-D] Floor slab specification (thickness, material)
+            # [THIRD-D] Position from building envelope + ground level
+            # [IFC] Combine WHAT + WHERE
             return {
-                'name': 'floor_slab',
+                'name': 'floor_slab_main',
                 'object_type': object_type,
-                'position': [building_width / 2, building_length / 2, 0.0],
-                'dimensions': [building_width, building_length, 0.15],
+                'position': [0.0, 0.0, 0.0],  # Ground level
+                'dimensions': {
+                    'length': building_width,
+                    'width': building_length,
+                    'thickness': 0.15
+                },
                 'orientation': 0.0,
                 'room': 'structure',
                 '_phase': '1C_structure',
+                '_generation_method': 'parametric_from_building_envelope',
                 'placed': False
             }
 

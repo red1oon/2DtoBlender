@@ -1,0 +1,258 @@
+{
+  "_comment": "IFC NAMING LAYER - Patch for master-reference-template.json",
+  "_version": "1.0.0",
+  "_usage": "Merge these properties into each item in master-reference-template.json",
+  
+  "disciplines": {
+    "ARC": {"name": "Architectural", "order": 1},
+    "STR": {"name": "Structural", "order": 2},
+    "MEP": {"name": "Mechanical/Electrical", "order": 3},
+    "PLUM": {"name": "Plumbing", "order": 4},
+    "SITE": {"name": "Site/Landscape", "order": 5}
+  },
+  
+  "groups": {
+    "Envelope": {"discipline": "ARC", "order": 1},
+    "Perimeter": {"discipline": "STR", "order": 2},
+    "Roofing": {"discipline": "ARC", "order": 3},
+    "Floor": {"discipline": "STR", "order": 4},
+    "Walls": {"discipline": "ARC", "order": 5},
+    "Doors": {"discipline": "ARC", "order": 6},
+    "Windows": {"discipline": "ARC", "order": 7},
+    "Living_Room": {"discipline": "ARC", "order": 10},
+    "Kitchen": {"discipline": "ARC", "order": 11},
+    "Bedroom": {"discipline": "ARC", "order": 12},
+    "Bathroom": {"discipline": "ARC", "order": 13},
+    "Electrical": {"discipline": "MEP", "order": 20},
+    "Lighting": {"discipline": "MEP", "order": 21},
+    "Fixtures": {"discipline": "PLUM", "order": 30},
+    "Drainage": {"discipline": "PLUM", "order": 31},
+    "Furniture": {"discipline": "ARC", "order": 40}
+  },
+
+  "items": [
+    {
+      "_comment": "=== STRUCTURAL / ENVELOPE ===",
+      "object_type": "roof_slab",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "STR",
+      "group": "Roofing",
+      "blender_name": "STR_Roof_Main"
+    },
+    {
+      "object_type": "floor_slab",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "FLOOR",
+      "discipline": "STR",
+      "group": "Floor",
+      "blender_name": "STR_Floor_Ground"
+    },
+    {
+      "object_type": "ceiling",
+      "ifc_class": "IfcCovering",
+      "ifc_predefined_type": "CEILING",
+      "discipline": "ARC",
+      "group": "Envelope",
+      "blender_name": "ARC_Ceiling_Main"
+    },
+    {
+      "object_type": "porch_canopy",
+      "ifc_class": "IfcSlab",
+      "ifc_predefined_type": "ROOF",
+      "discipline": "ARC",
+      "group": "Envelope",
+      "blender_name": "ARC_Canopy_Porch"
+    },
+    {
+      "object_type": "discharge_perimeter",
+      "ifc_class": "IfcPipeSegment",
+      "ifc_predefined_type": "GUTTER",
+      "discipline": "PLUM",
+      "group": "Drainage",
+      "blender_name": "PLUM_Drain_Perimeter_{index}"
+    },
+
+    {
+      "_comment": "=== WALLS ===",
+      "object_type": "wall_exterior",
+      "ifc_class": "IfcWall",
+      "ifc_predefined_type": "SOLIDWALL",
+      "discipline": "ARC",
+      "group": "Walls",
+      "blender_name": "ARC_Wall_Ext_{direction}"
+    },
+    {
+      "object_type": "wall_interior",
+      "ifc_class": "IfcWall",
+      "ifc_predefined_type": "PARTITIONING",
+      "discipline": "ARC",
+      "group": "Walls",
+      "blender_name": "ARC_Wall_Int_{room}"
+    },
+
+    {
+      "_comment": "=== DOORS ===",
+      "object_type": "door_single_900_lod300",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}"
+    },
+    {
+      "object_type": "door_single_750_lod300",
+      "ifc_class": "IfcDoor",
+      "ifc_predefined_type": "DOOR",
+      "discipline": "ARC",
+      "group": "Doors",
+      "blender_name": "ARC_Door_{label}"
+    },
+
+    {
+      "_comment": "=== WINDOWS ===",
+      "object_type": "window_standard",
+      "ifc_class": "IfcWindow",
+      "ifc_predefined_type": "WINDOW",
+      "discipline": "ARC",
+      "group": "Windows",
+      "blender_name": "ARC_Window_{label}"
+    },
+
+    {
+      "_comment": "=== MEP - ELECTRICAL ===",
+      "object_type": "switch_1gang_lod300",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "object_type": "switch_2gang_lod300",
+      "ifc_class": "IfcSwitchingDevice",
+      "ifc_predefined_type": "TOGGLESWITCH",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Switch_{room}"
+    },
+    {
+      "object_type": "outlet_13a_twin_lod300",
+      "ifc_class": "IfcOutlet",
+      "ifc_predefined_type": "POWEROUTLET",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Outlet_{room}"
+    },
+
+    {
+      "_comment": "=== MEP - LIGHTING ===",
+      "object_type": "ceiling_light_surface_lod300",
+      "ifc_class": "IfcLightFixture",
+      "ifc_predefined_type": "POINTSOURCE",
+      "discipline": "MEP",
+      "group": "Lighting",
+      "blender_name": "MEP_Light_{room}"
+    },
+    {
+      "object_type": "ceiling_fan_3blade_lod300",
+      "ifc_class": "IfcFan",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "MEP",
+      "group": "Electrical",
+      "blender_name": "MEP_Fan_{room}"
+    },
+
+    {
+      "_comment": "=== PLUMBING - FIXTURES ===",
+      "object_type": "toilet_floor_lod300",
+      "ifc_class": "IfcSanitaryTerminal",
+      "ifc_predefined_type": "TOILETPAN",
+      "discipline": "PLUM",
+      "group": "Fixtures",
+      "blender_name": "PLUM_Toilet_{room}"
+    },
+    {
+      "object_type": "basin_wall_lod300",
+      "ifc_class": "IfcSanitaryTerminal",
+      "ifc_predefined_type": "WASHHANDBASIN",
+      "discipline": "PLUM",
+      "group": "Fixtures",
+      "blender_name": "PLUM_Basin_{room}"
+    },
+    {
+      "object_type": "sink_kitchen_lod300",
+      "ifc_class": "IfcSanitaryTerminal",
+      "ifc_predefined_type": "SINK",
+      "discipline": "PLUM",
+      "group": "Fixtures",
+      "blender_name": "PLUM_Sink_Kitchen"
+    },
+    {
+      "object_type": "floor_drain_lod200",
+      "ifc_class": "IfcWasteTerminal",
+      "ifc_predefined_type": "FLOORTRAP",
+      "discipline": "PLUM",
+      "group": "Drainage",
+      "blender_name": "PLUM_FloorDrain_{room}"
+    },
+
+    {
+      "_comment": "=== FURNITURE ===",
+      "object_type": "sofa_3seat",
+      "ifc_class": "IfcFurniture",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Furniture",
+      "blender_name": "ARC_Furn_Sofa"
+    },
+    {
+      "object_type": "dining_table_6seat",
+      "ifc_class": "IfcFurniture",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Furniture",
+      "blender_name": "ARC_Furn_DiningTable"
+    },
+    {
+      "object_type": "bed_queen",
+      "ifc_class": "IfcFurniture",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Furniture",
+      "blender_name": "ARC_Furn_Bed"
+    },
+    {
+      "object_type": "kitchen_counter",
+      "ifc_class": "IfcFurniture",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "ARC",
+      "group": "Kitchen",
+      "blender_name": "ARC_Furn_Counter"
+    },
+    {
+      "object_type": "fridge_standard",
+      "ifc_class": "IfcElectricAppliance",
+      "ifc_predefined_type": "REFRIGERATOR",
+      "discipline": "MEP",
+      "group": "Kitchen",
+      "blender_name": "MEP_Appliance_Fridge"
+    },
+    {
+      "object_type": "stove_gas_4burner",
+      "ifc_class": "IfcElectricAppliance",
+      "ifc_predefined_type": "NOTDEFINED",
+      "discipline": "MEP",
+      "group": "Kitchen",
+      "blender_name": "MEP_Appliance_Stove"
+    },
+    {
+      "object_type": "washing_machine",
+      "ifc_class": "IfcElectricAppliance",
+      "ifc_predefined_type": "WASHINGMACHINE",
+      "discipline": "MEP",
+      "group": "Bathroom",
+      "blender_name": "MEP_Appliance_Washer"
+    }
+  ]
+}
