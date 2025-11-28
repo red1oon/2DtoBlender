@@ -76,11 +76,24 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
         # Find cluster with most unique labels
         best_cluster = None
         max_unique = 0
+        best_cluster_y = None
         for cluster_y, grids in y_clusters.items():
             unique_labels = len(set(label for label, _ in grids))
             if unique_labels > max_unique:
                 max_unique = unique_labels
                 best_cluster = grids
+                best_cluster_y = cluster_y
+
+        print(f"\n=== HORIZONTAL GRID DIAGNOSTICS ===")
+        print(f"Found {len(y_clusters)} Y-position clusters on page 1")
+        for cluster_y, grids in sorted(y_clusters.items()):
+            unique = len(set(label for label, _ in grids))
+            labels = sorted(set(label for label, _ in grids))
+            print(f"  Y~{cluster_y:.1f}: {len(grids)} grids, {unique} unique ({', '.join(labels)})")
+        print(f"Selected cluster Y~{best_cluster_y:.1f} with {max_unique} unique labels")
+        print(f"\nGrid positions in selected cluster:")
+        for label, x in sorted(best_cluster, key=lambda g: g[0]):
+            print(f"  {label}: x={x:.1f}")
 
         # Average x positions for each label in best cluster
         h_positions = {}
@@ -89,6 +102,14 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
                 h_positions[label] = []
             h_positions[label].append(x)
         h_grids = {label: np.mean(xs) for label, xs in h_positions.items()}
+
+        print(f"\nAfter averaging duplicates:")
+        for label in sorted(h_grids.keys()):
+            count = len(h_positions[label])
+            if count > 1:
+                print(f"  {label}: x={h_grids[label]:.1f} (averaged {count} positions: {[f'{x:.1f}' for x in h_positions[label]]})")
+            else:
+                print(f"  {label}: x={h_grids[label]:.1f}")
     else:
         h_grids = {}
 
@@ -116,11 +137,24 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
         # Find cluster with most unique labels
         best_cluster = None
         max_unique = 0
+        best_cluster_x = None
         for cluster_x, grids in x_clusters.items():
             unique_labels = len(set(label for label, _ in grids))
             if unique_labels > max_unique:
                 max_unique = unique_labels
                 best_cluster = grids
+                best_cluster_x = cluster_x
+
+        print(f"\n=== VERTICAL GRID DIAGNOSTICS ===")
+        print(f"Found {len(x_clusters)} X-position clusters on page 1")
+        for cluster_x, grids in sorted(x_clusters.items()):
+            unique = len(set(label for label, _ in grids))
+            labels = sorted(set(label for label, _ in grids), key=lambda x: int(x))
+            print(f"  X~{cluster_x:.1f}: {len(grids)} grids, {unique} unique ({', '.join(labels)})")
+        print(f"Selected cluster X~{best_cluster_x:.1f} with {max_unique} unique labels")
+        print(f"\nGrid positions in selected cluster:")
+        for label, y in sorted(best_cluster, key=lambda g: int(g[0])):
+            print(f"  {label}: y={y:.1f}")
 
         # Average y positions for each label in best cluster
         v_positions = {}
@@ -129,6 +163,14 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
                 v_positions[label] = []
             v_positions[label].append(y)
         v_grids = {label: np.mean(ys) for label, ys in v_positions.items()}
+
+        print(f"\nAfter averaging duplicates:")
+        for label in sorted(v_grids.keys(), key=lambda x: int(x)):
+            count = len(v_positions[label])
+            if count > 1:
+                print(f"  {label}: y={v_grids[label]:.1f} (averaged {count} positions: {[f'{y:.1f}' for y in v_positions[label]]})")
+            else:
+                print(f"  {label}: y={v_grids[label]:.1f}")
     else:
         v_grids = {}
 
