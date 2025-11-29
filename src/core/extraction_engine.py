@@ -329,12 +329,8 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                                 pdf_basename = Path(pdf_path).stem.replace(' ', '_')
                                 annotation_db_path = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-                                # Get GridTruth.json path (same directory as PDF)
-                                pdf_dir = Path(pdf_path).parent
-                                gridtruth_path = pdf_dir / 'GridTruth.json'
-
+                                # Generate from annotation DB only (Rule 0 compliant)
                                 generated_objects = gridtruth_generate(item,
-                                                                      grid_truth_path=str(gridtruth_path) if gridtruth_path.exists() else None,
                                                                       context=extraction_context,
                                                                       annotation_db_path=str(annotation_db_path))
 
@@ -369,13 +365,8 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                             pdf_basename = Path(pdf_path).stem.replace(' ', '_')
                             annotation_db_path = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
-                            # Get GridTruth.json path (same directory as PDF)
-                            pdf_dir = Path(pdf_path).parent
-                            gridtruth_path = pdf_dir / 'GridTruth.json'
-
-                            # Try to generate from GridTruth.json (preferred) or Annotations DB (fallback)
+                            # Generate from Annotations DB (Rule 0 compliant)
                             generated_objects = gridtruth_generate(item,
-                                                                  grid_truth_path=str(gridtruth_path) if gridtruth_path.exists() else None,
                                                                   context=extraction_context,
                                                                   annotation_db_path=str(annotation_db_path))
 
@@ -480,26 +471,26 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
             phase = obj.get('_phase', 'unknown')
             by_phase[phase] = by_phase.get(phase, 0) + 1
 
-        # Load room_bounds and building_envelope from GridTruth.json
-        pdf_dir = os.path.dirname(pdf_path)
-        gridtruth_path = os.path.join(pdf_dir, 'GridTruth.json')
+        # Derive room_bounds and building_envelope from Annotations DB (Rule 0 compliant)
+        annotation_db = Path('output_artifacts') / f'{pdf_basename}_ANNOTATION_FROM_2D.db'
 
         room_bounds = {}
         building_envelope = {}
 
-        if os.path.exists(gridtruth_path):
+        if annotation_db.exists():
             try:
-                with open(gridtruth_path, 'r') as f:
-                    gridtruth = json.load(f)
-                    room_bounds = gridtruth.get('room_bounds', {})
-                    building_envelope = gridtruth.get('building_envelope', {})
-                print(f"  ✅ Loaded room_bounds and building_envelope from GridTruth.json")
-                print(f"     - Rooms: {len(room_bounds)}")
+                from src.core.annotation_derivation import derive_building_envelope, derive_room_bounds
+
+                building_envelope = derive_building_envelope(str(annotation_db))
+                room_bounds = derive_room_bounds(str(annotation_db))
+
+                print(f"  ✅ Derived spatial data from annotations DB:")
                 print(f"     - Envelope: {building_envelope.get('width', 0)}m × {building_envelope.get('depth', 0)}m")
+                print(f"     - Rooms: {len(room_bounds)}")
             except Exception as e:
-                print(f"  ⚠️  Error loading GridTruth.json: {e}")
+                print(f"  ⚠️  Error deriving from annotations DB: {e}")
         else:
-            print(f"  ⚠️  GridTruth.json not found at {gridtruth_path}")
+            print(f"  ⚠️  Annotations DB not found at {annotation_db}")
 
         # Build output JSON structure
         output_json = {

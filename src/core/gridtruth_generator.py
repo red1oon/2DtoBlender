@@ -235,38 +235,22 @@ class GridTruthGenerator:
         }
 
 
-def generate_walls(grid_truth_path=None, annotation_db_path=None):
+def generate_walls(annotation_db_path: str):
     """
     Generate wall segments from spatial data
 
     Args:
-        grid_truth_path: Path to GridTruth.json (DEPRECATED)
-        annotation_db_path: Path to annotations DB (preferred)
+        annotation_db_path: Path to annotations DB (Rule 0 compliant)
 
     Returns:
         list: Wall objects with position, end_point, thickness
     """
-    # Get room bounds from GridTruth.json (preferred) or wall-based derivation (fallback)
-    room_bounds = {}
-
-    if grid_truth_path and Path(grid_truth_path).exists():
-        # Preferred: Use GridTruth.json (manually verified dimensions)
-        try:
-            with open(grid_truth_path) as f:
-                grid_truth = json.load(f)
-            room_bounds = grid_truth.get('room_bounds', {})
-            print(f"    ✅ Using GridTruth.json room bounds for door placement")
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f"    ⚠️  Error loading GridTruth: {e}")
-
-    # Fallback to wall-based derivation if GridTruth not available
-    if not room_bounds and annotation_db_path:
-        from src.core.annotation_derivation import derive_room_bounds
-        room_bounds = derive_room_bounds(annotation_db_path)
-        print(f"    ⚠️  GridTruth.json not found, using wall-based room detection for doors")
+    # Get room bounds from annotation DB derivation
+    from src.core.annotation_derivation import derive_room_bounds
+    room_bounds = derive_room_bounds(annotation_db_path)
 
     if not room_bounds:
-        print("    ⚠️  No spatial data source provided - cannot generate doors")
+        print("    ⚠️  No room bounds derived - cannot generate walls")
         return []
 
     if not room_bounds:
@@ -330,29 +314,21 @@ def generate_walls(grid_truth_path=None, annotation_db_path=None):
     return walls
 
 
-def generate_roof(grid_truth_path=None, annotation_db_path=None):
+def generate_roof(annotation_db_path: str):
     """
     Generate roof slab from spatial data
 
     Args:
-        grid_truth_path: Path to GridTruth.json (DEPRECATED)
-        annotation_db_path: Path to annotations DB (preferred)
+        annotation_db_path: Path to annotations DB (Rule 0 compliant)
 
     Returns:
         dict: Roof object or None if envelope missing
     """
-    # Get building envelope from appropriate source
-    if annotation_db_path:
-        from src.core.annotation_derivation import derive_building_envelope
-        envelope = derive_building_envelope(annotation_db_path)
-    elif grid_truth_path:
-        try:
-            with open(grid_truth_path) as f:
-                grid_truth = json.load(f)
-            envelope = grid_truth.get('building_envelope', {})
-        except FileNotFoundError:
-            return None
-    else:
+    # Get building envelope from annotation DB
+    from src.core.annotation_derivation import derive_building_envelope
+    envelope = derive_building_envelope(annotation_db_path)
+
+    if not envelope:
         return None
 
     if not envelope:
@@ -382,20 +358,13 @@ def generate_roof(grid_truth_path=None, annotation_db_path=None):
     return roof
 
 
-def generate_floor_slab(grid_truth_path=None, annotation_db_path=None):
+def generate_floor_slab(annotation_db_path: str):
     """Generate floor slab from spatial data"""
-    # Get building envelope from appropriate source
-    if annotation_db_path:
-        from src.core.annotation_derivation import derive_building_envelope
-        envelope = derive_building_envelope(annotation_db_path)
-    elif grid_truth_path:
-        try:
-            with open(grid_truth_path) as f:
-                grid_truth = json.load(f)
-            envelope = grid_truth.get('building_envelope', {})
-        except FileNotFoundError:
-            return None
-    else:
+    # Get building envelope from annotation DB
+    from src.core.annotation_derivation import derive_building_envelope
+    envelope = derive_building_envelope(annotation_db_path)
+
+    if not envelope:
         return None
 
     if not envelope:
@@ -424,21 +393,11 @@ def generate_floor_slab(grid_truth_path=None, annotation_db_path=None):
     return floor
 
 
-def generate_ceiling(grid_truth_path=None, annotation_db_path=None):
+def generate_ceiling(annotation_db_path: str):
     """Generate ceiling plane from spatial data"""
-    # Get building envelope from appropriate source
-    if annotation_db_path:
-        from src.core.annotation_derivation import derive_building_envelope
-        envelope = derive_building_envelope(annotation_db_path)
-    elif grid_truth_path:
-        try:
-            with open(grid_truth_path) as f:
-                grid_truth = json.load(f)
-            envelope = grid_truth.get('building_envelope', {})
-        except FileNotFoundError:
-            return None
-    else:
-        return None
+    # Get building envelope from annotation DB
+    from src.core.annotation_derivation import derive_building_envelope
+    envelope = derive_building_envelope(annotation_db_path)
 
     if not envelope:
         return None
@@ -467,30 +426,19 @@ def generate_ceiling(grid_truth_path=None, annotation_db_path=None):
     return ceiling
 
 
-def generate_drains(grid_truth_path=None, annotation_db_path=None):
+def generate_drains(annotation_db_path: str):
     """
     Generate discharge perimeter gutters from spatial data
 
     Args:
-        grid_truth_path: Path to GridTruth.json (DEPRECATED)
-        annotation_db_path: Path to annotations DB (preferred)
+        annotation_db_path: Path to annotations DB (Rule 0 compliant)
 
     Returns:
         list: Drain/gutter objects (4 perimeter segments)
     """
-    # Get building envelope from appropriate source
-    if annotation_db_path:
-        from src.core.annotation_derivation import derive_building_envelope
-        envelope = derive_building_envelope(annotation_db_path)
-    elif grid_truth_path:
-        try:
-            with open(grid_truth_path) as f:
-                grid_truth = json.load(f)
-            envelope = grid_truth.get('building_envelope', {})
-        except FileNotFoundError:
-            return []
-    else:
-        return []
+    # Get building envelope from annotation DB
+    from src.core.annotation_derivation import derive_building_envelope
+    envelope = derive_building_envelope(annotation_db_path)
 
     if not envelope:
         return []
@@ -530,7 +478,7 @@ def generate_drains(grid_truth_path=None, annotation_db_path=None):
     return drains
 
 
-def generate_doors(grid_truth_path=None, door_schedule=None, annotation_db_path=None):
+def generate_doors(annotation_db_path: str, door_schedule=None):
     """
     Generate doors from spatial data following UBBL regulations
 
@@ -541,38 +489,18 @@ def generate_doors(grid_truth_path=None, door_schedule=None, annotation_db_path=
     - Swing: Into room (away from corridor)
 
     Args:
-        grid_truth_path: Path to GridTruth.json (DEPRECATED)
+        annotation_db_path: Path to annotations DB (Rule 0 compliant)
         door_schedule: Optional door schedule data from PDF extraction
-        annotation_db_path: Path to annotations DB (preferred)
 
     Returns:
         list: Door objects with positions inferred from room boundaries
     """
-    # Get room bounds from GridTruth.json (preferred) or wall-based derivation (fallback)
-    room_bounds = {}
-
-    if grid_truth_path and Path(grid_truth_path).exists():
-        # Preferred: Use GridTruth.json (manually verified dimensions)
-        try:
-            with open(grid_truth_path) as f:
-                grid_truth = json.load(f)
-            room_bounds = grid_truth.get('room_bounds', {})
-            print(f"    ✅ Using GridTruth.json room bounds for door placement")
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f"    ⚠️  Error loading GridTruth: {e}")
-
-    # Fallback to wall-based derivation if GridTruth not available
-    if not room_bounds and annotation_db_path:
-        from src.core.annotation_derivation import derive_room_bounds
-        room_bounds = derive_room_bounds(annotation_db_path)
-        print(f"    ⚠️  GridTruth.json not found, using wall-based room detection for doors")
+    # Get room bounds from annotation DB
+    from src.core.annotation_derivation import derive_room_bounds
+    room_bounds = derive_room_bounds(annotation_db_path)
 
     if not room_bounds:
-        print("    ⚠️  No spatial data source provided - cannot generate doors")
-        return []
-
-    if not room_bounds:
-        print("⚠️  No room_bounds in spatial data")
+        print("    ⚠️  No room bounds derived - cannot generate doors")
         return []
 
     doors = []
@@ -668,7 +596,7 @@ def generate_doors(grid_truth_path=None, door_schedule=None, annotation_db_path=
     return doors
 
 
-def generate_item(item, grid_truth_path=None, context=None, annotation_db_path=None):
+def generate_item(item, annotation_db_path: str, context=None):
     """
     Dispatcher - route to appropriate generator based on item type
 
@@ -678,9 +606,8 @@ def generate_item(item, grid_truth_path=None, context=None, annotation_db_path=N
 
     Args:
         item: Template item dict with object_type
-        grid_truth_path: Path to GridTruth.json (DEPRECATED - for compatibility)
+        annotation_db_path: Path to annotations DB (Rule 0 compliant)
         context: Optional extraction context (for door_schedule, etc.)
-        annotation_db_path: Path to annotations DB (preferred, Rule 0 compliant)
 
     Returns:
         list: Generated objects (empty if not supported)
@@ -688,10 +615,7 @@ def generate_item(item, grid_truth_path=None, context=None, annotation_db_path=N
     # NEW: Abstract generator (config-driven)
     if 'placement_zone' in item:
         try:
-            if annotation_db_path:
-                generator = GridTruthGenerator(annotation_db_path=annotation_db_path)
-            else:
-                generator = GridTruthGenerator(grid_truth_path=grid_truth_path)
+            generator = GridTruthGenerator(annotation_db_path=annotation_db_path)
             result = generator.generate(item)
             if result:
                 # Ensure result is always a list
@@ -702,40 +626,35 @@ def generate_item(item, grid_truth_path=None, context=None, annotation_db_path=N
             print(f"    ⚠️  Abstract generator failed: {e}")
             # Fall through to legacy generators
 
-    # LEGACY: Hardcoded generators (for backward compatibility)
-    # Pass BOTH grid_truth_path and annotation_db_path to generators
-    # (they will prefer GridTruth.json if available, fallback to annotation DB)
-
+    # LEGACY: Hardcoded generators (annotation DB only)
     object_type = item.get('object_type', '') or ''
     object_type_lower = object_type.lower()
     detection_id = item.get('detection_id', '')
     item_name = item.get('item', '').lower()
 
     if 'wall' in object_type_lower:
-        return generate_walls(grid_truth_path, annotation_db_path=annotation_db_path)
+        return generate_walls(annotation_db_path)
     elif 'gutter' in object_type_lower or 'drain' in object_type_lower:
-        # Check gutter/drain BEFORE roof (roof_gutter_100_lod300 contains 'roof')
-        return generate_drains(grid_truth_path, annotation_db_path=annotation_db_path)
+        return generate_drains(annotation_db_path)
     elif 'slab' in object_type_lower or 'floor' in item_name:
-        floor = generate_floor_slab(grid_truth_path, annotation_db_path=annotation_db_path)
+        floor = generate_floor_slab(annotation_db_path)
         return [floor] if floor else []
     elif 'ceiling' in object_type_lower or 'ceiling' in item_name:
-        ceiling = generate_ceiling(grid_truth_path, annotation_db_path=annotation_db_path)
+        ceiling = generate_ceiling(annotation_db_path)
         return [ceiling] if ceiling else []
     elif 'roof' in object_type_lower:
-        roof = generate_roof(grid_truth_path, annotation_db_path=annotation_db_path)
+        roof = generate_roof(annotation_db_path)
         return [roof] if roof else []
     elif 'door' in item_name:
         # Handle doors - use door_schedule from context if available
         door_schedule = None
         if context and isinstance(context, dict):
             door_schedule = context.get('door_schedule')
-        return generate_doors(grid_truth_path, door_schedule, annotation_db_path=annotation_db_path)
+        return generate_doors(annotation_db_path, door_schedule)
     elif 'window' in item_name:
-        # Windows not yet implemented in GridTruth generator
-        # For now, return empty (will be added in future iteration)
-        print(f"    ⚠️  Window generation from GridTruth not yet implemented")
+        # Windows not yet implemented
+        print(f"    ⚠️  Window generation not yet implemented")
         return []
     else:
-        # Not a structural item we can generate from GridTruth/Annotations DB
+        # Not a structural item we can generate
         return []

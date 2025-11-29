@@ -189,6 +189,14 @@
       "blender_name": "PLUM_Basin_{room}"
     },
     {
+      "object_type": "wall_mounted_basin_lod300",
+      "ifc_class": "IfcSanitaryTerminal",
+      "ifc_predefined_type": "WASHHANDBASIN",
+      "discipline": "PLUM",
+      "group": "Fixtures",
+      "blender_name": "PLUM_Basin_{room}"
+    },
+    {
       "object_type": "sink_kitchen_lod300",
       "ifc_class": "IfcSanitaryTerminal",
       "ifc_predefined_type": "SINK",

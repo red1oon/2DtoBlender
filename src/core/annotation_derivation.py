@@ -525,12 +525,12 @@ def derive_building_envelope(db_path: str) -> Dict[str, float]:
     grid_y_min = min(v_values)
     grid_y_max = max(v_values)
 
-    # Apply setback (750mm from grid to exterior wall face)
+    # Apply setback (exterior walls extend 750mm BEYOND grid on all sides)
     setback = 0.75
-    x_min = grid_x_min + setback
-    x_max = grid_x_max - setback
-    y_min = grid_y_min + setback
-    y_max = grid_y_max - setback
+    x_min = grid_x_min - setback  # Grid A(0.0) - 0.75 = -0.75 (west wall)
+    x_max = grid_x_max + setback  # Grid E(11.2) + 0.75 = 11.95 (east wall)
+    y_min = grid_y_min - setback  # Grid 1(0.0) - 0.75 = -0.75 (south wall, includes porch)
+    y_max = grid_y_max + setback  # Grid 5(8.5) + 0.75 = 9.25 (north wall)
 
     width = x_max - x_min
     depth = y_max - y_min
@@ -607,15 +607,36 @@ def derive_room_bounds(db_path: str) -> Dict[str, Dict[str, float]]:
     """)
     wall_lines = cursor.fetchall()
 
+    # Get PDF origin directly from grid label positions in database
+    # Query grid 'A' and '1' PDF coordinates (the origin points)
+    cursor.execute("""
+        SELECT x FROM primitives_text
+        WHERE text = 'A' AND page = 1
+        ORDER BY y
+        LIMIT 1
+    """)
+    grid_a_row = cursor.fetchone()
+    if not grid_a_row:
+        conn.close()
+        raise ValueError("Grid label 'A' not found - cannot determine PDF origin")
+    origin_x_pdf = grid_a_row[0]
+
+    cursor.execute("""
+        SELECT y FROM primitives_text
+        WHERE text = '1' AND page = 1
+        ORDER BY x
+        LIMIT 1
+    """)
+    grid_1_row = cursor.fetchone()
+    if not grid_1_row:
+        conn.close()
+        raise ValueError("Grid label '1' not found - cannot determine PDF origin")
+    origin_y_pdf = grid_1_row[0]
+
     conn.close()
 
     if not wall_lines:
         raise ValueError("No wall lines found in database - cannot derive room bounds")
-
-    # Get grid positions for origin reference
-    grid_h, grid_v = derive_grid_positions(db_path)
-    origin_x_pdf = min([pos / scale_x for pos in grid_h.values()])  # Reconstruct PDF origin
-    origin_y_pdf = min([pos / scale_y for pos in grid_v.values()])
 
     # Separate walls into vertical and horizontal
     vertical_walls = []
@@ -656,10 +677,12 @@ def derive_room_bounds(db_path: str) -> Dict[str, Dict[str, float]]:
         top_y = min([y for y, _, _ in top_walls]) if top_walls else label_y + 50
 
         # Convert PDF coordinates to real-world coordinates
+        # X-axis: left to right (normal)
         x_min_real = (left_x - origin_x_pdf) * scale_x
         x_max_real = (right_x - origin_x_pdf) * scale_x
-        y_min_real = (bottom_y - origin_y_pdf) * scale_y
-        y_max_real = (top_y - origin_y_pdf) * scale_y
+        # Y-axis: PDF increases downward, so invert (same as derive_grid_positions)
+        y_min_real = (origin_y_pdf - top_y) * scale_y  # top_y is larger PDF value (lower on page)
+        y_max_real = (origin_y_pdf - bottom_y) * scale_y  # bottom_y is smaller PDF value (higher on page)
 
         room_bounds[normalized_name] = {
             'x_min': round(x_min_real, 2),

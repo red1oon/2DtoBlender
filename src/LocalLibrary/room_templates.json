@@ -45,7 +45,7 @@
           "offset_from_bed": 0.1
         },
         "dresser": {
-          "library_object": "dresser_6drawer",
+          "library_object": "dresser_6drawer_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "against_wall",
@@ -115,13 +115,13 @@
           "wall_preference": "window_wall"
         },
         "desk_chair": {
-          "library_object": "office_chair_ergonomic",
+          "library_object": "office_chair_ergonomic_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "in_front_of_desk"
         },
         "bookshelf": {
-          "library_object": "bookshelf_5tier",
+          "library_object": "bookshelf_5tier_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "beside_desk"
@@ -314,7 +314,7 @@
       },
       "furniture_set": {
         "vanity": {
-          "library_object": "bathroom_vanity_1000",
+          "library_object": "bathroom_vanity_1000_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "under_basin",
@@ -328,7 +328,7 @@
           "height": 1.2
         },
         "toilet_paper_holder": {
-          "library_object": "toilet_paper_holder",
+          "library_object": "toilet_paper_holder_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "beside_toilet",
@@ -371,7 +371,7 @@
           "placement_rule": "against_wall"
         },
         "basin": {
-          "library_object": "basin_wall_mounted",
+          "library_object": "wall_mounted_basin_lod300",
           "ifc_class": "IfcSanitaryTerminal",
           "quantity": 1,
           "placement_rule": "wall_beside_toilet",
@@ -386,7 +386,7 @@
       },
       "furniture_set": {
         "toilet_paper_holder": {
-          "library_object": "toilet_paper_holder",
+          "library_object": "toilet_paper_holder_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "beside_toilet",

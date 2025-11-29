@@ -151,7 +151,7 @@
       "_phase": "1C_structure",
       "item": "Floor Slab",
       "detection_id": "STRUCTURAL_PLANE_GENERATION",
-      "object_type": "slab_6x4_150_lod300",
+      "object_type": "slab_floor_150_lod300",
       "parametric": true,
       "mandatory": true
     },

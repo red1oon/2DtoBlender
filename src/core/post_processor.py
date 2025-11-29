@@ -1040,6 +1040,10 @@ def snap_coordinates_to_grid(objects):
         if not is_wall:
             continue
 
+        # Skip envelope perimeter walls - they define the exact building boundaries
+        if 'envelope_perimeter' in obj_name or 'exterior_envelope' in obj_name:
+            continue
+
         # Snap position
         pos = obj.get('position', [0, 0, 0])
         if len(pos) >= 2:

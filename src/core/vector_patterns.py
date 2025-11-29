@@ -1506,7 +1506,7 @@ class VectorPatternExecutor:
                 # Porch floor slab
                 {
                     'name': 'porch_floor',
-                    'object_type': 'slab_6x4_150_lod300',
+                    'object_type': 'slab_floor_150_lod300',
                     'position': [porch_center_x, porch_center_y, 0.0],
                     'dimensions': [porch_width, porch_depth, 0.15],
                     'orientation': 0.0,

@@ -405,7 +405,7 @@ def apply_plumbing_template(room, template_name):
         # Place basin with MS 1184 clearances
         # Use smaller wall-mounted basin for tight Malaysian bathrooms
         try:
-            result = engine.place_fixture('basin_wall_mounted', bounds, existing_objects, preferred_wall='north')  # North wall for different Y
+            result = engine.place_fixture('wall_mounted_basin_lod300', bounds, existing_objects, preferred_wall='north')  # North wall for different Y
 
             # Get MS 1184 height (850mm MANDATORY)
             basin_height = MS_1184_HEIGHTS['basin_rim'].height
@@ -489,12 +489,12 @@ def apply_plumbing_template(room, template_name):
 
         # Place basin (wall-mounted to save space)
         try:
-            result = engine.place_fixture('basin_wall_mounted', bounds, existing_objects, preferred_wall='east')
+            result = engine.place_fixture('wall_mounted_basin_lod300', bounds, existing_objects, preferred_wall='east')
             basin_height = MS_1184_HEIGHTS['basin_rim'].height
 
             basin_obj = {
                 'name': f"{room['name']}_basin",
-                'object_type': 'basin_wall_mounted',  # Wall-mounted for small toilets
+                'object_type': 'wall_mounted_basin_lod300',  # Wall-mounted for small toilets
                 'position': [result.position[0], result.position[1], basin_height],
                 'orientation': 270.0,
                 'room': room['name'],
@@ -821,9 +821,10 @@ if __name__ == "__main__":
     # Get master template path
     master_template_path = Path(__file__).parent.parent / 'core' / 'master_reference_template.json'
 
-    # Run wall combiner first
+    # Run wall combiner first (with envelope closure)
     print("\n🧱 Step 1: Combining collinear wall segments...")
-    augmented['objects'] = process_walls(augmented['objects'])
+    envelope = augmented.get('building_envelope', {})
+    augmented['objects'] = process_walls(augmented['objects'], envelope)
 
     # Run post-processor
     print("\n🔧 Step 2: Running automated fixes...")

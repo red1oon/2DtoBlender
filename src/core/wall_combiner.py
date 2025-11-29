@@ -320,8 +320,73 @@ def remove_overlapping_walls(walls, tolerance=0.2):
     return keep
 
 
-def process_walls(objects):
-    """Main wall combining process"""
+def close_envelope_gaps(walls, envelope):
+    """Add wall segments to ensure complete building envelope coverage
+
+    Always adds 4 perimeter walls at envelope boundaries. Duplicate removal
+    will handle any overlaps with existing walls.
+
+    Args:
+        walls: List of wall objects
+        envelope: Building envelope dict with x_min, x_max, y_min, y_max
+
+    Returns:
+        List of walls with envelope perimeter segments added
+    """
+    if not envelope:
+        return walls
+
+    # Extract envelope boundaries
+    x_min = envelope.get('x_min', 0)
+    x_max = envelope.get('x_max', 10)
+    y_min = envelope.get('y_min', 0)
+    y_max = envelope.get('y_max', 10)
+
+    print(f"   📐 Envelope bounds: x=[{x_min:.2f}, {x_max:.2f}], y=[{y_min:.2f}, {y_max:.2f}]")
+
+    # Define 4 perimeter walls (always add these for complete closure)
+    perimeter_walls = [
+        ((x_min, y_min), (x_max, y_min), 'SOUTH'),  # South wall (SW to SE)
+        ((x_max, y_min), (x_max, y_max), 'EAST'),   # East wall (SE to NE)
+        ((x_max, y_max), (x_min, y_max), 'NORTH'),  # North wall (NE to NW)
+        ((x_min, y_max), (x_min, y_min), 'WEST'),   # West wall (NW to SW)
+    ]
+
+    closure_walls = []
+
+    for (start_pt, end_pt, wall_name) in perimeter_walls:
+        # Always add perimeter wall (use "exterior" in name for validator compatibility)
+        closure_wall = {
+            'name': f'wall_exterior_envelope_{wall_name.lower()}',
+            'object_type': 'wall_brick_3m_lod300',
+            'position': [start_pt[0], start_pt[1], 0.0],
+            'end_point': [end_pt[0], end_pt[1], 0.0],
+            'orientation': 0.0,
+            'room': 'structure',
+            'placed': True,
+            '_phase': '1C_structure',
+            'ifc_class': 'IfcWall',
+            'ifc_predefined_type': 'SOLIDWALL',
+            'discipline': 'ARC',
+            'group': 'Structure',
+            'blender_name': f'ARC_Wall_Envelope_{wall_name}'
+        }
+        closure_walls.append(closure_wall)
+        print(f"      {wall_name}: ({start_pt[0]:.2f}, {start_pt[1]:.2f}) → ({end_pt[0]:.2f}, {end_pt[1]:.2f})")
+
+    print(f"   🔒 Added {len(closure_walls)} envelope perimeter walls")
+    print(f"      (duplicates will be removed in next step)")
+
+    return walls + closure_walls
+
+
+def process_walls(objects, envelope=None):
+    """Main wall combining process
+
+    Args:
+        objects: List of all objects
+        envelope: Optional building envelope dict for closure
+    """
     walls = [o for o in objects if 'wall' in (o.get('object_type') or '').lower()]
     other_objects = [o for o in objects if 'wall' not in (o.get('object_type') or '').lower()]
 
@@ -329,6 +394,10 @@ def process_walls(objects):
         return objects
 
     print(f"\n🧱 Processing {len(walls)} wall segments...")
+
+    # Step 0: Add envelope closure segments if gaps exist
+    if envelope:
+        walls = close_envelope_gaps(walls, envelope)
 
     # Step 1: Combine collinear adjacent walls
     walls = combine_collinear_walls(walls)
