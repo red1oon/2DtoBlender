@@ -38,7 +38,7 @@
           "clearance_front": 0.7
         },
         "nightstand": {
-          "library_object": "nightstand",
+          "library_object": "nightstand_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 2,
           "placement_rule": "beside_bed_both_sides",
@@ -108,7 +108,7 @@
           "placement_rule": "corner_or_wall"
         },
         "study_desk": {
-          "library_object": "table_study",
+          "library_object": "table_study_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "against_wall",
@@ -143,14 +143,14 @@
           "clearance_front": 1.2
         },
         "armchair": {
-          "library_object": "armchair",
+          "library_object": "armchair_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "perpendicular_to_sofa",
           "clearance": 0.8
         },
         "coffee_table": {
-          "library_object": "coffee_table",
+          "library_object": "coffee_table_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "in_front_of_sofa",
@@ -171,7 +171,7 @@
           "clearance_all_sides": 0.8
         },
         "dining_chair": {
-          "library_object": "dining_chair",
+          "library_object": "dining_chair_lod300",
           "ifc_class": "IfcFurniture",
           "quantity_formula": "table_seats",
           "placement_rule": "around_dining_table",
@@ -222,14 +222,14 @@
           "height": 1.5
         },
         "refrigerator": {
-          "library_object": "refrigerator_residential_lod200",
+          "library_object": "refrigerator_residential_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "end_of_counter",
           "clearance_front": 0.9
         },
         "stove": {
-          "library_object": "stove_residential_lod200",
+          "library_object": "stove_residential_lod300",
           "ifc_class": "IfcFlowTerminal",
           "quantity": 1,
           "placement_rule": "on_counter_center",
@@ -238,7 +238,7 @@
       },
       "plumbing_pattern": {
         "kitchen_sink": {
-          "library_object": "kitchen_sink_single_bowl_lod200",
+          "library_object": "kitchen_sink_single_bowl_lod300",
           "ifc_class": "IfcSanitaryTerminal",
           "quantity": 1,
           "placement_rule": "on_counter_beside_wall",
@@ -291,7 +291,7 @@
           "height": 0.85
         },
         "shower": {
-          "library_object": "showerhead_fixed_lod200",
+          "library_object": "showerhead_fixed_lod300",
           "ifc_class": "IfcSanitaryTerminal",
           "quantity": 1,
           "placement_rule": "corner_wet_area",
@@ -321,7 +321,7 @@
           "height": 0.0
         },
         "towel_rack": {
-          "library_object": "towel_rack_wall",
+          "library_object": "towel_rack_wall_lod300",
           "ifc_class": "IfcFurniture",
           "quantity": 1,
           "placement_rule": "beside_basin",

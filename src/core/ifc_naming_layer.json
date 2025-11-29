@@ -309,7 +309,7 @@
       "blender_name": "PLUM_Toilet_{room}"
     },
     {
-      "object_type": "kitchen_sink_single_bowl_lod200",
+      "object_type": "kitchen_sink_single_bowl_lod300",
       "ifc_class": "IfcSanitaryTerminal",
       "ifc_predefined_type": "SINK",
       "discipline": "PLUM",
@@ -335,7 +335,7 @@
       "blender_name": "ARC_Furn_Vanity"
     },
     {
-      "object_type": "towel_rack_wall",
+      "object_type": "towel_rack_wall_lod300",
       "ifc_class": "IfcFurnishingElement",
       "ifc_predefined_type": "NOTDEFINED",
       "discipline": "ARC",
@@ -377,7 +377,7 @@
       "blender_name": "ARC_Furn_Wardrobe"
     },
     {
-      "object_type": "nightstand",
+      "object_type": "nightstand_lod300",
       "ifc_class": "IfcFurniture",
       "ifc_predefined_type": "NOTDEFINED",
       "discipline": "ARC",
@@ -403,7 +403,7 @@
       "blender_name": "ARC_Furn_Sofa3Seat"
     },
     {
-      "object_type": "armchair",
+      "object_type": "armchair_lod300",
       "ifc_class": "IfcFurniture",
       "ifc_predefined_type": "NOTDEFINED",
       "discipline": "ARC",
@@ -411,7 +411,7 @@
       "blender_name": "ARC_Furn_Armchair"
     },
     {
-      "object_type": "coffee_table",
+      "object_type": "coffee_table_lod300",
       "ifc_class": "IfcFurniture",
       "ifc_predefined_type": "NOTDEFINED",
       "discipline": "ARC",
@@ -445,7 +445,7 @@
       "blender_name": "ARC_Furn_DiningTable"
     },
     {
-      "object_type": "dining_chair",
+      "object_type": "dining_chair_lod300",
       "ifc_class": "IfcFurniture",
       "ifc_predefined_type": "NOTDEFINED",
       "discipline": "ARC",
@@ -455,7 +455,7 @@
 
     {
       "_comment": "=== FURNITURE - STUDY ===",
-      "object_type": "table_study",
+      "object_type": "table_study_lod300",
       "ifc_class": "IfcFurniture",
       "ifc_predefined_type": "NOTDEFINED",
       "discipline": "ARC",
@@ -481,14 +481,6 @@
       "blender_name": "MEP_Appliance_Fridge"
     },
     {
-      "object_type": "refrigerator_residential_lod200",
-      "ifc_class": "IfcElectricAppliance",
-      "ifc_predefined_type": "REFRIGERATOR",
-      "discipline": "MEP",
-      "group": "Kitchen",
-      "blender_name": "MEP_Appliance_Fridge"
-    },
-    {
       "object_type": "stove_residential_lod300",
       "ifc_class": "IfcElectricAppliance",
       "ifc_predefined_type": "NOTDEFINED",
@@ -497,12 +489,20 @@
       "blender_name": "MEP_Appliance_Stove"
     },
     {
-      "object_type": "stove_residential_lod200",
-      "ifc_class": "IfcElectricAppliance",
-      "ifc_predefined_type": "NOTDEFINED",
+      "object_type": "distribution_board_residential_lod300",
+      "ifc_class": "IfcElectricDistributionBoard",
+      "ifc_predefined_type": "CONSUMERUNIT",
       "discipline": "MEP",
-      "group": "Kitchen",
-      "blender_name": "MEP_Appliance_Stove"
+      "group": "Electrical",
+      "blender_name": "MEP_Elec_DistBoard"
+    },
+    {
+      "object_type": "showerhead_fixed_lod300",
+      "ifc_class": "IfcSanitaryTerminal",
+      "ifc_predefined_type": "SHOWER",
+      "discipline": "PLUM",
+      "group": "Fixtures",
+      "blender_name": "PLUM_Shower_Fixed"
     }
   ]
 }

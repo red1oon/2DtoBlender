@@ -68,6 +68,25 @@ class StructuralValidator:
             'windows': self.count_by_type(objects, 'window')
         }
 
+        # LOD300 COMPLIANCE CHECK (MANDATORY - NO FALLBACK)
+        non_lod300_objects = [
+            obj for obj in objects
+            if '_lod300' not in obj.get('object_type', '').lower()
+        ]
+
+        if non_lod300_objects:
+            print(f"\n❌ LOD300 COMPLIANCE FAILED: {len(non_lod300_objects)} objects not LOD300")
+            print("   Non-compliant objects:")
+            for obj in non_lod300_objects[:10]:  # Show first 10
+                self.errors.append(
+                    f"LOD300 REQUIRED: {obj.get('name', 'unknown')} uses {obj.get('object_type', 'unknown')}"
+                )
+                print(f"     • {obj.get('name', 'unknown')}: {obj.get('object_type', 'unknown')}")
+            if len(non_lod300_objects) > 10:
+                print(f"     ... and {len(non_lod300_objects) - 10} more")
+            print("\n   Fix: Update object types in ifc_naming_layer.json and room_templates.json")
+            print("   Spec: All objects MUST use _lod300 suffix (BIM5D_SPECIFICATION.md)")
+
         # Check minimum requirements
         for element, min_count in MINIMUM_REQUIREMENTS.items():
             actual = self.inventory.get(element, 0)

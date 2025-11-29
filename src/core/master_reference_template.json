@@ -325,7 +325,7 @@
       "pages": [
         0
       ],
-      "object_type": "distribution_board_residential_lod200",
+      "object_type": "distribution_board_residential_lod300",
       "height_rule": "1.8m_from_floor",
       "mandatory": false
     },
@@ -370,7 +370,7 @@
       "pages": [
         0
       ],
-      "object_type": "kitchen_sink_single_bowl_lod200",
+      "object_type": "kitchen_sink_single_bowl_lod300",
       "mandatory": false
     },
     {
@@ -384,7 +384,7 @@
       "pages": [
         0
       ],
-      "object_type": "showerhead_fixed_lod200",
+      "object_type": "showerhead_fixed_lod300",
       "mandatory": false
     },
     {
@@ -399,7 +399,7 @@
       "pages": [
         0
       ],
-      "object_type": "floor_drain_lod200",
+      "object_type": "floor_drain_lod300",
       "mandatory": false
     },
     {
@@ -414,7 +414,7 @@
       "pages": [
         0
       ],
-      "object_type": "water_heater_tank_lod200",
+      "object_type": "water_heater_tank_lod300",
       "height_rule": "2.0m_from_floor",
       "mandatory": false
     },
@@ -530,7 +530,7 @@
       "pages": [
         0
       ],
-      "object_type": "refrigerator_residential_lod200",
+      "object_type": "refrigerator_residential_lod300",
       "mandatory": false
     },
     {
@@ -545,7 +545,7 @@
       "pages": [
         0
       ],
-      "object_type": "stove_residential_lod200",
+      "object_type": "stove_residential_lod300",
       "mandatory": false
     },
     {

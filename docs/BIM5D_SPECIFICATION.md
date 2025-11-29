@@ -147,6 +147,46 @@ Use these tags in code comments and documentation:
 | `TB-LKTN HOUSE.pdf` | Extract labels (D1, W1) and schedules → populate [CORE-D] and [THIRD-D] |
 | `Enhanced_primitive.db` | PDF text primitives database → intermediate extraction data |
 
+---
+
+## LOD300 Validation Requirements
+
+**MANDATORY:** All objects in the extraction pipeline MUST be LOD300 compliant.
+
+### LOD300 Enforcement Rules
+
+1. **Object Type Naming:**
+   - ALL object types MUST include `_lod300` suffix
+   - Example: `door_single_900_lod300`, `wall_brick_3m_lod300`, `refrigerator_residential_lod300`
+   - ❌ INVALID: `armchair`, `coffee_table`, `nightstand`
+   - ✅ VALID: `armchair_lod300`, `coffee_table_lod300`, `nightstand_lod300`
+
+2. **Pipeline Validation:**
+   - Pipeline MUST fail if ANY object lacks `_lod300` suffix
+   - NO fallback to LOD200 or base types
+   - Validation enforced in GATE 3 (structural_validator.py)
+
+3. **Object Library Requirements:**
+   - `Ifc_Object_Library.db` MUST contain LOD300 variant for all object types
+   - If LOD300 variant missing, add it to database before extraction
+   - `ifc_naming_layer.json` MUST map base types to LOD300 variants
+
+4. **Failure Mode:**
+   ```python
+   # GATE 3 Validation
+   for obj in objects:
+       if '_lod300' not in obj['object_type'].lower():
+           raise ValidationError(f"❌ GATE 3 FAILED: {obj['name']} uses non-LOD300 type: {obj['object_type']}")
+   ```
+
+5. **Expected Output:**
+   - LOD300 Compliance: 100% (no exceptions)
+   - GATE 3 passes only when all objects are LOD300
+
+**Rationale:** LOD300 (Level of Detail 300) ensures sufficient geometric and informational detail for construction documentation and BIM coordination. Lower LOD levels lack the precision required for federated BIM workflows.
+
+---
+
 ### Master Reference Template = [CORE-D + FOURTH-D]
 
 **CRITICAL:** `master_reference_template.json` is a **combined file** containing both dimensions:

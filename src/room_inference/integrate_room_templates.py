@@ -34,7 +34,7 @@ LIBRARY_NAME_MAPPING = {
     # Furniture (LOD300 clones created in local library)
     'armchair_lod300': 'armchair_lod300',
     'bookshelf_5tier_lod300': 'bookshelf_5tier_lod300',
-    'coffee_table_lod300': 'coffee_table',  # Keep base (no LOD300 created yet)
+    'coffee_table_lod300': 'coffee_table_lod300',
     'dining_chair_lod300': 'dining_chair_lod300',
     'dresser_6drawer_lod300': 'dresser_6drawer_lod300',
     'nightstand_lod300': 'nightstand_lod300',
@@ -46,8 +46,8 @@ LIBRARY_NAME_MAPPING = {
     'basin_round_residential_lod300': 'basin_residential_lod300',
     'bathroom_vanity_1000_lod300': 'bathroom_vanity_1000_lod300',
     'floor_drain_lod300': 'floor_drain_lod300',
-    'kitchen_sink_single_bowl_with_drainboard_lod300': 'kitchen_sink_single_bowl_lod200',
-    'showerhead_fixed_lod300': 'showerhead_fixed_lod200',
+    'kitchen_sink_single_bowl_with_drainboard_lod300': 'kitchen_sink_single_bowl_lod300',
+    'showerhead_fixed_lod300': 'showerhead_fixed_lod300',
     'towel_rack_mounted_lod300': 'towel_rack_wall_lod300',
     'towel_rack_wall_lod300': 'towel_rack_wall_lod300',
 
