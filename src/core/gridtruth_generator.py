@@ -703,8 +703,8 @@ def generate_item(item, grid_truth_path=None, context=None, annotation_db_path=N
             # Fall through to legacy generators
 
     # LEGACY: Hardcoded generators (for backward compatibility)
-    # Use annotation_db_path if available, otherwise fall back to grid_truth_path
-    source_path = annotation_db_path if annotation_db_path else grid_truth_path
+    # Pass BOTH grid_truth_path and annotation_db_path to generators
+    # (they will prefer GridTruth.json if available, fallback to annotation DB)
 
     object_type = item.get('object_type', '') or ''
     object_type_lower = object_type.lower()
@@ -712,25 +712,30 @@ def generate_item(item, grid_truth_path=None, context=None, annotation_db_path=N
     item_name = item.get('item', '').lower()
 
     if 'wall' in object_type_lower:
-        return generate_walls(source_path, annotation_db_path=annotation_db_path)
+        return generate_walls(grid_truth_path, annotation_db_path=annotation_db_path)
     elif 'gutter' in object_type_lower or 'drain' in object_type_lower:
         # Check gutter/drain BEFORE roof (roof_gutter_100_lod300 contains 'roof')
-        return generate_drains(source_path, annotation_db_path=annotation_db_path)
+        return generate_drains(grid_truth_path, annotation_db_path=annotation_db_path)
     elif 'slab' in object_type_lower or 'floor' in item_name:
-        floor = generate_floor_slab(source_path, annotation_db_path=annotation_db_path)
+        floor = generate_floor_slab(grid_truth_path, annotation_db_path=annotation_db_path)
         return [floor] if floor else []
     elif 'ceiling' in object_type_lower or 'ceiling' in item_name:
-        ceiling = generate_ceiling(source_path, annotation_db_path=annotation_db_path)
+        ceiling = generate_ceiling(grid_truth_path, annotation_db_path=annotation_db_path)
         return [ceiling] if ceiling else []
     elif 'roof' in object_type_lower:
-        roof = generate_roof(source_path, annotation_db_path=annotation_db_path)
+        roof = generate_roof(grid_truth_path, annotation_db_path=annotation_db_path)
         return [roof] if roof else []
-    elif 'door' in item_name or detection_id == 'TEXT_LABEL_SEARCH':
+    elif 'door' in item_name:
         # Handle doors - use door_schedule from context if available
         door_schedule = None
         if context and isinstance(context, dict):
             door_schedule = context.get('door_schedule')
-        return generate_doors(source_path, door_schedule, annotation_db_path=annotation_db_path)
+        return generate_doors(grid_truth_path, door_schedule, annotation_db_path=annotation_db_path)
+    elif 'window' in item_name:
+        # Windows not yet implemented in GridTruth generator
+        # For now, return empty (will be added in future iteration)
+        print(f"    ⚠️  Window generation from GridTruth not yet implemented")
+        return []
     else:
         # Not a structural item we can generate from GridTruth/Annotations DB
         return []
