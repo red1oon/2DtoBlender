@@ -108,7 +108,58 @@ python3 src/tools/fix_library_base_rotations.py --database LocalLibrary/Ifc_Obje
 
 ## Tools
 
-### fix_library_base_rotations.py
+### Database Diagnostics & Repair
+
+#### diagnose_repair_database.py
+Location: `db/scripts/diagnose_repair_database.py`
+
+Comprehensive database diagnostic and repair tool. Detects:
+- Orphaned catalog entries (no matching geometry)
+- Corrupted geometry blobs (size mismatches)
+- Unused geometries (no catalog references)
+
+```bash
+# Diagnose only (dry run)
+python3 db/scripts/diagnose_repair_database.py LocalLibrary/Ifc_Object_Library.db
+
+# Diagnose and repair
+python3 db/scripts/diagnose_repair_database.py LocalLibrary/Ifc_Object_Library.db --repair
+```
+
+**Output:**
+- Orphaned entries: Auto-removed (catalog points to non-existent geometry)
+- Corrupted blobs: Reported (requires manual re-extraction)
+- Unused geometries: Auto-removed (cleanup)
+
+#### fix_corrupted_lod300.py
+Location: `db/scripts/fix_corrupted_lod300.py`
+
+Quick fix for specific LOD300 objects with wrong face_count metadata.
+
+```bash
+# Analyze
+python3 db/scripts/fix_corrupted_lod300.py LocalLibrary/Ifc_Object_Library.db
+
+# Apply fix
+python3 db/scripts/fix_corrupted_lod300.py LocalLibrary/Ifc_Object_Library.db --apply
+```
+
+#### fix_missing_5_objects.py
+Location: `db/scripts/fix_missing_5_objects.py`
+
+Copies valid geometries from similar objects to fix 5 specific missing LOD300 entries.
+
+```bash
+# Dry run
+python3 db/scripts/fix_missing_5_objects.py LocalLibrary/Ifc_Object_Library.db
+
+# Apply
+python3 db/scripts/fix_missing_5_objects.py LocalLibrary/Ifc_Object_Library.db --apply
+```
+
+### Base Rotation Tools
+
+#### fix_library_base_rotations.py
 Location: `src/tools/fix_library_base_rotations.py`
 
 Analyzes geometry orientation and sets base_rotation values systematically (Rule 0 compliant).
@@ -198,9 +249,49 @@ JOIN base_geometries bg ON oc.geometry_hash = bg.geometry_hash;
 
 ---
 
+## Pipeline Integration
+
+### Library Validation (GATE 4)
+
+The complete pipeline (`bin/RUN_COMPLETE_PIPELINE.sh`) now includes **mandatory library validation** before claiming success:
+
+```bash
+🔍 GATE 4: Validating library geometry availability...
+   Checking 31 unique object_types in library...
+   ✅ All 31 object_types have valid geometry
+```
+
+**Validation checks:**
+1. All `object_type` values from JSON exist in `object_catalog`
+2. Each catalog entry has valid `geometry_hash` in `base_geometries`
+3. Geometry blobs match expected sizes:
+   - `LENGTH(vertices) = vertex_count × 3 × 4`
+   - `LENGTH(faces) = face_count × 3 × 4`
+
+**Failure behavior:**
+- Pipeline **HARD STOPS** if any geometries missing/corrupted
+- Provides diagnostic commands to fix issues
+- Prevents false "100% LOD300" claims
+
+### Comprehensive Test Integration
+
+Library validation is also part of `src/validators/comprehensive_test.py`:
+
+```bash
+python3 src/validators/comprehensive_test.py <json_file> <database_path>
+```
+
+**Test 11: Library Geometry Validation**
+- Validates all unique object_types
+- Reports missing/corrupted geometries
+- Outputs validation JSON for CI/CD integration
+
+---
+
 ## Version History
 
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0 | 2025-11 | Initial schema |
 | 2.0 | 2025-11-28 | Added base_rotation columns |
+| 2.1 | 2025-11-29 | Added diagnostic/repair tools, pipeline GATE 4 validation |

@@ -149,6 +149,83 @@ if [ $? -ne 0 ]; then
 fi
 echo ""
 
+echo "🔍 GATE 4: Validating library geometry availability..."
+echo "--------------------------------------------------------------------------------"
+LIBRARY_DB="LocalLibrary/Ifc_Object_Library.db"
+if [ ! -f "$LIBRARY_DB" ]; then
+    echo "❌ PIPELINE FAILED - Library database not found: $LIBRARY_DB"
+    exit 1
+fi
+
+# Extract unique object_types and check if they exist in library
+PYTHONPATH="$PWD/src:$PYTHONPATH" venv/bin/python -c "
+import json
+import sqlite3
+import sys
+
+with open('$FINAL_OUTPUT') as f:
+    data = json.load(f)
+
+unique_types = set(obj.get('object_type') for obj in data['objects'] if obj.get('object_type'))
+print(f'   Checking {len(unique_types)} unique object_types in library...')
+
+conn = sqlite3.connect('$LIBRARY_DB')
+cursor = conn.cursor()
+
+missing = []
+corrupted = []
+
+for obj_type in sorted(unique_types):
+    # Check catalog
+    cursor.execute('SELECT geometry_hash FROM object_catalog WHERE object_type = ?', (obj_type,))
+    row = cursor.fetchone()
+    if not row:
+        missing.append(obj_type)
+        continue
+
+    geom_hash = row[0]
+
+    # Check geometry blob
+    cursor.execute('''
+        SELECT vertex_count, face_count,
+               LENGTH(vertices) as v_size, LENGTH(faces) as f_size
+        FROM base_geometries WHERE geometry_hash = ?
+    ''', (geom_hash,))
+
+    geo_row = cursor.fetchone()
+    if not geo_row:
+        missing.append(obj_type)
+        continue
+
+    v_count, f_count, v_size, f_size = geo_row
+    expected_v = v_count * 3 * 4
+    expected_f = f_count * 3 * 4
+
+    if v_size != expected_v or f_size != expected_f:
+        corrupted.append(obj_type)
+
+conn.close()
+
+if missing or corrupted:
+    print(f'   ❌ FAILED: {len(missing)} missing, {len(corrupted)} corrupted')
+    if missing:
+        print(f'   Missing: {', '.join(missing[:5])}')
+    if corrupted:
+        print(f'   Corrupted: {', '.join(corrupted[:5])}')
+    sys.exit(1)
+else:
+    print(f'   ✅ All {len(unique_types)} object_types have valid geometry')
+"
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ PIPELINE FAILED - Library geometry validation failed"
+    echo "   Some object_types are missing or have corrupted geometry in library"
+    echo "   Run: python3 db/scripts/diagnose_repair_database.py $LIBRARY_DB"
+    exit 1
+fi
+echo ""
+
 # Cleanup intermediate files (keep only FINAL)
 echo "🧹 Cleaning up intermediate files..."
 TIMESTAMP=$(basename "$FINAL_OUTPUT" | sed 's/.*OUTPUT_\([0-9_]*\)_FINAL.json/\1/')
@@ -172,8 +249,8 @@ echo "📊 Test 1/4: UBBL 1984 compliance (building codes)..."
 venv/bin/python validators/validate_ubbl_compliance.py "$FINAL_OUTPUT" 2>&1 | tail -50
 
 echo ""
-echo "📊 Test 2/4: Comprehensive structural tests..."
-venv/bin/python validators/comprehensive_test.py "$FINAL_OUTPUT" 2>&1 | tail -30
+echo "📊 Test 2/4: Comprehensive structural tests + Library validation..."
+venv/bin/python src/validators/comprehensive_test.py "$FINAL_OUTPUT" LocalLibrary/Ifc_Object_Library.db 2>&1 | tail -30
 
 echo ""
 echo "📊 Test 3/4: Spatial logic validation..."

@@ -514,7 +514,12 @@ def complete_pdf_extraction(pdf_path, building_width=9.8, building_length=8.0, b
                     "scale_x": 0.0353,
                     "scale_y": 0.0353,
                     "confidence": 60
-                })
+                }),
+                "blender_import": {
+                    "script": "https://raw.githubusercontent.com/red1oon/2DtoBlender/main/bin/blender_lod300_import.py",
+                    "usage": "blender --background --python blender_lod300_import.py -- input.json output.blend",
+                    "note": "All objects are LOD300 geometry ready for Blender import"
+                }
             },
 
             "building_envelope": building_envelope,

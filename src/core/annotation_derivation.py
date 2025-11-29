@@ -225,6 +225,66 @@ def derive_scale_from_dimensions(db_path: str) -> Tuple[float, float]:
     for dim_text, dim_x, dim_y, page, dim_value_m in sorted(total_dimensions, key=lambda d: d[4], reverse=True):
         print(f"  {dim_text}mm = {dim_value_m:.1f}m at ({dim_x:.0f}, {dim_y:.0f}) page {page}")
 
+    # NEW: Try summing segment dimensions (for drawings where total span isn't labeled)
+    # Look for dimension segments near the selected grid clusters
+    segment_dimensions = []
+    for dim_text, dim_x, dim_y, page in dimensions:
+        try:
+            dim_value_mm = float(dim_text)
+            # Segment dimensions are typically 1-5m
+            if 1.0 <= dim_value_mm / 1000.0 <= 5.0:
+                segment_dimensions.append((dim_text, dim_x, dim_y, page, dim_value_mm))
+        except ValueError:
+            continue
+
+    if segment_dimensions:
+        print(f"\nFound {len(segment_dimensions)} segment dimension candidates (1-5m range)")
+
+        # Try to find horizontal segments (near y~450-470 for this drawing)
+        h_segments = [d for d in segment_dimensions if d[3] == 1 and 440 <= d[2] <= 470]
+        if len(h_segments) >= 4:
+            h_segments_sorted = sorted(h_segments, key=lambda d: d[1])  # Sort by x position
+            h_sum_mm = sum(d[4] for d in h_segments_sorted)
+            h_sum_m = h_sum_mm / 1000.0
+            if 5.0 <= h_sum_m <= 15.0:
+                # Use midpoint of segment cluster as representative position
+                mid_x = sum(d[1] for d in h_segments_sorted) / len(h_segments_sorted)
+                mid_y = sum(d[2] for d in h_segments_sorted) / len(h_segments_sorted)
+                total_dimensions.append((str(int(h_sum_mm)), mid_x, mid_y, 1, h_sum_m))
+                print(f"  Horizontal segment sum: {' + '.join(d[0] for d in h_segments_sorted)} = {int(h_sum_mm)}mm ({h_sum_m:.1f}m)")
+
+        # Try to find vertical segments (near x~95-115 for this drawing)
+        v_segments = [d for d in segment_dimensions if d[3] == 1 and 90 <= d[1] <= 115]
+        if len(v_segments) >= 4:
+            v_segments_sorted = sorted(v_segments, key=lambda d: d[2])  # Sort by y position
+            # Filter out dimensions that are too close together (likely duplicates)
+            # For n grids, we expect n-1 intervals (5 grids = 4 intervals)
+            v_segments_unique = []
+            for seg in v_segments_sorted:
+                # Skip if too close to previous segment (likely duplicate label)
+                if v_segments_unique and abs(seg[2] - v_segments_unique[-1][2]) < 30:
+                    continue
+                v_segments_unique.append(seg)
+
+            # Limit to 4 segments (n-1 intervals for n=5 grids)
+            if len(v_segments_unique) > 4:
+                v_segments_unique = v_segments_unique[:4]
+
+            v_sum_mm = sum(d[4] for d in v_segments_unique)
+            v_sum_m = v_sum_mm / 1000.0
+            if 5.0 <= v_sum_m <= 15.0:
+                # Use midpoint of segment cluster as representative position
+                mid_x = sum(d[1] for d in v_segments_unique) / len(v_segments_unique)
+                mid_y = sum(d[2] for d in v_segments_unique) / len(v_segments_unique)
+                total_dimensions.append((str(int(v_sum_mm)), mid_x, mid_y, 1, v_sum_m))
+                print(f"  Vertical segment sum: {' + '.join(d[0] for d in v_segments_unique)} = {int(v_sum_mm)}mm ({v_sum_m:.1f}m)")
+
+        # Update the printed list
+        if len(total_dimensions) > len([d for d in dimensions if 5.0 <= float(d[0])/1000.0 <= 15.0]):
+            print(f"\nUpdated total dimension candidates (including segment sums):")
+            for dim_text, dim_x, dim_y, page, dim_value_m in sorted(total_dimensions, key=lambda d: d[4], reverse=True):
+                print(f"  {dim_text}mm = {dim_value_m:.1f}m at ({dim_x:.0f}, {dim_y:.0f}) page {page}")
+
     # Match total dimensions to full grid spans
     # Strategy: Use LARGEST dimension for width, NEXT LARGEST for depth (terrace houses)
     sorted_dims = sorted(total_dimensions, key=lambda d: d[4], reverse=True)

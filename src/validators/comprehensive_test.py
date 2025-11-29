@@ -7,16 +7,21 @@ Tests:
   2. All master template items accounted for
   3. Object field completeness
   4. Spatial validity
-  5. Library references
+  5. Library references (ACTUAL database validation)
   6. Hash totals
   7. Phase coverage
 
 Usage:
-    python3 comprehensive_test.py <output_json>
+    python3 comprehensive_test.py <output_json> [database_path]
+
+Arguments:
+    output_json: Path to extraction output JSON
+    database_path: Path to Ifc_Object_Library.db (default: LocalLibrary/Ifc_Object_Library.db)
 """
 
 import json
 import sys
+import sqlite3
 from pathlib import Path
 
 
@@ -331,12 +336,112 @@ def test_unique_names(objects):
         return True
 
 
-def run_comprehensive_tests(json_path):
+def test_library_references(objects, database_path):
+    """Test 11: Validate all object_types exist in geometry database with valid blobs"""
+    print("\n" + "=" * 70)
+    print("TEST 11: LIBRARY GEOMETRY VALIDATION")
+    print("=" * 70)
+
+    if not Path(database_path).exists():
+        print(f"⚠️  WARNING: Database not found: {database_path}")
+        print("   Skipping geometry validation")
+        return True  # Don't fail if database missing
+
+    try:
+        conn = sqlite3.connect(database_path)
+        cursor = conn.cursor()
+
+        # Get unique object_types
+        object_types = set(obj.get('object_type') for obj in objects if obj.get('object_type'))
+        print(f"Validating {len(object_types)} unique object_types...")
+
+        missing_catalog = []
+        missing_geometry = []
+        corrupted_geometry = []
+        valid = []
+
+        for obj_type in sorted(object_types):
+            # Check if in catalog
+            cursor.execute("SELECT geometry_hash FROM object_catalog WHERE object_type = ?", (obj_type,))
+            row = cursor.fetchone()
+
+            if not row:
+                missing_catalog.append(obj_type)
+                continue
+
+            geometry_hash = row[0]
+
+            # Check if geometry exists
+            cursor.execute("""
+                SELECT vertex_count, face_count,
+                       LENGTH(vertices) as v_size,
+                       LENGTH(faces) as f_size
+                FROM base_geometries
+                WHERE geometry_hash = ?
+            """, (geometry_hash,))
+            geo_row = cursor.fetchone()
+
+            if not geo_row:
+                missing_geometry.append(obj_type)
+                continue
+
+            v_count, f_count, v_size, f_size = geo_row
+            expected_v = v_count * 3 * 4  # 3 floats per vertex, 4 bytes each
+            expected_f = f_count * 3 * 4  # 3 uint32 per face, 4 bytes each
+
+            if v_size != expected_v or f_size != expected_f:
+                corrupted_geometry.append((obj_type, v_size, expected_v, f_size, expected_f))
+                continue
+
+            valid.append(obj_type)
+
+        conn.close()
+
+        # Report results
+        if missing_catalog:
+            print(f"\n❌ MISSING FROM CATALOG: {len(missing_catalog)} object_types")
+            for otype in missing_catalog[:5]:
+                print(f"   - {otype}")
+            if len(missing_catalog) > 5:
+                print(f"   ... and {len(missing_catalog) - 5} more")
+
+        if missing_geometry:
+            print(f"\n❌ MISSING GEOMETRY BLOBS: {len(missing_geometry)} object_types")
+            for otype in missing_geometry[:5]:
+                print(f"   - {otype}")
+            if len(missing_geometry) > 5:
+                print(f"   ... and {len(missing_geometry) - 5} more")
+
+        if corrupted_geometry:
+            print(f"\n❌ CORRUPTED GEOMETRY: {len(corrupted_geometry)} object_types")
+            for otype, v_size, exp_v, f_size, exp_f in corrupted_geometry[:5]:
+                print(f"   - {otype}: vertices {v_size}/{exp_v}, faces {f_size}/{exp_f}")
+            if len(corrupted_geometry) > 5:
+                print(f"   ... and {len(corrupted_geometry) - 5} more")
+
+        if valid:
+            print(f"\n✅ VALID GEOMETRY: {len(valid)}/{len(object_types)} object_types")
+
+        # Pass if all are valid
+        success = len(valid) == len(object_types)
+        if not success:
+            print(f"\n⚠️  WARNING: {len(object_types) - len(valid)} object_types have missing/corrupted geometry")
+            print("   These objects will fail to import to Blender!")
+
+        return success
+
+    except Exception as e:
+        print(f"❌ ERROR: Database validation failed: {e}")
+        return False
+
+
+def run_comprehensive_tests(json_path, database_path='LocalLibrary/Ifc_Object_Library.db'):
     """Run all tests"""
     print("=" * 70)
     print("🧪 COMPREHENSIVE TEST SUITE")
     print("=" * 70)
     print(f"File: {json_path}")
+    print(f"Database: {database_path}")
 
     # Load data
     try:
@@ -365,6 +470,7 @@ def run_comprehensive_tests(json_path):
     results.append(("Object Types", test_object_types(objects)))
     results.append(("Calibration", test_calibration(metadata)))
     results.append(("Unique Names", test_unique_names(objects)))
+    results.append(("Library Geometry", test_library_references(objects, database_path)))
 
     # Summary
     print("\n" + "=" * 70)
@@ -399,10 +505,13 @@ def run_comprehensive_tests(json_path):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 comprehensive_test.py <output_json>")
+        print("Usage: python3 comprehensive_test.py <output_json> [database_path]")
+        print("Example: python3 comprehensive_test.py output.json LocalLibrary/Ifc_Object_Library.db")
         sys.exit(1)
 
     json_path = sys.argv[1]
-    success = run_comprehensive_tests(json_path)
+    database_path = sys.argv[2] if len(sys.argv) > 2 else 'LocalLibrary/Ifc_Object_Library.db'
+
+    success = run_comprehensive_tests(json_path, database_path)
 
     sys.exit(0 if success else 1)
