@@ -244,6 +244,7 @@ class DatabaseGeometryFetcher:
         geometries = {}
         failed_types = []
         print(f"\n📦 Fetching {len(object_types)} unique geometries from database...")
+        print(f"🔍 DEBUG: Requested types: {object_types}")
 
         for obj_type in object_types:
             geometry = self.fetch_geometry(obj_type)
@@ -252,6 +253,9 @@ class DatabaseGeometryFetcher:
             else:
                 failed_types.append(obj_type)
                 print(f"❌ FAILED: {obj_type}")
+
+        print(f"🔍 DEBUG: Returned types: {list(geometries.keys())}")
+        print(f"🔍 DEBUG: Missing types: {failed_types}")
 
         if failed_types:
             error_msg = f"""
