@@ -1,0 +1,5482 @@
+{
+  "d5094f7b015d2fff8e862b629d84b978d0af2612079cf17bf8cf3b51be8404f2": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "35c2790791a3bdf6aeb83bcfa05b1ae94fe4902a6320ed626920c9355060e04e": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "1a5a636aa8d00c249e48d96357c991a71e1848dbca33d034fc06319d9485d361": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "2804a53d0f76581ff2eabd973d0be246177ec388b6f6251329ffe98f453271f4": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "19b64a55aea67ab1c0b2e53491679cde627e2c63ab713bcb679c123cab77d665": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "8b389e47393402a85a6f6ed2abe012cf8921ec9f210c1b52156422368880861b": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "56610703b58a66eab72dbcfdf1226b863b07c7a94828740ab2d3f728d537f871": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "d9be3c3ab6bd77a63eb4c4076c1ee1c1983fc66bdd9449b1f264323342804763": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "05921146ecbb528e078fd8abc187b8ed261f8fe1846b888312fdeeca77d5e149": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "a2ad3dab14a4690ecb5df9c8944d792a137f993c950a95310aafa9b097d78772": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "55de2c5b3fde7a9a12630e57c90b13e9954af8d4bbe7a7ff430496783c811404": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "40ad2d7131fb13093bf465656f499bda3b5fe25283569046563b672687244106": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "18b6c167255b23a273135ee5eeb27a6f8325b767aee85e4558cf84e815ead5df": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "28d0b9d94e1f26179350fb357d64ec776c400a6b425ba0bfb16bfbd6a777ffa9": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "686bec7bc3aa6a07d6344d8f0a4f82a51417ff55250156849ffe3b9702a5934f": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "bd854e78f10d879fbd8cbc7eeaca2d350ad9da99f3b493487ec8ee329d999d69": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "78a35802916130ca7fb8beab013f34b1b14bc7d28f6f1805f4b505557a7cd2fc": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "48af68e850c97bafcf28f3fda49f60d1f3d2eb3f4f3f16af649229c25dd7bb39": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "b83ac3719562d20966fea277a7aa2fdcad32dc7adb6f1a87f55b440e6e35cf37": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "5ac3dc3e7f444f0f30b1ede8e053a3922c9ec9c2d930171d6dd33f3d4b7e2dc2": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "37adfd7cf5832bc0a1eec35c5667fbeb4d0e8da30fea71bcf0eff1ef792d15e8": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "80a467f2fb007b29bb93391f79688097f5dfa218d5b5860718253069f0dfbcfd": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "e17c98f2bfa14bbb502197066bc1ec1bfa58f50764cb31c3d211a4c77d610968": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "7918b5cee91ee79a9680572df42bc8f76e297a9c9dc0c6253b4de0f14e0e8c82": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "9b741b039f2710d539fb2609759357a5f25f977cc8c154b321d6de2d29c2f067": {
+    "object_type": "door_double",
+    "rotation_applied": 90
+  },
+  "7ec94e339be62012a201015ea3f07411c55657d895888128d7404876ae47ddbb": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "149dba190a996d9d3228d913447c18cb75ce73f14aede4d256f4d9bb58ffa27a": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "423a8c0a038581c08a75d28970626d3c10d475c30455e9704cb401b1bb880fdb": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "93afc93a30be7d7d9cd23ea5052478d434b9efbb564e737e49db557f7decb0ad": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "4b7a5bfd8b74606684f2b6eebc50b3883d9037cce0d099045f3887fbfec7d2df": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "5d2cafcc6989d187e76725540ff67af7c7bd4e9ad8ce33072edb5502bf40ff55": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "82915b39a14d026259d034f119a892d14ac8a0a9c76b4dbcc8cac389df924a07": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "cc73aab74b09f634200662ffb4a50f32135a76a03a00d324777ba297f0f67ab9": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "a1aa9883aaff21282b58a7eb74aa188fe59ea26a3a026d9c37e9a39f8c9cb2e4": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "b83172501cd7af940cc683660368a1fd28a19cf7e172810d81a6747e4dc1ef7c": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "01f46c228dff524c9f1e4c68669cc6a325bef7f2a4868a03ee9fdba8d43c6cab": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "07dd1ac02e48b0ef4d422e17e63c1d4c97d1a3f2f14ad4df1af784c4a5d15c5d": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "74490a5b0e9d225d6f90bacdb0efc1b2d88aede8b87a867664907e1c637364c5": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "d4b7a7b095077620710cd3af2523080da7b684e9b92eddc5fb0cef26ee5b8ee3": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "facbc90b6fd38f83e909e2d0ec2656d564532bbdaf1f558e082d883c1c0cdf71": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "3bd4084ba1536ffddb72663310739afaa12630076113cd72ce9adfe1691bf092": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "a73b6e7577ed2d522c834951494108fbf87528c06b81ff3a0821b807affcaa3e": {
+    "object_type": "door_single",
+    "rotation_applied": 90
+  },
+  "127ac00d122dc4b38250b2fe32ee99ad4a938a76c52da53ab9de11756f8018a4": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "b6c2ccfc938f9ce6ec95bd262beaff32a118d93c3f87768174a571c8c46280ed": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "6fb55e5b54ea478d41c3cf62fb2e710f2c55af5b8c55e070332ad9fad00f2572": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "6d7349f5b608879a1c0d3ecb5baed64158015463ba62a76d17ff55fabbaa5ecd": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "5e94dc46b7e22e1e165af272c2b2453b0a7f11f702f60dbda344e5c9a405eeac": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "c7bd2228e96ea4cd072a87745065726e77b08bf8149405fbca16c87b85fd2ec0": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "c4cf3a92265826e903a8c0838d37ac0067a9df31ead3168b7b771d78f9f9220d": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "2eea850418f34086a57b4493a3579a148e4fb7026d0721d8c664a2241c53ad63": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "348f99668959a34e7969388dbfd45e7af8271d4642a40b9bd6d7992d655eea9a": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "751b9a866879b710724fa7f8b7ab3522a56a543f1cd0027a124e7419e9595189": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "12335d0e7af417f3dd9e8e422e8ef7d3f400dd6afbe755518b6dee4bc34102f0": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "cdbabce8ac72b2bedb81e492b1e82db2038b0149e73c5c0ce611bcaada612ebf": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "f74834f7fca614abe719da868088233b6e721b0dd54537abf825d6c1a3260742": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "ecd0939d43161ea0e02c65493815a8c8cfe7d3041365c1ac8daf8098591af42f": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "d1f59679b36cbdbb90c22075ceed25cdfc7ecb1c26748b88aa9acabdc4ede3e0": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "779c74074825457aa1ed8d954044a1a1b5d677dcba12524c67d26562e60fcee5": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "76218325dec585979b74b0dd994db58d79cd6e4d5623491776cf3b6d684b68b2": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "41f369b531d7c0506169a3fe1937471d3e35507c7d36b68c32773a238b753bf8": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "c3f5ca671e0b316c7a966d36fbe5efffd2167efee78c0b8ace37b8a15819f927": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "fb4f6af7885edad7a1df32a4efcf7133703a4660c8ee442482a213e8c24cc762": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "4cb64daa5d16ad9a9e1b6b65f13c94f24331ce898ca2c46a2547fcfae62b0207": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "9a9fd7dc6d438f6b62d60f8efb7f7ec424410e63ff109190eee8f0e76c3abf04": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "f0b78f4e718d5aff7daaef1e353f7ae1b737d0185c015a2d1d17444c95a9c859": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "bc8f36cbe7dafc0a13f53c584efedb38e87079dab7e16fed83ea4f741f597b96": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "03d393870fa466cafb558e5010004a13baf6329300b998ccd9d3cb4e6fa7a397": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "689430b40bb74cbe98bbc00457e1eeb72cb642ebc0b63b1682154a6a30305bde": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "a10cd29b8251ee84cf89e79fa91b57913386fce24bc373f8272709c32ab7f478": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "68977a5adb4c2722a3cbb190273c64e4e46aa51d61a05849b99df9b3837d6887": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "64bb5a964140b0fd6805b0c95d0039d4eb2245e01f1a33156e62811fb2d85409": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "81615ac0f82bfafde4beb1858d7699c226f40714dc5471aaf0ecf1dcee2adbb3": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "4722c8e039aaa47256fe13cedf43dba11788085d8f604b6ab7015e380a656554": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "27433fde4cb127a60f24f15605b6d1df5fe50bfec04129654d10a1efd7189cb0": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "247395408687d14f23bb1b7c567fe3c9b99caa686e97f029fc346cc19611c13e": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "031dbd49eb3412fc0469f1f8f86e1679ec26a249f3a8ef5fe206d4d578a655d7": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "977aa8ef58c540bbdeac76724e89f262c1b6aedf7b3709e225ebf7fd1c10bb3b": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "6c5aba9846f23ec1f49082ca9749cd5cf3a1d163cad81dda4993e06b3d0e1b24": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "b9c3e3d0d260ac373d23bbaf98ab03b5568428e112a5c1830c3fb70ac65ae89d": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "dd41054dbc06f0d114642b2f011e4c9f7de73532073761af0127efe842d8ac17": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "986cd45607598dd97fd2e0c59bf33d07ce32de3b57d841216176ab25bd34b384": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "db47177f7a395324be2db4085b0864113565448b2a0a9d18df2e9dcfe5b6276d": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "8289041dd3f9201395a7dd897ff962a536e72a6663cce4805f09892c38543151": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "87910816e9e8d43c5a98292dd564520c71d972933d6013ef412115a1cf71c037": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "0ea1208001a009e9467a4cc1e66a06be0a2460ec08491af5e8f8a4e9bfb39484": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "3b888d371cd7991d797cd485ecb24d9eda022b0a38667de85cb7192c88afb2f8": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "7685ada152af47c1d417b52f073981edc113cd58525926a9f948e79b5c7f181a": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "46d7447ab00e3f3c7f01600d0c7e6b68e9280a972b686861f401ed65e62b2d1a": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "90c3025f13c7610dcafed0f92f6dd5564a28e0974253d7f537799ed088e0c6c2": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "114a1383be170192b14b053ba1dbc48bd75962524e48461a062e76acb666506a": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "9ad6dfec34fe12f580f58bb1b71cbe7ac7ad70e9c9c1b518e7380b099cf2063a": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "cd191a8e7305bcaa767d49bcba0fcdbd74e1a8d7c61d8a7bb3b3602e3ef750ce": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "4d5314d6f82e41337b3fb50ec04018b65a83d6564016b2f68bcd8f938d095a3d": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "d5cb038c3be346e0cd4d1aab70f0a8fd1256cf942700d68d1581f8cea956fddd": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "de5940778de92e547336464e26c0938fb57464a969d5eb01424102a86e89d737": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "013fcbf7142b8d02b10bdfb90d6c2a127a4eca625ac6dccbc3d4f40e2f27acbf": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "f76c98bc9593bc3742e7664dbf4e1de85eb3e3b7caee4789c8bb85a18430db51": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "783cd9c14e230eaee0ecb48d7e1b070cba5e635034e6e516b8eacdc7d18bfb04": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "32888e77d6677f0648fe53ddd8a47a48767c36f38683973aaafd8af1336eab57": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "c5e397ca52daf60864191dc0523e0ff6ebe0ef426e19cefe241962a2b5e0d3e3": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "e8304b59b92e75783900ad3ad211be88284ff7a4b6ac0c316abdbd5dcc84c186": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "041871725f371869f63b34cae194c20cce936d40bfc0a342b15d8025941adfb2": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "6d030f5ad075a98f8c078473ce0133a7afc5e31721b37b4b89f82221c07c8879": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "b56921951868e145de3138783db9a43615e5c19c26cdea1a26039e0f791b22fe": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "5a9e4c71a89da036e7f0412da0784ad71d29cc4a30f149a61e1fa6c67fce74c2": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "696fc62e15ba9639295d9cfc07b7a77b95083d67e31d33eefc8b63ff4674ee78": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "15a3fca6d9c15677a522b558da70a680400209d87dfcdd8a50814a399efcc16b": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "0a7b2d9e583339c440a27a7a980298fb3602d19cff30aa22addc97956f4fcde7": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "e562dd9192aa9c586d02082623935f87157ca7ca9b70a66f08344cd530cc4827": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "e2b9b5e8c7abac75299c087644580ebde7c314ab0a20df31da68c3e8a35af93e": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "1a5c590b042af60b5efd3e0270e5ae02574472dc6127c1d25b05c334d0189907": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "6b74fec55c0c4c08a3ed7239edfc29b83e868872a083d83a97b74372a568be6d": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "9e634140be6d7d868ddacccdbbe1029bafa68fb6f4069a14dc32d6689b449e86": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "87d151816f4616d596fd8c3d5d17288fdcd39c03de79d476d487a982aebaa255": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "9ed3470031f074e8e3b507b29daa0a1d2601380ef64c118e1d3637993027d3bb": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "7f5c1a0d86a15e5aa678a1b186fb8ff9900ba3a1f50e0268d590ad5e0cac9139": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "f8fe85ebca9a02933917ca02b1374550f4e94e6fc26a07ba3886a07c3d17987c": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "f6c7690ef4d23c3871fb926fe63781a965d3cdd2ff5b7ffb06d5e8545bd3a4a7": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "129bc4776c5b9e0a32138aab7ad6d7da726cb7d7fc9f40f4275e3df393bb491c": {
+    "object_type": "window_wide",
+    "rotation_applied": 90
+  },
+  "4e6f466f19595a9083998410a6413b445ac34c9d5dc052ebdb0d7e3ac5486945": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c5f467fa45cda6cde65b1fc6c49a4ff8ca68693adfcaa3af315a40af8eba2e3f": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "51c2d65fde4ce7609f7dc4e98992072714e640f49307a63872346c7a0e5f11f4": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c1ccb69d2320dd514d3fc99001afa3707bee36713a44988b4ac93bb95e86b703": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "8bbcfcc74d7a61c7c3e68dad093b4b820d7e638caeb995ca7176a343a93a19d8": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "1f3f4533468f057712d801137040a4cf05094d308a3f2469fd7fa0818860e66f": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "dd832e45f6d18e0acd3a486dafab894b19041c8a55533fbedb8f3de9e7d328b8": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "9f033fff6b7f1e4cb405c76f908a9366e5308f142b5c3f99e5b0ac26fa0045ef": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "1704fa04b637efd007ee07271462a01050061c42fc681dd50785227c8b4e05a8": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "d7ef83a8eeba3c86ae3e2c987497d4859ffb97e6c8e7c32f3227d73c93423f22": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "12fa67501d36934a8622b33bf659eb26440094c02917b9e7cf1c6d9a33ad04c9": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "758484f83e4aa212aadc4729a651ad31135ab78572f998d16a5592901a3813a0": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "b12c963c57c229a6ab8ba5c08aab09d375d5a6c3aff42e1f88dd4660aea14327": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "48c3d54b882741d9bb2c5cbc61b197b5a409154cd1747f67b79fc51145ee5f30": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "78b5edd724ebe69f8d5e9159a27550d3ba19a4af6db846ab017bcbe7191d16bb": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "b749c5731d829748ef3e1b6b1d509e1e510d8ef577caafefffa71f0a3a20d1d8": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "f3b47c689f34cb80659627890ee71deeee33019034ade519e9fd3079f51f7815": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "959751559f303a6852b0dd248fc8feb02500b349e48d0d6d70ab79a19a979a11": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "65fa761888cd0c26ab0ee59b9ad8abcdb3171590cff33913d0942239125b6d96": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "09921b5b1588228b4fc94d1f14a285a84c06b603af73f9a2ce0970a2517d3b0b": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "d665d6bb5b7bf776c6e4301d9c333bece5f7fa51c91bb4d2fa278ef3904f3621": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "f9a83b6e50e4f1d9634478387b10b442c40f686b34b8aaeb1e28001c2c6d7944": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c0fb5451da984e7c5351055655f9738395ed3d0598b7759a4e31dedb4ef19bb9": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "d7d26436d8186493c2fe6cbc53be3c4fd990f1993028fec190223ea42f024eab": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "61d1cfed4db8dce52c65fa133f6c53a6fd7447bf7e56d29c63e6d97e563069dd": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "06106e4392f7315b2031edce72f2b047727cad4d36e850c4b8c59237ef37f1b5": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "00ca60b547d7419a7dac0eae13f54acc9af7e1377427bb1f9cfc08698b0e3d01": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "1d8c57f6e386a4279621f1f5212ed7c9e66f719ddf9bd6309d9de053c48067c2": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "0e38f22c6caccd5550f9c2246d32400eadc8866e3104ceb7acbadd3dc6f67ade": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "7fdfabe6b6afe02b08a91cffbfe2a46edb7f8dd26a925cffdde140c6229ca742": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c3397a992ed47e884f8b8bfd949d84e2d36c7c25562f7d25a9724053dea432c1": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "1e5d91d500f9588293e7a29f472ea8982a02e49a552a8cebc5083372e139d006": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "4efade51d91e3e1782c1cc43a86fc69e62df28067ce7ae3c93bf9f863e6df821": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "676a1f13b745cdfb08037d1be52396b477ff3b83d3dd2bc814089deac19c288b": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "e8f6c41e70b9a78f9e2c454b2f2abfb1f8244fc8667885792425545116c02783": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "d80195e24532d1be021107a23d8b131b527175df0675f1144a850a68d47225cf": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "e192dc4f7bd7dca3c6ad1ce27b26df6b3148901c2a51fc5e104c493ad25ed3ad": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "f95d44150f944d36ff4510fde9517a11a1bbd36667904490acd0b35c6f94b424": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "d76b08d930f35454289aba0494bccad567cab64e37b4a46c48ddc6b9c4207ec1": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "44ab09c478f8de3e3f0d049c209464af071cb5abac80d0850250a0182fc21ed3": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "3664ddcd05f2a0744d708fd7ea210cd7f45345832c1085d6f60d752ba258e471": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "157e1f4ffbb67d1d37f98f265e6da6f889a2b8dc314eb0878d0697f74cde6d2f": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "1c3f4c189e691d0842fe8a661c0fc380def9611c34e28a0eab3b32a71bc99280": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c5542c0a3f23d49138067e53efe71804bed3073da7d574eb17d600f6715d9bb5": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "7074ff9dee7d934e8ed536665d71aadbb62573dc97dd5e0c6316f834a38f30e8": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "24375b3f1dc01256ab44e28b2aab884cdcfce9553c63ff7dd938d67bd2d935be": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "42eae1085c99592b3e295143a816199d05a76cb0ca19e2b29c761b218db778e2": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "a9417a27640d1c0b93d090c2eaaf834e7d33abc9be1a5c4f73e63a410839ff17": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "d0dff00063b76f6e99a6efb15796c5be84cfcd00889e881ac515f8dc53c862bf": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "26aa487f04697fe6d43eaa22721ab0cedd530416f92a74edb84e05c535dbe5e6": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c949c7af15772ed8ba346823aaabef1091df30d250b2ce0d7747243f53cdf98b": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "19d5ad7fde79764c67190afe5ad8d212144998ef1b6daacbeb1c23cd8d889a44": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "f6f63efe7333a8afa35d7426267bba3e8489bf12784b74abf718250c6e212d1b": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "193c7a34419c389cb5108a3d928f606a26d1521a42c351bd24c1efc59bd0d66c": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "2cff75054b80fcd7c8b4cba9534895783dce5505c7196272fb2ce092ea611755": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "91375d407ab28ac096e33a82d17beeaa5dec5f7bb6a1cfb0718b339942d3a4e6": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "0ad754c01c1d3e3e780a21adbb7a46766b9dbeb639c6f9a2bb93a4252c8a8db1": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "0e7dd93963650cfcbb2ee1b73e72fd67579ea7e1d3309d8facb3a0d3e003f248": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "eba9c1e0c52224e8939e0341a08b8179409d31aad0d39a56dbaf1c69d9f1928d": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c6582f96830b47aa771c0b58f43d38f7b986021043bbc1e293cc623d1af22bd8": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "67633ea6eaedb7e8eb17a742cd83f739ed89b650abe014bce430d12b0363e705": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "95023c9acbb74479e74d649df064355ce37a0ae648974581d99766578e97e9f1": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "7b6ed14768a70d34b81ef92041a8919d05ead50c60335ae7ae701b32fc5de04a": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "ae86efe47cb9281d6eae697459b61a54630bfaf0ab3c121837abc47d59889c0a": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "c08c8d3d93f9ee61944be1a907c7879b6d6dee367fa0bf07d255ed0f276f8d67": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "68fb43836e381b48eb3390122382d2598ca3052116900c03cdf877bab0a2df07": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "36670daa3c68b24dd958cb7ac8f3414e779604a0a4109e368e840b32813ad28a": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "aeed89169bab5450fd0daa52f3713a504ab9e7549883b37c40be4f27c2dea8c5": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "e35a764ee8488f92e217aeddaa8186f0732c88f3f4394ddfb9ae71325513ee66": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "59a525d96f90db3c0955ee55fc64e60f6f6880ced183b68787429954ca0f3ec0": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "5f86c1d9204cc40e0658f873d74a4ecc0761dca771a03b1d9a801f9c320c7d5f": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "47eab53b8a4ecd6ee1be31771e2bd1dc336af7b07fb208f4c5cc640e08291f1f": {
+    "object_type": "furniture_large",
+    "rotation_applied": 90
+  },
+  "e8826c3ab7c59c8b3682e0f028fd2ee7444e92ccf72bbd85232c44548adb5a53": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "8cd7052dfea7a162c8b9667c5fd06e1f712e102996fd27b3598948d31e50ff15": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "08466063a1157c54ac1353b9387d6da8f393ac15d2578c8b2e4fdcc483639943": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "7378bcb7b6a2bebbe6537b9816d74c4f61d33f131965795050a031446b7837d3": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "6bf87c481733ba359b08c5bea4e3ed12f709aaae4b3d2f248d07135029d59c90": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "946b2fb377fb90c7fbdb014e77b259f604f3c965d8f3781442aef7ed154cb2e0": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "3a1f43e0a56e164d2cd78d0f5f7866b4f0bf01ef11107fa236d13b566a837ccf": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "b7b05f7884857b1679c4aedf0c6ce14014d33d3b439ba1f8e39323763e7d8f9f": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "1abda39c05043b86208259a10720aec64d7342b177d965a6571cb3e009e5d4f7": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "805a254edcdd518e9716916a01f6e47a7ac236527849125bcb7524173e01eabd": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "7d7f99495748c9a13b0409608a11b10c2bda1f9c1be226eb718612cfc1ab3186": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "5a94e3222c5b27f67bc011c2dee7c1baec38dcab0f1c8b3999b2099c810f183e": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "eedaf71e61e4ea3787d8a5cdd26790b1e828c41b3a5ac8b2242aa132bfe20520": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "016eb925e19b131eedee9fd56a355e3039cf7ca75aa57dfdf5b52d0f5aa13fee": {
+    "object_type": "furniture_small",
+    "rotation_applied": 90
+  },
+  "0bdb36843ef9bcb01a31a1f713860485546e6084ba63427e391d652e20ccb1c0": {
+    "object_type": "stairflight",
+    "rotation_applied": 90
+  },
+  "51290ed1ad83b41245e3208cfe38ac742053fc08033714608ad05e47837e7d00": {
+    "object_type": "stairflight",
+    "rotation_applied": 90
+  },
+  "7c158d32740cf7dad97391231f7cd37e9846ffc57c421f84edb142625376a554": {
+    "object_type": "railing",
+    "rotation_applied": 90
+  },
+  "facf64b78b12efb65ea4a7452bbeaa5c35384672b56b0a155faeca213c97d2c8": {
+    "object_type": "railing",
+    "rotation_applied": 90
+  },
+  "d90a1d42ce237a806b74587d49b52e85ad3a057a5d7ae4d9f94f90834461f04c": {
+    "object_type": "railing",
+    "rotation_applied": 90
+  },
+  "328285681267e7d6f9077e8a34aa1afb82946c55b2ac0eb3feaf5841c17b2230": {
+    "object_type": "railing",
+    "rotation_applied": 90
+  },
+  "63641e086caf5966f318dbdcfe7e80e481b512872dea59566129a72e0d939782": {
+    "object_type": "railing",
+    "rotation_applied": 90
+  },
+  "19c0d09fc02a0b3482811cca86c80df84edac0af011035428bb45fe78455bc67": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "8fac900044851a0a90322d6588c46a14d12a743c8b3be57b3eb0f05e4601d921": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "e0351f2d834628d47d25e732eae481c9085da2b3aa57d250a54ef8c8e3e0facc": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "99d262e4e47d068135f1456c424c884597be16f2c47744778f8138ee85eb902f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5f7a2b1e6899b7d119f1ea7d5e0a51b3455cdca9348399f5cc76bc5fdd23abd8": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "03f388053041aee56f8943f823db6439a94fbbb1953725835499ff5d4284df35": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7384548fc1ddc5ce408331a6da5275498b2b018fbd78ab045b64d2dfa60e4ada": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4707df3305d949b586b8c51d151744f4e94c8f542fadee740d28aae7204872ab": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2ca0bb9f7a0be89e091044e1a3710b57b76f6339c9237da185edabb33e0a7cad": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "413c3018310215fab02a56bc0029d4423066ef118c3798c0ec30110407902076": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "307570c3225b9475b4a79b6421efbebe807e4e4297a20c18168ac0f445a9c021": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9f0a5b8d07c2782b974ed1bc5a2d0e4482496f440278f59d9835cce101aa8eb7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "55a1f73dacd2e6330976d565a0d332d88bd17e08298194309062f474fbd5f8c2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "db433c49771ad7663023ce2fb81647bd624146f0afaf571e40c3cc9e2f435b1d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1dae0837b13fed988837ab8c86c064f74e1b11a360a16a5e103f4cd37b49cd95": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1e2a8e20bd9e2e9bd140fcfe888068338c9a9249ed6630af2d4ccfe5fcd074ba": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f1846c88f9bbe47180a0f9e5d909d8d6689145504e8c544c9900b536ffc32f5e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f1c2b7b74a1445aadf209e069bfaf0f95649bfaff50b0c5ab7ff172f6a0b8d2f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "66f94acc9922705c94924790b222f8e0d42a83ea44aa004f01b7069455468a0f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0d23e4e2fa884c590d18a19dde97375b4aa93364461e264c58f222c7c39f8a25": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "957a9a198fd17f68829e626787517a67d8222908e231c48ba0d53a2cf917ca32": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "19905ee8aede0cebd76e94fb757905bfb832fb20acff83c16868150d3930f88b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "101edd110d4b7e2f5de74e20b0e6df4cbd4a6f60457e50fbb742e93930c9ddca": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7c8f60995decd0e4f7b89ed07ef94318b06c18b21a57b52e56c7f2073af8102c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d2d5d53ecf5dedc3e5eeba2290344115ab46b1f97ebfd62ec67f491fdce50771": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3222bdffe6e131fef6e5bf4c88395c70b9f38643c2540b6c794dff9098e4c5a4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "bdc867a77e16b2537bdae18c69b57930d98dacdc931eb9e1be221e207c94f26e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "71d2fe5e6f7768af3f3bb6fd6976e2bb6218a645871c9e2c23fb128e0f4b03d0": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0d10b01df6d9c9761ec046eda1011b9d146e418143d6f9ad74897100c6b17fe9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ecb85e02b96d50cb1fa3c02d22d46f32d83031e1592172c72080ebfe0957bba4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fac05a2ff84da0b019af4e67a1c6ca9d87b4ec040a5dacb67c07e9521b085372": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d62228a1dd120ee5fab54b36f5998095f6e534bc8c94af2dbbba394bc9af43de": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "bddf6413d43333b5b2115ec1d985f46eed4384b838fd2ba49aa39c1d35521618": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6554adaea302b9de55dd68d2d8c63c5ec98cebc70a5becbdab18768ffb559ffa": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "87f8b739ad0984d4e224a940063e19ea68be776a0f132d04be4722149b83d95f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "50b86ae14e7adf9da23aaa9064377e6eb92cd9c1ba29420ffbd5d6d50f12e56c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c5814e34f0e51f583b5a51f19ce10cecb772657339bc67e888ed66ed6749f993": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "283cf9a59053456935542a0a4ce4935af8bea94bac30c709f5e2f50cfd1c4f8c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f783ef8843c16d50776b27effdf8df9a9b998d56b58653360d58dc6e6b63e10e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ce82f85a4102a5e7bae71d27469fdd1c53fb8a1da4e7df9afea63e0ef5aead57": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1995d39472fbc5061c2237e05890d618ce02170e5e61900c64cd9f2ee32bd42a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1f9ca85c273f66d3853a64143245d42c005ba95b5ee72942bacc812898806a39": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "479d059753a7e9e6f0370d0cd006b4e3059ee41ded2cf221536a855c26bf8baf": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "79856b6a08e00fddb8cb9ade74905a8c9c81c5d54b30d8affce79509c91eee8f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1fee4412687afa34eba7a7a78c93ec6df7b2f3fa305b30a344ca93bfae19ebd2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9dc881a42105c629e3050fe93880a11930bc5d909f0d6e93f76d15c2aff17d82": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "825c3d4c471cbfef6d1d8342a4102f2928b4978c4d8ed56df27ed66f790591af": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0e67869c4a624ee539880bd28e9dc0c9b3e230bed37238238113884d7e10ef84": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c44dfd821a17f61651a42b48bdbe57abc241025427f80c79edb5a666e681f95f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "bf50910b337cb12d9862417660158fa13de2bcd768eb59ae99dcf40047ef2301": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4a00ed0e2af780227ae1bd13c7fd71a5bd3ba4dc09ad7b3f12698b0cbe0829cc": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f2befdb7d31f72071be8b3f84e241b8e6031cff7fadf074639e4d9813fb5bcd1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0c2a80bf5f86b2992fa7fb63b09332d1d676c72b69ce2b8bf9fa89d220a2c44c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "8fa283dceac848a9e3f6f2deccdcc80838b1be11ee989e6261640af7ec093a3f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "856e8fd5d01dc62790abe1b86dc704099f25f0977d5c22b6dfd9a8e34439a458": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a4595e7863b3f7cdfa8b28233df08267800d901b64529ad2860f96b2e9ec45da": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "467df3aa7a7bfca0116820f13a0552d756889048789bfc2ea57d03c8921be7d7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5d64950b01cc6855112c8a1a2f0045213c17e35ccad99bc56e6433521b52365f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "03ace7edc8c629c460ee171c2de0e3fdda21c8a19ed4f162915eb25380773c21": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "74b70e9dda45b03325df04fe5bceab64e58ce578f9b15355d55d904ee74607a0": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ad2609e63e9541491ee639dc17250faa8d2fc8e898b88b178e9f219bf5dc9d68": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "48f5c28c586c216cf167061c11d3e345ae18feb4948fe1ad2abe48944fbb85c4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "972adf30ede31c0aef8f4173301e2171eafb2ae0c312855de40bd389611824fb": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5cdb921724c90ac97dc40a60dcc29b3bfd5c30d8faf3625d49bdd7ea86641415": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "aafb70191bb1b6be3f2b6f6b07caad219448e4624a300581e95b3bcb4507acbf": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f19ee7c2725838db2480cbb90463cacb5f8d6eb8a99dae670ccc06692a58b1c9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6c681759c8329dcd2a738f7a39146b0719020f2c1f06e51948ce98f7cf3e073d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7b837065c9c987ef481ad1c73d3313c7768d248112ea90ca026c6ee8834c5020": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a618391b13120538212123a3954d034a13fef2e9cb52cb461f5c772126ebafea": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "bbf00ecb9fe66ecd6dce356b0351b77121500881176e2069f8f3ff65628498a3": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ee5da234c6c5b2e74387cb9f7fc53dfe040664fed9374a1330849105f44e7266": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f33b841b84686672da7e3479dd62cdab1aef973ca905e0556e7103760b5edb7e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b6921dedeeb37eded1a3da5e950f60cb3855d95275d681692d0954ff9df2d190": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "8c6a233e435ae21ed004019627f8a5f43ae9431a6926681c8c2b811598a489cf": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d047ad3c9f3bc4a241bc953ec70a8e1554aa50ff861f4b4609ffd01565a05777": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "dfd75fa2a6835f51f6899dbbadb832beb544c7d8a3d059fece3b9abe3b5a4eb4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "26e143bb6f4e183f926c5a2f53f6004563792d148082df910569e31f12ed8dbe": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4f1c3e0a0406bd58f573bf68488462c504db117137a97a3f856f50b6266a2cc0": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0ce9db23ce228c0266a9f54b92d0e68d5c9229f5bf25c6dc59e590305475ad43": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "083dc25a7c5f9f01e9cb63d5b56412635aef2a9611896ae7026308b9633c837e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "baac0c92237e9bccd157191f63757521d229a5ec5c8dea5b4ee8c4b9d9ae3b80": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "586e57162a93c24790802c8944ee573b07894985974bb850416211d81d4b0f2d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "8d4e375f25cd3ab0f27bc718a2bb878b331988d4d1a8c4f69a1353ff86bb184b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4468de2e9edaed0ae72ac567c8a2e16703e199ba2f5d8a9a4113bc8fbb1ed589": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d83cd98c46e5bb8f4da58e1a1b24f37def74eaea8674694d773689b167755755": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3c56d037791423b9ffea177344d27aadb974a48ef31719c24e4066a1946ec312": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f86c7acdfab0a6213db44aca185533d93d53896ea963b7ffb9dded3e01482ef1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f714012db4cd3dc7696c0b08f0e75f4615e5c602724521d022293b67b5621226": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2f7c1a5ff6ec9727954f2d792161b2c1039d1b80cccf23fef36d076c76cf9453": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "e4e07c65cb7cc6f5ee037b93e09a9a606f80c12dfcb0cb88950c8b857193b827": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6a87d583f65385d7df37c927e98ab81619ebb37ca6d6c9da8f5dca65777df084": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "82e70990e04cfd95e42a243d24579eb8d41348ba31bfec26fe5d3d9bc4e5c404": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "06b7f047f9847e91737b18c5fa5b374958929869650e75f72bb0e1a9d4d84b40": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "479425bb728ff8e5acfeab1785d9a4afdba5979e0ba0caf9c9bfdcd5297299de": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c7bd0e98669a2e16204e75a1dfbabc3ae52ee4d5feba4dd9bacc42fd9c7e409d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1464cd6fdc64462b55ed4c4b23cd06a3f98c9e853932c311c8207324f3a18a9a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2e5217d8594178a996a13295c0fb578d77e66706e1ec232303162a3252d8b3e4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "730f09c19ef9d00b861f1915ba05b41ca06de1fb9f5a8bf571fc35f96947bfb8": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "646a0ff60f70e0d6dbf2832e32595176b07e5ccac02a2d3116d8897e96bac2b4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f95a253f665571e4d3ea413e056edaabfce8e8d27af27f4e49f917b265aa23b4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "43e0bfe09845f4d2fcae2b490b8b162ea3f9fce1af3ead6ef75506c25f603413": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "e14fd5859bccd19aebf9b19ef346ac7c9907de1e064c47eeb0e37e85ed7840d5": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "edf316352bb76373910630509f08dbe96fc2188d233a2ce4ef044e761767de24": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a709069402a6e327ba0992e770f231e89753ee495630b87e803867cfb053008f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "e2fb0ffd517e673b1ab237ae9588dcf97db776eda6646f5aee7cbae4e713587f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3d43776212c6c583cb1d8be520584cc747b1ce533117d597dc6c6ca50afb5395": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f4c460dbaa2a28a95a48bf925bfadf82d0e8b17991b8c2008b282d9006c40e6d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6cfdb2cdabc8721ba40430475411c86ae7e7bbe9ad70f2c7407f791bbb1cc667": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9ee05a8f0ef535cc8ac8ea3094f93951da28ca65d8ca6329f7e1d0bde1436593": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5b066e57dbd78fc37b25e2a5f8c6e84d72b3c381fec75e8f23e6a6137e9ad1ff": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d67408c8082f3372f1adacc34f77f85ddf2c9d8863bd9dd2534f307b6609bade": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fc9ea0fe90ce23e047315e7a6b765bba71e13c2133a9920e8a6ea9b49720aeb8": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2ea16f45a5c0c98f170054d1352c6c0cf3928d667241eb8a15a11386415df1a8": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "503f0d95a529351eb6887f6eeac32559d5b1ac158a0a1b53d6c2a06244f0cd08": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "532bed11de6621409649413f1e11ac2e0e9bfcad58f5d38fadf84e92300acd5e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "561da954b5e3216e946639220a514ce91c2d80ade9b2f24bf0ef8e3936071978": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ed621209aa3fec1db5a2ebab7815495212a2e8a60bb1c5756c28fe4b185f20fe": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6f0459e7bd542f1138e5df3faddf7225385a63094a8147e070d468e1d3262ff4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "dd17407961403a3c1e27d6cd85b2647dd9953e5440f4d08df9f3a6daeb730304": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "be4ee24f25b10e4fa529f92082dfe24da3f0b90b92cfd414c01f663215e3fd3c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6a6ed1dca4bcbaea04db21fdd56486b0f9e7f54c5a5cf11d6af7fbb4952186c2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a575efdb8cd424d5e8dedf2ec70c31377e27f8fb5f24b6e414f28701c856ad88": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "8bf52e32ebe69e45f5f4ed4d7dcc77355b49e4feabe99c982b31ab72acd21b20": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b32c43a3463f3def51701b4999d97114afbd5217a7892b3a67bd90ca40c2d32d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "78749f82a94ddd67aec808ceeed0508b27820926ca02cd9f1dfa272e0db4d712": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2d8111a110a2840b5a35d2295a21debf1b718d10b98923f3750acc97e9872ffa": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0185449b85d651a86021e1cc4c5eea01b18ceeda6f011b58c293e11e4819fbc2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "be8ef0a4cd38c59c97e8236b52e85f89057e0bed50860140210be17c6a1ed29e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "70d06d3a6837fa67b7d04d3409d95d9511ee10bc64c68ff2ef2af39a79125288": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4f0927ee3fa1467e7bf409e621be0b33e9c3e544331310e603ef84a7b78a51e4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6d994b5c4779b8a54397474809ab17703b3b7a56391a584e2bce2e25bcd79ad9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1230d3a93ad36f54b474bd22d07c1ff9690e6cce9e972cce471af0ce571109a1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5d59416324d820297cf12efb7042ea400c22182eb54e4e256f649c0ca4434d63": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7782f918b7f15e57685b2c6987c70bbf0b07f4c31bc208e7a55b19a3bc298fa2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fcbfdd8bc0544ecf2006ce4dd5d88964ea34e5c90fb7b5f08dfc4cd556946b09": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a9421f817ad67b2a1c23139be8396d12c8464ba064ec59f6ad577159dcd739a7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6eebba3d9c31609ab81889757931faf464b614ab46b72886a67cb27cbbf47b32": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b87c8f27a973e8426a3803eb3d7b9d851f9174c4a9fa3b84b4bae95ee24add2b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c897c9ccdd4c6cee5e5a63d9de2bd672563381d6998bc6aaefb742b410b5259c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "e55a41c16b8768f6b2a575de5dab391538b0960dbf0e16739d00eec875e45dc9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3415f267ea6e65d39cfb64ca60ba75c77f59ac65bf35cbddbd8a1a4be19fbdb4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3bb9a266e3c88a46a0a66ed292fe4ceaa8af6661096a25ef3a4dd4f1a845a417": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9c0f577af7629866346aac0987729a75a2425b35bacb98995203c83982b27477": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "25d2b85dbbed29ee5816a443a6c6d65cf0d58ffe25bfc475504df82a70f5fe87": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "dd9994a865a9679f06a84942b13f4815a5d0059794fed1eff445bda872220bda": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "32aef5db04da65259fdc540a4518932f241ebac65a33cffc46e6c865b8304e33": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "00527e91cbf2acf4ecda1db420a2d33d20307dfed67152493c38dfa61e4116bb": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "625306c0b78827a4b532735d2eff30dd21d7a68952f10eaa8f0e2fd6dea92b3d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3a0a63533c045610ac813ca46123211a13554df2accfc9b7c70fa4207a1a4df1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4eed53d52732039603bc1fc6051cb8d69f71411ee351ac9bd992885b1061f904": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "db5c7797ce0f406c9f5c9507fe6c2dcc3af34ceaf5225863ff780cd2ccaac1b5": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ac302657dcd4e92c8578a1e983586321a927df9520fded44b588194dc59e01e7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d19b22c8ef7abb3d5cfc819c2c7885a8b2cbd9da62fd4a44d01611cec7f9b393": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "42a3724615b20e7db529e797cda052c6f578d48ec50cfe25789a5f1b9aa1f8d3": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "146e721436fbc0ffe01e4e8e9c86031fb8f239fbcc647edf7898adc8c4da81f5": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "012ce5daabf0b1bd6912c7c3ca7c513b5175e97156ebf8160fdca62a561455f3": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0e0808273fdae530c7985c7ecf9e3bbd233b15e89515d2aafbf2e83339705b2b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fb5a70ed72f16e9fd4fa64b07846fdfad831d814c0ba6a425e5ca2bcf5d6b54a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "951647e4a933f25ef5348fbccdefeaee5d6ae2c4cfb525129faa2ce10b5bddd9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fd9e516f25860ae7eaa313d68d6ab9b9e6e06484955d8f69e2b83020cb263497": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2d3a72b8d3447740b58370303210f642596c3d7040717c3085c1aa4de6f26ccc": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "af03c03301cca7c5f5ed979f39ee44edfeab4acea7d451812f15c7c566b16a77": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "df26cfb202a47471061e3c3152f331ccda475accf97c849536efc409b5190a8e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "75b4ed59409fe27c3be52a661f64d9f57236b9897d86a7dd277ebabefd098e92": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0a974f14dbb3bcf6bf97d7f6531da4a0436034ed0e04b0b36426dc397752c341": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "85b16f39bf17f03e21e6a15ea44fbdf23a59e009361023d265ae117717947701": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "78c4a5042c995465b2aadd72672716b70f96b4f37ee8e5f21b917e37145dbd0f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fd0f47c1ec55b4ce1d0dcf3f9137ce01c7c1e7088c7c4f8c648ffbad8153af9b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6db6165af38193c9da8367f7d850a9287ff5ea2397d75d7047c11e4d3fc27150": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "bfc62e5e9b08512d189e0d723837e757843d8d63d9c47b495bad14c3ef933282": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a4f8d8bd411eeb82f9240cfd3f3771b3f9881428c396d166924ebcc82ad67443": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2ce95c4b0e8ead9688f2a03bbd85e88b16a9031fa45744a6e2cd0dff68c447c2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c758a4eeb1d1e7d9a427ecc69f9f15a44661b7b70f1a361deac1147fe9c98fe2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "296ce0d505d59af0840c053042c1042c4c40bd6a24731e8477fd9b68b90c7049": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2aba2b6a5e93ebbf985eba2c96ec42a82150e840fc89e4f21a28196690bef9d0": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9467f7887b581d8db87df9259decd29ac59e978e724f0037277679cabb53a5d2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "cc4d6bc6abe0d96271246581a0f6a41ab64e20f0230a1ed7727bc8f719788824": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b5fd4c410f449212e3c66c504266615218c3d95c6d1d05879dc8eb35da242997": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0f3ef119c9c59a0d3e55f3b66b8f4be39ce49c30b2269755515f80ec9fbba7f2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6d12fc512878ed3299771af08fa0422b5612af488470d49f11677cb7482acd03": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d88ae11d798f6e9cace0f6e69922c3b56e060667731c5fd61f813327a9ec30a7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "22d8cf8721724b5627f474d1afbf4de9b8c264220a00013f074671705c534c02": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "03b83e8b23a83898d698ba5b81b1a205085d1a78ac49f672e4b0aa430518576e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9e3db328e0d85c00e2a3f414e8dce3857c8f9d9ee4cf6fc259e81b3281c26b9f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "23c805102d9bbffb74d322d26079e3c0ea0499e4769a3d7a414706d2bfce25bb": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7a12792c3b3e8e0b4d561590c0d12d70f0934ecfe249b9a532d656e0fc4c199c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3b4209f01dc3c39b765c7a52e502d663f835099ef02a6a1f419c551ffb9f7557": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "87f31b91b1a67dcd953154d9b4f692eb9fb19dfe0726035a7510354f8ca0451f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7d024e675923cfd305212e9d50195de6952ce0b75fc084a238209114c1fdfce9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "869e34fda001570111bc81195d56c0f050416ee70e5c2c345bc2f4db9e6a3fb7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7a1e2ce884c6d908c1e67eaa85241464619526d365b965d2dd38011c21e03f0a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d87e77488abecdf0201bf3eddd091465d309e98296f1316cfcfc0afc3e543a7f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "806844c3f94336cb633e4dabafe2be8510773712202115e2bd50bcbab576bf3c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "22509830bc6216567cf2d6b0ab43b0cc4fab0f0c3516b594f89a15c701df202a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c98aca34f85e23d9ee6191940a9b714a26154effed5cceb936356d427f13f881": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "cf19b01f87d05c7d790b25e2b019974dc44c575c5443d87d159ceb6768ca93d0": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "92a080cbe441f9332d2821513ba32fac92520e7fa831af314cee85ea568ea45b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4eb25f75a74b3acb68f72b6777e62a05cbc3388e9f3916f69bd25d8ff491b8e3": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7cc887b54cfa044bf64d62e869e25ae645864f76cb6d26a556257dff214abe29": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "405794e70f719a28f6d71b3fa516b71b27dca6cbc546e0d3bc0f952dbaa3c78f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "42ba14a402b8e0a9c37c2b0040866c232da1369cb203b65e39895f0246b0e674": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "92d0926bcd84e1368568835af56b1ba9dd887c22018d093d70c79178f67910d8": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "20bcab39f36a9248ee1e6dbd826f52b0f86be8ee15e3bdec18948854fe8b28d4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c6cb8570de2b693f9e15ee7ba945f0665d02ade2b27cdc7d0715a94f54d6e794": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1b702a4bc005c19d0d4745320f51274cba0aab70522f191b9f0b520144ca9c1b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2649a97447816d900e7cb251fd7da75dc3069adb13d47a1237aed939571ca275": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9eac6cd92f54927aae33e775e460f2c0993ea8204f1c1f696eed31a260686e82": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6e7c9c17c81ace83c582e3438716132d404e68ad02ec0387ea86fe443df1c44c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b0e433b82f526c7a1f4aa9c2eed1464dcf2f96c8814134da60ac71788b2d6d04": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2c681405822a355efb0498656f15d06eb8cf46eed7709c8ebaeb552a61827110": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2d2c2ed19ee14eded9f198af3dd3daecc3158e1af75af0642b8a350bf1d8c5ca": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "8a35e0d382fe7ddac8be7b8a7f0dc2604c76ad9779806f4d85e0bc3c4e0d4636": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "128ce579b5f629e814b4234609863df0f5b0f281a1471e03909a732d6b717e00": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "83560e5d7442b4cb9663d8ece53db6a85f689dd3a308f22456c0dadbb14117b1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "afbf2f872ed99702218d90d3ed788140703c2eb37dd5942326bd6f7627a72009": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "903a5de2e4fba54b773ffab3e37f596f58f68d2bd453c597e84336364e9e582a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "485f5c8c3320133da433b07677c12b47de7a7f40f729cb728daa0931cf042cdc": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a9d7b88be65bac4857ef6eb6952acb7523cbda61ff6123337b9953c36a77e06a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "24e7a06e762221581bb27828b19044d2bef52c91157df54e259ebc1e93de1031": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ebb18b2d43d63c2b3f25412668d70ae7adae883fa37733a0ed8a7d3c90d90139": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "de7498fa7cba291c0b5736aede91bf8ba213bb5629327dfa53fe7d7cdf401dbd": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0ea71d51514de421261872162212cd4d100a514f7b558b9e945cef3d73dab2b6": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "95b3dd55f7d27f6ec3f0ebd62fd41aaac779f53e41075a602c6a120f89168d92": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c370c785fde7b832c8219c360fb84538d434fef4b91db1f73a73171fd2060595": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9d30531f61f39dbe31e7529e580dc1ace00f2a140fd55831a0ae48e9a8a9c78d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "41ffb417c4e2dbfa43c5dc417e813921ce4e4d025bfc35a7e55ee68b8c50145e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "264977c3f24df8905d26cb48a4d76b58d19ed655755a42fa1660b8e37f4ac69a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "e24c3a804613d700d8619c28bd0776486db6e89e5258e60b10613d8a05148a4c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f4ab575309b15ab9a81e69042e00f83c2b1f67d3ee099304fa25b3c0365d47cd": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "cad8fa5a9b44138c312c6f18f5910830fa8c1ace53f81c0c703304a8a16fcdb4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d5eb68f44a84ad9d0593741b75a4114bd141445271d8fb700004b542b2bec295": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "200ebd4264ad6e30606aa8c385bb372173109d6fad74d4963ba23326e90bdf16": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1ea3e89b8831340e4b3deab2d032effac3534cf3ce64e455e70077272c08c47f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ec5366dd1722bcfad6518633b01b552170fa66093670467429381753278d6036": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1f90a21f8e7291ebec0c695718a089862b8dd914a14d1196f2bb57c40fc0e4a2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7f4f836c959fddb4f588128adcbc5f56e3c4899b52366a67fc43bc0cf2c5da5e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "64998ce8f729d5a9e3b960ef3a07935d27a4cb3b20b999cc2a651cccba02a6e7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d9d0d87f3f002b2ca24b40362306de08df7ed516524a367e8b9a17bc9ad42a9c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "796eede858b50ae26ece8fd1573fc1f31998fb867fb07fba0ae811e8593ea633": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ad8b6ebf69e7961f86cd23da535755a08e59e6c98aa0253d249440958710b4ec": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "cf8335d06e45e27e1717190e993f43bfdc8c88468af70d4570647b8598a35364": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3c16914133924d948bde8df80684b12528ed283784d36d2c70822d6e8018f1df": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5d40841e9f63aacdfd96da9a4fa4d4a985c04c979ebf9092cf441247f9828370": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "25fbaa4e17996edbf4a2e57c1336c33a436120cea148cce269395d6f8ac4e18e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1bdb0471a9350d32e58515f356db1b44c4d30c3ce50c055f039abaa5772fede4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "62fbadb600c140eea3bdcfa1a14243c3dcd0ac073101580d192f77f4357cf425": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4d750efd723b08ca23646b72a547f3c89d6f1d8808f9ca699694d012029bc988": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "80b8e36ff57b9aed2c3d8c825e00c196a8128f36e572317cb34a86cf311d62be": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "54eff39d9337b2fa40e254128b03a561e2f8923ceff4c96450bf2d5958de057c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ec9a33abd111deb86932b4667b8f09678da0793150dfd25bee89147a4471b823": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2ddd6ea07e03c2be36b54a43962a9b62f3dc5d0518aa30436e73097f42ac0c31": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b43842171843c43e4669bd4b5a6f461238a1d9cbf74772ec3dd51ac2a363b897": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2e5eb134af584ddc4e9561a5617cc062ad31752981c15e4770f24ac0e2a74331": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "677a6af4514a310f01e415c41a3897b30a5bf8a7872d617ae45b351fee85bc3f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d1c34d58a37a2c92461b760b12f935bf1beb493e5679ec2d3fc47cb90c3ec463": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "85a36b7a345785ad2c9c381ef05f43105d2aa41dbd13e6ec67854553fc7c1d25": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "240fc8f2aa60c0b68899f39aaf392ce9e057d0c3ae38d815a9cd1c055b6faba2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ab84f01d35a94a9904a1ddff3ef1c8aea3a2c11a31fe612668da5ba893b36802": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b671f89dd7c7b83e553a08966c9079704964074ce926d09a6eeb254b2881f81c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "e17195e5a57f37c5b575cb97107076c11c8fdcde6d5f0929d302d30d8633a38e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d3e08863522f46edf4e16203ffd54c90b04759c9eb950a0a8a4be2117141d0cb": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "622aa072a60e725f3b2ebdb03eb8cfa09f78e308e482a95331f458d9967383ab": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "137bc0263e4988915b8c7592fe3b9971772889278771640a61c64287d5bf541d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1d4324f96c18727caba3de3610b07cac8fe979acd5a508e9e83741eea3f91a76": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1016506e6e9beb3d9a26d972c0a03b04cbe8dd1a87cf04bc2eb96b9ee49312dd": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3b7594be2d5c99082c8973dc822678463c6c7e61b4c83e26a50940bcf8b8530d": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "42632ab214657a4f5555a61d76042868a80572a27fd66819ec616ce58bf60972": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "39b2a3145b5a6262ac7160545c40169a3be3e8fa1e4170bcd64dd6e2050f0cac": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3c0954ddc17b998913885b939cc364c6a4a1d35b14f0ae59f3c44ea059b8a8e1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "0b71af494713669cac942d964b5fc217d0fc55e93ce29a882188f16b69c23dc8": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "05b604692a82e1ee73dbdb099937cee22990245a1f1a19b02fc2f1d26115a8d4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5f8edd663a69b42d849d4628d86009089fb1539cd084798be4bbb3daf478d636": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "5faed5d4b12ee9e673b36ebb3d67134fa3b1f1ccfc566bbc970cd3b25c8312e9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "776604f9dcca609860952d5c6a8bcd7fdeb9b12df67ab90aa179930c1b3583d4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3164520b1a9290c820b4ba9b0913393429796109f04effb22ff4f72a0febbd06": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "bdae0afaba362c37f96d09bbe69594d5a39d512e7d1ab3848b2f2cf858689d0c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ddf354f397659c80b97ae62dd3e3c4c8f2b445d52ee308f451867eb576be8df4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "21e1e7651a121e54b0ebf17946356f5c6fecb72162813360b41562c269922ef9": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "300c05b7ae5fca2130963355a2fc34800c9d5fd1f4946353ad37aa4c30e1b313": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c2c46893ade2d162d067806d0fb6e32aa5fe8bbc93fb611f7f1a7a9ac3753c36": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6945d21ca4d0b29374e2a59b38d70de77d47547b4d6786d94d2c993d2dc1b494": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "31d5fef6cea06c93ba1f8e15dbfc6b7acca47439fcd945751a6417d1bbe172c0": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9cf9cb57fffd756e6039201ff5a71c2afa30b34ca39e957de692c8277308c26a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4c4a76094bf4e80d446fc84593e9970493c06a9c55feb8f68b968bd6643f1bbd": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "88898469f3e2e828e5b98379359ce3da1b52097146a61d29c3dea7d5c7b98fc4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ea0b5376b76e77e5ed92ef00a0ab5e8ca22fc2a72a02d54db192bede160331d4": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "64e2c758e2eb4bda494d38f4aa683a6c8e2f38a951ccb2ccff91f8b7175ffbcd": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "ee05c39636376726ecc8abab50bf60aae1f980f9f6797f2cb69f6dc89ec05b12": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "3022645ef234dc46dcc3f4dbaf2a758e59884433b2e569eb960b47200ab6860b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2e5b73e6c34e10993a00ea0187a1ce86d48afbb15b6e33014511d0fee62ac1fd": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "a94c2baf7b3e42da549a3aa402102666056b5780e2dd01cbf2f57ca5506bbd51": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "41deecf69729ed3971f8e8cbcbfb36f75182596e066c04b8d1a7b6ab01a0dcec": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fdb01bfec61497a8fd8a46e3987187fe9388730fc1093ca5a781e14853cf06fa": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9272f5156b0088569e01882d9d2a2ab7e1f05c0aa8c1a923df70ff2c67323f75": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d60a16a0ced42e429bd5057df85efb6e1a8b82cf8d5b80da8228f2b933b07e7c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "acf2fcb8f0ccaefbdc53a7a3f6daf74ef8bbf855fc3486efce658b6fda7018f8": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "95f422379ecfeb51ac97bd144ab3c1b7b40bcfa9d2dae7e3f1f2a7e72e65a43f": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fc78463bedac40a176ba1dfcf6a997f57ae6333bfff9fc38c9b2da3e4188a2a7": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4b2a452365c1564c9266669298bf1a48afbd90f9f4e22decd80adbb166ff8945": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "fae14f1154b945b6e039abc994a22b77dce5d1043dc3680e9de4a77d4063a6eb": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "c9c0a9055f5335d48fa2ec96cdddf109df031e8bb062adeb29628e94035c1237": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7bc09dfde077c39c0d92b2f3377fe39c1772ef52bea48bdef5d8342730607b7e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "161b145eb4d323c3c722e4b426959d367fc24e601a49822686d6ce1df0f37728": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "b03eb0f79732e9bbb1f81da2996a6e8c3648a309d7ee8864c0888aa31aaf122b": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f12e3bbd418b6d22f0591a5acad3f1954cff553a94b8de52ee7211527cf5aa56": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "6da3d72def53026a15eb9d00d11b51ce5ad80c7d1917ae56ba4bd168e743ab15": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "219086250174f4f33eb4d96a3c867b315876d4605afacff8612dea170c312640": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "7cb1a6275ee907cd7c5aae7df45376fb35a55daf512252eaa55231eaef703a71": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "11c2ed3c88a37a3f31f998534688caf707ea78b1a401412c0993d3830ea4852e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "1a55fb9876784172e69f61f0fee6bd53c3a70611a39b4f77fd0e17f1bacde6d5": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "131724585aa5391ac757763b3c53d4c81bbe084c19996e7e97161bbf2ec5ea45": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "4a712f938f2d9d4f7ee066a9fbddd3ceacf00195791b3cc994c4362dc1e7084c": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "03345ad6ea94f24c574b5725ed8f7787e4546b7392b59e42baf162dcb7727901": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "d8d4aa7c8f53bccb337e2aedf9b75e973e9ca0cf1cb3169861fcfe7360e8ca47": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "49f8f42ee3115bbb87b411fc44d33ef0feacc53398faedb0003bb0bbd35e583a": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f22c2b10c5eefb5ece7cd97971db6003f11e9550c8e40d3d856ec0e4a4bad23e": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "2b84b0f163f8b109032c2298e66b2763775520b205bfd3345a8ff202ed7b9cef": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "43e1455db7a13029df4a35a7bf931a580a28753a7fc6e77f46a51c9c80fba0a1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "f335c2c1c0790340b32b4f413849e798e5adc1269b40ba2d7aa4ea71c1ddc591": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "8e525998279e464851d1f588bee3ad4f213d5d78b07ec0eb369163373796fe13": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "35aa52bc9029f85c321f2444d761361d900c71bca0535ad7f47926cdf9d943d2": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "bd554530e4cbf7db699e4d7e2a1fa4a9dbc7b3e31c2dcce079522f90216f8fe1": {
+    "object_type": "lightfixture",
+    "rotation_applied": 90
+  },
+  "9a14aee3c4eb98e7a7daf637ac853ce430bea91eaae26fa576e8a7398834a813": {
+    "object_type": "diffuser_small",
+    "rotation_applied": 90
+  },
+  "3e831565a12f8065b5e13ddb0cd458fbb65576bfc3c5f3fe50db8dc4af288611": {
+    "object_type": "diffuser_small",
+    "rotation_applied": 90
+  },
+  "96f36ab0558819fc2de8939ea0e05443f7fa84a086d9d855809942859ed1d3c9": {
+    "object_type": "diffuser_small",
+    "rotation_applied": 90
+  },
+  "5932d3f9835071b788eb59e994e21be90e8cf7455825e6978291b1101643c37c": {
+    "object_type": "diffuser_small",
+    "rotation_applied": 90
+  },
+  "2bf9e8ab834a7a5919c9a137dfa0877f321b444cde6ad6935e0d93dddf70be20": {
+    "object_type": "diffuser_small",
+    "rotation_applied": 90
+  },
+  "b407f7c84a8fb5e633b034aa2c51cef0d99777fb1ba12b02d1d5d643fa4d8908": {
+    "object_type": "diffuser_large",
+    "rotation_applied": 90
+  },
+  "c02dffb2389ac0ed1b03b1c063d9da7062b5eabb7246d0cb269bae610bb3d20b": {
+    "object_type": "diffuser_small",
+    "rotation_applied": 90
+  },
+  "c640d475b0ed5470ac24eee599af5e115c28ae49c5d11f30885155ded7d5cb9c": {
+    "object_type": "diffuser_large",
+    "rotation_applied": 90
+  },
+  "33cc1711591a69a637c2d7eb7bc1393e4a909e072395ec2e1dce20549fba9b82": {
+    "object_type": "diffuser_large",
+    "rotation_applied": 90
+  },
+  "aea6ca332cc0c79aaea5b84987f9481592fa44d7dfb2176fb063c72e4a3596be": {
+    "object_type": "diffuser_large",
+    "rotation_applied": 90
+  },
+  "c622537dca27df7630a44e3814ba4ee7441a99100a729b3c703f96f33e133686": {
+    "object_type": "diffuser_large",
+    "rotation_applied": 90
+  },
+  "9e056a9097d1026505b1a7d9cc87784b1736a8f52bf14823121afaad9a970df3": {
+    "object_type": "diffuser_large",
+    "rotation_applied": 90
+  },
+  "99fcf5cc65a0594db6ec1f5cd50cf2fd48a00bed6a823cc4743a8fa8bb5de85b": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "115e81478b5ee844e5ac2aab9e016988d9508d16f2d66e29c0a2e2f676527fc7": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "947738e6f6d60365ab8db8407db788b471b670356ff181169892a30122b96d7b": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "d7bedfc673861e9457e2f295ae30aa2dd64ea5988c297aa11cf251b9a64f97c2": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "41bfaeb80bcb913521e0c569df4f29638e3895037b4004371795cef6ba844363": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "43f47507da377fc97a3f6b94ce3af6eb18d0b34c025f18f6fd1b70c00ee6fdd3": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "e83e3da521c0e74c702b289f39a8a0bd80ea987c325de0813bcc95b0a302fe63": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "bcf16aaed0e30a80d1eaf739ab93df6ff88c0820057fc3c08e3ac5a785520b4d": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "7d6cfef56bbda48e3b1971898e800e1944599e536fe7f5119de27440834a4232": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "0f86f1ee03910565f65b6ca69e7b04b8fdf636c02820b644bfcb6113cb8fe8c0": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "6e0f8fa0ae0869e3ee17f4b7283d0f43579ba748ffb232d8dd359ed1cac3efa6": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "1fd81e764133df54d5531b719025d9786268a62ac63a5327050ea48e7ae22935": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "88305926aff233bbce07bff611da164d0e162ad0a3c8ab6c3d1b77c7d94a9192": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "f99c2ee733d0617dfa7bf2b2d4b26b3ce2366229230c428b7340ba055d6c8dfe": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "e777b7a0804b6b12721121897831993b3ec08063395790e55d6687185ca2d8bb": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "661e3b52ae21237cfe2b3f37bba37948447227cb80b5494b63c09f63c5713fca": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "a18acdac60a2d16aa2439833072b7c0b26349348ab121b582e11e4f5c91104bd": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "a2ac16955db882d6adec4b11b22b9dbb6d6e584121f139e64853680ba6b43cb0": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "b81be6fb3b24fd344f261ad603db33c999f3935437237aa8db4b594d6fd4e961": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "55c573b03e9768009ccc1721b8ccc42aae8e1323c95b0b6f62e8cc3c8130dd8d": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "00ec07e2f1a5e5011e437629149c4382d2fd7e82c5187840a0cdfe3126c702fd": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "cba1a70f25a9be227367eae3e5d166eac6e55e58f4117f046672610909825326": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "07cd3c414c3108a8ccae225d3482613e2d1cffd0257db8347b4c50271da2850e": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "64a2d35a828e044c605b6f2fd041da785a9737568e943b1c811b46bbcc5901f1": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "842e53db1d1034ce53a36d1f9f2972b57743e5037f001d3ccb49544cdeb9ac62": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "04394d406008aa38a821641fcf21fa713f2a98d3be987985c5e2ceab65cff2bf": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "040a043a8dcd0cd4e29915d0f85a9ad91873298b1044ed65dce370202f5911ee": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "e7925928cb9b0f2b356e5347c09a4102c5f07124b99fcd382edc535e3081e8f1": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "fdd0b6288e15359fcefcd88ad34059ae9b790f841faab48a464ba2e131f35118": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "baf06ce4f4f4dc3ee3c3500bbd9d45be89d76a38ce118d110da582983fc364ae": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "cf34aa67223c65551f2ca8d5dba53f235b651e187f2faf2ff22fcca6634ba9b5": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "e8deee09a0b391252250cb5e2f5f7173284905a7d504d86fa5003a6dd0ac9a69": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "d4c019bbac25321587d02dceab9da2afa3caecd060e0065272085e7a4028c1aa": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "6d6c105ae337f40171c983aaf68eb50ec66375d885df5142b972ec1d2e7a7ad1": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "46c6d3c655aee569342bd11e308819d628ed517c4406a4baf215f26ffcb8e1a9": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "1804376fddbb88926aa01d58c570dca785f7ff0fdb7ff94b5b8455f9a7208f8c": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "868ce939557be405ef4ea6b54110afb7cd3ee1e21f34800a88dc39f08f880c0a": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "101d22192b7df426a8743ede46705559243b0c114b58c44ba4e8f387bf0260bf": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "60d11608fced788c6c3e311ff6060801f1098ed840590f6d4a7b9c5d7469b123": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "823041519d432dc0dcb2f7f9ea0cc7694c5f81e4fcd871d7811be0e141fd84b4": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "c3e29e605982d226d8d1f25c804257bb92c0b303030c561b399ea920173e379f": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "7bc4288a4ad2ba00d5d8d025be414de4959218dd9caa167c8697c134d4650e0f": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "f827e2c16ae62b70d448c1442f2459daba3617c2e419dbd79beb84ebc7743516": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "1e0e2cb6a5f8e3e2c0bddd93ff336425cc65e530fc4635e2223480ed01e5627a": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "dc8659cdcfe8a47d5c5bc3b38c43a7121d4ded03d0c1adbda5f63711e3b88177": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "d9f88fa13d4d5c9a21d17790e74c4962f54679270ae54c889ee7a349b6fe0fae": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "7efa0723ff029b043b165d2a2cdae9d410c1aa0cef9ae0e4aed0616723dd93ba": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "b06f4640271c13b214da0267ff6b26131c8aa35d2a43f9cf60c54cca741ca716": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "2bbeb2cbbbdfddaae2809c4eca1f35e500bf4d6b6d24c3caf30c91adb867e285": {
+    "object_type": "flowterminal",
+    "rotation_applied": 90
+  },
+  "bbe26b814919a7491172963144d5ddd63b64a278e1a30320f815b4b5b0731744": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "81f8c80c3ba77df89e47eb7d6935093a4859de64ebb2f6b2987a85e15c27aa7f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "368477b7266736d886ea7772ff56780e57a53bcbc96228c61dfc002b9eea2cba": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "5c278f2a5dd70fb3a502a1c0d8d9cdb19508ac2ba41369829be07b4bf25eccc2": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "f836b4243021fd4badff4a0b8b51e999cfabef8ba194bb9f6679612d7eab303b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "423441dcd90becac565c6962e95c650222acb8671384ce7370ec1d0c556de817": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "dde343c2480f4490bc47309e8706038c75731f5e202d0c84c523718af69ba8c7": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d04214c15866c0f382130bb9b1379cb95c42294163a6fdae351f4e56409eb49b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "0476bfb1517e4d66aa8494be3c513d1a2f2d6817cb9b61a1ea37ec73ff69ad6b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d62046504184d7123743c223d6dae69f51952015ec508f1333260fc13fed29c1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d159bce6a0a05f8989551f84eadd9d4e9ae3a770f5ac356352eb8b83d4d20c70": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a18b37d5ca1fef6b40fa7b27593ed6ea372af85521f7b389236d1444ba22983b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "499988053b1e19fdb37d4c2c6c1747549b4f78eb5f5814f5b67e0ba211c9d172": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4481fea63c6a06f48c263f8bae73dc5eb401fdb2c6bd97533e2cb556563109e8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "920f73c607b78f88c63bc27b086bbe28e9abd1c63460ceab98e5dd03d24a8703": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4cce65c91a6dd0a03618d91ccb4895efc4ad6c0479512b6fc53a8b1d73c732a9": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "beda80a4f49ef3d5133b9be1d7431542d319a29a807af089fafbc2124956d1e7": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "7da58bba71c7f8605db463ccfeea00b1ae33cf16b9f280b7d301c08e32e60200": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d0942ee55998dd61d849dcbc445f1555b17f6a769f41dc8598182ed8185190a6": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ff1c61aa8224b445b8542edc821a31933148c1d84305dd0cc5fedc049574258e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e125fe5fca9d7a698a58be0916ca6982b0265f51e8a65bd72add077394246df1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "cf6a209641f271e154b44625a4dc7c4d9cc7d4f60931c22d1bf34de7d5365781": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "0f80222d8d73bd5deb182e42e4dd6c19afc8f23f41fcbfb938fef1dfe77bc22a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e7e361a92e23b424a4fcbc5d900c89527498fd90fafe223215819aafea8c27c8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "49a366414b3dab50c09ef10736dbb2656694c65940be417b9eac88e8abc76649": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ed969d5db460993ac88ac2e30077ae52051c6032e40052df00a95518d5b7dfcc": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2483077f8b19dd7487fb5d3a31248820a04f272be1bebdbd7d21e2f5d87445f6": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "88f327896e609c8de7b5fe734558cc0c9f2860df1f03fe45b5bdde39ecc2a2ad": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ff3c4cbbfe9a3379ba68df4abd216d8338980f867a9a81c740e23c62e18a3310": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "198e23043e518acd36809d3b28677d3bf186e48fa00e5fd06900cfb0c7409907": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d6ebc31030e40564cf68ff6e87011b8f30f4bd7d6c6770b0be0596506799b530": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "3346c328350b6da662864ca278a4a524354359af17c46e6582f4c10d2e001e91": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "483f0014b8c2beddf7dc62b7293ee0547a65db28148313e9f534a5e11ebf31b0": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c76d3a57492dd2c1d27bc19fba06ced3813b0f091e8493cbbf9c90e615b0056a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c9ea3dce1df6793886dbf737ac283b68cebc544274000b69f2db021111fcef3f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b67081c370e38f00cc2cf437b017616a9b621be0228bc92b3da7877990be85e4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "86cc4249a66801300aca8eb2ea91fff76bef3051d6f6dcbec650d169ddfe0d1d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "52bd4b8dc1d2c55211a6164784b001de8b69b2e8c7e95ddf0d27fb1e5cf29de7": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "7db53fe5b48507d95659704d7120000f6bd2551d3c8bd5332945aecbf04c7f72": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "6b8ba4f95563254243195807aa96ae882b61aa9688b7a35651080d9077d7d9e1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "616bab8ce8ca96f5e659b554cb6c215269aebe6a7c26acf11f772c8b8b9b1fa1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e82acc722d7c6f704556e218abde4a02dc87f55e83d5c5a49a1f4057617672c3": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "34fa04c991c145cb9c2282a1bf2e61911288f1b97837d8d305544fff2788220e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "27c292eaaecaadf9b26d55ee5d49cf0e7587229b4268b394fedad3b5168325cd": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4de8ed9589f750e25e3ea9b5f38a90d993d51c02bdeb5031c78bbfd3ccd7cd61": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c041a6d68193920c650d54c236cb177dbe6a0e586716a8e5f04f311d84f29fa0": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "3b10ed5f96b80044390b9656dbc9eedcd9264198667633349687cf62c59a9d48": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "0d91e7f76c3c424e175e43b4e564e2a2af309f4058e5ed6990fce0344e784d75": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ac097531055493d1e05748c45e0575e71fdd03da5c127b54e7a7d7a31b7ffe0d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c1419245c8445ff176c9ce3841b70895dc6377d0c8089b5aaea56824e2ef61c9": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a5e359728ab6f06d9c3470c3a0721f30d064505ec4bb0c5589f5d7a8a10f544f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "64d5ed2ccb2f8b88c024bcc069086728221d49d6c99a67d5e65d6228cc7d31d3": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9d906148d1f1cc21c6875bba1d03c2469243bd2fbc4ca3947d5653f694757a0d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "adc48d3146c8855eb0a531ddf552957823b17904d8fd92f677e1ff6fd3b9c5f5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2b355350cd07780de1f2293f80442cfc41597c9d82b0046dd655f21b5972956e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d0d3e6b7e8c007ad8f12649334fd566561e2b7011e6cbf3ef8ef21e307ea01cd": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "26ec77a67eef85c5d7e91ae3c6c6690e9a382eb06641f483e3013d3940002bbc": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "22e91b79528e5f68163c3f9e264a683c7fd325fbbae70d2ecf330df68ea233b8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "30c15368021192ba7867ed352b891466583c1a79ac2289ea38e9477267cd3edd": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8c315448b27e528bb0c4a7ad9cadc1f3a24136169f8d7e97aa2e25e6a3f6f9e1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9aa1d3d0ece0eb756bbc1d868ea34282ac567f3fc7e2417e57645188e883acd4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "fba2da04cd9e98b97c6ae2a51748030eacc78589018720d82cddd25056e254ff": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "15015cae8acd22ebb6a09274fcb9fc50cabdbec32a650d397616fa60734dea79": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b414f289180e137bafb6f8a86bafad183a5a57815950ef5b153527c2f8f85b00": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bae4b59f0f9bfa83e0893e329ca1a45b931624e97dc9d5dd55cd5afe8b40760d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "578d178f11eb3330ef3423350966625c93ddd347cae2951c9a25b1de76476a11": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "efae1931e5fa5904b17fc57be65f72135f67510276bd9f34359a059c593b47ba": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9ecaebfbb97cad367f8f42eb90651e6035b426bed83f7e42aa433b8b8f026939": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8bdfb7632894ff4d5ea3c078841323463ec9407f01b47dce87c525ff52886b21": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c4d0ea99616ec6a0e2cfdf171e64ba1d5e1874220555d82d36b0f5b101cbe510": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4b023d9f85b95f3d926e12909ff86fad15f8783bc93acd33623c1b548e0b65af": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "6e421a6a5ddfc13aa4dcb941ad5fca9336c3a4edb5ed097152aba21a2100d150": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "eaf15d4ad13c372fd4faf90a15010f4b7ef999b4f225b269d717750dcac63f8d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e0d6e69b27e2f42d4402f4012521cc70c947bf357cb62f74291162361742e0d4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "691260647d276337dc678c7fb7e4980839d92bdb858954f20635d632d93cc988": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e8ca20e6fd9a34e3182a04b08fce32eadd60ae1a68a0f15a2a6e71cadee8c50c": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "48dcfa78999103b02d623f335759c68c4e8656a1eb2e5ddf388c762a55a8d769": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "aed544c78e76c2d2b73b066fa5645f6603b3c92293e500efbee8e2c600c63c1e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e81b3d27ae62f7ce9ce2a549724c91f1cd7c58326ca36d421a5c56f193f657e8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "114b5658237a3a7af819c957c18a5b5f190ff0a8b386835a3bed0454fc268609": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bf79e0258b641d2710fa30a99a2603af42e7581334b607eadd0a39c50b790aca": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c129246232312c80f186ea6a9d621a36919a6ada7bca15462ef4e9f18b4c945c": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2019003ad1a0251ca9aba99553eddb2c62230447c298336491e89196e1255f6b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "39c5f9134694acf27d55d9b8c1dad2b39c1a231514002b88821709a466062753": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "009e71b296abe76dd7342f0f6c0e257a70549e9f5c2d26701bd17702ad3172c2": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "f773bfd850524becaab908f89848c9c68816834d3c30db0cc127d92b8b39efb6": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "62455cf1485bedb4b2ed30ef1cf9901b7a7ffab25e6a6f6ccd041ce8da6609af": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b15d44dcde69e14342c87c1a2af5f3a03b8d357686f8b6d150f505ff896f6300": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bb9878dc19e91e035cce3419059b466acf2a0b698f41f138cb609d6760db2e98": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e3b143eac4ba629c4c478610c68fff53fa4de0cc6871c7ba04ea03e3d1529ef4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "149fcbd07c8bcccd587427c41f3c97d00a3afb9aaef0292b40f80b4783b48681": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b937cef5e6ae8297bdea5f838e5092f71e7e9a498b7c52a362567ce7d557c8d7": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e29a4dc76e2b97169936b2eec83a51d48e98f896b33a4941f436d1aa1631905d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "f4fa84b809dd4dfba9d4f46f341555b33dfac09a776056c8a89e4d6edad5573e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "40b253bdd236ec33a9f9382a03de88624c9b2a3695a43a3c038a1f95d8fb5bec": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a796a7062b2e8d3d395f806449de661cf7ee236f3cddaed88d022d31a764e40c": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "6804ea1329f84f1c071888974e70f3bdf89a9e528b74a73901e56c88b0e0708a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "25849dc209fde97311fb41285dbe289763e494aeeeb1e16ca63f504ad7c56051": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "6fb1a13a5d02708c1d6a9280fa0c48174e3c578d7f08c44712d632a8698ddd4e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "f2fc43090df18d995d25da80fea9d08bf0283f6690f81bd998a0f1aa17f3fa0a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d3ae77d4b2b09a4bc7bbe24d14a59a7b0385d0a54f846274c4c81c37bd03f169": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b0be380f689aaceed1ed8cd880055ce7f5a6edcd574b84cce0121003ee5ae9af": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2ad756a8810aa9e1aa1a066a8df8a7bdf042a2131b92e0c068bd989c9b452a3a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "869e1b9f6a2f326990d0ae7464e43b21e6eca4575e8a8c70109a0fcc2bb69441": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2a24d7c16e4b89244fc43dd73b8029fc4d7638b83eb6465c754875a8bc84a7d0": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "dca48a44eb24e08a0cb7a4f93215641459ae0565b9bc1edd3840a5421fa16570": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8bb9e4bf6ef86d6c2e2b1af121f9f88bc997ae1d50e72b23d7ab4d7374237457": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a77fd2d297dd90f4870bd3b135af9ef312107354816bfa59bf75d8bcba038299": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "08c12adc8344a7594268756d42c086ff13a5af99c4fd6a9cfdad4c0a0fac9fba": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9f1a26245c6634a95cee287aec19d770e95965f0943515aa4abaada03c862091": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a0ab6b29fde0e5441bb5a774e551fcc2b5a8074aa16c01a0c1bc3c00b22d0fc5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "e071ee3e63cebe6bc0ba2f0c731e37f346c48dac06f18c673cdad3677dcd52ba": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "edcd33c9e7a478b8ca47587d0bbbb6997a363f5d7fbac8f292ed3590c4c82c35": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b1ece2992edcee0be06383800910db159797da78e4f47a622f15176560059a23": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bf33fdf86d057cd83ca3206e28e5afd1f3f1d3e4896f378df7ab001c754565ea": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "3ca3e4e161723ce11ddbcdb08388132e7edba142c74459ea5c521db376afbc8e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9ebc486caba49b020c558c333833aafe099ca38312e313fc1458fe23c201d65f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "cdbbae2f00a712b5c3a210846ca14a9caf0abf65b8d5cb34fbc0010fe00ee160": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d0ab09401e60cbb79f7001eb2c51d3192c50f739c5b27252842f8d9c9a5386d4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "1c4808f17fa105517f2edbab75011aa2a24bf8234c9a9444381d3fc9d16866c8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2b00067d07ed6d55f071923513202237aa9622b53071984be139f94b5e9ce8bc": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "3fe25c54975f7eac91be41e5c89e8c8af7e2597037bd8e1d1cab51816963094a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "7990c4271874f6095c6c6469671284862f05e14f91a0b2cfc6071e5da91debe4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "fa3df5cf3c30fa4d8523645cec1bb095d7f350b228e5bb8212526832f403b4f5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8e5b11384458d2d918bd319f5cbd70cbda9d98de45605f0ae6ea4223dcbc3cb9": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "65cff21b55785c53ab7301a485bfb159aafe5bf15d5fc19d37bff346bb031765": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "77c945cfcd67d6b72032ce2c8819bbdeb7ecec1fa2cf2ebe45516c9df6156415": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ee56c538832715ce166a5b8384f3cd625a095b347e03608ed41cb2a2bc94431b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "502efada1e56f28d7b76926db0eb5c99ff936be4ef8748729a3f91b286b518bc": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a95308c1c2ce86efe89a3f8d19bd210a66cc74a5ff68990916bd068f32cb3378": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "04bf90d63161062e88da890d8a5ea5aa92214668cd8135acb8b20459184309f0": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "5e741934502d043d22953cc8dde682f2b63830a64357f5f31ef11a940859f25a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "69c06bfee36e6974af1544d00cb50f2e7f8f9b9bbfbdc2a0b6893a0d457c9b9b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4319dfd0ff81819b0b3fef2280ebeda9f5a8b2472b3be6a93f20af9ff40be019": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8d3f2ece05ff64158af44b2b455ebc1b953d3ffbf1128538a287896d61db5923": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "3df593aa2ead555fce18c81937ec22a384dc196c75a32df0d4360d2ae747d302": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "1ba23ffae30ad9f24d86863d802e28ff1b2e946d9b9cca79a7a1e8a467e12bcc": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4e9447e13ce7572edddaf9174a208141f589cc153b504883ecfe34147638be88": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "516b1c7f0e902d066a707345114a37bbe3ccebbc0b16817afc29b352629df4bd": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9affcf9fc7103ea651aba14ddc7a5cd66e53da446d8e09cdf4e679ab8490de29": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9320e7c6ae4933616e65cdf0b271fcbccabf00c65316142ac54b3114fe503f49": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "71f8c2a21a425313afde1aa721b94b6c0910dd7f50a3e8cf36ea9838fc1b4189": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b633414b90cf2b293f7dc242a0b1528d0005ad77782d1eab95eabd2b736ca97f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "7bd977c4024c799015fd15806a7859e349348c71ec2bdf9252c139918214529a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ecd67c12bb494bdf9eff492e0006095fad24bf3b72125cd21973ae55c02d56ff": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "5eb97fe75527ee50aaf6b297ff1724cb53c2e830cba3535ebc9f0eb715bd1c23": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d81b8a37c980d094d5c36dd004f4d5bdb610b35b8dcd1f484b1d32db59abe25d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "10fe4f045e9a6bf2d0db9d20b468c1235cdc324f2b8391f512c42f7099c2197e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "017068d30b39df6d3af83cb6b166fa0f0985c43e5d7e4e02a49529d23041d404": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b33109148404bc85f311012fb6256863a6602691ba4a6d298e8f1261d4d77919": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "5e9517d483c155acaf510f9d1e49045ef92b07a4b8983a9153220c75ebada876": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "0856d0841e0f163e6def906e087bc960d5b6f150e1c64283aabe77ab4166c010": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ab02a5b8e4fa37ebbf0350642e46475ccff81071c6cf76bdb2c7c05f3f60cd15": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4ab24478ccecc584efa84d45ef68e7695cd4093ffbc791458115d8a4d5ef5b55": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "445b0e755ce37c23e908616c23f110962729f17477fb333ab87d880317abdb58": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "078bbc424aacc3d2758e651c57c5a1ad9228b05c9ae288bda4e1187bec15f1e4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "5db7b56f5f89f9ede9fdc2e411bd9e661dabe3da356eea810e2dc561ac1ba09e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "cbd4fd7164280dd0e37c905a938750d96b10ac8506389bb5764346c99071e3c8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "aa0d3f596b6c7106c3fcd0d9eff79e25afd26c35860805286e78b723cc4a32ad": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c48b7a511085af3219e8fbe619108fd6a5bae66084970fd847f7eb3c2f899d54": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bc9a3ade5227a89f4763cc19071afd293bd44f694f75e20e67a7cb7c771d2c36": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "751074a02664b7cadf0a16903a42687f2ad4b2fb36affe4622301e05918b60cf": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "6f2631262978a307eadb3c7282205847a5d7a958522e30bf588bc25d0fd4efe5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "530bf01ef12f6cbc73f89f6a44f131b6d854fe15137986479a8cb9dbc9a38ed3": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4f705e008f2c7c4ae0f2400bf3805907889f7bb1ea7db02c634561d77589d53e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "16809afb2c1dc0ade253f0af34968f7c8521930c16ebf02e8c78846793aa701d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "948494cd19e5a2a08abaeb02e923904ef4472641239dc38f0d7b2792bf302515": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "36e92b4cbf27675097d047b5c6c33377c16cbbe54ecf6a9fffbf1a139bd5d44e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "3498bc61ae7f985dc28b66a2b89f10cf02511f36e7928288ecb24cd9c5f723c5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "00f6cb64be63e50ee0efceeb6d875b0b9aa33a0f16c746ae998264dffa0e1ad0": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "335ae113ba73572b2eca6e943cd23363f53607ef50c848ffabfef451b6f3290f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "06a39cc3472e67a7b95c6e015734020e14c34e95c24b63041f63f81d71735d41": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "ed90c26f68e09a3b538bdd4c3422f104baf99f7ba68008419a0b335893f03562": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "da15adffd5f2057335d27ff1cc0c17cd0aaee80bde78917d1a7ed0b4ed3b6086": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "434231c6b5433c0623894559b201ea3dab13d928a0140ba071053ffc8f621ea3": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c6b21cd40d65ae2fdf9cc73c272a3b213c49b39281a0a9bd1ecbeeab3abc1fc3": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "621206f131f7169e6fc9e0c6e01fddfd9b72b1bd6a92c1f75c9eb821c9b2e6c7": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c634a60b2500b74eac2e6226f2c4243ae94ab8b848775e31f21f7ab288fbfbc5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "abec7d4871d7acd27ed13374c56886dd78b320360f27c2acc999e66df03450d0": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "50100a5d02c5276ef16ed112026af6ae713e58aba00dbda47fadaa56d0619ce9": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4db6fcb9a9007b977c420284468276aa60c4ed077390447f9884292c2049b411": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "97a76837aa5968ef84fa51ab729fec72231c01fecd002f07fc145d4a52118847": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8bac0107dcc5be4486d6f45f65034d000f000a209199bf96abbda438193cc0b1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "15b67a9404d31b9ab6b767a28931027aeafe41884e62ec1a90bb93499e096748": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bdd64401e8f02cba31e456bad852012a8a5f11994d3219cf2e704274c0bce37f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "6dd1192be7b654a5eb3a561ba51865e09dc750a62d0894d2245725c1d91938f5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "31a7ba9ab7971767e1a1fd4eaf90c1bb4e222ddc46c8c5ae82955c1fa4722037": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "49e64ae3e89277b91f481c3893e2f55f0cc54fbe2afdbc231d8c14c0d9a531eb": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4e22b1e342413c946ec687307a81fd00f08116bd77157214390d3b9a850343d8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b2e033543d0c805dd9e1a6593b7963d019ad49da13c1907370455927133bc507": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a77db2465f5826ca4d05f52eff61d7b896f11e00ae396e1612c37b0c1b14f1a2": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "eb9dcc29ae40924c4c093b67ce5983e7d729c0caa5cdb942ec68605c6800fe72": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "730fc25eb1b60714e6dcceb2801b16ad557e756748be1ab9e603bfce93c268a9": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "54ce69ce56deb9865017a327ecf0ac8a0fea870891a0667f4574220d6cd761bb": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "f8a09381377d502bc7fbffbc1c8c3459e5a1c095845590eb87bc13b9554e5282": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2dd6f256e18de0c1efeb121e1ccd526c7be44567c1d474a0771444fd0dd45c42": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "331d7c196f08b38fdbc8e18c6b699a7f2c76c3c691bd5fbe15e184c328c15a6b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "92a2cde50adca069556332d7900fba9ec1fe2ec697e6cd1a2a8dc35c5ada1b21": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "9bf10200434cccfa9bbfacc28e9699ac192cc5125f1ca3d449aab64779f376ea": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "32b1920a928fe7443826b78d997e782463b087accff4b70a51daa497c7a8b1a1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "388830dfee8c8c3ebe406d4ae83f84e2215c283635e744bcf5afc515ce6813e5": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a28463a54d762ae42d9479462141b684dfe8dcf721e827d954a3f2b44756102c": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c1637888b989beec16d7552240125b05bfb40b9fe2e114a0c332b279d38d992b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "6ead6008f511a88fc1c83f6ad6a29d167c32aebdf6655b0070c410a94bd6950e": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "1a11da50e9574d765b28ee6885bff1658b5f8bd59b80e0a912908146783fc682": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2df5c774487a5f8f6a4c909f8b50a729f9f5f795c8f7fca5f454563eef3265a1": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c4d656796e63943c99693f49498bf0f05f8f2b8ede3fcc54ce734ee7fd81c84f": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "dbf2df7d326245e1ee67e4191d00b2f5ab12cab8d584621b81e07d9a08450267": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8b26885f1b435016bdef104f2c31262ed8cdc53f942335779bbb80647ccc1a43": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2f1bc40b04bd8e3174c3bfa494ed476a097739af24d3550f358e4ad6322e1519": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "f59df1b12c654bc395542a107115b32e439dd591cd647228b891e8bf2d47939c": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "2f45bf3d69623792b9b0e644c83a0e24195e889b5126ee77d45c124f501494bd": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b2052f1255c8727194d5deb0671a0d69b5586992c2e05cdbfcfa31fbaba22b2a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "297c966273909c7bdf35ed38867a94a771ca772499bc7edf57e7d022fae09bc4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "cdace36dbbcf34ffabb3ac5b7ad9d8bf3bca53fe03646a3de4db47d7191bc668": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4fa1044a41b7f1fbb09721cb931c26e6c23cff22e26f75e8a7be639a04d0d706": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "b8b08954dad635744aa8f9940802e5d935f61593e164ceb898d4bd2db8c0afe9": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bb09c0abdf0f6364acf07aa8d9b70ea924b5d083fbd9968e4ecef347397d13e6": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "05c924985642e0639eaefad1a021176d3d056a79fb15547b49c8e2cda41d69af": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "bf533ff0584407c2c424ecda63b5aeb8eb23c378ba7499bec0746667e15f387a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "0d2bc03ca73faf5194fc3aa89e1d2137f2f89efc6ea9f4f06430e746b0cb8dee": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "09d194d920e9cf4d02e4c015ff06d2cfc13c887eeae1f641eb2e0a0552410143": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "7bed0b1cc1a8497756aa2e7366b1a8b4503b30f163038b61d1cc85db457d9dd8": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d4474b806118a7fac453e459a438e9d2b73bfedc754a26fd4af1d2300e302c0a": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "40423aac297d4b5505bb7745f3b7f6a6414b204a0b9d02568def07e9a84061f3": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a3ee5ae74058f20c56fc1b8542b8c819d36ccd6eca49ffaa0329b4b83deb4ead": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "f1cc0e8baf2d7f1ee5f3b85d4a9bb713a8a9a19343e7c139e8637e7e4e159283": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a72e441414c943511f3b02e2d398ee6414afdc3f502efeda429628b0226bf034": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "a289986a40e7fd43bcf4ea6b58e79b6f0bf2fb2f86f53f27773aa1c1ba33a818": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "4e3c41891406dcd2bf7e902acde276c55e934fe0f64461667ee46e8b07d126d6": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "8b5978bb49f5800e65b8250d65e3fe2869cffd8e0ac01247d50a86a9ab139bf3": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "55c6e769c23b7b9f0214d5dac54267fcd74c3e1a69e4e8e3eed04138092d8adc": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "d796821ce7c13f6eaf9d90eb24bd8c2365ea2f3652a57dbf7376f70fbc13cb4d": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "29f6abde91026ca6abf64087048bc6f378943042ac5f5f2114bfe358797363f9": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "85db4ca49f3a059ba53faaa7db865e0b106d7346a0366e41c16db26264e37bf2": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "c0f6bb4a89dae0ebba9ba31914e4f7a0729f4011d724df8b1139a2d9e4286030": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "cd286485556b63411c734bb66819e4edd5e35d0d53144469cbaa71a48fbc7897": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "49fffd812f47156163c92c88ace534b62c13e4571eae2777587bd601eabb09e7": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "7c16a2b77bbd47bc92283d770b36b9a52537a3fb9f89c8c46f9c1d8e75dbc506": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "cf01b676986ce90d93bbebd3786e7e0920386fd7377bbc10bfee356f44ad274b": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "72e91020c68598cfebf2126a00ef0be3c168061aefa5a84e6d8c0e7b9a0dd425": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "830bd52c07ccce43bb3ef21c4def6edf4e03c952d378b18021c889bcc75e05b4": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "64134cf5f051d14769b296190aebea5fcc1849b3187441335802312438e7da20": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "7ff0f0fa49f11dec9b30a6b00588f589f7647484ffb5f8e1a23bbb119227dbfc": {
+    "object_type": "ductfitting",
+    "rotation_applied": 90
+  },
+  "0be488e87586485b23d51aa33affdd348e6df9268bbaa016bb8d6614f5858991": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "4824d77d6cfdb6dc955a7cef039c13e58bb40dc17a5fe8e8861c338c81798eb3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8816ae39b7f9d9cb46b296d817564da6ef37ba51ac0ed4ca50714610dd98f4e3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "010fa5761d5280816487cc69542eb666e61084e0a943df5598ee7044f6405965": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a6106a4985dce28819dcf4ef42d419e82a58dbd3a3d8cfe73423911ae3bf19a3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "fa01daec4f3402b9d265350315912759e92ec3f01aadc35b1f2c6e75d8093ed0": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "75ec2eff1b156ebf1a109c12e6626c35a8f9c16873d7c8cdd9f205622aeed74a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c6c26c219e395527abc248ce2bea138469b3dcda5db92e4eafcdf718de0feac3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "173f99ee249cdfb5f8891ce108f698ac88a38501c38013235c659153d1543027": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6278cc25d116829aceaa9e85469e38d85246e1de987ae74130305afc2b543931": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "dec6376aafd60cc6f9e8c4f545b48191b7940900dacadd9678055b50eeb3cc3b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bc586004c09343e532a246ec077909377c33f3235fa4ee9bae106bb68fc209db": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "50f162c04e3f902fc57ec7fb5b9812dc272ed864a06ec54e85f3eefee7a54596": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "47c0d839d6c1f7c0a6f6e28de77e0a7bc12f662a566d2522785113ceebe941e5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "7910c90eb0425a479b3c02c9049842d57c0ff7dc8a81468794de4a7c0d146f51": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0ac6cad84f3d34dc4c77b4a50ca1c8f9cc30bc29f462bf2b4e0948e69fd22db4": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "301de4c59da838e162f9704a3302113f55bf3e6d58d94c6107944c84f171d7a3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8a9d8ec047ca4e9fdc5f5e1814d0ce8503d01ed77a65fe742971a7a3484c1c2c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "23dc01b84e44371ec02f125123c42b07d883b0f0c1bb76a4349e9143a83439a8": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d1a3a999a93d3691cd1c2193469e74941d17bfcb2dd10bb3239ac1118a59712c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d9082f9f5c46e957541695b0922955fbc5879503584e2462cb26659db1534729": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5b01a3021f47ab23331c07d69d602c60e122862616cda2d6b8eebedd78ae6f2f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "56c89fa231b38fdb80aaaa3ef8a005602030556023304750db6ee090c200cceb": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "eb16cfc0931b00701142c63e09159e83b314b01b7092f6e4db35e0c0b286fdee": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bd52c7648e922a6e1eb8be3ff0a0b0c946368cc73afe5ab5697b77138dbe1d32": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "2c5551b8c637eeb6ecc4521699ff2a1acd8f64812da7cacdd0a1620b1334baf7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "180a51bfc8e1cec5587e135dd3a95fb4468e96d6aa8cd0999e12845bee7ed623": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9e624db0bc70647df842770e6771e27407b6ac5cba2f16211fe689136a396ec4": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "37e2eca4cb97ab51b073e0905a6ab8824a1c5747ccfe6b197e8e740332a9e736": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e3edba56e21b315a48c3481d834577860726bd068ccae12e337a7258431f74c6": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5d665e19a83c8e4a6866f3856a3acba31a506500a1a44881d065462a09c84317": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "2b675e329fa2099dc51495a9e42c3bac5b7a548db8ebf756faaed1a5bcf2ee0a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a932ec021a162b283c24719975e3ad79c20e8dae50e59f84eb079a76919d5be0": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a4c83279ad960c1981db54a5b0cb2a0a3a32e6f71acdc6157bda1a4d703b8069": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d5d7ebdabb1e1fd115a0f6ee66a3a620d21f8429d95693239857e00cba4d5e80": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a74aea720de7a4b8abcd0cdccd87f1c4afc02317c1a53c103b30282d99c6b482": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0a73dd6b12f4b7bbf639066578cc6cb6ca5ca117a67225c8fe47d3a6b3a4c00b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6156bc5a2a531fef5e1f781751b88bc49ee79cde8bd016958ee0f779bd0a46fe": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "84444d332b94146b95f0335f3dd1364645744bced17de5fc4895a1dcf9633f17": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9b4ff8e52dc0399acea12a6b750fbec9e97d8cd1f9b3aca0b9b71ee5c2bee8f8": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9fab819f8a11b05b5bd89262e573394f21a152bf004b65b8620739cd2823205a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "41ca41bbf786e70f70e8b1efdbb4e09cb947ae9897f09e6e6161e2372f5acc9c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "28b3c7db590be97c05cd0db7c210ffefd63fe5976b29d28efcc9dfbf40a8416d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "666ae6e10f9b6d5bf43cab391a20c1a9b114700b122a56a3ca61bcd4ad2f31f6": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f484746951465ce2c37445732d76348a5571c10af251eaa88f962f3874910e79": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "22cc9577e22dd855eec9d0e9417df4eaea05c193e619b628aa87363c079ec3d6": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f2ceac966eebeabd191a5746cf620a5059838283e007d5e6e8a8577ea35a9493": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "74efb329f8e5affea9046dbfb5e9c7b4f56dc2edaf4b1444b5d1897313ee1ed7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d28fdbb960a1fca2025bb380a98a8632b569daf29394dc5ddb74441f3b3ad3de": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9231b33952ad0a264087b795040fd573e58d149c7a74b71ab75340a87fa4809c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ff8935e868b003b38c72ad4bdc87c0961374a4430728d3d2c0f521b7ffd5a6ba": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f4c7b5b2fcbddaaa242eb799f4b027ca91ed825983e69ec4c0242acca8dc18dd": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3c32dd2787a464d46f41c5c2d5c13aa696be0615c343687f10e03b690055df34": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "46a6827374162728c6b5a3c7e5125a10be53e44abd4679af3f78dd895a1d8008": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3847a06a9dad87d6d7298513de9ba1dea1cc8a7ca3787fe48ded01cb8b5f2400": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ccc0be7644220a2c36c2f27a9fee99317d07d6f18b17069d18177be9ccd3c5f8": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "506dbbcab6b9dc1dc5815de16192edc2540cd492e38133e334d1f246e0113a2c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b1b4abe8871ffc4a19d4a8088da08ec0a6155d60bc1b6009824cad95b28cc868": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "908aa772bc99262c8d78a4eeaf979c86e3e180ad0ba776ef166fb1f11a8e2621": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3982cb78cddcef0d866f712328964a51b91976aea0f1bbddd1048e7c791ce942": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bfe893ea60a4989c722d0e0577a5758c4a376c96c2e3f52d72816651bbb04f09": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "14c69237b850a2561903edd2612916f204ad2f045fd12b82afde829ce8a341ef": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "95a626ec0b8930cacfc1e4bc2702b4e2fed91bacb28cd6afeabdc007415ab974": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5c6e7838f15d884b7137478b2e5c64f62016d4f433006c9ee8eae2a0462644ce": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a6ddbfc0d71a56778ed07e64fc3cdd3b6c560aa5bd531ce9eef4c3006ccc7934": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ebdacaa2f3b9ffa8a0cf8714c75b7df9b13362af062f7160981cfe65e9adaf3e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "24ff368e115058afc80f0e63c8b856133d907e23a6ff5aa14ad39fd3d0e73229": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "aa0af057e10fe379f1676e9524df53f81e94991d8d1bc192a87d08b7b5da3b65": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "16c9040a4bc2086efa9aadc8759575086dbad29e50ba735c1174c29207975e1b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "4b6363482242a1c1a0d9736561f069b8abf9d5484a931d1eb7dcd98fd0702939": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1f3578022856a768152eced563665a9a54e8b61fa4f38344dc90ba99067c4498": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "641ee04845925436aa1eb0857a9c5e41675ba8de703d6c4a3b005da0b2257215": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "2ee41f7967860563ecaf72105cf67be19820bcaed432666d695015075987281e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6a0b6d0d9931ecd94056467c474107cc65c62d66d9d79734e5c91c8969d5bb6c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0387bb9bc203332108e6d4b327d6ebaffedc0bc5e8d45a6df9d98d9a4eb595b9": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "685170edeee474a1a5bf8043523311f5bd34b211e7b0451fa087ae2c9be897bc": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e0683f357e445444c11a8ad01e4b227f2ba91a22b306b21459e33c6d91c32a28": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "2693b14c2c365783cef492c9ff01465191ebc1f05822d6d078963004ad83afc3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0d0ac8a62b663cf8e7070395c687c2639090e6fa3782a07e7a3bdaab749f8403": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "36b092841fe427722c543bd0d5df6a0636b82396b597258a35c63a5079c0242a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "67970914d0f456ef890a370cfd83acf1ded16fdc700281462f4b83873b91f7a3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b507bc0ec667fb459ba834ec863cb5567bba0c67231868090f04d16caf21fab7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1bfafa62efbdf429cafd593e27e9e9a20533d7c81873750b483a9e6cfd5fa859": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1dd2a9299a3da79ded25774269e4bcef0f751504260532942c518c6e1a3b0835": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a146635ce6bde67fc47abb3f26fabe6c6c77b8910b77230864480c52ca4a5d16": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ad1b3bcd72d9c4f32874f9227c27a3aca457fef87b58651ed5f802cb9199ccaf": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "52694c65172e373585c51fa611a1fa6749eae220bc1d56e2a8d226e17f5f8300": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0a77a4adcbc82908b993e5555d1383a4e39d4dd30f8cd63a21de44ad2cdb2ada": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "402b3f85126299d568ec1001c04df4fa5cd3cdc9341ed8fb6403df22be40244d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6b1e51eba29ebdc482c055c6f36c79c14ba70345a073c01aafe343e116c5256d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "44b34b18531ff59fecf9945c4ea1980cac3a2af248090ce6ae84552708dd7fb9": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "82233360bbef539da9deaa94295c644b9e1fbdd2f51bb903f4fd9ec805a43672": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8b024cd59788767644a0cb64694d85b24b2c09917ee9feda3d2d4beaaca19fd5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f6375da3b06d2d4d7529bc35d4b32422dfdb0219b19516cfca07132ef5c20085": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5d00b5e73505c92992b8ce72659174cfb63d835b9ba6611f5c9219b5cc9b4245": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a409e45837cece7b7b402ada8087c8f913bf5493d8eddd23ba18c14be2f2b97b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a42902fe24d249dc2250e3063dddd90d15a0b29d504dde15ed04ea56ffbc9a92": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "951035cbf82f18dae20f7502b9b4a051d2bb0b361e870642c08e29857d6cd08e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f1d0589d3095849ff0c8d90efc75e3de4c912c3ddb72c1fbd2c06720b65fa5f2": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c6689c0bf6c3576af3cfbd2986002ca4a1c2c5eb9ea18d151f02b4da1205580f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bac0c04f70ffe5bfab55b584f703cf09400ecf28b32794b6d5ab2831c82066b3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "7aaf9b8842dff2b3c9b30f0888bb75ba573cabfc9bad748eab4a9c2e4924b0b7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e73379553dd951f9ff1fcad7289f041c95282cfd632882be6c139c6c4eacb676": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9dccc4165a239d90ff0e9fdeb6e029d6fceba40541b43fcd4c63609cd37462cf": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "dd41cff244e36c2118e1035a660a8ac4ff0c09cc3bbacf00d9df9e739cc2270f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "47e6f4d06979dd8131f599165d9fddc7154c87c48fd166727505e36529847e94": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "61be64e2a44079744e2687d8093330d488129f6fc24e786eed77405f831d6528": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6fb51e35bebfbc0e93919b50782296303bec6321e4babd2db0c57c08dd295a72": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d5eb6766ffe0e8377aac5096647e269cfc16c41a8082df5e248f5e3111f95b14": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e55621cac058e4571c0395c5341f39d9895a73a3ae466190a7f3c5eddca6e44f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c633e2754b4fe5c75c71e3c556d4efbcc09b259f1066b016619350aa73f4d41b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "10adad635af3b3d475b2a327ead7962be7f0929bc93198fd8bace306fdc983d3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bc9156c35dcd3744c8ed6e5048db98e0425da97b36140ea06b9274a271d40346": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "979151d3824f4a698e0f7d2a48a8b3e4f23763f0b287fa350a30aaab348e22b6": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1f3fec46758972f5eeb8922ef407787469a430c2cf176f61ee4cd2ecf583bd5f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b823ca4cbc67a881e4c1b45aec7ad114de5272a65a368b966d97d10afa38d425": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "89388a1cfcb709475fb2c73a7b9744c734b2300721f371c3d5a40e346c7bf10c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a4b4358769d316d58a58258e191bfd5f1bd1995bfa639437b0bb3d8e01ee689d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "853450cd68f8145373fd431fe34f5023bf382e7b39a48c93cb3e0db1cd98f397": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "304ce43a8af54e3efc7cfb34f39adc24508986a9ea93251e0f4bbac06139001b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5042eb36820e7da4b0c027eef1e14a439fe20bcfb3d948a362ec4e1525eed030": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "97669ff0effe9d4b8e2f2189d6cf027ff15a90b50565e3c8a2ca8a8dd799eb0b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1065ef0cb9e3daac94bb028536fc59777492e9c4734dd3bdcf39c8136615c70a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "500f342ed1381cc67dc480fb623964cd6a4c689a84cc986694ba333c5faf4353": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "71b408b3866dd1892210d55b402bb1aad3a3822599e5576018c88195676e828d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "57ecd93d4fa71609e0c128cf078257f0d58325ac2c86e7a87ce5ffe0b26b9872": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8267f56ca2c1b82a4929de473b147eb13eeedf455ecdf60be8c2571275373363": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "05da26541cefd283a25ce0fa2da37c3f3bad09c371b786c9849297350a9dd028": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3bb94ccdf1cd87f2c3f5e6202f2837795a8b20265da4cb084f7b4c9d15da6130": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "97c00b5293c27471f4a95208e405b877a4a43f4c4fd9cd1145fae1a332779112": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "cb97bbd509dfb90c96721e16cabed0706713f39ac3b842ac26f0139ceee53641": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "221a722157fe80562b685c87831eda92d4a932726694b2bdc04d240c8bcbb644": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5f2b73e13195a40f1f086571dc276f3ec279004fb466d025a41bebfd259b998e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "843c6ee88cd902c965fc478bbba5b070c7ba8f17d40dd939c23777c2e09be5b8": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "325b88808dd6e9eaa087f7089e486c7de102c80b9ddb53e415dbb32e008ae21c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "996723f3de3b8da67ee06834ce193f1bc5071bdd40907910f6c6be6b63a3cde4": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "40202cd99bb8e08a24befbc780a007c3b6eef1d926ffc39388bc028d279dde43": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c02e883ea38d5b18595ffc10870dfce7c24fde37a805f1865cdcff53f3a6a9c3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ae44e61a898b0a429bd160e7c4f162ac63eaff5a1c84699e1da4c7ee1b5d892b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8e74d7d9bc7fc4f79d299aee54d36f2456422b75825eea7f9e0029baf2960501": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "497d02ddf6946038cf604be44e062659555f5861c07336e4e0f5606e64cf39e9": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e68748bd99f77325110a0427b12ed88acb68736a98f4d7b007e87eca13951411": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a5cc555eeae2a8528aac7a5fb257953071b281fbabb29b7eaaa155f4fd84ff03": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1079c585406d7b72d705586b7005296b80719ba658c3ad0a8468469b1bbd0686": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9e00d2c2e20bdba9020d78a9657ef23a72608f4f86fa52a3db3876d914b8eb6d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "879f251a6e4177cd4f6b03e4c92b08d9ed06db4c0a73333935e0147841700cbd": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ad89a6859e7503800451ec2bea0c5c71f94fac6b67d7c43a2dbebcbdcbb184c6": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6aa8dd6cf18fc4eed9c858972674b8da6e14be7b0e2a298d8b5884703f68e6fc": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c47589b5be1990fc15a71795e60e426e14a27d6d7d1d882fd9940f9da723cc0c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "34175207a921f1956d3030d15fb57c8a59252c38bd61e3997ffc527293cf371f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "adca5de5b39e52568593e79f0de6e53678f856ec4b6bd61ed52783f1e7d76c0e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c39e5fa0923101f1c36bd93be924daf3e92745343894046e83d6923eb97f6809": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "aba626f25d489d9772f857d4219dc77987e3210be5fc918c1a75157743f20ad4": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "39509002e4104d739b649b397c239d9cc765c6f3cdc460e53b352b85fea21c7d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5d3d54096d4d2155cbdf1afc67280d7bc71c3736bb581247e6168aa3168df77b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "cc9d39cec79e7d62c67617cb84ac9353c18773ba1f6d3165bfe944c100009d96": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8cdfbb5688756e47d41dd3d53067a5bbec793708c15b109b5e4961897a46949d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "89974c15245515f6798f67bb3153cd9051af4fe8bf55cc8c3c2135de6bf7eb04": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "175235bfea17c1c66f46e1e50ff22c2d52fe9aaca4c2a13b65e1ba973007c1e0": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "524b460d63a534c9d1c1dc9dd8e22936694921c078a70d1ef853ae2428bd0b3b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "df0fe046ec52bcab3c12ca59bf007e32d5ba888a7a7ed80ea5bd67441d2cc11f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "df9ed8d2a29ee62d66035dc23b2120a079c8407d54b70055dc492e2a6a8b3998": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6aa02032140e74d9910a062966e469cd7295a7392a75efc64ce08dcc292046bc": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "47f009a8ebf399443513158e619787991815edf09b2335d6eae8fa56431ab3c5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b01e4a6b8be26ba64d06656b02542ed7ba1bcc551fd49a6e7ac2b121c6a83604": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "fbc711b0595d66092cfcc6dc963a5826f23fc2662ed1c873a113f1941b771820": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "87b36b8dcffb38621a9bcda881d9afe5162a845fed3edf7d87c07f6a70d2b98e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "052daea302a2f85afb5af5266292e2467d38096e8f0524cbd39cd729f1c861a3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "de4b42d9a776342ab9654ac8b3f9ba765b114e495627b613dcdff0131c9924b1": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "22a4dcac33c6d36baad25ccbd542f3497c80b931433e675a5aaa4801175a51e7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b7f5f759902745c635e1c331a3f8e67713b15e0c09d6c7d1cdc19fde37d6fefd": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "673dca1aa10fca12fd3360a431085d1c7d85be77dc78273fffb18ab0159a39d4": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "92f857f3ef121cbdbf255593fba974de06e403eb1768fe9ef7d97ffebf786271": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d2bad83a295bf9018b5f91ba34ca2862970780b999e6d5ccd61f8bff604a401f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "2604af28d756f61c1b1db17d97834cc176cccc860d9bc2f466dd8245f80bcf07": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "07c924999fe164fcc450da9e2852a93bc27e8079365da605d0981724512ec526": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "fbddfdc0d979e6fec3bae18d43436b5a9cdec8090ba5170fdf326582c2987420": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6a3a8892e09b511e6809eb2f7a01a60142477ab5f789a1ce15d077369e608b62": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a13bf705659ee952d6318d4e21153ef429b5df76dbb8a8cd9629bfa11cc630fe": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "07ec71352987b6990dd74ec377969163ea4a29732fd7190fefcc21b1e1d4fa6f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "91678bd8087b855946ef0da20801cf3a176993bbf27f6c82658ab655c2afeedb": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "291de6823be35e0489814284d8937dd604ae8190781b46ce1953b5e680450ce1": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "88f8f02fe91da7885185b0da2392a030939a8033c69e103707723f1a7a805138": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9a05f2b5b58c0325cdb73e130ca33268b00ff39b44574dc43f4908d015b90b03": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "cc78b40b38ae439c0848cffdce6c29d38377c914af2f4ed5d367b9b13a43994e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "cee899fbc42d4a2383625b381a83a7c69d4b6b8e509c3a5e8f30dc5f518e8654": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "95b70b4bbd6c8d616fb1fe88f02489d38cf3e7a276114a92e8b73bbf25752fd0": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e039c9ccc5cb446664a6f193707fe8eeef5bab9f044d6acfdd5a52aabc1ef52c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "dbc07fed7ac2d85d1ed5af514d52014a4361ca067ad68d2659585ead03c4e32e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bef505cfe8f85d9b7434d05371deb0228ac436a3a390d8649e14350707e48f75": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "db9b0b4df5ac2b3f7756fa0ebf1b34dd0c3dcca2bbabeba54675a20f14feca55": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "926a2820f484b84fa8ab9857cf3888dd756bbdd3d4f5b3fe757ca04e8a494ec5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "05f4d368c3b0c472187c6e6d5dbb02a87a3ec887ea685827beaedbafe7453060": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "256b8bc01191e0cf1044134f7d3f98a73fc7ed72c5f49a49e2ae299fae87e9de": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "088b6da3b45f0a67211e72128866fd18a9cbad1387abbe5675213e3c830832d2": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5539aa327ae02e2e6016b8de7222369c914fdb9ed0d6f65e830a70148f0ca839": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "07fedf7385ebe921ef9744391755e4d931ef880e9f3a9e8711217941172fdf69": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b79035311f0e75ad6e7c64ed6eb835613c868406f24ba8e809bc9f55eaf1e39d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "7f3cc54c496cc2893084323be5ae3f53afc9f542404e21eeabeeaf9035b78874": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d741b4e150d2340a16641d42a7a6bac1493a4c695beed69228b99cae7eb5b1f3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "45c36988a09c41842031fdebaf9824d397a071d9011f4f7accd5b67d0ed33a27": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "7b4211b23fde50ccc9109e79a8dc80c74cd23f2d9a98a6d1926af250d0bda8f9": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "11e7aa2376d0b4f4d5da8e05d159f5b6869e7442e0083d2d344d8ee3584dddf8": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e075069a307342d263e7a353f1c6f1cee57e88330260a8904c45a809237ef262": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0f197be120c026d2334514e68df511af42955660be20da575108b8b08757f71a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1cc78682394c502bbd435a30651b9366b50559ca5348c2e793375981ab8d06bf": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c2f21108f432de10bd910cb30e6c4ad0a7595794c0c8335d029fabc5774e9e41": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "4dd19c33d0747eb41631e5b71c66f2ddf85b6603d09f799fc70be96e37da0a73": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c36b763d70c70bc59f37b95d91e48db98085725d087639296c6413662e0a596a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c8e3ba8facf28f42bec5f524e7421e9fa968fe888d35a5394080f6b6e8486f10": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "166002b21b20bd47fb5c030ad79693005119277f7828a85c7f4341a29daeb960": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f9dc73aa3b25414ce52f6c8259e89d603b2dfa71b6445e67c31bf73c69368da1": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "17ec2ed1a59bae5eafa803335f7338f15f421fcfa2d49c7ce2a8a99db3f8c23e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "61952b2714906bd8b07413136089c4220bfebb489876a1b915d88b40c02d4589": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "aef2574a2eac5b981718bf3569738590909b19b50427935d07b80dbdec2b3aae": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a90520125e8119b736f3d841e8294d3ddd5a1cfb861dda88409297f5ce074a6a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "eb2a09cbc6e04331d2532e81f64594acdf1a0c78893c000ce04a13aa595b7765": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "022d0400b1f867bd00aedc3ee2cdd16f7f0f3191fbbdce3d3e3b9b98fd64cd8f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d5b14fd868d4ae5667591068670e6ab486a16368c1ddb3e10b20de0c64c6c38f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "549425d97aa59276e57026ecde654312b15569d1b6faf102e46fa8198e372176": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c017df07d8453cc648acec8d1339a8efa36f4461804d2de15f45df6a847ca82d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "753b35d29989658eade6974c09d0e8aa0d2f7ebfb5feb42c60d9da21f0d266fd": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b03bdd40f1a241ef7e0f630842a4d2ebf847a375ce65c139f7cafef366950585": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8d281074c2f108a3d39f470d139ce0c09bef45022f2a13a65f859d51d4d9be5d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c8e6ed9768b854c51d94b48a6487fa9e9391bc132e28aaa5081982888370917c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d995486bb2255c340ff29ee7a0caf7f08b85480515bc674e0bc7cc4bb025f8b0": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "7ccf4976de20e4ced0693c4948162236ddeaf00977af2a24ecaa6a83d0131d74": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "45be92adf857b569cc892afcb060374b9ff6c777bccbd0164aecb0cbd28f598d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "59d2a55fcc4f97f17321b2c28948057adbf2dd6e89e82253919fb8c46b8d9909": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d16be528520b73e5cff2889fbce2713142e0c2b1a41be817b330f1cad64585ac": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "393300752d73b8f26713187ba477aa257363fd4393e8695023fa136879354e6b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "adb2da124acb7c0e94734f21faa4cb0d099047cc298d028d453adc4fd863ee17": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ad49f1d34bc105f49bc96548e5303c1f56a7957d8dfc87b0582d8eb97878f35c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "aa3054daea560d0e6d141fbe774247c1d5b2ed019218cfb3b0c0b1fc20b9e057": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "104ca9c1827a1e77f5042857cab2b53abec19b2ba3aca64a64e9403d6f4ec46c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f45544942d2d7fbcef18e95fe07568bb89218d7fd754d0d15cec3f998f3f4dc5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "aabb8f489b0341a6ee375cfa7b8e8b81a9f01dca4d29485e55283742b8488102": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c3a6aa879b54ccb86234197e365a3d2552750cde2a3505a5185763c671bafb00": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0992454e5026dc63d2c51dedd2efe67ce1d2e23506e785f6ee968b56e2f45210": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9f3d05fe0e77522e9ff8091caf762faa87df293f35dfc57f3f5bfcea5736fac1": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bd1e34f7876a9060340b9b01bb831b897b39962f376b892a20d94ada77e8ad70": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "cc80757b6c36f11b0f889c6d1d31224267773b5609ab86eb86d9db9fa880db46": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "507e9ef2f611a117f69956b28c319ce06dcbdd2417723065d7ae6188a275675b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "bbc5e611506ed0648740e6afea3a2e14953fca1ca617c796e2324274a059d35e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "7e11a99a37738a1ca37fbded20e5dec6812620810648d7fe04bd69afc72e91a2": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c2165cee3fbec9b629f55434c0795375da40d669bb6dd0d99c6ae01514d1b9a8": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "2ef6f1060211e4092bb7dbdd5b95c87db13c5163927da73daf417655748d660d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "63649e43cf3590450c0e21ab1b32f574ee7c548eacfa6f38c910802d8f8f4623": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "463004f020ce42bc234905763b18eeb40f646cedb1e40e2b4ada609c66a4fa90": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "538848e21ff898ed1f2981fdb1d7eb6c567da34ce4acdf513854623e90a2161f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e2318b2bb6cea6eea9c21e587245340b2ebe4c7bd0bd507d33308c7e90071d6f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f20da86db114dede6510eacfa415bb2068365979c5a7c1d568d54471296fc747": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a810cd47673cadb90e3bceaed8b529a9c0045f6b4d82af98f35d9004624a5493": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6c0384cb41c8de299e98f9ac7274a08a907d0864e71b2d2070a168c8a4b8f5f4": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "adf440053465adbb165616f17f967a9b5786541bf32d83e40dd24059489e0804": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5e76b5d8965f925bd09d36ff61bc9f26051645c25712b51f83710b43669aaac9": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "36ef6d359b01f224aa1e06e7aab6ba72e836989c9667382c108a654f145e0013": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "de5659d7d06b3853f4e888b033d10df36f523ae7d23542cd4ff56d004c35ba9e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5703f7a8b1d3e7e16fb12805cfcb70d0059197e5aa3a1309b0365fbd2b712a14": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3224e2ebcbf33cc7491e90a2c5230a365e4470eaca8f12f8019c673175ca46e6": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b5a9006ac8be03b77100358e477758c4c6a5fda714bb74f3bff0fb62c9001c8b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d0d43ef95630e4badeb7fe0aa0951f572b842b5c322675612281e72693e603e7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "e027799562e69b8f272c6bd8ebff51febd531ad277a4abc1efaea940486e5d61": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "43e065e2c60b04eddbeea7a1b1edeb6e2f8a182976c617d9f90bcbaf3df49122": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "97d9196e68f3c364ec48fa31b3913692311c47edb373cdd3aa17191dc5396b8f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3cfc746d07efc75cb7c1baa61feea3247c31a7b6e9c2c1ee5e49544750a53ecc": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "28d1a184690ccad4de748d42bdaa9b3a8a8ad1ab5e233fbc2de6bab72cf217c7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5f685702455e76aa3b0b320bed7ed96c710f381dc934c7c0d7855f77891f0e25": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a2894bfaba3ec623182320268054b52abe8d9f888763567be9a30e5a84faf459": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "36ea53ec6afc780c04e0f7d49df2fde1b8dd678bc27eee0a5b869992666077e8": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f443db7617a941fa86b83ea285d428ad29f64b700146205d9805c845848bcad5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b8e36ddbc5f5e855e12335ce71bade312afc33b7c5a7c5d3a7e6e348294feb22": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "90c33d19e2630694210db19f2d1006a29d8756864c186381b0404838a2858346": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8e6a0b722d217d29268b89ffe5d9965eaae3d1c4e03894b7137f2ae92d6f8747": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6622483bff990ecc79c121b2ab537b50b4cfb45131487d47e478d10d8ff2296c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6bc32dc64d2363d8fb632bdf0a9b9494d8e7f7b9f36fdec28b8d7c5e09ba992d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6fa19de661ff10a8244dc4e787aa5b4669b8b60af3f0b99fc254c5c11f444c87": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "50b42ab151ab68a5a8ada32e91f5b379e918dede80d0bfac98f5c188150595e1": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d7a09367d7850b29eaba2dab9fe2064eb347ab6054770e1469ff1c9f7b7560b0": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f478fce1b2efdf21e144a31e4ac96b2f7aa9a82fbcbf0b5f3866589f02559229": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "cada7fe11d9ed737996d0c7ced117df882a1954f9be896dbd8675400cde54b9f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9cb5067293d9ebb7190a19c80742e4ad23d21d62c7c7ce19b3a368c38a118575": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ecdcfca6e9ef47ca0c75d4b766ee3b08929027102bc715e961aae57c83085541": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "86904c6d225239e840a81c92437926159144001ff658987bf02d8bb8977f3027": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a094c10d41113d3d141bb8cd2a7d6cf7bbe61eab427b3712fb80a5961467f748": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "fd45c7fa6e47e31f79109ea1432099d02dec79d6af40eed6e39b518e4cd728cf": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a8368b192d2535490c8b5a100f391e99e896e0aa717e0a6919e717c73150f64c": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d603a0db5eda8c2626feea0b51c50a355891a00703aca8569347952aab9eba60": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "73cce47f9e155f3785b39a1677e7c3bec5eb7597f385d867b4ab6749ec043116": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6cda8c7e76284ffe07001fd70058694045c76b9d9bb143972973478dd3971947": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "806e9d49a5aeddc91476ab45f803f31a0999329c9ec1e9484c81adf9efb240c5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0c6bf2196dc2f8462abdea82bd13af56ec7909fd46684142fa55965698adf6c9": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "a5324fddaab1797c735237a1b65222d53347ce53ebd691355d8f5a92318ed22d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "0b8af8f4e9cb73900d72f277b1469b11fcf37cb439c2927be7126bfa60b9aa78": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b2b3a835ace75cec802560dfe305a7b3bb3edb351bb87fc6164edb43f5d4f367": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "7608f9402f97f72106a8312d841e7f44bdd15714c30357c382581ed2c4682b68": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "967573853964fad0124e937dbc9b9ec0de68e132b82c9c0f8961d5a515e25443": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "f0c77d000647ec530a4275f4e2c96f4f90acf32a5b4fcdc1610da0ece9c91baa": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c3ebdac670e910bfd55240b40c8bf88d16ba79e0dd48eef6f1a3ed20a22aa4d6": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b9987ee5aeb2193db40ad327c0970a12f27098d056411f09924721c31e5d2f1a": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5ab0fc308adda4ab9509235b4f3d6acdd6d216ac859562a42b77d5d3cbc20921": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "64254635319ac11b3c9013040ae600d56a5def0fc2a96a798bef0cf1a3fc0cce": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5993d9200f083ef36b6b8bce100777e5528e0d35f0bee4902539dc8752d134cc": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "854e9c8a24fabefda5d119bd78bbfccd71934ca70c344e3d5bc803a361d31ec9": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "139034f07f99a397468c81a3bc3a1c45ded14557d098b89ee0dd4ae9ecbe4a6e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d2a154f5a4f0375bae8dc4a52bca0d55dc2e27d4e83451e1005005db1a14cbcf": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "285ce1def6f2774b0a791469782f34006c84b400e0ef6da78f5da3e5f6f82fbd": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "23b3247fd4a4b96615afc1d220fa7fe266c99ee918c6ffaa598ef19f7fcaede4": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "cc7f406a0b065393aa5d4309f612f0cf839e7ffe110b177ba0fc0f6aecb73886": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5e38e9ebc489e8cfbdf9e5fa27d58d8059c33ffc60a4e4505ee35066d6f4db09": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8479090bfaee6c91d1ff9fc97856453419939cb2303368c2d68e256e1f1d53fe": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3ec2ff6e934f248c6256ca0a548f687e2d3b44a3f950fc2c0ee11645a11efd69": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "4cd68cf7d7430752fe1ba57e1b32126f452f9089aba8c1befb33d443766d3a70": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "5d3b133c4aa35039efc6449b5186e1fe7563ca453774545d8a368217e5eed997": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "1215abfb59afce5dfd794fadeb600806cca895e20204b6261e33d1df0bb926de": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8d6bfc07aab5104e30fc4e4a7e6de2e280cdeebf3d7d355cc886c7553734e9b7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "28c4fc0ba81c1797f16c1266d17528ba5553a4c4f485e90d18bbd6187407a380": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8119d711ffdf7dd4beb34c56b2bd7aae472690b4f9831371045ea3fb154dcc8f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d89aee3d442f043d4e28809dbfe8fb17ca52da2a14f53cbed11a1fdcce7e9469": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "91e7f96cdf7051d46f8364e0304adc429d8aa7d86daa79b83690161da0bcf345": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "ffa681fb8a61ee0cd49ebe586b9ff9d1c7c52d87114bf45979e594d6fb2e2f6e": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d024f79a5cec3dbaad6b9943f5cbde3ecb4ea370a7aed2e54e286b0db0e5686d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "49da1988d459723176a8561e2735758bc0d29457a623159b619b5375663ce087": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "916e4612de85a08aef613d46db9322bd802c4e53df7b22b4e18ec73df3e94980": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "2022008509095147200c3e66ff574e3ea88939530aa9afa618a9001a4c164ea7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "6480a67b2905b02725f3f8b14585b20587ec681b1cb5356d1f47682042e3474f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "35980f41dc03433717ab9f229aee1ef5b0e83a33e93fce777d5c57a7d6e64f48": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "b417929c51c88fbf5fcb9d7c24db667ef251d3d9f7854bb32b07e6af3a3a900d": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3f5587a65289c7cba6e2723736ea3ffc6f16cc7ffb21b01eb17b9d455f028014": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9ca35f1355569dc7d7e542e9eb80433a5e8e24ac7be2b3c2a36486c63cd91279": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "fd6e6837d1580bf9bcfe80ff87b24c7f712e0144471a3acc155124f7db87526b": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "67415403518c48a605c0e5e8df173a6effdf8ed0e95744b929b5f2443fc8ee79": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "85ea54a2a2d2ecaa7b08df89b9113f6938e62c955a53b29427b1b0e6170b26f5": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "8167c036754c5d0718415e8a3cbe0a161172b7b21d578e745b8fe8ef02779050": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "3326ccecddf31d1da647435ea31fc6fbea6f1d45b164a618295ea1239cd0dc66": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "c80ef39e17c05e9f5cd61d4538576111c875e7d3a3fe2bab32bc25774cbc0ba7": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "d7b4a5f6def884c38ae79da2eac71ebd343d100b71a2ba3ef10f7a03f2b52a8f": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "050b888464b26834623290d291fd9114f4bf6432e8580522f681b2d8b21ab507": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "fe3de6a063d74388c98a2008aee9c1d610194dc7fd2f460438839791582f26a3": {
+    "object_type": "pipefitting",
+    "rotation_applied": 90
+  },
+  "9a1f3136f84ce55c8b7b3641d92f587b20e8775b0b46d3d5f6a5b27476bbb587": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "357d79be443a23668edd1b19ae0721e3b9b14bd318cf2b279162d5ff4d259f83": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "8f79ee9db4f7f3c38317566d0d816be2efe737e9a40ce9b58e489e9d52bc0fe7": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "9b63e9d226d3390d98cbf9d2126ec3a9e6a9d44718469f3e919f7efc2b606217": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "c0bec8e149b285f407be40aebb4bf5012c7ff805662ca71a0d7a0bf13bbb79e0": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "990b4356a5f82c1220aef7cfbeba39872650c335cab83c0fc3678d787e746607": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "b047b8d9080895f345d6a16049e8524df8c07180632a3160de0efaf7a5f58ca4": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "d8f0dbd1c48b9c4e84ec802f2d9ceff839d8740e6236b3ed218bcb05b8e064d4": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "de9a248436a4c847bb962857b16daded80d7a6cf7755be1011b345d94c822f43": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "61a46d96ce0030d9611627beb1fda9418352194ba108958976ff3031dfb27002": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "fa9467a3267d2b44b0fca398fef654991c6e625c500be2fd664e89e26419c1df": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "0db1bae9ebca2b6b5e8a43d7be569d6ed9a9e1c224420ffc04ca52ac164c60a6": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "39232cf2df3ce310b3bae994e152fd7be2a267c5f20e0d1e32face305e24bef1": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "e3f5d472e6240b2733ff3417a501cad1e399762bfbb68345c61c41828aa90f49": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "36d481c2cca4676990b7c3c51cdcf4c898d99961c02ed827407abfb7873a8347": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "0a867425f7f8c64690416a72c369570b1845b0b40770f344e833d93a73302433": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "104cb92b79f5d3dfb35805bbeb8d8fa3754226006599dd303d8a1ffee4487133": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "0ef19378666824887d66a48221e2c79277d579925e92472b9ada7507da66be20": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "f7287fde6fb342511be4d6e6a0df786c66b6b7f2d29f5dbc1bdbdd8e9e6cf212": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "897aeddfe005f8734b353d8ac61482c29830059980a41a735783c07ba22c6d70": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "e706836b2fdb74defdf32df702c05493f84414f3482c956eee756488a05e41a3": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "af306602ac689f637d9f013644507ae99c062aba0ad7486b361531c08c5de7e4": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "f9b8d727176b3f55a9e83e628cbe73b54fad1dbdbb45d4c4c7f0a537e1744dad": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "4ca439f20b27ca2bba81630188c3bd212900463baf7fb2d5420beb33b37f52d7": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "21c100f3db62e66b89a356d9fba7317dcb85ce9be5ec9e372fc701b12144958a": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "76a15fc71a181034161e69d6209015ba960698cad3a79372e2772476d149ee18": {
+    "object_type": "valve",
+    "rotation_applied": 90
+  },
+  "4299b1da3a038b4a6616c85463f9929e33688efb25a19da930721c93c824bfa4": {
+    "object_type": "flowcontroller",
+    "rotation_applied": 90
+  },
+  "6c6f1061b070a202390ab3f6349211242b2baff4213e4538d5eae55dc78f2bf0": {
+    "object_type": "flowcontroller",
+    "rotation_applied": 90
+  },
+  "78d5c682dbbfacf28526e1f1e956db82c77517db1dcb28f9e7ed107cc22f1caf": {
+    "object_type": "flowcontroller",
+    "rotation_applied": 90
+  },
+  "d16379e7c19c63b3f53e402347774e3f3bf1e2b1ef3d4a760d428469e3233d03": {
+    "object_type": "flowcontroller",
+    "rotation_applied": 90
+  },
+  "c04e812654674c4f4f48b8df4eaacb67f2a2fe24f1a1ed0711ed50811678d784": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "c2df72f05deb36611abb26483a4a57c7b4d2bb119a05d0c0bbbaebd2dd10f855": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "142454997b392539db1ddc0e86d30e2f9ae00bb9dff837a5ea38cd073c6e08b1": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "1efaf3ec378141da636b1704ca974b25e276fcce879867f84eaf9a3122b61236": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "8c60afbe834efa81048f674775a9bf34c26550cc5f1d3d196fd7e0dc68baad6e": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "a9aba874b80b5b0b8485566867375fae3a4caa7b2ae01942ea53c1b729b7a00f": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "4cf0f2bec13562e86af1e95911e14e339a3c869ef690680d6cdf0a3aa2d74b7d": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "c9c44a8d80d87906956d23f8479c390e64b0aa7eef71785ec8f7f72199f6ea85": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "d78a5e74e21f25cd0f4566510d93e08d1f4a821438d928081087d8075522844f": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "d294311de11122d0d6835217ae64746c5c381507184e9084e69b024b8070a51a": {
+    "object_type": "fire_suppression",
+    "rotation_applied": 90
+  },
+  "a674222ab921abd7bf265931d7d47414996577b5f56ff4b6f5d9a4e9941b1ca0": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "c28dcce71528e0cf237c4bbf9f04c32846c90f2e9ab7183a9808d30ae6fe06f7": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "ac0a63b337959aba4cb2c258e1d72c1275f73da897c3b4af10a4f1aba1369d9b": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "bbd3c8539fe01f7573da08317cefe6d333a0758e31a97047532fc3349643f299": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "3905b6caedd0769d5ffb13d4be2f16b24d378c284fbdfbaa3c742afa06fc9563": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "b7cab469bcf5d61c035cf301bdce6f71a0aabde78e2859ac4db14dbdd05b7e94": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "862afcaa9118ced58f93ac88d10f3c2ffd59b2090bb2592f176908efab61956d": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "fda9d78d063142cda3b43f95b7211f5beb1a7aef2c6bf1ad96a73c4da34addd4": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "6b9d75c1ea2b4596742c49e421a03f9a6b90a5e039469865b881b0422aeeb09e": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "67e7d370255c56c8b2f43bd857926cb29a3fddb36f8de6b419ff1a257b63f93a": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "7daf20e78e539998c758560ff7c73f070ef7e09005a8eb60108fa5dcca9f02f7": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "3bf49da81fbab3cad0e4d7bfcabe6905ca10a9069716b16f2d18144a37051795": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "a80b35288e168f858953f58a6c79472e97a1a6e7bc15ef3ce6384ecfdc10e4b4": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "7b5aa118e2257618e34feaaa8976ee19412a25cb91df2e0bd60e9b26b1d85cb7": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "14d1d2f0e7a3d38be9e3f698da0c7cc16b4472aec91f1b9950f32a2c719a0a2a": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "6b111e595d3390e5bb8516610d2de7f5e8f52a8a6a2716045d1ea2a6fa28e96f": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "b1888a475c2ab5723b1b98799f086ccca8aa4ea3ca3688109ef752767f11e139": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "cb5f56fe7db8378b8384416c817932c222d94ef1ea665964e9d51ccfa4735726": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "542e410e1a656cbf5709c7079887851bfdae53d43219b80a6c229b1cf3657c83": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "566f7f1f1f92235e8c95a193b0d914a158318a748700567cc385a782f2d40f5c": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "3da6f1579536b2c8c3fc74de9cf3227929fc7d33e2c637aae03b7254e9a56241": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "0b7ad5767362556e55b135c30a4f5153ced1f72c49f49ee0a18960a5c83fe1b9": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "0b3081ee66c4270de8c6adde88c53d815bf3237dedee984f06d67b8bf44443a8": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "2dcfa9d285ce9a09afd0f3783d77c2e1eda7aa7652b92ad51f32ee2d83342221": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "0d8458168957601b0eb993a610dc88e99bb34121e939e0085c4f980008d09a75": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "7f09415e234908da9fe77d4a204405f8137cf5c95793824ddc6bc37b93c37a9f": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "8e870328cc64bfbbf83b2e2ecd4356aa507290a88c15e3c03e89ccb4c78e9bfb": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "9ea6b8791bd58d660ef2ffd39822ceb504e48c85ef48787ab3993891275cfe52": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "6bca8f6d23ab799d8d15b542ff36602fa89c5c96ef1c042ef0c4c352cb9d1552": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "c8121baa11a21265379f73302660eb2b9520e4e7a6c420cecdcd726db5ac562b": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "6b13c36df33415936005ea45c46247da5347817ced70a192719c72cab3c6a83b": {
+    "object_type": "alarm",
+    "rotation_applied": 90
+  },
+  "71d0e15c7e648b01ccec4c7394cb9313": {
+    "object_type": "wardrobe_single",
+    "rotation_applied": 90
+  },
+  "690258f1df41ed32f238f2ac5da1adb3": {
+    "object_type": "wardrobe_double",
+    "rotation_applied": 90
+  },
+  "e4495e09d06f66a4bb852692641ad219": {
+    "object_type": "wardrobe_triple",
+    "rotation_applied": 90
+  },
+  "4de21713f58e4958067ade476a9991d1": {
+    "object_type": "table_study",
+    "rotation_applied": 90
+  },
+  "1fd1f18b20f850022b1a34fc2202748d": {
+    "object_type": "table_dining_4",
+    "rotation_applied": 90
+  },
+  "537f8f7ee6535a2a89aeb90869859aa3": {
+    "object_type": "table_dining_6",
+    "rotation_applied": 90
+  },
+  "bc28098174c01c15f598df9c866126ad": {
+    "object_type": "table_dining_8",
+    "rotation_applied": 90
+  },
+  "1464e8c11708f19b40b47cb4ad983ae9c56c059c9bcec3d454d76221e50a6c0e": {
+    "object_type": "outlet_3pin_ms589",
+    "rotation_applied": 90
+  },
+  "bd3f88d4b660fffe557f941aedca4a5bb9e76ff6ffa3fb26bc59758997cec59f": {
+    "object_type": "switch_2gang",
+    "rotation_applied": 90
+  },
+  "e20ce7fc9cd88454aeb940ead83ca874aaf6723e89374aad474495371c00eea4": {
+    "object_type": "kitchen_sink_single_bowl",
+    "rotation_applied": 90
+  },
+  "a8a7903bbbb36e605c44b17ac79481a1": {
+    "object_type": "water_heater_250L",
+    "rotation_applied": 90
+  },
+  "59be762e58ce2f49c308e9dedbe6c0b4": {
+    "object_type": "sofa_3seater",
+    "rotation_applied": 90
+  },
+  "55af301ec4e75da25fe8039a7ceab210": {
+    "object_type": "sofa_2seater",
+    "rotation_applied": 90
+  },
+  "02232a60a51fdc0090a9db035825b834": {
+    "object_type": "coffee_table",
+    "rotation_applied": 90
+  },
+  "f7ef4920299a520019eb6eb886683faa": {
+    "object_type": "tv_stand",
+    "rotation_applied": 90
+  },
+  "28984465df6b08d60c7d496d7036c6c7": {
+    "object_type": "bookshelf_5tier",
+    "rotation_applied": 90
+  },
+  "39165b95d825436c591c00b7ada105b4": {
+    "object_type": "nightstand",
+    "rotation_applied": 90
+  },
+  "ba8668cc879aa312f10c298dbf947196": {
+    "object_type": "dresser_6drawer",
+    "rotation_applied": 90
+  },
+  "9f378ced842149620f64780d1fafdddd": {
+    "object_type": "vanity_table",
+    "rotation_applied": 90
+  },
+  "5977b7c7fb65e4e34847a0c82ed69e68": {
+    "object_type": "wall_mirror",
+    "rotation_applied": 90
+  },
+  "740aac8b3a8d44df6f40022848070bb9": {
+    "object_type": "coat_rack_standing",
+    "rotation_applied": 90
+  },
+  "263b89d6f9faf4a48ee4b57b94b85d2a": {
+    "object_type": "kitchen_base_cabinet_900",
+    "rotation_applied": 90
+  },
+  "dcd53df0e04d8e04d673580c85656ca3": {
+    "object_type": "kitchen_wall_cabinet_600",
+    "rotation_applied": 90
+  },
+  "79e447fb78048358d64f880af2a5e2c0": {
+    "object_type": "kitchen_wall_cabinet_900",
+    "rotation_applied": 90
+  },
+  "d2b63dd1d277bc711403e837551059c35c90e93b1ab8800584257866a5ea9481": {
+    "object_type": "kitchen_countertop_3m",
+    "rotation_applied": 90
+  },
+  "24658735a80b47ab5740e40f78aff3e4": {
+    "object_type": "microwave_countertop",
+    "rotation_applied": 90
+  },
+  "9fbedce8ff11d3a0b9a57d41ba676c0406688cb7a16ad9cf72210e6ae538dac5": {
+    "object_type": "range_hood_wall",
+    "rotation_applied": 90
+  },
+  "683fc462eb10bf48db6bd06307a64cf0": {
+    "object_type": "kitchen_island",
+    "rotation_applied": 90
+  },
+  "57a316f4bd26b005a5cb110cf67cccfe": {
+    "object_type": "bathtub_standard",
+    "rotation_applied": 90
+  },
+  "01d2c23bf2dbef80ed3ac61d6919a13c": {
+    "object_type": "bathroom_vanity_1000",
+    "rotation_applied": 90
+  },
+  "6b1c8692a9a8c7ed04d5b362413873c4": {
+    "object_type": "shoe_rack_5tier",
+    "rotation_applied": 90
+  },
+  "c2172956a8aa529c0e447dc51a9ca901": {
+    "object_type": "linen_cabinet",
+    "rotation_applied": 90
+  },
+  "71fa320a32e65d12b512d1a564b37db9": {
+    "object_type": "utility_shelving_5tier",
+    "rotation_applied": 90
+  },
+  "c9097cfbd1fb9c67d03a69c712591a8f": {
+    "object_type": "reception_desk_2500",
+    "rotation_applied": 90
+  },
+  "37b36a6675c34c9f374c7090d687a5ca": {
+    "object_type": "waiting_bench_3seat",
+    "rotation_applied": 90
+  },
+  "308de324e2f74b505e7df58e79d9cccd": {
+    "object_type": "toilet_partition_900",
+    "rotation_applied": 90
+  },
+  "d7637f8e6dabd6e0df139b50ebef4184": {
+    "object_type": "fire_extinguisher_cabinet",
+    "rotation_applied": 90
+  },
+  "ac82f13c6382c5de1345fcefa659341c": {
+    "object_type": "locker_unit_6compartment",
+    "rotation_applied": 90
+  },
+  "107ed977d065b3b6fdf09ab7c72529c9": {
+    "object_type": "wardrobe_single",
+    "rotation_applied": 90
+  },
+  "309177141e48593113ac145748832f3b": {
+    "object_type": "wardrobe_double",
+    "rotation_applied": 90
+  },
+  "8d5de4a25b82036e98082ced26ab52ce": {
+    "object_type": "wardrobe_triple",
+    "rotation_applied": 90
+  },
+  "d5cd89863f10d8c5d37e853915f3ede7": {
+    "object_type": "dining_table_6seat",
+    "rotation_applied": 90
+  },
+  "da9430228021a6590ecc9cd2db31624bae8d7745ed2a40c22d43c489f7d0211e": {
+    "object_type": "ceiling_fan_5blade",
+    "rotation_applied": 90
+  },
+  "ce9e366bf41f636f79b027fa162b49e2fcd2ee008848f3999844742f4d37648e": {
+    "object_type": "outlet_3pin_ms589",
+    "rotation_applied": 90
+  },
+  "e7b4d056097668634588fb701e25af832c6ff26db4314caa90a199a17b1dfead": {
+    "object_type": "switch_2gang",
+    "rotation_applied": 90
+  },
+  "d15ed96077eb660c3875c2009c0b843218a80981fac9ba5041eae7207c47220a": {
+    "object_type": "switch_3gang",
+    "rotation_applied": 90
+  },
+  "8cdea1cdd2f79e506c0145a5071280dc": {
+    "object_type": "aircon_split_10hp",
+    "rotation_applied": 90
+  },
+  "4f7247d3d5adf240e42fc2b2bc543687": {
+    "object_type": "aircon_split_15hp",
+    "rotation_applied": 90
+  },
+  "bd2555b4ec043b2cc0ebc2180f2ecfea": {
+    "object_type": "aircon_split_20hp",
+    "rotation_applied": 90
+  },
+  "c85fdeb424901fe0efef0ab38bdfbbe0": {
+    "object_type": "drying_rack_standing",
+    "rotation_applied": 90
+  },
+  "0f1a3635ece8c5d76d8a1b562fb69696": {
+    "object_type": "prayer_mat_cabinet",
+    "rotation_applied": 90
+  },
+  "87469bd1c1fd8513c45d998fc085b40f": {
+    "object_type": "shoe_cabinet_entrance",
+    "rotation_applied": 90
+  },
+  "68e240de470af252f7e1db0bb0618a7c": {
+    "object_type": "mop_sink_utility",
+    "rotation_applied": 90
+  },
+  "383c7c6342fb2d4abea6ad3aca9fd04430b7a58100c19d312b297c5bb9bb1f29": {
+    "object_type": "handrail_wall_3m",
+    "rotation_applied": 90
+  },
+  "088c9f56e80686476d2808bee8d087b6": {
+    "object_type": "signage_emergency_exit",
+    "rotation_applied": 90
+  },
+  "f6749a7d328b319c483840c2a07c53d5": {
+    "object_type": "signage_directional",
+    "rotation_applied": 90
+  },
+  "fcaa031ee7e471c72a57838d23e25eba": {
+    "object_type": "bulletin_board_wall",
+    "rotation_applied": 90
+  },
+  "883cc6a9792eb2aa3000dd4dab56823d": {
+    "object_type": "bench_outdoor_public",
+    "rotation_applied": 90
+  },
+  "4da7e100cf3e7e4d31ce446b00dca0e8": {
+    "object_type": "bicycle_rack_5slot",
+    "rotation_applied": 90
+  },
+  "31fdf83999516b05817e157fcfed7dc1": {
+    "object_type": "basin_wall_mounted",
+    "rotation_applied": 90
+  },
+  "da39ba8a7ba309b93cdd6661e93096f9": {
+    "object_type": "window_aluminum_3panel_1800x1000",
+    "rotation_applied": 90
+  },
+  "9c994433e75dbcba1f9c9723ee83a353": {
+    "object_type": "window_aluminum_2panel_1200x1000",
+    "rotation_applied": 90
+  },
+  "782bf7c1641c13c1b1cc5a8415a377a9": {
+    "object_type": "window_aluminum_tophung_600x500",
+    "rotation_applied": 90
+  },
+  "edbcd4f726fc6675ce556a419d8f0e7c": {
+    "object_type": "wall_light_sconce",
+    "rotation_applied": 90
+  },
+  "5003221515ea09f9bb6720ec5ee86575": {
+    "object_type": "electricity_meter_residential",
+    "rotation_applied": 90
+  },
+  "3e6c640ed8eaedf594b529865756dd43": {
+    "object_type": "distribution_board_residential",
+    "rotation_applied": 90
+  },
+  "3bd38299146fdb4134e6d59f98b7e007": {
+    "object_type": "fcu",
+    "rotation_applied": 90
+  },
+  "b70a6c44984aaffb33c15c286b0eeb01f9b48076a71ff6796f93af3e018abcc1": {
+    "object_type": "toilet",
+    "rotation_applied": 90
+  },
+  "0536e7e1da7bd7a0f079b941480826ed": {
+    "object_type": "floor_mounted_toilet_cistern",
+    "rotation_applied": 90
+  },
+  "a856ef39ba81bce9c1248c799dd91c1c": {
+    "object_type": "floor_mounted_toilet_lod300",
+    "rotation_applied": 90
+  },
+  "a58edf96154bacecfb1bf518178dd70d": {
+    "object_type": "wardrobe_double_lod300",
+    "rotation_applied": 90
+  },
+  "1c3c27b58220c1cf9713d3276023e221": {
+    "object_type": "wardrobe_triple_lod300",
+    "rotation_applied": 90
+  },
+  "17b33716d5b9be6757070e7c237fa8ef": {
+    "object_type": "sofa_3seater_lod300",
+    "rotation_applied": 90
+  },
+  "50de8de31800bc7f9d9df90ad68e0ae0": {
+    "object_type": "sofa_2seater_lod300",
+    "rotation_applied": 90
+  },
+  "ee514db7b25d8ed5234a7a731596d9f4": {
+    "object_type": "kitchen_wall_cabinet_600_lod300",
+    "rotation_applied": 90
+  },
+  "40c1340bfc971ee2bd7c91dcc5581ae7": {
+    "object_type": "kitchen_wall_cabinet_900_lod300",
+    "rotation_applied": 90
+  },
+  "62d85786b550f6faeb7386f8a45ea8ee": {
+    "object_type": "ceiling_fan_5blade_lod300",
+    "rotation_applied": 90
+  },
+  "2073f16d2c03a8345563807aca4ae7ff": {
+    "object_type": "ceiling_fan_3blade_lod300",
+    "rotation_applied": 90
+  },
+  "56dbc0441907592fc167a04d361fb75f": {
+    "object_type": "diffuser_square_300_lod300",
+    "rotation_applied": 90
+  },
+  "f69ab5453c4aef3c6c21833e8702c9d4": {
+    "object_type": "diffuser_square_450_lod300",
+    "rotation_applied": 90
+  },
+  "d7ee66348b5fc61d6234a320f54929d5": {
+    "object_type": "diffuser_square_600_lod300",
+    "rotation_applied": 90
+  },
+  "fa1f6c95b68dbfdb0e7115e55068f407": {
+    "object_type": "return_grille_600_lod300",
+    "rotation_applied": 90
+  },
+  "bea0fb58fe58a93a5cd0a71b606e9882": {
+    "object_type": "return_grille_450_lod300",
+    "rotation_applied": 90
+  },
+  "5bd93291e29efa1b1416cc4b454d108a": {
+    "object_type": "wall_brick_3m_lod300",
+    "rotation_applied": 90
+  },
+  "5ccabc911c05dcd1b38432e0857d8a4c": {
+    "object_type": "wall_concrete_3m_lod300",
+    "rotation_applied": 90
+  },
+  "55d00aaaba0dbc41b94cffef253ad8f3": {
+    "object_type": "door_single_900_lod300",
+    "rotation_applied": 90
+  },
+  "19e7a696c89c9d76e7b913af19dd1121": {
+    "object_type": "door_double_1800_lod300",
+    "rotation_applied": 90
+  },
+  "7b65e7597db576a43d71f6799fc6dffe": {
+    "object_type": "window_1200x1500_lod300",
+    "rotation_applied": 90
+  },
+  "6ae512274d4d8f1a92bb0f5d52bddf52": {
+    "object_type": "window_1500x1200_lod300",
+    "rotation_applied": 90
+  },
+  "bb53a62ccb365804f5eb9ceb414e6115": {
+    "object_type": "door_single_750x2100_lod300",
+    "rotation_applied": 90
+  },
+  "7acc6bdb0a72284c5311fc3ecfdfe0e0": {
+    "object_type": "window_aluminum_3panel_1800x1000_lod300",
+    "rotation_applied": 90
+  },
+  "7cc63b08f0c207170dc31ed50c2be4cb": {
+    "object_type": "window_aluminum_2panel_1200x1000_lod300",
+    "rotation_applied": 90
+  },
+  "57a7d62ceaf35c5a19c2c3924cf675cf": {
+    "object_type": "window_aluminum_tophung_600x500_lod300",
+    "rotation_applied": 90
+  },
+  "f26a1ee9eb46341473d76321833cf92c": {
+    "object_type": "kitchen_wall_cabinet_2500_lod300",
+    "rotation_applied": 90
+  },
+  "7a2161391b2d6a9eb8048973832ccb6a": {
+    "object_type": "drying_rack_lod200",
+    "rotation_applied": 90
+  },
+  "55c4d0a20b7fc946b05339d2ab49ca75": {
+    "object_type": "mirror_bathroom_lod200",
+    "rotation_applied": 90
+  },
+  "7302ca58a2084e105fc6484353f0b766": {
+    "object_type": "distribution_board_residential_lod200",
+    "rotation_applied": 90
+  },
+  "8f0833133f9e76e021b8d871d92398bd": {
+    "object_type": "gas_meter_residential_lod200",
+    "rotation_applied": 90
+  },
+  "fcdcc80b469d754a962e4a58eebbad80": {
+    "object_type": "sink_915x535_lod300",
+    "rotation_applied": 90
+  },
+  "05f88a1b4ce92508c0d9e4b0b944a2f5": {
+    "object_type": "wall_3100mm_solid",
+    "rotation_applied": 90
+  },
+  "2ffa1e659685e1436ea5977aad891be3": {
+    "object_type": "wall_3700mm_solid",
+    "rotation_applied": 90
+  },
+  "1cb96b81fd6aaaa63a99980a42db53de": {
+    "object_type": "wall_9900mm_solid",
+    "rotation_applied": 90
+  },
+  "57296ea4abb51c50671f1b7b717139e4": {
+    "object_type": "wall_6000mm_solid",
+    "rotation_applied": 90
+  },
+  "3d948dd81bde5e0a95accebda3f6ebb4": {
+    "object_type": "wall_3700mm_door_900_centered",
+    "rotation_applied": 90
+  },
+  "1b869cfe5495095a86c4f16653af795b": {
+    "object_type": "wall_3100mm_door_800_centered",
+    "rotation_applied": 90
+  },
+  "4827b40ccf76f9acf238d6afa73113c0": {
+    "object_type": "wall_1000mm_door_700_centered",
+    "rotation_applied": 90
+  },
+  "7976eff43e0c51a392c2b9c7889ed16f": {
+    "object_type": "wall_3700mm_window_1200x1200_centered",
+    "rotation_applied": 90
+  },
+  "0388107a9b08408fdd414dd3111204ab": {
+    "object_type": "wall_9900mm_window_1800x1200_centered",
+    "rotation_applied": 90
+  },
+  "85f39e984cc06006dbc9f4162c161401": {
+    "object_type": "wall_9900mm_door_900_centered",
+    "rotation_applied": 90
+  },
+  "c10e33f4fc9d7542527edf606bb58211": {
+    "object_type": "wall_1000mm_solid",
+    "rotation_applied": 90
+  },
+  "34fa07f6b3fb6f40400a60350a54a32e": {
+    "object_type": "wall_1800mm_solid",
+    "rotation_applied": 90
+  },
+  "b22fd40e116fd4bab162f383c387c78e": {
+    "object_type": "wall_lightweight_100_lod300",
+    "rotation_applied": 90
+  },
+  "f100956cd7c01ccd1f671df70271c2fd": {
+    "object_type": "wall_lightweight_75_lod300",
+    "rotation_applied": 90
+  },
+  "a0a953aee2f1771d70ee7ec136f1f225": {
+    "object_type": "wall_brick_cavity_250_lod300",
+    "rotation_applied": 90
+  },
+  "98b3e7a9531b2f2337c909ec042a1c17": {
+    "object_type": "fence_concrete_2m_lod300",
+    "rotation_applied": 90
+  },
+  "94d3cf03d8de6766fb37f18a51742d99": {
+    "object_type": "gate_sliding_3m_lod300",
+    "rotation_applied": 90
+  },
+  "f4621bd99c39565c017df54ddf72336d": {
+    "object_type": "gate_swing_double_lod300",
+    "rotation_applied": 90
+  },
+  "5875679a448fbe9c4f9266ff3ad20416": {
+    "object_type": "mailbox_wall_mounted_lod300",
+    "rotation_applied": 90
+  },
+  "23de869b448335f4084d2c123095df9f": {
+    "object_type": "roof_gutter_100_lod300",
+    "rotation_applied": 90
+  },
+  "fcdeb83861e4bbd1280240a9ecdaf971": {
+    "object_type": "roof_fascia_200_lod300",
+    "rotation_applied": 90
+  },
+  "d7dde62ab6d8f06919c5f6a49ba07f3c": {
+    "object_type": "wall_brick_cavity_250_lod300",
+    "rotation_applied": 90
+  }
+}

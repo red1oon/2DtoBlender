@@ -1,15 +1,36 @@
 #!/usr/bin/env python3
 """
+⚠️ DEPRECATED (2025-11-29) - DO NOT USE ⚠️
+
 Coordinate Generator from Detection Results + GridTruth
 ========================================================
+
+DEPRECATION REASON:
+- GridTruth architecture eliminated on 2025-11-29
+- Replaced by annotation_derivation.py (direct from annotations DB)
+- This file uses old GridTruth.json approach
+
+REPLACEMENT:
+- Use src/core/annotation_derivation.py instead
+- Functions: derive_building_envelope(), derive_room_bounds(), derive_elevations()
+
+KEEP FOR REFERENCE ONLY - NOT IMPORTED BY ANY ACTIVE CODE
+
+---
+
+OLD DESCRIPTION (Pre-2025-11-29):
 Generates element coordinates from:
 1. DETECTED positions (door_detection_fixed.json, vector_extraction_summary.json)
 2. Schedule dimensions (extracted_schedule.db)
 3. GridTruth spatial reference (GridTruth_TB-LKTN.json)
 
 Transforms pixel coordinates → world coordinates using calibration.
-Rule 0 compliant: Detection-driven, not hardcoded placements.
 """
+
+raise DeprecationWarning(
+    "coordinate_generator.py is DEPRECATED. Use annotation_derivation.py instead. "
+    "GridTruth architecture was eliminated 2025-11-29."
+)
 
 import json
 import sqlite3

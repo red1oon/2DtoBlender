@@ -13,11 +13,112 @@ The abstract generator interprets placement rules from template:
 - placement_zone: where (envelope, envelope_front, room:NAME, etc.)
 - height_rule: Z position (ground, ffl, ceiling, door_head, etc.)
 - extent_rule: size (full_envelope, parametric, room_bounds)
+
+PHASE 2 UPDATE (2025-11-29):
+- Uses 'facing' field instead of 'orientation' degrees
+- Includes 'bounding_box' for all objects (bounding box architecture)
 """
 
 import json
+import math
 from pathlib import Path
 from typing import Dict, List, Optional, Union
+
+
+# OBJECT DIMENSIONS LOOKUP (Bounding Box Architecture)
+# Source: UBBL specs, IFC library measurements, Malaysian building standards
+OBJECT_DIMENSIONS = {
+    # Doors (UBBL compliant)
+    'door_single_900_lod300': {'length': 0.9, 'width': 0.04, 'height': 2.1},
+    'door_single_750x2100_lod300': {'length': 0.75, 'width': 0.04, 'height': 2.1},
+    'door_double': {'length': 1.8, 'width': 0.04, 'height': 2.1},
+
+    # Walls (per meter, scaled at runtime)
+    'wall_brick_3m_lod300': {'length': 1.0, 'width': 0.15, 'height': 3.0},
+    'wall_lightweight_100_lod300': {'length': 1.0, 'width': 0.10, 'height': 3.0},
+
+    # Structure (base units, scaled at runtime)
+    'roof_slab_flat_lod300': {'length': 1.0, 'width': 1.0, 'height': 0.15},
+    'slab_6x4_150_lod300': {'length': 1.0, 'width': 1.0, 'height': 0.15},
+    'ceiling_gypsum_lod300': {'length': 1.0, 'width': 1.0, 'height': 0.01},
+
+    # Plumbing
+    'roof_gutter_100_lod300': {'length': 1.0, 'width': 0.1, 'height': 0.1},
+}
+
+
+def get_bounding_box(object_type: str, dimensions: dict = None) -> dict:
+    """
+    Get bounding box for object type
+
+    Args:
+        object_type: Object type name
+        dimensions: Optional runtime dimensions (for slabs, walls)
+
+    Returns:
+        dict with length, width, height
+    """
+    # Check lookup table first
+    if object_type in OBJECT_DIMENSIONS:
+        bbox = OBJECT_DIMENSIONS[object_type].copy()
+
+        # Override with runtime dimensions if provided
+        if dimensions:
+            if 'length' in dimensions:
+                bbox['length'] = dimensions['length']
+            if 'width' in dimensions:
+                bbox['width'] = dimensions['width']
+            if 'depth' in dimensions:  # Alias for width
+                bbox['width'] = dimensions['depth']
+            if 'thickness' in dimensions:
+                bbox['height'] = dimensions['thickness']
+
+        return bbox
+
+    # Fallback: construct from dimensions if provided
+    if dimensions:
+        return {
+            'length': dimensions.get('length', dimensions.get('width', 1.0)),
+            'width': dimensions.get('width', dimensions.get('depth', 1.0)),
+            'height': dimensions.get('thickness', dimensions.get('height', 0.15))
+        }
+
+    # Last resort: default cube
+    return {'length': 1.0, 'width': 1.0, 'height': 1.0}
+
+
+def degrees_to_facing(degrees: float) -> str:
+    """
+    Convert orientation degrees to facing direction
+
+    Args:
+        degrees: Rotation in degrees (0, 90, 180, 270)
+
+    Returns:
+        Facing direction: '+Y', '-Y', '+X', '-X'
+    """
+    # Normalize to 0-360
+    degrees = degrees % 360
+
+    # Map to cardinal directions
+    if degrees == 0:
+        return '+Y'  # Facing north
+    elif degrees == 90:
+        return '+X'  # Facing east
+    elif degrees == 180:
+        return '-Y'  # Facing south
+    elif degrees == 270:
+        return '-X'  # Facing west
+    else:
+        # Closest cardinal
+        if degrees < 45 or degrees >= 315:
+            return '+Y'
+        elif degrees < 135:
+            return '+X'
+        elif degrees < 225:
+            return '-Y'
+        else:
+            return '-X'
 
 
 class GridTruthGenerator:
@@ -297,13 +398,27 @@ def generate_walls(annotation_db_path: str):
         wall_type = "wall_brick_3m_lod300" if is_exterior else "wall_lightweight_100_lod300"
         wall_category = "exterior" if is_exterior else "interior"
 
+        # Calculate wall length
+        wall_length = math.sqrt((end[0] - start[0])**2 + (end[1] - start[1])**2)
+
+        # Get bounding box with actual wall length
+        thickness = 0.15 if is_exterior else 0.10
+        bounding_box = get_bounding_box(wall_type, {
+            'length': wall_length,
+            'width': thickness,
+            'height': 3.0
+        })
+
         wall = {
             "name": f"wall_{wall_category}_{i+1}",
             "object_type": wall_type,
             "position": list(start),
             "end_point": list(end),
-            "height": 3.0,
-            "thickness": 0.15 if is_exterior else 0.10,
+            "bounding_box": bounding_box,
+            "pivot": "center",
+            "up": "+Z",
+            "height": 3.0,  # (kept for backward compatibility)
+            "thickness": thickness,  # (kept for backward compatibility)
             "placed": False,
             "room": "structure",
             "phase": "1C_walls"
@@ -340,15 +455,22 @@ def generate_roof(annotation_db_path: str):
     y_max = envelope['y_max']
     height = envelope.get('height', 3.0)
 
+    roof_dims = {
+        "length": x_max - x_min,
+        "width": y_max - y_min,
+        "thickness": 0.15
+    }
+
+    bounding_box = get_bounding_box("roof_slab_flat_lod300", roof_dims)
+
     roof = {
         "name": "roof_main",
         "object_type": "roof_slab_flat_lod300",
         "position": [x_min, y_min, height],
-        "dimensions": {
-            "length": x_max - x_min,
-            "width": y_max - y_min,
-            "thickness": 0.15
-        },
+        "bounding_box": bounding_box,
+        "pivot": "center",
+        "up": "+Z",
+        "dimensions": roof_dims,  # (kept for backward compatibility)
         "placed": False,
         "room": "structure",
         "phase": "1C_structure"
@@ -375,15 +497,22 @@ def generate_floor_slab(annotation_db_path: str):
     y_min = envelope['y_min']
     y_max = envelope['y_max']
 
+    floor_dims = {
+        "length": x_max - x_min,
+        "width": y_max - y_min,
+        "thickness": 0.15
+    }
+
+    bounding_box = get_bounding_box("slab_6x4_150_lod300", floor_dims)
+
     floor = {
         "name": "floor_slab_main",
         "object_type": "slab_6x4_150_lod300",
         "position": [x_min, y_min, 0.0],
-        "dimensions": {
-            "length": x_max - x_min,
-            "width": y_max - y_min,
-            "thickness": 0.15
-        },
+        "bounding_box": bounding_box,
+        "pivot": "center",
+        "up": "+Z",
+        "dimensions": floor_dims,  # (kept for backward compatibility)
         "placed": False,
         "room": "structure",
         "phase": "1C_structure"
@@ -408,15 +537,22 @@ def generate_ceiling(annotation_db_path: str):
     y_max = envelope['y_max']
     height = envelope.get('height', 3.0)
 
+    ceiling_dims = {
+        "length": x_max - x_min,
+        "width": y_max - y_min,
+        "thickness": 0.01
+    }
+
+    bounding_box = get_bounding_box("ceiling_gypsum_lod300", ceiling_dims)
+
     ceiling = {
         "name": "ceiling_main",
         "object_type": "ceiling_gypsum_lod300",
         "position": [x_min, y_min, height - 0.1],  # Just below roof
-        "dimensions": {
-            "length": x_max - x_min,
-            "width": y_max - y_min,
-            "thickness": 0.01
-        },
+        "bounding_box": bounding_box,
+        "pivot": "center",
+        "up": "+Z",
+        "dimensions": ceiling_dims,  # (kept for backward compatibility)
         "placed": False,
         "room": "structure",
         "phase": "1C_structure"
@@ -463,11 +599,21 @@ def generate_drains(annotation_db_path: str):
 
     drains = []
     for i, (start, end) in enumerate(perimeter_points):
+        # Calculate segment length
+        segment_length = math.sqrt((end[0] - start[0])**2 + (end[1] - start[1])**2)
+
+        bounding_box = get_bounding_box("roof_gutter_100_lod300", {
+            'length': segment_length
+        })
+
         drain = {
             "name": f"discharge_perimeter_{i+1}",
             "object_type": "roof_gutter_100_lod300",
             "position": start,
             "end_point": end,
+            "bounding_box": bounding_box,
+            "pivot": "center",
+            "up": "+Z",
             "placed": False,
             "room": "structure",
             "phase": "1B_calibration"
@@ -537,19 +683,19 @@ def generate_doors(annotation_db_path: str, door_schedule=None):
         if wall == 'south':  # Door on south wall (y_min)
             door_x = x_min + offset
             door_y = y_min
-            orientation = 0.0  # Facing north (into room)
+            facing = '+Y'  # Facing north (into room)
         elif wall == 'north':  # Door on north wall (y_max)
             door_x = x_min + offset
             door_y = y_max
-            orientation = 180.0  # Facing south
+            facing = '-Y'  # Facing south
         elif wall == 'west':  # Door on west wall (x_min)
             door_x = x_min
             door_y = y_min + offset
-            orientation = 90.0  # Facing east
+            facing = '+X'  # Facing east
         elif wall == 'east':  # Door on east wall (x_max)
             door_x = x_max
             door_y = y_min + offset
-            orientation = 270.0  # Facing west
+            facing = '-X'  # Facing west
         else:
             continue
 
@@ -575,13 +721,19 @@ def generate_doors(annotation_db_path: str, door_schedule=None):
                         break
                 # If sched_item is string, skip (can't extract dimensions)
 
+        # Get bounding box for door
+        bounding_box = get_bounding_box(object_type, {'length': width})
+
         door = {
             "name": f"door_{room_name.lower()}",
             "object_type": object_type,
             "position": [door_x, door_y, 0.0],
-            "orientation": orientation,
-            "height": 2.1,  # UBBL standard door height
-            "width": width,
+            "facing": facing,
+            "bounding_box": bounding_box,
+            "pivot": "center",
+            "up": "+Z",
+            "height": 2.1,  # UBBL standard door height (kept for backward compatibility)
+            "width": width,  # (kept for backward compatibility)
             "placed": False,
             "room": room_name.lower(),
             "phase": "2_openings",
