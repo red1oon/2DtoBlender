@@ -732,29 +732,38 @@ def create_object_from_geometry(name: str, geometry_data: Dict, obj_data: Dict) 
     position = obj_data.get('position', [0, 0, 0])
     orientation = obj_data.get('orientation', 0.0)
     
-    # Special case: Walls with end_point
-    if 'wall' in obj_type.lower() and 'end_point' in obj_data:
-        # Read thickness/height from bounding_box if available
-        bb = obj_data.get('bounding_box', {})
-        thickness = bb.get('width', obj_data.get('thickness', DEFAULT_WALL_THICKNESS))
-        height = bb.get('height', obj_data.get('height', DEFAULT_WALL_HEIGHT))
-        return create_wall_geometry(name, position, obj_data['end_point'], thickness, height)
+    # PER BIM5D SPEC: ALL objects MUST have database geometry - no procedural fallbacks allowed!
 
-    # Special case: Roof slopes with end_point and bounding_box
-    if 'roof' in obj_type.lower() and 'end_point' in obj_data and 'bounding_box' in obj_data:
-        return create_roof_slope_geometry(name, position, obj_data['end_point'], obj_data['bounding_box'])
-
-    # UNIVERSAL FALLBACK: If no database geometry BUT JSON has bounding_box → create from JSON!
-    # This is the key insight: JSON already contains complete geometry specs
-    if not geometry_data and 'bounding_box' in obj_data:
-        facing = obj_data.get('facing', '+Y')
-        pivot = obj_data.get('pivot', 'center')
-        return create_geometry_from_bounding_box(name, position, obj_data['bounding_box'], facing, pivot)
-
-    # Only fail if BOTH database AND JSON bounding_box are missing
+    # Mandatory geometry check
     if not geometry_data:
-        LOG.warn(f"No geometry for '{name}' ({obj_type}) - no database entry and no bounding_box in JSON")
-        return None
+        LOG.error(f"⛔ MISSING DATABASE GEOMETRY: '{name}' ({obj_type})")
+        LOG.error(f"   Position: {position}")
+        LOG.error(f"   BIM5D spec requires: ALL object_types must exist in Ifc_Object_Library.db")
+        LOG.error(f"")
+        LOG.error(f"   FIX REQUIRED:")
+        LOG.error(f"   1. Add '{obj_type}' to object_catalog table")
+        LOG.error(f"   2. Add corresponding geometry to base_geometries table")
+        LOG.error(f"   3. Or update JSON to use existing object_type from database")
+        raise RuntimeError(f"Missing database geometry for '{obj_type}' - database must be fixed")
+
+    # Linear objects (walls, roofs, gutters): position → end_point
+    if 'end_point' in obj_data:
+        # DATABASE GEOMETRY EXISTS - IMPLEMENT LINEAR PLACEMENT!
+        geo_dims = geometry_data.get('dimensions', {})
+        geo_meta = geometry_data.get('metadata', {})
+        LOG.error(f"⛔ LINEAR OBJECT NOT YET IMPLEMENTED: '{name}'")
+        LOG.error(f"   Object type: {obj_type}")
+        LOG.error(f"   Database has: {geo_meta.get('vertex_count', 0)} verts, {geo_meta.get('face_count', 0)} faces")
+        LOG.error(f"   Database dims: {geo_dims}")
+        LOG.error(f"   Position: {position} → End: {obj_data['end_point']}")
+        LOG.error(f"")
+        LOG.error(f"   IMPLEMENTATION NEEDED: Linear placement for database geometry")
+        LOG.error(f"   - Fetch geometry from database ✓ (already done)")
+        LOG.error(f"   - Calculate object length from position→end_point")
+        LOG.error(f"   - Scale geometry along length axis")
+        LOG.error(f"   - Rotate to align with position→end_point vector")
+        LOG.error(f"   - Position at midpoint or start point based on pivot")
+        raise RuntimeError(f"Linear placement not implemented for '{obj_type}' - must use database geometry with linear transform")
     
     # Get base rotation from geometry (inherent orientation)
     base_rotation = geometry_data.get('base_rotation', (0.0, 0.0, 0.0))
