@@ -734,8 +734,10 @@ def create_object_from_geometry(name: str, geometry_data: Dict, obj_data: Dict) 
     
     # Special case: Walls with end_point
     if 'wall' in obj_type.lower() and 'end_point' in obj_data:
-        thickness = obj_data.get('thickness', DEFAULT_WALL_THICKNESS)
-        height = obj_data.get('height', DEFAULT_WALL_HEIGHT)
+        # Read thickness/height from bounding_box if available
+        bb = obj_data.get('bounding_box', {})
+        thickness = bb.get('width', obj_data.get('thickness', DEFAULT_WALL_THICKNESS))
+        height = bb.get('height', obj_data.get('height', DEFAULT_WALL_HEIGHT))
         return create_wall_geometry(name, position, obj_data['end_point'], thickness, height)
 
     # Special case: Roof slopes with end_point and bounding_box
@@ -825,6 +827,29 @@ def create_object_from_geometry(name: str, geometry_data: Dict, obj_data: Dict) 
 
         obj.scale = (scale_x, scale_y, scale_z)
         LOG.log(f"   Scaled {name}: ({scale_x:.2f}, {scale_y:.2f}, {scale_z:.2f}) to match {target_length}m × {target_width}m × {target_thickness}m")
+
+    # Scale for objects with bounding_box (furniture, fixtures, etc.)
+    elif 'bounding_box' in obj_data and geometry_data:
+        bb = obj_data['bounding_box']
+        geo_dims = geometry_data.get('dimensions', {})
+
+        # Get database geometry native dimensions
+        base_width = geo_dims.get('width', geo_dims.get('length', 1.0))
+        base_depth = geo_dims.get('depth', geo_dims.get('width', 1.0))
+        base_height = geo_dims.get('height', 1.0)
+
+        # Get target dimensions from bounding_box
+        target_length = bb.get('length', 1.0)
+        target_width = bb.get('width', 1.0)
+        target_height = bb.get('height', 1.0)
+
+        # Calculate scale factors
+        scale_x = target_length / base_width if base_width > 0 else 1.0
+        scale_y = target_width / base_depth if base_depth > 0 else 1.0
+        scale_z = target_height / base_height if base_height > 0 else 1.0
+
+        obj.scale = (scale_x, scale_y, scale_z)
+        LOG.log(f"   Scaled {name} from bbox: ({scale_x:.2f}, {scale_y:.2f}, {scale_z:.2f}) to match {target_length:.2f}m × {target_width:.2f}m × {target_height:.2f}m")
 
     return obj
 
