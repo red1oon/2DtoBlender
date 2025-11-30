@@ -1108,6 +1108,87 @@ class VectorPatternExecutor:
 
                     results.append(obj)
 
+        # [RULE 0] Fallback: If no windows found via text search, try GridTruth._openings
+        # GridTruth is annotation-derived (elevation_data_extractor.py + annotation_derivation.py)
+        if not any(obj.get('object_type', '').startswith('window_') for obj in results):
+            gridtruth_path = context.get('gridtruth_path')
+            if gridtruth_path:
+                try:
+                    from pathlib import Path
+                    import json
+                    gt_file = Path(gridtruth_path)
+                    if gt_file.exists():
+                        with open(gt_file, 'r') as f:
+                            gridtruth_data = json.load(f)
+
+                        openings = gridtruth_data.get('_openings', [])
+                        windows = [op for op in openings if op.get('type') == 'window']
+
+                        if windows:
+                            # Get building envelope for positioning
+                            building_envelope = gridtruth_data.get('building_envelope', {})
+                            x_min = building_envelope.get('x_min', 0)
+                            x_max = building_envelope.get('x_max', 10)
+                            y_min = building_envelope.get('y_min', 0)
+                            y_max = building_envelope.get('y_max', 10)
+
+                            # Distribute windows around building perimeter
+                            # Simple strategy: alternate between walls
+                            walls_coords = [
+                                ('north', (x_min + x_max) / 2, y_max),  # North wall
+                                ('east', x_max, (y_min + y_max) / 2),   # East wall
+                                ('south', (x_min + x_max) / 2, y_min),  # South wall
+                                ('west', x_min, (y_min + y_max) / 2)    # West wall
+                            ]
+
+                            for idx, window in enumerate(windows):
+                                # Cycle through walls
+                                wall_name, base_x, base_y = walls_coords[idx % len(walls_coords)]
+
+                                # Get window dimensions from GridTruth
+                                width_mm = window.get('width_mm', 1800)
+                                height_mm = window.get('height_mm', 1000)
+                                width_m = width_mm / 1000.0
+                                height_m = height_mm / 1000.0
+
+                                # Determine window object_type from dimensions
+                                if width_mm == 1800 and height_mm == 1000:
+                                    window_object_type = "window_aluminum_3panel_1800x1000_lod300"
+                                elif width_mm == 1200 and height_mm == 1000:
+                                    window_object_type = "window_aluminum_2panel_1200x1000_lod300"
+                                elif width_mm == 600 and height_mm == 500:
+                                    window_object_type = "window_aluminum_tophung_600x500_lod300"
+                                else:
+                                    # Default to 1800x1000 if size not recognized
+                                    window_object_type = "window_aluminum_3panel_1800x1000_lod300"
+
+                                # Create window object
+                                window_obj = {
+                                    'name': window.get('label', f'W{idx+1}'),
+                                    'object_type': window_object_type,
+                                    'position': [base_x, base_y, window.get('z_sill_m', 0.9)],
+                                    'orientation': 0.0,  # Will be adjusted based on wall
+                                    'room': 'exterior',  # Windows are on exterior walls
+                                    '_annotation_captured': True,
+                                    '_dimensions_from_schedule': True,
+                                    '_source': 'gridtruth_openings',
+                                    'width': width_m,
+                                    'height': height_m
+                                }
+
+                                results.append(window_obj)
+
+                                # Also add to annotations context
+                                if 'annotations' in context:
+                                    context['annotations']['windows'].append({
+                                        'label': window.get('label', f'W{idx+1}'),
+                                        'position': [base_x, base_y, window.get('z_sill_m', 0.9)],
+                                        'source': 'gridtruth_fallback'
+                                    })
+                except Exception as e:
+                    # If GridTruth read fails, continue with original results
+                    pass
+
         return results if results else None
 
     def _execute_text_marker_with_symbol(self, pattern, search_text, pages, object_type, context):
@@ -1327,6 +1408,15 @@ class VectorPatternExecutor:
         # Format as template objects
         results = []
         for i, wall in enumerate(exterior_walls):
+            # [CRITICAL FIX] Calculate wall length from end_points (same fix as roof)
+            start = wall['start_point']
+            end = wall['end_point']
+            import math
+            wall_length = math.sqrt(
+                (end[0] - start[0])**2 +
+                (end[1] - start[1])**2
+            )
+
             obj = {
                 'name': f"wall_exterior_{i+1}",
                 'object_type': object_type,  # wall_brick_3m_lod300
@@ -1334,19 +1424,24 @@ class VectorPatternExecutor:
                 'end_point': wall['end_point'],
                 'height': wall.get('height', 3.0),
                 'thickness': wall.get('thickness', 0.23),
+                'bounding_box': {
+                    'length': round(wall_length, 2),
+                    'width': wall.get('thickness', 0.23),
+                    'height': wall.get('height', 3.0)
+                },
                 'orientation': 0.0,
                 'room': 'exterior',
                 '_phase': '1C_walls',
                 'placed': False
             }
             results.append(obj)
-        
+
         return results if results else None
 
     def _execute_structural_plane_generation(self, pattern, object_type, context):
         """
         Execute STRUCTURAL_PLANE_GENERATION - generate structural planes from building dimensions
-        
+
         Generates floor, ceiling, and roof slabs based on building envelope.
         This is parametric generation (not extracted from PDF).
         """
@@ -1354,14 +1449,46 @@ class VectorPatternExecutor:
         building_width = context.get('building_width')
         building_length = context.get('building_length')
         building_height = context.get('building_height', 3.0)
-        
+
         if not building_width or not building_length:
             return None
-        
+
+        # [RULE 0 COMPLIANCE] Read GridTruth.json for annotation-derived roof data
+        # GridTruth is annotation-derived (from elevation_data_extractor.py + annotation_derivation.py)
+        gridtruth_data = None
+        gridtruth_path = context.get('gridtruth_path')
+        if gridtruth_path:
+            try:
+                from pathlib import Path
+                import json
+                gt_file = Path(gridtruth_path)
+                if gt_file.exists():
+                    with open(gt_file, 'r') as f:
+                        gridtruth_data = json.load(f)
+            except Exception as e:
+                # If GridTruth read fails, continue with template object_type
+                pass
+
         # Determine which structural plane based on object_type
         # IMPORTANT: Check 'roof' BEFORE 'slab' to avoid collision with "roof_slab_flat_lod300"
         if 'roof' in object_type.lower() and not ('porch' in object_type.lower() or 'canopy' in object_type.lower()):
             # [CORE-D + THIRD-D] → [IFC]: Generate roof structure based on type
+
+            # [RULE 0] Override object_type from GridTruth (annotation-derived) if available
+            roof_type_override = None
+            pitch_angle_override = None
+            if gridtruth_data and 'roof' in gridtruth_data:
+                roof_info = gridtruth_data['roof']
+                roof_type_override = roof_info.get('type')  # 'gable', 'hip', 'flat'
+                pitch_angle_override = roof_info.get('pitch_angle', 25.0)
+
+                # Map roof types to object_type (RULE 0: derived from annotations)
+                if roof_type_override == 'gable':
+                    # Override to gable roof (will skip flat roof branch)
+                    object_type = 'roof_metal_corrugated_lod300'  # Gable roof indicator
+                elif roof_type_override == 'hip':
+                    object_type = 'roof_tile_9.7x7_lod300'  # Hip roof
+                # else: keep template object_type (flat)
 
             # Check if flat roof requested (BIM5D: WHAT defines HOW)
             if 'flat' in object_type.lower() or 'slab' in object_type.lower():
@@ -1393,7 +1520,8 @@ class VectorPatternExecutor:
 
                 ridge_y = building_length / 2
                 eave_height = building_height  # 3.0m
-                slope_degrees = 25
+                # [RULE 0] Use pitch angle from GridTruth (annotation-derived) if available
+                slope_degrees = pitch_angle_override if pitch_angle_override else 25
 
                 # Calculate ridge height from slope
                 # rise = (building_length / 2) * tan(25°)
@@ -1408,13 +1536,27 @@ class VectorPatternExecutor:
                 south_slope_run = building_length / 2
                 south_slope_length = south_slope_run / math.cos(math.radians(slope_degrees))
 
+                # [RULE 0] Use object_type from GridTruth override (gable='roof_metal_corrugated_lod300', hip='roof_tile_9.7x7_lod300')
+                # Fallback to 'roof_tile_9.7x7_lod300' if no override
+                slope_object_type = object_type if object_type != 'roof_slab_flat_lod300' else 'roof_tile_9.7x7_lod300'
+
+                # [CRITICAL FIX] Calculate bounding_box at GENERATION time from building_envelope
+                # Prevents default 1.0×1.0 dimensions that break Blender import
                 return [
                     {
                         'name': 'roof_north_slope',
-                        'object_type': 'roof_tile_9.7x7_lod300',
+                        'object_type': slope_object_type,
                         'position': [building_width / 2, building_length, eave_height],
                         'end_point': [building_width / 2, ridge_y, ridge_height],
                         'dimensions': [building_width, north_slope_length, 0.02],
+                        'bounding_box': {
+                            'length': building_width,       # Full building width (12.7m)
+                            'width': north_slope_length,    # Calculated slope length (~5.5m)
+                            'height': 0.02                  # Thin corrugated metal
+                        },
+                        'facing': '+Y',
+                        'pivot': 'center',
+                        'up': '+Z',
                         'orientation': 0.0,
                         'room': 'structure',
                         '_phase': '1C_structure',
@@ -1423,10 +1565,18 @@ class VectorPatternExecutor:
                     },
                     {
                         'name': 'roof_south_slope',
-                        'object_type': 'roof_tile_9.7x7_lod300',
+                        'object_type': slope_object_type,
                         'position': [building_width / 2, 0, eave_height],
                         'end_point': [building_width / 2, ridge_y, ridge_height],
                         'dimensions': [building_width, south_slope_length, 0.02],
+                        'bounding_box': {
+                            'length': building_width,       # Full building width (12.7m)
+                            'width': south_slope_length,    # Calculated slope length (~5.5m)
+                            'height': 0.02                  # Thin corrugated metal
+                        },
+                        'facing': '+Y',
+                        'pivot': 'center',
+                        'up': '+Z',
                         'orientation': 180.0,
                         'room': 'structure',
                         '_phase': '1C_structure',
@@ -1455,6 +1605,12 @@ class VectorPatternExecutor:
             porch_center_y = (porch_y_min + porch_y_max) / 2
             porch_height = 2.4  # Lower than main building
 
+            # [CRITICAL FIX] Calculate wall lengths from end_points
+            import math
+            west_length = math.sqrt((porch_x_min - porch_x_min)**2 + (porch_y_min - porch_y_max)**2)
+            south_length = math.sqrt((porch_x_max - porch_x_min)**2 + (porch_y_min - porch_y_min)**2)
+            east_length = math.sqrt((porch_x_max - porch_x_max)**2 + (porch_y_max - porch_y_min)**2)
+
             return [
                 # Porch west wall
                 {
@@ -1462,6 +1618,11 @@ class VectorPatternExecutor:
                     'object_type': 'wall_lightweight_100_lod300',
                     'position': [porch_x_min, porch_y_max, 0.0],
                     'end_point': [porch_x_min, porch_y_min, 0.0],
+                    'bounding_box': {
+                        'length': round(west_length, 2),
+                        'width': 0.1,
+                        'height': porch_height
+                    },
                     'orientation': 90,
                     'height': porch_height,
                     'room': 'ANJUNG',
@@ -1474,6 +1635,11 @@ class VectorPatternExecutor:
                     'object_type': 'wall_lightweight_100_lod300',
                     'position': [porch_x_min, porch_y_min, 0.0],
                     'end_point': [porch_x_max, porch_y_min, 0.0],
+                    'bounding_box': {
+                        'length': round(south_length, 2),
+                        'width': 0.1,
+                        'height': porch_height
+                    },
                     'orientation': 0,
                     'height': porch_height,
                     'room': 'ANJUNG',
@@ -1486,6 +1652,11 @@ class VectorPatternExecutor:
                     'object_type': 'wall_lightweight_100_lod300',
                     'position': [porch_x_max, porch_y_min, 0.0],
                     'end_point': [porch_x_max, porch_y_max, 0.0],
+                    'bounding_box': {
+                        'length': round(east_length, 2),
+                        'width': 0.1,
+                        'height': porch_height
+                    },
                     'orientation': 90,
                     'height': porch_height,
                     'room': 'ANJUNG',
@@ -1498,6 +1669,11 @@ class VectorPatternExecutor:
                     'object_type': 'roof_slab_flat_lod300',
                     'position': [porch_center_x, porch_center_y, porch_height],
                     'dimensions': [porch_width, porch_depth, 0.15],
+                    'bounding_box': {
+                        'length': porch_width,
+                        'width': porch_depth,
+                        'height': 0.15
+                    },
                     'orientation': 0.0,
                     'room': 'ANJUNG',
                     '_phase': '1C_structure',
@@ -1509,6 +1685,11 @@ class VectorPatternExecutor:
                     'object_type': 'slab_floor_150_lod300',
                     'position': [porch_center_x, porch_center_y, 0.0],
                     'dimensions': [porch_width, porch_depth, 0.15],
+                    'bounding_box': {
+                        'length': porch_width,
+                        'width': porch_depth,
+                        'height': 0.15
+                    },
                     'orientation': 0.0,
                     'room': 'ANJUNG',
                     '_phase': '1C_structure',

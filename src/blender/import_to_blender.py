@@ -542,7 +542,126 @@ def apply_rotation_to_vertices(vertices: List, rotation: Tuple[float, float, flo
     return verts_array.tolist()
 
 
-def create_wall_geometry(name: str, position: List, end_point: List, 
+def create_geometry_from_bounding_box(name: str, position: List, bounding_box: Dict,
+                                      facing: str = '+Z', pivot: str = 'center') -> bpy.types.Object:
+    """
+    GENERIC: Create box geometry directly from JSON bounding_box data.
+
+    This is the UNIVERSAL translator: JSON bounding_box → Blender mesh
+    No database needed! All data comes from annotations.
+
+    Args:
+        name: Object name
+        position: [x, y, z] from JSON
+        bounding_box: {'length', 'width', 'height'} from JSON
+        facing: Direction object faces ('+X', '+Y', '+Z', etc.)
+        pivot: 'center' or 'base'
+
+    Returns:
+        Blender object with baked geometry
+    """
+    from mathutils import Vector, Euler
+
+    # Extract dimensions from bounding_box
+    length = bounding_box.get('length', 1.0)
+    width = bounding_box.get('width', 1.0)
+    height = bounding_box.get('height', 1.0)
+
+    # Adjust position based on pivot point
+    pos = Vector(position)
+    if pivot == 'base':
+        # Pivot at base means position is bottom center, move up by height/2
+        pos.z += height / 2
+
+    # Create cube at position
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(pos.x, pos.y, pos.z))
+    obj = bpy.context.active_object
+    obj.name = name
+
+    # Scale to match bounding_box dimensions
+    obj.scale = (length, width, height)
+
+    # Rotate based on facing direction (if needed)
+    # '+Y' = default (front faces +Y), '+X' = rotate 90° around Z, etc.
+    rotation_map = {
+        '+X': (0, 0, math.pi/2),
+        '-X': (0, 0, -math.pi/2),
+        '+Y': (0, 0, 0),           # Default
+        '-Y': (0, 0, math.pi),
+        '+Z': (math.pi/2, 0, 0),   # Horizontal plane
+        '-Z': (-math.pi/2, 0, 0),
+    }
+
+    if facing in rotation_map:
+        obj.rotation_euler = Euler(rotation_map[facing], 'XYZ')
+
+    # CRITICAL: Apply scale transform to bake geometry
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+
+    LOG.log(f"Created '{name}': {length:.2f}m × {width:.2f}m × {height:.2f}m at ({pos.x:.1f}, {pos.y:.1f}, {pos.z:.1f})")
+
+    return obj
+
+
+def create_roof_slope_geometry(name: str, position: List, end_point: List,
+                               bounding_box: Dict) -> bpy.types.Object:
+    """
+    Create gable roof slope as plane stretched between eave and ridge
+
+    Args:
+        name: Roof slope name
+        position: Start point (eave) [x, y, z]
+        end_point: Ridge point [x, y, z]
+        bounding_box: Dict with 'length', 'width', 'height'
+
+    Returns:
+        Blender object (sloped plane)
+    """
+    from mathutils import Vector
+
+    start = Vector(position)
+    ridge = Vector(end_point)
+
+    # Roof dimensions
+    roof_length = bounding_box.get('length', 10.0)  # Along building width
+    slope_width = bounding_box.get('width', 5.0)    # Slope distance
+    thickness = bounding_box.get('height', 0.02)    # Sheet thickness
+
+    # Create plane and scale to roof dimensions
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(start.x, start.y, start.z))
+    obj = bpy.context.active_object
+    obj.name = name
+
+    # Scale plane: X=length (building width), Y=slope width
+    obj.scale = (roof_length, slope_width, 1.0)
+
+    # Calculate rotation to slope from eave to ridge
+    slope_direction = ridge - start
+    slope_angle_x = math.atan2(slope_direction.z, slope_direction.y)  # Pitch angle
+
+    # Rotate plane to match slope
+    obj.rotation_euler = Euler((slope_angle_x, 0, 0), 'XYZ')
+
+    # Apply scale transform so geometry is baked
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+
+    # Move to midpoint between eave and ridge
+    mid_y = (start.y + ridge.y) / 2
+    mid_z = (start.z + ridge.z) / 2
+    obj.location = (start.x, mid_y, mid_z)
+
+    LOG.log(f"Roof '{name}': {roof_length:.2f}m × {slope_width:.2f}m, pitch={math.degrees(slope_angle_x):.1f}°")
+
+    return obj
+
+
+def create_wall_geometry(name: str, position: List, end_point: List,
                         thickness: float, height: float) -> bpy.types.Object:
     """
     Create wall as box stretched between two points
@@ -568,20 +687,27 @@ def create_wall_geometry(name: str, position: List, end_point: List,
     
     mid_point = (start + end) / 2
     
-    # Create cube and scale to wall dimensions
+    # Create cube at correct size (not using scale transforms)
+    # Position at midpoint, but Z should place bottom at 0
     bpy.ops.mesh.primitive_cube_add(size=1, location=(mid_point[0], mid_point[1], height / 2))
     obj = bpy.context.active_object
     obj.name = name
-    
+
     # Scale: X=length, Y=thickness, Z=height (cube size=1 extends ±0.5, so scale directly)
     obj.scale = (length, thickness, height)
-    
+
     # Rotate to align with wall direction
     angle = math.atan2(direction[1], direction[0])
     obj.rotation_euler = Euler((0, 0, angle), 'XYZ')
-    
+
+    # CRITICAL FIX: Apply scale transform so geometry is baked, not object-level
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+
     LOG.log(f"Wall '{name}': {length:.2f}m long, {height:.2f}m high, angle={math.degrees(angle):.0f}°")
-    
+
     return obj
 
 
@@ -611,10 +737,21 @@ def create_object_from_geometry(name: str, geometry_data: Dict, obj_data: Dict) 
         thickness = obj_data.get('thickness', DEFAULT_WALL_THICKNESS)
         height = obj_data.get('height', DEFAULT_WALL_HEIGHT)
         return create_wall_geometry(name, position, obj_data['end_point'], thickness, height)
-    
-    # Regular objects need geometry from database
+
+    # Special case: Roof slopes with end_point and bounding_box
+    if 'roof' in obj_type.lower() and 'end_point' in obj_data and 'bounding_box' in obj_data:
+        return create_roof_slope_geometry(name, position, obj_data['end_point'], obj_data['bounding_box'])
+
+    # UNIVERSAL FALLBACK: If no database geometry BUT JSON has bounding_box → create from JSON!
+    # This is the key insight: JSON already contains complete geometry specs
+    if not geometry_data and 'bounding_box' in obj_data:
+        facing = obj_data.get('facing', '+Y')
+        pivot = obj_data.get('pivot', 'center')
+        return create_geometry_from_bounding_box(name, position, obj_data['bounding_box'], facing, pivot)
+
+    # Only fail if BOTH database AND JSON bounding_box are missing
     if not geometry_data:
-        LOG.warn(f"No geometry for '{name}' ({obj_type})")
+        LOG.warn(f"No geometry for '{name}' ({obj_type}) - no database entry and no bounding_box in JSON")
         return None
     
     # Get base rotation from geometry (inherent orientation)
